@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Dashboard — Wireframe Comments</title>
+  <style>
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-SemiBold.woff2') format('woff2'); font-weight: 600; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Bold.woff2') format('woff2'); font-weight: 700; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'BuckeyeSans', Arial, sans-serif; color: #333; background: #f7f7f7; }
+    h1, h2 { font-family: 'BuckeyeSerif', Georgia, serif; }
+
+    .dash-header {
+      background: #fff; border-bottom: 1px solid #ddd; padding: 20px 0;
+    }
+    .dash-header__inner {
+      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .dash-header__title { font-size: 22px; }
+    .dash-header__subtitle { font-size: 12px; color: #888; margin-top: 2px; font-family: 'BuckeyeSans', Arial, sans-serif; font-weight: 400; }
+    .dash-header__actions { display: flex; gap: 10px; }
+    .dash-btn {
+      display: inline-block; padding: 8px 16px; font-size: 12px; font-weight: 600;
+      font-family: 'BuckeyeSans', Arial, sans-serif; cursor: pointer;
+      border: 1px solid #ccc; border-radius: 4px; background: #fff; color: #333;
+      text-decoration: none;
+    }
+    .dash-btn:hover { background: #f0f0f0; }
+    .dash-btn--primary { background: #3b4fc4; color: #fff; border-color: #3b4fc4; }
+    .dash-btn--primary:hover { background: #2d3ea0; }
+    .dash-btn--danger { color: #c00; border-color: #c00; }
+    .dash-btn--danger:hover { background: #fff0f0; }
+
+    .dash-stats {
+      max-width: 960px; margin: 24px auto 0; padding: 0 24px;
+      display: flex; gap: 16px;
+    }
+    .dash-stat {
+      background: #fff; border: 1px solid #ddd; border-radius: 8px;
+      padding: 16px 24px; flex: 1; text-align: center;
+    }
+    .dash-stat__number { font-size: 28px; font-weight: 700; color: #3b4fc4; font-family: 'BuckeyeSerif', Georgia, serif; }
+    .dash-stat__label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+    .dash-filters {
+      max-width: 960px; margin: 24px auto 0; padding: 0 24px;
+      display: flex; gap: 10px; align-items: center;
+    }
+    .dash-filters__label { font-size: 12px; font-weight: 600; color: #555; }
+    .dash-filter-btn {
+      padding: 5px 12px; font-size: 11px; border: 1px solid #ccc; border-radius: 20px;
+      background: #fff; cursor: pointer; font-family: 'BuckeyeSans', Arial, sans-serif;
+      font-weight: 500; color: #555;
+    }
+    .dash-filter-btn:hover { background: #f0f0f0; }
+    .dash-filter-btn.is-active { background: #3b4fc4; color: #fff; border-color: #3b4fc4; }
+
+    .dash-content { max-width: 960px; margin: 24px auto 60px; padding: 0 24px; }
+
+    .dash-page-group { margin-bottom: 32px; }
+    .dash-page-group__header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 16px; background: #fff; border: 1px solid #ddd;
+      border-radius: 8px 8px 0 0; border-bottom: 2px solid #3b4fc4;
+    }
+    .dash-page-group__title { font-size: 14px; font-weight: 700; }
+    .dash-page-group__title a { color: #3b4fc4; text-decoration: underline; }
+    .dash-page-group__count {
+      font-size: 11px; background: #e0e7ff; color: #3b4fc4;
+      padding: 2px 10px; border-radius: 10px; font-weight: 600;
+    }
+    .dash-comment {
+      background: #fff; border: 1px solid #ddd; border-top: none;
+      padding: 14px 16px; display: flex; gap: 12px;
+    }
+    .dash-comment:last-child { border-radius: 0 0 8px 8px; }
+    .dash-comment__avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: #e0e7ff;
+      color: #3b4fc4; font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .dash-comment__body { flex: 1; }
+    .dash-comment__text { font-size: 13px; line-height: 1.6; color: #333; }
+    .dash-comment__meta { font-size: 11px; color: #999; margin-top: 4px; }
+    .dash-comment__meta strong { color: #555; }
+
+    .dash-empty {
+      text-align: center; padding: 60px 24px; color: #aaa;
+    }
+    .dash-empty__icon { font-size: 48px; margin-bottom: 12px; }
+    .dash-empty__text { font-size: 14px; }
+
+    .dash-toast {
+      position: fixed; bottom: 24px; right: 24px; background: #333; color: #fff;
+      padding: 12px 20px; border-radius: 6px; font-size: 13px; font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 9999;
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .dash-toast.is-visible { opacity: 1; }
+
+    @media (max-width: 640px) {
+      .dash-stats { flex-direction: column; }
+      .dash-header__inner { flex-direction: column; gap: 12px; align-items: flex-start; }
+      .dash-filters { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="dash-header">
+    <div class="dash-header__inner">
+      <div>
+        <h1 class="dash-header__title">Wireframe Review Comments</h1>
+        <div class="dash-header__subtitle">Ohio State Events — Collected Feedback</div>
+      </div>
+      <div class="dash-header__actions">
+        <a href="homepage-wireframe.html" class="dash-btn">Back to Wireframes</a>
+        <button class="dash-btn dash-btn--primary" id="export-btn">Export CSV</button>
+        <button class="dash-btn" id="copy-btn">Copy to Clipboard</button>
+        <button class="dash-btn dash-btn--danger" id="clear-btn">Clear All</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dash-stats" id="stats"></div>
+
+  <div class="dash-filters" id="filters">
+    <span class="dash-filters__label">Filter by page:</span>
+    <button class="dash-filter-btn is-active" data-filter="all">All Pages</button>
+  </div>
+
+  <div class="dash-content" id="content"></div>
+
+  <div class="dash-toast" id="toast"></div>
+
+  <script>
+    var STORAGE_KEY = 'wireframe-review-comments';
+    var currentFilter = 'all';
+    var allComments = []; // Merged comments from Netlify + localStorage
+
+    function getLocalComments() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+      catch (e) { return []; }
+    }
+
+    // Fetch shared comments from the Netlify Function
+    function fetchNetlifyComments() {
+      return fetch('/.netlify/functions/get-comments')
+        .then(function (res) {
+          if (!res.ok) throw new Error('Status ' + res.status);
+          return res.json();
+        })
+        .catch(function (err) {
+          console.warn('[Dashboard] Could not fetch from Netlify Function:', err.message);
+          return [];
+        });
+    }
+
+    // Merge Netlify (server) comments with localStorage, de-duplicating
+    function mergeComments(netlifyComments, localComments) {
+      var seen = {};
+      var merged = [];
+
+      // Build a key for de-duplication: page + name + timestamp
+      function makeKey(c) {
+        return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || '');
+      }
+
+      // Netlify comments are the source of truth for shared data
+      netlifyComments.forEach(function (c) {
+        var key = makeKey(c);
+        if (!seen[key]) {
+          seen[key] = true;
+          merged.push(c);
+        }
+      });
+
+      // Add any local comments not yet on the server (e.g. just submitted, not synced yet)
+      localComments.forEach(function (c) {
+        var key = makeKey(c);
+        if (!seen[key]) {
+          seen[key] = true;
+          merged.push(c);
+        }
+      });
+
+      // Sort by timestamp descending (newest first)
+      merged.sort(function (a, b) {
+        return new Date(b.timestamp) - new Date(a.timestamp);
+      });
+
+      return merged;
+    }
+
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('is-visible');
+      setTimeout(function () { toast.classList.remove('is-visible'); }, 2500);
+    }
+
+    function getInitials(name) {
+      return (name || 'A').split(' ').map(function (w) { return w[0]; }).join('').toUpperCase().slice(0, 2);
+    }
+
+    function renderWithComments(comments) {
+      allComments = comments;
+      var filtered = currentFilter === 'all' ? comments :
+        comments.filter(function (c) { return c.page === currentFilter; });
+
+      // Stats
+      var pages = {};
+      comments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
+      var reviewers = {};
+      comments.forEach(function (c) { reviewers[c.name] = true; });
+      document.getElementById('stats').innerHTML =
+        '<div class="dash-stat"><div class="dash-stat__number">' + comments.length + '</div><div class="dash-stat__label">Total Comments</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(pages).length + '</div><div class="dash-stat__label">Pages with Feedback</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(reviewers).length + '</div><div class="dash-stat__label">Reviewers</div></div>';
+
+      // Filters
+      var filterContainer = document.getElementById('filters');
+      filterContainer.innerHTML = '<span class="dash-filters__label">Filter by page:</span>' +
+        '<button class="dash-filter-btn' + (currentFilter === 'all' ? ' is-active' : '') + '" data-filter="all">All Pages (' + comments.length + ')</button>';
+      Object.keys(pages).sort().forEach(function (page) {
+        var label = page.replace('.html', '').replace(/-/g, ' ');
+        label = label.charAt(0).toUpperCase() + label.slice(1);
+        filterContainer.innerHTML += '<button class="dash-filter-btn' +
+          (currentFilter === page ? ' is-active' : '') +
+          '" data-filter="' + page + '">' + label + ' (' + pages[page] + ')</button>';
+      });
+      filterContainer.querySelectorAll('.dash-filter-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          currentFilter = this.dataset.filter;
+          renderWithComments(allComments);
+        });
+      });
+
+      // Content
+      var content = document.getElementById('content');
+      if (filtered.length === 0) {
+        content.innerHTML =
+          '<div class="dash-empty">' +
+          '  <div class="dash-empty__icon">&#128172;</div>' +
+          '  <div class="dash-empty__text">No comments yet. Use the chat widget on any wireframe page to leave feedback.</div>' +
+          '</div>';
+        return;
+      }
+
+      // Group by page
+      var grouped = {};
+      filtered.forEach(function (c) {
+        if (!grouped[c.page]) grouped[c.page] = [];
+        grouped[c.page].push(c);
+      });
+
+      var html = '';
+      Object.keys(grouped).sort().forEach(function (page) {
+        var items = grouped[page];
+        var title = items[0].pageTitle || page;
+        html += '<div class="dash-page-group">';
+        html += '<div class="dash-page-group__header">' +
+          '<div class="dash-page-group__title"><a href="' + page + '">' + title + '</a></div>' +
+          '<span class="dash-page-group__count">' + items.length + ' comment' + (items.length !== 1 ? 's' : '') + '</span></div>';
+        items.forEach(function (c) {
+          var d = new Date(c.timestamp);
+          var time = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          html += '<div class="dash-comment">' +
+            '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
+            '<div class="dash-comment__body">' +
+            '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
+            '  <div class="dash-comment__meta"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + '</div>' +
+            '</div></div>';
+        });
+        html += '</div>';
+      });
+      content.innerHTML = html;
+    }
+
+    // Show loading state, then fetch + merge + render
+    function loadAndRender() {
+      document.getElementById('content').innerHTML =
+        '<div class="dash-empty"><div class="dash-empty__text">Loading comments...</div></div>';
+
+      fetchNetlifyComments().then(function (netlifyComments) {
+        var localComments = getLocalComments();
+        var merged = mergeComments(netlifyComments, localComments);
+        renderWithComments(merged);
+      });
+    }
+
+    // Export CSV
+    document.getElementById('export-btn').addEventListener('click', function () {
+      if (allComments.length === 0) { showToast('No comments to export'); return; }
+      var csv = 'Page,Page Title,Reviewer,Comment,Timestamp\n';
+      allComments.forEach(function (c) {
+        csv += '"' + c.page + '","' + (c.pageTitle || '') + '","' + (c.name || 'Anonymous') + '","' +
+          c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '"\n';
+      });
+      var blob = new Blob([csv], { type: 'text/csv' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'wireframe-review-comments.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('CSV downloaded');
+    });
+
+    // Copy to clipboard
+    document.getElementById('copy-btn').addEventListener('click', function () {
+      if (allComments.length === 0) { showToast('No comments to copy'); return; }
+      var text = 'WIREFRAME REVIEW COMMENTS\n' +
+        'Ohio State Events\n' +
+        'Exported: ' + new Date().toLocaleString() + '\n' +
+        '========================================\n\n';
+      var grouped = {};
+      allComments.forEach(function (c) {
+        if (!grouped[c.page]) grouped[c.page] = [];
+        grouped[c.page].push(c);
+      });
+      Object.keys(grouped).sort().forEach(function (page) {
+        var items = grouped[page];
+        text += '--- ' + (items[0].pageTitle || page) + ' ---\n';
+        items.forEach(function (c) {
+          var d = new Date(c.timestamp);
+          text += '  [' + (c.name || 'Anonymous') + '] ' + c.text + '\n';
+          text += '  ' + d.toLocaleString() + '\n\n';
+        });
+      });
+      navigator.clipboard.writeText(text).then(function () {
+        showToast('Copied to clipboard');
+      });
+    });
+
+    // Clear all — only clears local storage, NOT Netlify submissions
+    document.getElementById('clear-btn').addEventListener('click', function () {
+      if (confirm('This will clear your local comment cache. Comments stored on the server will remain. Continue?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        currentFilter = 'all';
+        loadAndRender();
+        showToast('Local cache cleared — reloading from server');
+      }
+    });
+
+    loadAndRender();
+  </script>
+</body>
+</html>

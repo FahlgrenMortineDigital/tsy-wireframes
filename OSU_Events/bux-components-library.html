@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BUX Component Library — Wireframes</title>
+  <style>
+    /* ===== BUCKEYE FONTS ===== */
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-RegularItalic.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-SemiBoldItalic.woff2') format('woff2'); font-weight: 600; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'BuckeyeSans', Arial, Helvetica, sans-serif; color: #333; background: #fff; padding: 40px 0; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'BuckeyeSerif', Georgia, serif; }
+    :root { --max-width: 1200px; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* ===== BUX PILL LABEL ===== */
+    .bux-label {
+      display: inline-block; background: #e0e7ff; color: #3b4fc4;
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; padding: 3px 10px; border-radius: 10px;
+      line-height: 1.4;
+    }
+
+    /* ===== COMPONENT SECTION ===== */
+    .comp {
+      border: 1px solid #ddd; margin: 0 auto 40px; max-width: var(--max-width);
+      padding: 32px; background: #fff;
+    }
+    .comp__title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; margin-bottom: 4px;
+    }
+    .comp__name {
+      font-size: 20px; font-weight: 700; margin-bottom: 4px;
+    }
+    .comp__url {
+      font-size: 10px; color: #aaa; margin-bottom: 20px; display: block;
+    }
+    .comp__demo {
+      border: 1px dashed #ddd; padding: 24px; background: #fafafa;
+    }
+    .comp__variant-label {
+      font-size: 10px; color: #999; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 600; margin: 20px 0 8px; display: block;
+    }
+
+    /* Image placeholder with X */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc;
+      width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+
+    /* Generic btn */
+    .btn {
+      display: inline-block; border: 2px solid #333; background: #fff;
+      color: #333; padding: 10px 24px; font-size: 13px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+    }
+    .btn--filled { background: #333; color: #fff; }
+    .btn--sm { padding: 6px 16px; font-size: 11px; }
+    .btn--alt { border-color: #888; color: #888; }
+    .btn--alt-sm { border-color: #888; color: #888; padding: 6px 16px; font-size: 11px; }
+    .btn--disabled { border-color: #ccc; color: #ccc; cursor: not-allowed; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 760px) {
+      .resp-stack { grid-template-columns: 1fr !important; }
+      .resp-2col { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 640px) {
+      .resp-2col { grid-template-columns: 1fr !important; }
+      .resp-stack-sm { flex-direction: column !important; }
+    }
+  </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="container" style="margin-bottom:40px;">
+  <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">BUX Component Library</h1>
+  <p style="font-size:13px;color:#888;">Wireframe versions of all components from bux.osu.edu — Navigation &amp; Page Elements</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- NAVIGATION COMPONENTS -->
+<!-- ============================================================ -->
+
+<div class="container" style="margin-bottom:16px;">
+  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:2px;color:#3b4fc4;font-weight:700;">Navigation Components</h2>
+</div>
+
+<!-- OSU NAVBAR -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">OSU Navbar</div>
+  <span class="comp__url">bux.osu.edu/navigation/osu-navbar</span>
+  <span class="bux-label">BUX: OSU Navbar</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="background:#f0f0f0;border:1px solid #ccc;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+      <span style="font-weight:700;font-size:12px;">THE OHIO STATE UNIVERSITY</span>
+      <div style="display:flex;gap:16px;color:#666;">
+        <span>Map</span><span>Buckeye Link</span><span>Webmail</span><span>Search Ohio State</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUCKEYE ALERT -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Buckeye Alert</div>
+  <span class="comp__url">bux.osu.edu/navigation/buckeye-alert</span>
+  <span class="bux-label">BUX: Buckeye Alert</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="background:#fff3cd;border:1px solid #e6c200;padding:12px 16px;font-size:12px;display:flex;align-items:center;gap:12px;">
+      <span style="font-weight:700;font-size:16px;">&#9888;</span>
+      <div>
+        <strong>Buckeye Alert:</strong> Emergency message content displayed here when an active alert exists. Hidden when no alerts are active.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SITE HEADER -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Site Header</div>
+  <span class="comp__url">bux.osu.edu/navigation/site-header</span>
+  <span class="bux-label">BUX: Site Header</span>
+
+  <span class="comp__variant-label">Default</span>
+  <div class="comp__demo">
+    <div style="border-bottom:1px solid #ddd;padding:12px 0;">
+      <div style="font-size:18px;font-weight:700;">College / Unit Name</div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">With Parent</span>
+  <div class="comp__demo">
+    <div style="border-bottom:1px solid #ddd;padding:12px 0;">
+      <div style="font-size:11px;color:#999;">Parent Organization Name</div>
+      <div style="font-size:18px;font-weight:700;">College / Unit Name</div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">With Slogan</span>
+  <div class="comp__demo">
+    <div style="border-bottom:1px solid #ddd;padding:12px 0;">
+      <div style="font-size:18px;font-weight:700;">College / Unit Name</div>
+      <div style="font-size:11px;color:#999;">Brief slogan or tagline here</div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Menu</div>
+  <span class="comp__url">bux.osu.edu/navigation/menu</span>
+  <span class="bux-label">BUX: Menu</span>
+
+  <span class="comp__variant-label">Default (flat)</span>
+  <div class="comp__demo">
+    <div style="border-bottom:1px solid #ddd;display:flex;gap:0;">
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section One</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Two</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Three</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Four</span>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">With Dropdowns</span>
+  <div class="comp__demo">
+    <div style="border-bottom:1px solid #ddd;display:flex;gap:0;">
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section One &#9662;</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;border-bottom:2px solid #333;">Section Two &#9662;</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Three &#9662;</span>
+    </div>
+    <div style="border:1px solid #ccc;padding:12px 20px;max-width:200px;background:#fff;font-size:12px;line-height:2.2;color:#555;">
+      Submenu Item One<br>Submenu Item Two<br>Submenu Item Three<br>Submenu Item Four
+    </div>
+  </div>
+</div>
+
+<!-- MENU WITH SEARCH -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Menu with Search</div>
+  <span class="comp__url">bux.osu.edu/navigation/menu-with-search</span>
+  <span class="bux-label">BUX: Menu with Search</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;gap:0;">
+        <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section One &#9662;</span>
+        <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Two &#9662;</span>
+        <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Section Three &#9662;</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 16px;">
+        <div style="width:160px;height:30px;border:1px solid #ccc;border-radius:2px;"></div>
+        <div style="width:30px;height:30px;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">&#128269;</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Breadcrumb</div>
+  <span class="comp__url">bux.osu.edu/navigation/breadcrumb</span>
+  <span class="bux-label">BUX: Breadcrumb</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <nav style="font-size:12px;color:#888;">
+      <span style="text-decoration:underline;color:#555;">Home</span>
+      <span style="margin:0 6px;">/</span>
+      <span style="text-decoration:underline;color:#555;">Parent Page</span>
+      <span style="margin:0 6px;">/</span>
+      <span style="text-decoration:underline;color:#555;">Child Page</span>
+      <span style="margin:0 6px;">/</span>
+      <span style="color:#333;font-weight:600;">Current Page</span>
+    </nav>
+  </div>
+</div>
+
+<!-- PAGINATION -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Pagination</div>
+  <span class="comp__url">bux.osu.edu/navigation/pagination</span>
+  <span class="bux-label">BUX: Pagination</span>
+
+  <span class="comp__variant-label">Default</span>
+  <div class="comp__demo">
+    <div style="display:flex;align-items:center;gap:4px;font-size:13px;">
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;">&larr;</span>
+      <span style="width:32px;height:32px;border:2px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">1</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">2</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">3</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">4</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">5</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;">&rarr;</span>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Truncated</span>
+  <div class="comp__demo">
+    <div style="display:flex;align-items:center;gap:4px;font-size:13px;">
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;">&larr;</span>
+      <span style="width:32px;height:32px;border:2px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;">1</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">2</span>
+      <span style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#999;">...</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;">12</span>
+      <span style="width:32px;height:32px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#999;">&rarr;</span>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Document Pagination</span>
+  <div class="comp__demo">
+    <div style="display:flex;justify-content:space-between;font-size:13px;border-top:1px solid #ddd;padding-top:12px;">
+      <span style="text-decoration:underline;color:#555;">&larr; Previous Page Title</span>
+      <span style="text-decoration:underline;color:#555;">Next Page Title &rarr;</span>
+    </div>
+  </div>
+</div>
+
+<!-- SIDEBAR NAVIGATION -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Sidebar Navigation</div>
+  <span class="comp__url">bux.osu.edu/navigation/sidebar-navigation</span>
+  <span class="bux-label">BUX: Sidebar Navigation</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:280px;border:1px solid #ddd;font-size:13px;">
+      <div style="padding:10px 16px;font-weight:700;border-bottom:1px solid #ddd;background:#f7f7f7;">Section Title</div>
+      <div style="padding:10px 16px;border-bottom:1px solid #eee;border-left:3px solid #333;font-weight:600;">Active Page</div>
+      <div style="padding:10px 16px;border-bottom:1px solid #eee;color:#555;">Sibling Page</div>
+      <div style="padding:10px 16px;border-bottom:1px solid #eee;color:#555;">Sibling Page</div>
+      <div style="padding:10px 16px 10px 32px;border-bottom:1px solid #eee;color:#888;font-size:12px;">Child Page</div>
+      <div style="padding:10px 16px 10px 32px;border-bottom:1px solid #eee;color:#888;font-size:12px;">Child Page</div>
+      <div style="padding:10px 16px;color:#555;">Sibling Page</div>
+    </div>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Back to Top</div>
+  <span class="comp__url">bux.osu.edu/navigation/back-to-top</span>
+  <span class="bux-label">BUX: Back to Top</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;justify-content:flex-end;">
+      <div style="display:flex;align-items:center;gap:8px;border:1px solid #ccc;padding:8px 16px;font-size:12px;font-weight:600;color:#555;">
+        <span style="font-size:16px;">&uarr;</span> Back to top
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKIP NAVIGATION -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Skip Navigation</div>
+  <span class="comp__url">bux.osu.edu/navigation/skip-navigation</span>
+  <span class="bux-label">BUX: Skip Navigation</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border:2px dashed #aaa;padding:10px 16px;font-size:12px;color:#666;text-align:center;">
+      <em>Hidden by default — visible on keyboard focus</em><br>
+      <span style="text-decoration:underline;font-weight:600;color:#333;">Skip to main content</span>
+    </div>
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<div class="comp">
+  <div class="comp__title">Navigation</div>
+  <div class="comp__name">Site Footer</div>
+  <span class="comp__url">bux.osu.edu/navigation/site-footer</span>
+  <span class="bux-label">BUX: Site Footer</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="background:#f0f0f0;border:1px solid #ddd;padding:24px;">
+      <div style="display:grid;grid-template-columns:5fr 7fr;gap:24px;margin-bottom:16px;" class="resp-stack">
+        <div>
+          <div style="width:36px;height:36px;border:2px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;margin-bottom:8px;">Logo</div>
+          <div style="font-weight:700;font-size:13px;margin-bottom:4px;">Unit Name</div>
+          <div style="font-size:11px;color:#888;line-height:1.8;">Address Line 1<br>City, ST ZIP<br>email@osu.edu<br>(614) 292-XXXX</div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <span style="width:20px;height:20px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;">FB</span>
+            <span style="width:20px;height:20px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;">IG</span>
+            <span style="width:20px;height:20px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;">X</span>
+            <span style="width:20px;height:20px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;">LI</span>
+            <span style="width:20px;height:20px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:7px;color:#999;">YT</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;font-size:11px;" class="resp-2col">
+          <div><div style="font-weight:700;margin-bottom:6px;">Column 1</div><div style="color:#888;line-height:2;">Link Item<br>Link Item<br>Link Item</div></div>
+          <div><div style="font-weight:700;margin-bottom:6px;">Column 2</div><div style="color:#888;line-height:2;">Link Item<br>Link Item<br>Link Item</div></div>
+          <div><div style="font-weight:700;margin-bottom:6px;">Column 3</div><div style="color:#888;line-height:2;">Link Item<br>Link Item<br>Link Item</div></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid #ccc;padding-top:8px;font-size:10px;color:#aaa;display:flex;justify-content:space-between;" class="resp-stack-sm">
+        <span>&copy; 2026 The Ohio State University</span>
+        <span>Privacy Policy &nbsp;|&nbsp; Non-Discrimination Notice</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE ELEMENTS -->
+<!-- ============================================================ -->
+
+<div class="container" style="margin: 16px auto;">
+  <h2 style="font-size:14px;text-transform:uppercase;letter-spacing:2px;color:#3b4fc4;font-weight:700;">Page Elements</h2>
+</div>
+
+<!-- ACCORDION -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Accordion</div>
+  <span class="comp__url">bux.osu.edu/page-elements/accordion</span>
+  <span class="bux-label">BUX: Accordion</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border:1px solid #ddd;">
+      <div style="padding:12px 16px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;cursor:pointer;">
+        Accordion Item One <span style="color:#999;">&#9660;</span>
+      </div>
+      <div style="padding:16px;border-bottom:1px solid #ddd;font-size:12px;color:#666;line-height:1.6;background:#fafafa;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">
+        Accordion Item Two <span style="color:#999;">&#9654;</span>
+      </div>
+      <div style="padding:12px 16px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:600;">
+        Accordion Item Three <span style="color:#999;">&#9654;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Alerts</div>
+  <span class="comp__url">bux.osu.edu/page-elements/alerts</span>
+  <span class="bux-label">BUX: Alerts</span>
+
+  <span class="comp__variant-label">Informational</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #bbb;padding:12px 16px;font-size:12px;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:16px;">&#9432;</span>
+      <div><strong>Informational:</strong> Brief informational message for the user.</div>
+    </div>
+  </div>
+  <span class="comp__variant-label">Success</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #bbb;padding:12px 16px;font-size:12px;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:16px;">&#10003;</span>
+      <div><strong>Success:</strong> Action completed successfully.</div>
+    </div>
+  </div>
+  <span class="comp__variant-label">Warning</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #bbb;padding:12px 16px;font-size:12px;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:16px;">&#9888;</span>
+      <div><strong>Warning:</strong> Potentially problematic condition.</div>
+    </div>
+  </div>
+  <span class="comp__variant-label">Error</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #bbb;padding:12px 16px;font-size:12px;display:flex;gap:12px;align-items:flex-start;">
+      <span style="font-size:16px;">&#10007;</span>
+      <div><strong>Error:</strong> Problem requiring correction.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUTTONS -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Buttons</div>
+  <span class="comp__url">bux.osu.edu/page-elements/buttons</span>
+  <span class="bux-label">BUX: Buttons</span>
+  <div class="comp__demo" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;">
+    <button class="btn btn--filled">Primary Button</button>
+    <button class="btn btn--filled btn--sm">Primary Small</button>
+    <button class="btn btn--alt">Alternate Button</button>
+    <button class="btn btn--alt-sm">Alternate Small</button>
+    <button class="btn btn--disabled" disabled>Disabled</button>
+  </div>
+</div>
+
+<!-- CARD -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Card</div>
+  <span class="comp__url">bux.osu.edu/page-elements/card</span>
+  <span class="bux-label">BUX: Card</span>
+
+  <span class="comp__variant-label">Default</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:14px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Category</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Card Heading</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;margin-bottom:8px;">Brief description of the card content goes here.</div>
+          <span style="font-size:11px;color:#555;text-decoration:underline;">Learn More</span>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:14px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Category</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Card Heading</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;margin-bottom:8px;">Brief description of the card content goes here.</div>
+          <span style="font-size:11px;color:#555;text-decoration:underline;">Learn More</span>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:14px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Category</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Card Heading</div>
+          <div style="font-size:11px;color:#888;line-height:1.5;margin-bottom:8px;">Brief description of the card content goes here.</div>
+          <span style="font-size:11px;color:#555;text-decoration:underline;">Learn More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Storytelling Card</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #ccc;max-width:360px;">
+      <div class="img-placeholder" style="height:140px;"></div>
+      <div style="padding:14px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Category &bull; 5 min read</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px;text-decoration:underline;">Storytelling Card Heading</div>
+        <div style="font-size:11px;color:#888;line-height:1.5;">Description text for the storytelling card variant.</div>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Event Card</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #ccc;max-width:360px;">
+      <div class="img-placeholder" style="height:140px;"></div>
+      <div style="padding:14px;">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="text-align:center;border:1px solid #ccc;padding:8px 12px;min-width:52px;">
+            <div style="font-size:10px;text-transform:uppercase;color:#999;">Mar</div>
+            <div style="font-size:22px;font-weight:700;">17</div>
+          </div>
+          <div>
+            <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Event Type</div>
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Event Card Heading</div>
+            <div style="font-size:11px;color:#888;">10:00 AM &bull; Location Name</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Horizontal Card</span>
+  <div class="comp__demo">
+    <div style="border:1px solid #ccc;display:grid;grid-template-columns:200px 1fr;max-width:600px;" class="resp-stack">
+      <div class="img-placeholder" style="min-height:120px;"></div>
+      <div style="padding:14px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:4px;">Category</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Horizontal Card Heading</div>
+        <div style="font-size:11px;color:#888;line-height:1.5;">Description text for the horizontal card variant.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CARD CAROUSEL -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Card Carousel</div>
+  <span class="comp__url">bux.osu.edu/page-elements/card-carousel</span>
+  <span class="bux-label">BUX: Card Carousel</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="width:36px;height:36px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#999;flex-shrink:0;">&larr;</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;flex:1;" class="resp-stack">
+        <div style="border:1px solid #ccc;"><div class="img-placeholder" style="height:100px;"></div><div style="padding:10px;font-size:12px;font-weight:700;">Card Title</div></div>
+        <div style="border:1px solid #ccc;"><div class="img-placeholder" style="height:100px;"></div><div style="padding:10px;font-size:12px;font-weight:700;">Card Title</div></div>
+        <div style="border:1px solid #ccc;"><div class="img-placeholder" style="height:100px;"></div><div style="padding:10px;font-size:12px;font-weight:700;">Card Title</div></div>
+        <div style="border:1px solid #ccc;opacity:0.5;"><div class="img-placeholder" style="height:100px;"></div><div style="padding:10px;font-size:12px;font-weight:700;color:#bbb;">Peek Card</div></div>
+      </div>
+      <div style="width:36px;height:36px;border:1px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#999;flex-shrink:0;">&rarr;</div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT MENU -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Context Menu</div>
+  <span class="comp__url">bux.osu.edu/page-elements/context-menu</span>
+  <span class="bux-label">BUX: Context Menu</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:inline-block;position:relative;">
+      <button class="btn btn--sm">Trigger &#9662;</button>
+      <div style="border:1px solid #ccc;padding:8px 0;min-width:180px;background:#fff;margin-top:4px;font-size:12px;">
+        <div style="padding:6px 16px;color:#555;">Menu Item One</div>
+        <div style="padding:6px 16px;color:#555;">Menu Item Two</div>
+        <div style="padding:6px 16px;color:#555;">Menu Item Three</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA COLLECTION -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">CTA Collection</div>
+  <span class="comp__url">bux.osu.edu/page-elements/cta-collection</span>
+  <span class="bux-label">BUX: CTA Collection</span>
+
+  <span class="comp__variant-label">Default</span>
+  <div class="comp__demo">
+    <div style="display:flex;justify-content:center;gap:32px;font-size:13px;font-weight:600;color:#555;" class="resp-stack-sm">
+      <span style="text-decoration:underline;">Action One</span>
+      <span style="text-decoration:underline;">Action Two</span>
+      <span style="text-decoration:underline;">Action Three</span>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">With Icons</span>
+  <div class="comp__demo">
+    <div style="display:flex;justify-content:center;gap:32px;font-size:13px;font-weight:600;color:#555;" class="resp-stack-sm">
+      <span style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border:1px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">&#9679;</span> Action One</span>
+      <span style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border:1px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">&#9679;</span> Action Two</span>
+      <span style="display:flex;align-items:center;gap:8px;"><span style="width:24px;height:24px;border:1px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">&#9679;</span> Action Three</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA IN PAGE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">CTA In Page</div>
+  <span class="comp__url">bux.osu.edu/page-elements/cta-in-page</span>
+  <span class="bux-label">BUX: CTA In Page</span>
+  <div class="comp__demo" style="margin-top:12px;text-align:center;">
+    <div class="img-placeholder" style="height:160px;max-width:600px;margin:0 auto 16px;"></div>
+    <div style="font-size:18px;font-weight:700;margin-bottom:6px;">Call-to-Action Heading</div>
+    <div style="font-size:12px;color:#888;max-width:420px;margin:0 auto 12px;line-height:1.5;">Optional description text with a concise explanation of the action.</div>
+    <button class="btn btn--filled">Primary Action</button>
+  </div>
+</div>
+
+<!-- FACTOID -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Factoid</div>
+  <span class="comp__url">bux.osu.edu/page-elements/factoid</span>
+  <span class="bux-label">BUX: Factoid</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;" class="resp-stack">
+      <div style="border-right:1px solid #ddd;padding:0 16px;">
+        <div style="font-size:36px;font-weight:700;margin-bottom:4px;">100+</div>
+        <div style="font-size:12px;color:#888;">Descriptive Label</div>
+      </div>
+      <div style="border-right:1px solid #ddd;padding:0 16px;">
+        <div style="font-size:36px;font-weight:700;margin-bottom:4px;">#1</div>
+        <div style="font-size:12px;color:#888;">Descriptive Label</div>
+      </div>
+      <div style="padding:0 16px;">
+        <div style="font-size:36px;font-weight:700;margin-bottom:4px;">50K</div>
+        <div style="font-size:12px;color:#888;">Descriptive Label</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED CARD -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Featured Card</div>
+  <span class="comp__url">bux.osu.edu/page-elements/featured-card</span>
+  <span class="bux-label">BUX: Featured Card</span>
+
+  <span class="comp__variant-label">Image Left (7col image / 5col content)</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:7fr 5fr;border:1px solid #ccc;" class="resp-stack">
+      <div class="img-placeholder" style="min-height:240px;"></div>
+      <div style="padding:32px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:8px;">Eyebrow</div>
+        <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Featured Card Heading</div>
+        <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:16px;">Brief description of the featured content with a compelling message.</div>
+        <button class="btn btn--alt">Call to Action</button>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Image Right (5col content / 7col image)</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:5fr 7fr;border:1px solid #ccc;" class="resp-stack">
+      <div style="padding:32px;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:8px;">Eyebrow</div>
+        <div style="font-size:20px;font-weight:700;margin-bottom:10px;">Featured Card Heading</div>
+        <div style="font-size:12px;color:#888;line-height:1.6;margin-bottom:16px;">Brief description of the featured content with a compelling message.</div>
+        <button class="btn btn--alt">Call to Action</button>
+      </div>
+      <div class="img-placeholder" style="min-height:240px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FILE DOWNLOAD -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">File Download</div>
+  <span class="comp__url">bux.osu.edu/page-elements/file-download</span>
+  <span class="bux-label">BUX: File Download</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border:1px solid #ddd;font-size:12px;">
+      <div style="padding:12px 16px;border-bottom:1px solid #eee;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:16px;">&#128196;</span>
+        <div><span style="font-weight:600;text-decoration:underline;">Annual Report 2025</span><br><span style="color:#999;font-size:10px;">PDF &bull; 2.4 MB</span></div>
+      </div>
+      <div style="padding:12px 16px;display:flex;align-items:center;gap:12px;">
+        <span style="font-size:16px;">&#128196;</span>
+        <div><span style="font-weight:600;text-decoration:underline;">Event Planning Guide</span><br><span style="color:#999;font-size:10px;">DOCX &bull; 856 KB</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORMS -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Forms</div>
+  <span class="comp__url">bux.osu.edu/page-elements/forms</span>
+  <span class="bux-label">BUX: Forms</span>
+  <div class="comp__demo" style="margin-top:12px;max-width:480px;">
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Text Field</label>
+      <div style="width:100%;height:36px;border:1px solid #ccc;"></div>
+      <div style="font-size:10px;color:#999;margin-top:2px;">Helper text</div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Text Field (required)</label>
+      <div style="width:100%;height:36px;border:1px solid #ccc;"></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Text Field (error)</label>
+      <div style="width:100%;height:36px;border:2px solid #c00;"></div>
+      <div style="font-size:10px;color:#c00;margin-top:2px;">Error message</div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Text Area</label>
+      <div style="width:100%;height:80px;border:1px solid #ccc;"></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <label style="font-size:12px;font-weight:600;display:block;margin-bottom:4px;">Selection Dropdown</label>
+      <div style="width:100%;height:36px;border:1px solid #ccc;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:12px;color:#999;">Select an option <span>&#9662;</span></div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:600;margin-bottom:6px;">Checkboxes</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555;">
+        <div style="display:flex;gap:8px;align-items:center;"><div style="width:16px;height:16px;border:1px solid #999;"></div> Option One</div>
+        <div style="display:flex;gap:8px;align-items:center;"><div style="width:16px;height:16px;border:1px solid #999;background:#ddd;"></div> Option Two (checked)</div>
+        <div style="display:flex;gap:8px;align-items:center;"><div style="width:16px;height:16px;border:1px solid #999;"></div> Option Three</div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:12px;font-weight:600;margin-bottom:6px;">Radio Buttons</div>
+      <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#555;">
+        <div style="display:flex;gap:8px;align-items:center;"><div style="width:16px;height:16px;border:1px solid #999;border-radius:50%;"></div> Option One</div>
+        <div style="display:flex;gap:8px;align-items:center;"><div style="width:16px;height:16px;border:1px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="width:8px;height:8px;background:#555;border-radius:50%;"></div></div> Option Two (selected)</div>
+      </div>
+    </div>
+    <div>
+      <div style="font-size:12px;font-weight:600;margin-bottom:6px;">Switch</div>
+      <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:#555;">
+        <div style="width:40px;height:22px;border:1px solid #999;border-radius:11px;display:flex;align-items:center;padding:2px;">
+          <div style="width:16px;height:16px;border-radius:50%;background:#999;"></div>
+        </div> Toggle label
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Hero</div>
+  <span class="comp__url">bux.osu.edu/page-elements/hero</span>
+  <span class="bux-label">BUX: Hero</span>
+
+  <span class="comp__variant-label">Card Full</span>
+  <div class="comp__demo">
+    <div style="position:relative;height:320px;background:#e8e8e8;border:1px solid #ccc;overflow:hidden;">
+      <div style="position:absolute;inset:0;" class="img-placeholder"></div>
+      <div style="position:relative;z-index:1;background:#fff;border:1px solid #ccc;padding:24px;max-width:380px;margin:32px 0 0 32px;">
+        <div style="font-size:22px;font-weight:700;margin-bottom:8px;">Hero Headline</div>
+        <div style="font-size:12px;color:#777;line-height:1.5;margin-bottom:14px;">Supporting subheader text with brief description.</div>
+        <button class="btn btn--filled btn--sm">Call to Action</button>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Card Left</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #ccc;" class="resp-stack">
+      <div style="padding:32px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:22px;font-weight:700;margin-bottom:8px;">Hero Headline</div>
+        <div style="font-size:12px;color:#777;line-height:1.5;margin-bottom:14px;">Supporting subheader text.</div>
+        <div><button class="btn btn--filled btn--sm">Call to Action</button></div>
+      </div>
+      <div class="img-placeholder" style="min-height:240px;"></div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Card Right</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;border:1px solid #ccc;" class="resp-stack">
+      <div class="img-placeholder" style="min-height:240px;"></div>
+      <div style="padding:32px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:22px;font-weight:700;margin-bottom:8px;">Hero Headline</div>
+        <div style="font-size:12px;color:#777;line-height:1.5;margin-bottom:14px;">Supporting subheader text.</div>
+        <div><button class="btn btn--filled btn--sm">Call to Action</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HORIZONTAL RULE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Horizontal Rule</div>
+  <span class="comp__url">bux.osu.edu/page-elements/horizontal-rule</span>
+  <span class="bux-label">BUX: Horizontal Rule</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <hr style="border:none;border-top:1px solid #ccc;margin:16px 0;">
+  </div>
+</div>
+
+<!-- IMAGE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Image</div>
+  <span class="comp__url">bux.osu.edu/page-elements/image</span>
+  <span class="bux-label">BUX: Image</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div class="img-placeholder" style="height:240px;max-width:600px;"></div>
+    <div style="font-size:11px;color:#999;margin-top:6px;font-style:italic;">Figure caption — optional descriptive text below the image.</div>
+  </div>
+</div>
+
+<!-- INTERIOR PAGE HERO -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Interior Page Hero</div>
+  <span class="comp__url">bux.osu.edu/page-elements/interior-page-hero</span>
+  <span class="bux-label">BUX: Interior Page Hero</span>
+
+  <span class="comp__variant-label">With Image</span>
+  <div class="comp__demo">
+    <div style="position:relative;height:200px;background:#e8e8e8;border:1px solid #ccc;overflow:hidden;">
+      <div style="position:absolute;inset:0;" class="img-placeholder"></div>
+      <div style="position:relative;z-index:1;padding:24px;display:flex;align-items:flex-end;height:100%;">
+        <h1 style="font-size:28px;font-weight:700;background:#fff;padding:8px 16px;border:1px solid #ccc;">Page Title (H1)</h1>
+      </div>
+    </div>
+    <div style="font-size:13px;color:#777;line-height:1.5;padding:16px 0;max-width:680px;">
+      Optional 1-3 sentence introduction summarizing the page purpose.
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Without Image</span>
+  <div class="comp__demo">
+    <div style="padding:24px 0;border-bottom:1px solid #ddd;">
+      <h1 style="font-size:28px;font-weight:700;">Page Title (H1)</h1>
+    </div>
+    <div style="font-size:13px;color:#777;line-height:1.5;padding:16px 0;max-width:680px;">
+      Optional 1-3 sentence introduction summarizing the page purpose.
+    </div>
+  </div>
+</div>
+
+<!-- LINK -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Link</div>
+  <span class="comp__url">bux.osu.edu/page-elements/link</span>
+  <span class="bux-label">BUX: Link</span>
+  <div class="comp__demo" style="margin-top:12px;font-size:13px;">
+    <span style="text-decoration:underline;color:#555;">Standard Text Link</span>
+  </div>
+</div>
+
+<!-- LINK LIST -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Link List</div>
+  <span class="comp__url">bux.osu.edu/page-elements/link-list</span>
+  <span class="bux-label">BUX: Link List</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="font-size:13px;">
+      <div style="padding:12px 0;border-bottom:1px solid #eee;">
+        <div style="font-weight:600;text-decoration:underline;margin-bottom:4px;">Link Title One</div>
+        <div style="font-size:11px;color:#888;">Optional description text for this link item.</div>
+      </div>
+      <div style="padding:12px 0;border-bottom:1px solid #eee;">
+        <div style="font-weight:600;text-decoration:underline;margin-bottom:4px;">Link Title Two</div>
+        <div style="font-size:11px;color:#888;">Optional description text for this link item.</div>
+      </div>
+      <div style="padding:12px 0;">
+        <div style="font-weight:600;text-decoration:underline;margin-bottom:4px;">Link Title Three</div>
+        <div style="font-size:11px;color:#888;">Optional description text for this link item.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIST -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">List</div>
+  <span class="comp__url">bux.osu.edu/page-elements/list</span>
+  <span class="bux-label">BUX: List</span>
+  <div class="comp__demo" style="margin-top:12px;font-size:13px;color:#555;">
+    <ul style="padding-left:20px;line-height:2;">
+      <li>Unordered list item one</li>
+      <li>Unordered list item two</li>
+      <li>Unordered list item three</li>
+    </ul>
+    <br>
+    <ol style="padding-left:20px;line-height:2;">
+      <li>Ordered list item one</li>
+      <li>Ordered list item two</li>
+      <li>Ordered list item three</li>
+    </ol>
+  </div>
+</div>
+
+<!-- LISTICLE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Listicle</div>
+  <span class="comp__url">bux.osu.edu/page-elements/listicle</span>
+  <span class="bux-label">BUX: Listicle</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-top:1px solid #ddd;">
+      <div style="padding:16px 0;border-bottom:1px solid #ddd;display:flex;gap:16px;">
+        <span style="font-size:28px;font-weight:700;color:#ccc;min-width:40px;">1.</span>
+        <div><div style="font-size:15px;font-weight:700;margin-bottom:4px;">Listicle Item Title</div><div style="font-size:12px;color:#888;line-height:1.5;">Description text for this listicle item.</div></div>
+      </div>
+      <div style="padding:16px 0;border-bottom:1px solid #ddd;display:flex;gap:16px;">
+        <span style="font-size:28px;font-weight:700;color:#ccc;min-width:40px;">2.</span>
+        <div><div style="font-size:15px;font-weight:700;margin-bottom:4px;">Listicle Item Title</div><div style="font-size:12px;color:#888;line-height:1.5;">Description text for this listicle item.</div></div>
+      </div>
+      <div style="padding:16px 0;display:flex;gap:16px;">
+        <span style="font-size:28px;font-weight:700;color:#ccc;min-width:40px;">3.</span>
+        <div><div style="font-size:15px;font-weight:700;margin-bottom:4px;">Listicle Item Title</div><div style="font-size:12px;color:#888;line-height:1.5;">Description text for this listicle item.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Panel</div>
+  <span class="comp__url">bux.osu.edu/page-elements/panel</span>
+  <span class="bux-label">BUX: Panel</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="background:#f0f0f0;border:1px solid #ddd;padding:24px;">
+      <div style="font-size:18px;font-weight:700;margin-bottom:8px;">Panel Heading</div>
+      <div style="font-size:12px;color:#666;line-height:1.6;margin-bottom:16px;">Panel body text with supporting content. Panels provide flexible containers for visual emphasis.</div>
+      <button class="btn btn--alt btn--sm">Optional CTA</button>
+    </div>
+  </div>
+</div>
+
+<!-- PERSON -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Person</div>
+  <span class="comp__url">bux.osu.edu/page-elements/person</span>
+  <span class="bux-label">BUX: Person</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;gap:16px;align-items:flex-start;">
+      <div>
+        <div style="font-size:15px;font-weight:700;text-decoration:underline;margin-bottom:2px;">First Last Name, PhD</div>
+        <div style="font-size:12px;color:#555;margin-bottom:2px;">Professional Title</div>
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;margin-bottom:6px;">Department Name</div>
+        <div style="font-size:11px;color:#555;">&#9993; email@osu.edu</div>
+        <div style="font-size:11px;color:#555;">&#9742; (614) 292-XXXX</div>
+      </div>
+      <div class="img-placeholder" style="width:80px;height:80px;flex-shrink:0;border-radius:0;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTION + ANSWER -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Question + Answer</div>
+  <span class="comp__url">bux.osu.edu/page-elements/question-answer</span>
+  <span class="bux-label">BUX: Question + Answer</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="padding:16px 0;border-bottom:1px solid #eee;">
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">Q: What is the question text?</div>
+      <div style="font-size:12px;color:#666;line-height:1.6;">A: The answer text goes here with supporting information and details.</div>
+    </div>
+    <div style="padding:16px 0;">
+      <div style="font-size:15px;font-weight:700;margin-bottom:6px;">Q: Another question here?</div>
+      <div style="font-size:12px;color:#666;line-height:1.6;">A: Another answer with relevant details.</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Quote</div>
+  <span class="comp__url">bux.osu.edu/page-elements/quote</span>
+  <span class="bux-label">BUX: Quote</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;gap:20px;align-items:flex-start;">
+      <div class="img-placeholder" style="width:80px;height:80px;flex-shrink:0;border-radius:50%;"></div>
+      <div>
+        <div style="font-size:16px;font-style:italic;line-height:1.5;margin-bottom:8px;">"This is a compelling quote that provides insight or testimony from a key person."</div>
+        <div style="font-size:13px;font-weight:700;">Person Name</div>
+        <div style="font-size:11px;color:#888;">Title / Attribution</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOCIAL MEDIA LINKS -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Social Media Links</div>
+  <span class="comp__url">bux.osu.edu/page-elements/social-media-links</span>
+  <span class="bux-label">BUX: Social Media Links</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;gap:10px;">
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">FB</span>
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">IG</span>
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">X</span>
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">LI</span>
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">YT</span>
+      <span style="width:32px;height:32px;border:1px solid #aaa;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">TK</span>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Table</div>
+  <span class="comp__url">bux.osu.edu/page-elements/table</span>
+  <span class="bux-label">BUX: Table</span>
+  <div class="comp__demo" style="margin-top:12px;overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead><tr style="border-bottom:2px solid #333;">
+        <th style="padding:8px 12px;text-align:left;font-weight:700;">Column A</th>
+        <th style="padding:8px 12px;text-align:left;font-weight:700;">Column B</th>
+        <th style="padding:8px 12px;text-align:left;font-weight:700;">Column C</th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td></tr>
+        <tr style="border-bottom:1px solid #ddd;background:#f7f7f7;"><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td></tr>
+        <tr style="border-bottom:1px solid #ddd;"><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td><td style="padding:8px 12px;">Data cell</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Tabs</div>
+  <span class="comp__url">bux.osu.edu/page-elements/tabs</span>
+  <span class="bux-label">BUX: Tabs</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;border-bottom:2px solid #ddd;">
+      <span style="padding:10px 20px;font-size:13px;font-weight:700;border-bottom:2px solid #333;margin-bottom:-2px;">Tab One</span>
+      <span style="padding:10px 20px;font-size:13px;color:#888;">Tab Two</span>
+      <span style="padding:10px 20px;font-size:13px;color:#888;">Tab Three</span>
+    </div>
+    <div style="padding:16px 0;font-size:12px;color:#666;line-height:1.6;">
+      Tab panel content for the active tab. This area displays the content associated with the selected tab.
+    </div>
+  </div>
+</div>
+
+<!-- TAG -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Tag</div>
+  <span class="comp__url">bux.osu.edu/page-elements/tag</span>
+  <span class="bux-label">BUX: Tag</span>
+  <div class="comp__demo" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+    <span style="border:1px solid #ccc;padding:4px 12px;font-size:11px;font-weight:600;color:#555;">Tag One</span>
+    <span style="border:1px solid #ccc;padding:4px 12px;font-size:11px;font-weight:600;color:#555;">Tag Two</span>
+    <span style="border:1px solid #ccc;padding:4px 12px;font-size:11px;font-weight:600;color:#ccc;">Disabled Tag</span>
+  </div>
+</div>
+
+<!-- TILE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Tile</div>
+  <span class="comp__url">bux.osu.edu/page-elements/tile</span>
+  <span class="bux-label">BUX: Tile</span>
+
+  <span class="comp__variant-label">Default / Icon Tile</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+      <div style="border:1px solid #ccc;padding:20px;text-align:center;">
+        <div style="width:40px;height:40px;border:1px solid #999;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">&#9679;</div>
+        <div style="font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+      <div style="border:1px solid #ccc;padding:20px;text-align:center;">
+        <div style="width:40px;height:40px;border:1px solid #999;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">&#9679;</div>
+        <div style="font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+      <div style="border:1px solid #ccc;padding:20px;text-align:center;">
+        <div style="width:40px;height:40px;border:1px solid #999;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">&#9679;</div>
+        <div style="font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+    </div>
+  </div>
+
+  <span class="comp__variant-label">Image Tile</span>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:120px;"></div>
+        <div style="padding:14px;font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:120px;"></div>
+        <div style="padding:14px;font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+      <div style="border:1px solid #ccc;">
+        <div class="img-placeholder" style="height:120px;"></div>
+        <div style="padding:14px;font-size:14px;font-weight:700;text-decoration:underline;">Tile Heading</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Timeline</div>
+  <span class="comp__url">bux.osu.edu/page-elements/timeline</span>
+  <span class="bux-label">BUX: Timeline</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-left:2px solid #ccc;padding-left:24px;margin-left:12px;">
+      <div style="position:relative;padding-bottom:24px;">
+        <div style="position:absolute;left:-33px;top:2px;width:16px;height:16px;border:2px solid #999;border-radius:50%;background:#fff;"></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:2px;">Milestone Title</div>
+        <div style="font-size:11px;color:#999;margin-bottom:4px;">January 2026</div>
+        <div style="font-size:12px;color:#666;line-height:1.5;">Description of this timeline event.</div>
+      </div>
+      <div style="position:relative;padding-bottom:24px;">
+        <div style="position:absolute;left:-33px;top:2px;width:16px;height:16px;border:2px solid #999;border-radius:50%;background:#fff;"></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:2px;">Milestone Title</div>
+        <div style="font-size:11px;color:#999;margin-bottom:4px;">March 2026</div>
+        <div style="font-size:12px;color:#666;line-height:1.5;">Description of this timeline event.</div>
+      </div>
+      <div style="position:relative;">
+        <div style="position:absolute;left:-33px;top:2px;width:16px;height:16px;border:2px solid #999;border-radius:50%;background:#fff;"></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:2px;">Milestone Title</div>
+        <div style="font-size:11px;color:#999;margin-bottom:4px;">June 2026</div>
+        <div style="font-size:12px;color:#666;line-height:1.5;">Description of this timeline event.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIMESTAMP -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Timestamp</div>
+  <span class="comp__url">bux.osu.edu/page-elements/timestamp</span>
+  <span class="bux-label">BUX: Timestamp</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#666;">
+      <span style="font-size:14px;">&#128197;</span>
+      <span>Tuesday, Nov. 25, 2025</span>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Tooltip</div>
+  <span class="comp__url">bux.osu.edu/page-elements/tooltip</span>
+  <span class="bux-label">BUX: Tooltip</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:inline-flex;flex-direction:column;align-items:center;">
+      <div style="background:#333;color:#fff;font-size:11px;padding:8px 12px;border-radius:4px;max-width:200px;text-align:center;margin-bottom:6px;">
+        Helpful tooltip text that provides additional context.
+      </div>
+      <div style="width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:6px solid #333;margin-bottom:6px;"></div>
+      <span style="width:20px;height:20px;border:1px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#999;">i</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO -->
+<div class="comp">
+  <div class="comp__title">Page Element</div>
+  <div class="comp__name">Video</div>
+  <span class="comp__url">bux.osu.edu/page-elements/video</span>
+  <span class="bux-label">BUX: Video</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="position:relative;background:#222;height:300px;max-width:600px;display:flex;align-items:center;justify-content:center;">
+      <div style="width:60px;height:60px;border:2px solid #fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+        <span style="color:#fff;font-size:24px;margin-left:4px;">&#9654;</span>
+      </div>
+    </div>
+    <div style="font-size:11px;color:#999;margin-top:6px;font-style:italic;">Video caption — optional context about the video content.</div>
+    <div style="font-size:11px;color:#555;margin-top:4px;text-decoration:underline;">Download Transcript</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Component Library — Ohio State Events</title>
+  <style>
+    /* ===== BUCKEYE FONTS ===== */
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-RegularItalic.woff2') format('woff2'); font-weight: 400; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-SemiBoldItalic.woff2') format('woff2'); font-weight: 600; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
+    @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-BoldItalic.woff2') format('woff2'); font-weight: 700; font-style: italic; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'BuckeyeSans', Arial, Helvetica, sans-serif; color: #333; background: #fff; padding: 40px 0; }
+    h1, h2, h3, h4, h5, h6 { font-family: 'BuckeyeSerif', Georgia, serif; }
+    :root { --max-width: 1200px; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* ===== BUX PILL LABEL ===== */
+    .bux-label {
+      display: inline-block; background: #e0e7ff; color: #3b4fc4;
+      font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; padding: 3px 10px; border-radius: 10px;
+      line-height: 1.4;
+    }
+
+    /* ===== COMPONENT SECTION ===== */
+    .comp {
+      border: 1px solid #ddd; margin: 0 auto 40px; max-width: var(--max-width);
+      padding: 32px; background: #fff;
+    }
+    .comp__title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; margin-bottom: 4px;
+    }
+    .comp__name {
+      font-size: 20px; font-weight: 700; margin-bottom: 4px;
+    }
+    .comp__url {
+      font-size: 10px; color: #aaa; margin-bottom: 20px; display: block;
+    }
+    .comp__demo {
+      border: 1px dashed #ddd; padding: 24px; background: #fafafa;
+    }
+    .comp__variant-label {
+      font-size: 10px; color: #999; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 600; margin: 20px 0 8px; display: block;
+    }
+
+    /* Image placeholder with X */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc;
+      width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+
+    /* Generic btn */
+    .btn {
+      display: inline-block; border: 2px solid #333; background: #fff;
+      color: #333; padding: 10px 24px; font-size: 13px; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+    }
+    .btn--filled { background: #333; color: #fff; }
+    .btn--sm { padding: 6px 16px; font-size: 11px; }
+    .btn--alt { border-color: #888; color: #888; }
+    .btn--alt-sm { border-color: #888; color: #888; padding: 6px 16px; font-size: 11px; }
+    .btn--disabled { border-color: #ccc; color: #ccc; cursor: not-allowed; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 760px) {
+      .resp-stack { grid-template-columns: 1fr !important; }
+      .resp-2col { grid-template-columns: repeat(2, 1fr) !important; }
+    }
+    @media (max-width: 640px) {
+      .resp-2col { grid-template-columns: 1fr !important; }
+      .resp-stack-sm { flex-direction: column !important; }
+    }
+  </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+</head>
+<body>
+
+<div class="container" style="margin-bottom:40px;">
+  <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Project Component Library</h1>
+  <p style="font-size:13px;color:#888;">32 components used across the Ohio State Events wireframe site</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+
+<div class="comp" style="margin-bottom:40px;">
+  <div class="comp__title">Table of Contents</div>
+  <div class="comp__name">32 Components</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:16px;">
+    <div><a href="#c1" style="font-size:12px;color:#555;text-decoration:underline;">1. OSU Navbar</a></div>
+    <div><a href="#c2" style="font-size:12px;color:#555;text-decoration:underline;">2. Site Header</a></div>
+    <div><a href="#c3" style="font-size:12px;color:#555;text-decoration:underline;">3. Main Navigation (with Dropdowns)</a></div>
+    <div><a href="#c4" style="font-size:12px;color:#555;text-decoration:underline;">4. Mobile Menu (Accordion)</a></div>
+    <div><a href="#c5" style="font-size:12px;color:#555;text-decoration:underline;">5. Breadcrumb</a></div>
+    <div><a href="#c6" style="font-size:12px;color:#555;text-decoration:underline;">6. Interior Page Hero</a></div>
+    <div><a href="#c7" style="font-size:12px;color:#555;text-decoration:underline;">7. Hero (Card-Full)</a></div>
+    <div><a href="#c8" style="font-size:12px;color:#555;text-decoration:underline;">8. Panel (Intro Block)</a></div>
+    <div><a href="#c9" style="font-size:12px;color:#555;text-decoration:underline;">9. Card (Default)</a></div>
+    <div><a href="#c10" style="font-size:12px;color:#555;text-decoration:underline;">10. Card (Storytelling / Blog)</a></div>
+    <div><a href="#c11" style="font-size:12px;color:#555;text-decoration:underline;">11. Featured Card (image-left)</a></div>
+    <div><a href="#c12" style="font-size:12px;color:#555;text-decoration:underline;">12. Featured Card (image-right)</a></div>
+    <div><a href="#c13" style="font-size:12px;color:#555;text-decoration:underline;">13. Feature Card</a></div>
+    <div><a href="#c14" style="font-size:12px;color:#555;text-decoration:underline;">14. Quote</a></div>
+    <div><a href="#c15" style="font-size:12px;color:#555;text-decoration:underline;">15. Factoid</a></div>
+    <div><a href="#c16" style="font-size:12px;color:#555;text-decoration:underline;">16. CTA In Page</a></div>
+    <div><a href="#c17" style="font-size:12px;color:#555;text-decoration:underline;">17. People List (Team Grid)</a></div>
+    <div><a href="#c18" style="font-size:12px;color:#555;text-decoration:underline;">18. Person Detail (Bio Page)</a></div>
+    <div><a href="#c19" style="font-size:12px;color:#555;text-decoration:underline;">19. Form</a></div>
+    <div><a href="#c20" style="font-size:12px;color:#555;text-decoration:underline;">20. Site Footer</a></div>
+    <div><a href="#c21" style="font-size:12px;color:#555;text-decoration:underline;">21. Search Overlay</a></div>
+    <div><a href="#c22" style="font-size:12px;color:#555;text-decoration:underline;">22. Search Results</a></div>
+    <div><a href="#c23" style="font-size:12px;color:#555;text-decoration:underline;">23. Confirmation Page</a></div>
+    <div><a href="#c24" style="font-size:12px;color:#555;text-decoration:underline;">24. Photo Gallery + Lightbox</a></div>
+    <div><a href="#c25" style="font-size:12px;color:#555;text-decoration:underline;">25. Quick Info Bar</a></div>
+    <div><a href="#c26" style="font-size:12px;color:#555;text-decoration:underline;">26. Amenities List</a></div>
+    <div><a href="#c27" style="font-size:12px;color:#555;text-decoration:underline;">27. Hotel/Venue Card Grid</a></div>
+    <div><a href="#c28" style="font-size:12px;color:#555;text-decoration:underline;">28. Blog Article Layout</a></div>
+    <div><a href="#c29" style="font-size:12px;color:#555;text-decoration:underline;">29. Blog Card Grid with Pagination</a></div>
+    <div><a href="#c30" style="font-size:12px;color:#555;text-decoration:underline;">30. Venue Filter Bar</a></div>
+    <div><a href="#c31" style="font-size:12px;color:#555;text-decoration:underline;">31. Category Divider</a></div>
+    <div><a href="#c32" style="font-size:12px;color:#555;text-decoration:underline;">32. Callout Box</a></div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 1. OSU NAVBAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c1">
+  <div class="comp__title">Component 01</div>
+  <div class="comp__name">OSU Navbar</div>
+  <span class="comp__url">Used on: All pages</span>
+  <span class="bux-label">BUX: OSU Navbar</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="background:#f0f0f0;border:1px solid #ccc;padding:8px 16px;display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+      <span style="font-weight:700;font-size:12px;">THE OHIO STATE UNIVERSITY</span>
+      <div style="display:flex;gap:16px;color:#666;">
+        <span>Map</span><span>Search Ohio State</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 2. SITE HEADER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c2">
+  <div class="comp__title">Component 02</div>
+  <div class="comp__name">Site Header</div>
+  <span class="comp__url">Used on: All pages</span>
+  <span class="bux-label">BUX: Site Header</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-bottom:1px solid #ddd;padding:16px 0;display:flex;justify-content:space-between;align-items:center;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:48px;height:48px;border:2px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;text-align:center;line-height:1.1;flex-shrink:0;">Logo</div>
+        <div>
+          <div style="font-size:11px;color:#999;">The Ohio State University</div>
+          <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:20px;font-weight:700;color:#333;">Ohio State Events</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="width:20px;height:20px;border:2px solid #999;border-radius:50;position:relative;">
+          <div style="position:absolute;bottom:-4px;right:-4px;width:8px;height:2px;background:#999;transform:rotate(45deg);"></div>
+        </div>
+        <span class="btn btn--filled" style="font-size:12px;padding:8px 18px;">Request Information</span>
+        <div style="width:28px;height:20px;display:flex;flex-direction:column;justify-content:space-between;">
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 3. MAIN NAVIGATION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c3">
+  <div class="comp__title">Component 03</div>
+  <div class="comp__name">Main Navigation (with Dropdowns)</div>
+  <span class="comp__url">Used on: All pages</span>
+  <span class="bux-label">BUX: Menu (w/ Dropdowns)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-bottom:1px solid #ddd;display:flex;gap:0;">
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;border-bottom:2px solid #333;">Plan &#9662;</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Stay &#9662;</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">Experience &#9662;</span>
+      <span style="padding:10px 20px;font-size:13px;font-weight:600;color:#555;">About Us &#9662;</span>
+    </div>
+    <div style="border:1px solid #ccc;padding:12px 20px;max-width:220px;background:#fff;font-size:12px;line-height:2.2;color:#555;border-top:2px solid #333;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#999;font-weight:700;">Plan Your Event</div>
+      Venues &amp; Spaces<br>Catering &amp; Dining<br>
+      <div style="height:1px;background:#eee;margin:4px 0;"></div>
+      <strong style="color:#333;">View All Plan &rarr;</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 4. MOBILE MENU -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c4">
+  <div class="comp__title">Component 04</div>
+  <div class="comp__name">Mobile Menu (Accordion)</div>
+  <span class="comp__url">Used on: All pages (below 760px)</span>
+  <span class="bux-label">BUX: Mobile Menu</span>
+  <div class="comp__demo" style="margin-top:12px;max-width:400px;">
+    <div style="background:#fff;border:1px solid #ddd;">
+      <div style="display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #eee;">
+        <input type="text" placeholder="Search..." style="flex:1;height:32px;border:1px solid #ccc;padding:0 10px;font-size:12px;font-family:'BuckeyeSans',Arial,sans-serif;">
+        <button style="width:32px;height:32px;border:1px solid #ccc;background:#f0f0f0;font-size:12px;cursor:pointer;">&#128269;</button>
+      </div>
+      <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;">Plan <span style="color:#999;font-size:11px;">&#9654;</span></div>
+      <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;">Stay <span style="color:#999;font-size:11px;">&#9654;</span></div>
+      <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;">Experience <span style="color:#999;font-size:11px;">&#9654;</span></div>
+      <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;">About Us <span style="color:#999;font-size:11px;">&#9654;</span></div>
+      <div style="padding:12px 16px;"><span class="btn btn--filled" style="display:block;text-align:center;font-size:12px;">Request Information</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 5. BREADCRUMB -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c5">
+  <div class="comp__title">Component 05</div>
+  <div class="comp__name">Breadcrumb</div>
+  <span class="comp__url">Used on: All interior pages</span>
+  <span class="bux-label">BUX: Breadcrumb</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="font-size:12px;color:#999;">
+      <a href="#" style="color:#666;text-decoration:underline;">Home</a>
+      <span style="margin:0 8px;color:#ccc;">/</span>
+      <a href="#" style="color:#666;text-decoration:underline;">About Us</a>
+      <span style="margin:0 8px;color:#ccc;">/</span>
+      <span>Our Story</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 6. INTERIOR PAGE HERO -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c6">
+  <div class="comp__title">Component 06</div>
+  <div class="comp__name">Interior Page Hero</div>
+  <span class="comp__url">Used on: About Us, Blog, Venues, Our Story, Blackwell Inn, Request Information</span>
+  <span class="bux-label">BUX: Interior Page Hero</span>
+  <div class="comp__demo" style="margin-top:12px;padding:0;">
+    <div style="background:#f0f0f0;display:grid;grid-template-columns:5fr 7fr;min-height:240px;" class="resp-stack">
+      <div style="padding:40px 32px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;font-weight:600;margin-bottom:8px;">Ohio State Events</div>
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:12px;">About Us</div>
+        <div style="font-size:14px;color:#666;line-height:1.6;margin-bottom:20px;">The people, purpose, and passion behind Ohio State's premier events team.</div>
+        <div><span class="btn btn--filled">Get in Touch</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:240px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 7. HERO (CARD-FULL) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c7">
+  <div class="comp__title">Component 07</div>
+  <div class="comp__name">Hero (Card-Full)</div>
+  <span class="comp__url">Used on: Homepage</span>
+  <span class="bux-label">BUX: Hero (card-full)</span>
+  <div class="comp__demo" style="margin-top:12px;padding:0;">
+    <div style="background:#e0e0e0;position:relative;overflow:hidden;min-height:300px;display:flex;align-items:center;">
+      <div style="position:absolute;background:#ccc;width:160%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(15deg);"></div>
+      <div style="position:absolute;background:#ccc;width:160%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-15deg);"></div>
+      <div style="position:relative;z-index:1;max-width:480px;margin:32px;background:rgba(255,255,255,0.95);padding:32px;">
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:12px;">Your Event. Our Campus.<br>The Buckeye Experience.</div>
+        <div style="font-size:14px;color:#666;line-height:1.6;margin-bottom:20px;">140+ venues, world-class services, one unforgettable destination.</div>
+        <span class="btn btn--filled">Plan Your Event</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 8. PANEL (INTRO BLOCK) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c8">
+  <div class="comp__title">Component 08</div>
+  <div class="comp__name">Panel (Intro Block)</div>
+  <span class="comp__url">Used on: About Us, Our Story, Blackwell Inn</span>
+  <span class="bux-label">BUX: Panel</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:720px;">
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:26px;font-weight:700;line-height:1.3;margin-bottom:16px;">Our Team</div>
+      <div style="font-size:14px;color:#666;line-height:1.7;">Ohio State Events serves as your central point of access to the extraordinary depth of talent across The Ohio State University. We coordinate venues, catering, technology, and hospitality so you can focus on what matters most.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 9. CARD (DEFAULT) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c9">
+  <div class="comp__title">Component 09</div>
+  <div class="comp__name">Card (Default)</div>
+  <span class="comp__url">Used on: Homepage, About Us, Blog, Confirmation, Our Story</span>
+  <span class="bux-label">BUX: Card (default)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="resp-stack">
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:160px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Signature Venue</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">The Blackwell Inn</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px;">Ohio State's premier on-campus hotel.</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Explore Venue</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:160px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Signature Venue</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">Ohio Union</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px;">Flexible facility for every type of event.</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Explore Venue</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:160px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Signature Venue</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">Ohio Stadium</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;margin-bottom:12px;">One of the most recognizable landmarks in college athletics.</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Explore Venue</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 10. CARD (STORYTELLING / BLOG) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c10">
+  <div class="comp__title">Component 10</div>
+  <div class="comp__name">Card (Storytelling / Blog)</div>
+  <span class="comp__url">Used on: About Us, Homepage</span>
+  <span class="bux-label">BUX: Card (storytelling)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="resp-stack">
+      <div style="border:1px solid #ccc;background:#fff;text-decoration:none;color:inherit;">
+        <div class="img-placeholder" style="height:180px;"></div>
+        <div style="padding:16px 16px 20px;">
+          <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#333;">5 Reasons to Host Your Next Conference at Ohio State</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;">Discover why event planners keep coming back.</div>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;text-decoration:none;color:inherit;">
+        <div class="img-placeholder" style="height:180px;"></div>
+        <div style="padding:16px 16px 20px;">
+          <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#333;">Behind the Scenes: Ohio Stadium Events</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;">A look at what it takes to transform The Shoe.</div>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;text-decoration:none;color:inherit;">
+        <div class="img-placeholder" style="height:180px;"></div>
+        <div style="padding:16px 16px 20px;">
+          <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:16px;font-weight:700;line-height:1.3;margin-bottom:8px;color:#333;">Seasonal Guide: Spring Events on Campus</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;">The best times and spaces for spring events.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 11. FEATURED CARD (IMAGE-LEFT) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c11">
+  <div class="comp__title">Component 11</div>
+  <div class="comp__name">Featured Card (image-left)</div>
+  <span class="comp__url">Used on: Homepage, About Us, Blackwell Inn</span>
+  <span class="bux-label">BUX: Featured Card (image-left)</span>
+  <div class="comp__demo" style="margin-top:12px;padding:0;">
+    <div style="display:grid;grid-template-columns:7fr 5fr;border:1px solid #ccc;background:#fff;" class="resp-stack">
+      <div class="img-placeholder" style="min-height:240px;"></div>
+      <div style="padding:40px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;font-weight:600;margin-bottom:10px;">Our Mission</div>
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.2;">One Campus. One Team. Limitless Possibilities.</div>
+        <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:20px;">We exist to make Ohio State the easiest and most rewarding place to host an event.</div>
+        <div><span class="btn btn--filled">Get in Touch</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 12. FEATURED CARD (IMAGE-RIGHT) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c12">
+  <div class="comp__title">Component 12</div>
+  <div class="comp__name">Featured Card (image-right)</div>
+  <span class="comp__url">Used on: Blackwell Inn</span>
+  <span class="bux-label">BUX: Featured Card (image-right)</span>
+  <div class="comp__demo" style="margin-top:12px;padding:0;">
+    <div style="display:grid;grid-template-columns:5fr 7fr;border:1px solid #ccc;background:#fff;" class="resp-stack">
+      <div style="padding:40px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="font-size:10px;text-transform:uppercase;letter-spacing:2px;color:#999;font-weight:600;margin-bottom:10px;">Location</div>
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:22px;font-weight:700;margin-bottom:12px;line-height:1.2;">In the Heart of Campus</div>
+        <div style="font-size:13px;color:#888;line-height:1.6;margin-bottom:20px;">Walking distance of Ohio Stadium, the Wexner Center, and the Short North Arts District.</div>
+        <div><span class="btn">Explore Ohio State</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:240px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 13. FEATURE CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c13">
+  <div class="comp__title">Component 13</div>
+  <div class="comp__name">Feature Card</div>
+  <span class="comp__url">Used on: About Us, Our Story, Blackwell Inn</span>
+  <span class="bux-label">BUX: Feature Card</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:360px;">
+      <div style="border:1px solid #ccc;background:#fff;overflow:hidden;">
+        <div class="img-placeholder" style="height:200px;"></div>
+        <div style="padding:24px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Accommodations</div>
+          <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:18px;font-weight:700;margin-bottom:8px;line-height:1.3;">Guest Rooms &amp; Suites</div>
+          <div style="font-size:13px;color:#777;line-height:1.6;margin-bottom:16px;">151 guest rooms with modern furnishings and campus views.</div>
+          <a href="#" style="font-size:13px;color:#555;font-weight:600;text-decoration:underline;">View Rooms &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 14. QUOTE -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c14">
+  <div class="comp__title">Component 14</div>
+  <div class="comp__name">Quote</div>
+  <span class="comp__url">Used on: About Us, Blackwell Inn, Elizabeth Willy, Our Story</span>
+  <span class="bux-label">BUX: Quote</span>
+  <div class="comp__demo" style="margin-top:12px;background:#f7f7f7;">
+    <div style="max-width:720px;margin:0 auto;text-align:center;">
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:60px;color:#ccc;line-height:1;margin-bottom:-10px;">&ldquo;</div>
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:20px;font-weight:400;line-height:1.6;color:#444;font-style:italic;margin-bottom:16px;">Working with the Ohio State Events team felt like having an insider on campus.</div>
+      <div style="font-size:12px;color:#999;font-weight:600;">&mdash; Association Director, National Conference 2025</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 15. FACTOID -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c15">
+  <div class="comp__title">Component 15</div>
+  <div class="comp__name">Factoid</div>
+  <span class="comp__url">Used on: Homepage, About Us, Blackwell Inn</span>
+  <span class="bux-label">BUX: Factoid</span>
+  <div class="comp__demo" style="margin-top:12px;background:#f7f7f7;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center;" class="resp-stack">
+      <div style="border-right:1px solid #ddd;padding:0 16px;">
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:36px;font-weight:700;color:#333;margin-bottom:4px;">60K+</div>
+        <div style="font-size:12px;color:#888;line-height:1.4;">Events Hosted Annually</div>
+      </div>
+      <div style="border-right:1px solid #ddd;padding:0 16px;">
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:36px;font-weight:700;color:#333;margin-bottom:4px;">140+</div>
+        <div style="font-size:12px;color:#888;line-height:1.4;">Venues Across Campus</div>
+      </div>
+      <div style="padding:0 16px;">
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:36px;font-weight:700;color:#333;margin-bottom:4px;">500K+</div>
+        <div style="font-size:12px;color:#888;line-height:1.4;">Alumni Worldwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 16. CTA IN PAGE -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c16">
+  <div class="comp__title">Component 16</div>
+  <div class="comp__name">CTA In Page</div>
+  <span class="comp__url">Used on: About Us, Blog, Blog Article, Our Story, Elizabeth Willy, Blackwell Inn</span>
+  <span class="bux-label">BUX: CTA In Page</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="text-align:center;padding:24px 0;">
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:22px;font-weight:700;margin-bottom:8px;">Let's Start a Conversation</div>
+      <div style="font-size:13px;color:#888;max-width:480px;margin:0 auto 20px;line-height:1.5;">Ready to learn more? We'd love to hear from you.</div>
+      <span class="btn btn--filled">Request Information</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 17. PEOPLE LIST (TEAM GRID) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c17">
+  <div class="comp__title">Component 17</div>
+  <div class="comp__name">People List (Team Grid)</div>
+  <span class="comp__url">Used on: About Us, Elizabeth Willy</span>
+  <span class="bux-label">BUX: People List</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:400px;">
+      <div style="text-align:center;">
+        <div style="width:120px;height:120px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 12px;position:relative;overflow:hidden;">
+          <div style="position:absolute;background:#ccc;width:141%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);"></div>
+          <div style="position:absolute;background:#ccc;width:141%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);"></div>
+        </div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Elizabeth Willy</div>
+        <div style="font-size:12px;color:#888;">Marketing Manager</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:120px;height:120px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 12px;position:relative;overflow:hidden;">
+          <div style="position:absolute;background:#ccc;width:141%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(45deg);"></div>
+          <div style="position:absolute;background:#ccc;width:141%;height:1px;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-45deg);"></div>
+        </div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Kelly Mulhern</div>
+        <div style="font-size:12px;color:#888;">Director of Sales</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 18. PERSON DETAIL (BIO PAGE) -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c18">
+  <div class="comp__title">Component 18</div>
+  <div class="comp__name">Person Detail (Bio Page)</div>
+  <span class="comp__url">Used on: Elizabeth Willy</span>
+  <span class="bux-label">BUX: Person (detail page)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;" class="resp-stack">
+      <div class="img-placeholder" style="width:200px;height:240px;"></div>
+      <div>
+        <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:26px;font-weight:700;line-height:1.2;margin-bottom:4px;">Elizabeth Willy</div>
+        <div style="font-size:14px;color:#666;margin-bottom:4px;">Regional and National Marketing Manager</div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:12px;">Ohio State Events</div>
+        <div style="font-size:13px;color:#555;margin-bottom:4px;">&#9993; willy.9@osu.edu</div>
+        <div style="font-size:13px;color:#555;margin-bottom:4px;">&#9742; 614-247-1168 Office</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 19. FORM -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c19">
+  <div class="comp__title">Component 19</div>
+  <div class="comp__name">Form</div>
+  <span class="comp__url">Used on: Request Information</span>
+  <span class="bux-label">BUX: Form</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:600px;">
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:16px;font-weight:700;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ddd;">Contact Information</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;" class="resp-stack">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">First Name <span style="color:#c00;">*</span></label>
+          <input type="text" placeholder="First name" style="width:100%;border:1px solid #ccc;padding:10px 14px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#333;background:#fff;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Last Name <span style="color:#c00;">*</span></label>
+          <input type="text" placeholder="Last name" style="width:100%;border:1px solid #ccc;padding:10px 14px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#333;background:#fff;">
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Event Type <span style="color:#c00;">*</span></label>
+        <select style="width:100%;border:1px solid #ccc;padding:10px 14px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#333;background:#fff;appearance:auto;">
+          <option>Select event type...</option><option>Conference</option><option>Meeting</option>
+        </select>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 24px;margin-bottom:16px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <input type="checkbox" style="width:16px;height:16px;margin-top:2px;flex-shrink:0;">
+          <label style="font-size:13px;color:#555;line-height:1.4;">Venue / Space</label>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <input type="checkbox" style="width:16px;height:16px;margin-top:2px;flex-shrink:0;">
+          <label style="font-size:13px;color:#555;line-height:1.4;">Catering &amp; Dining</label>
+        </div>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Additional Details</label>
+        <textarea placeholder="Share any details..." style="width:100%;border:1px solid #ccc;padding:10px 14px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#333;background:#fff;min-height:80px;resize:vertical;"></textarea>
+      </div>
+      <span class="btn btn--filled">Submit Request</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 20. SITE FOOTER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c20">
+  <div class="comp__title">Component 20</div>
+  <div class="comp__name">Site Footer</div>
+  <span class="comp__url">Used on: All pages</span>
+  <span class="bux-label">BUX: Site Footer</span>
+  <div class="comp__demo" style="margin-top:12px;padding:0;background:#f0f0f0;">
+    <div style="padding:24px;">
+      <div style="display:grid;grid-template-columns:5fr 7fr;gap:40px;margin-bottom:24px;" class="resp-stack">
+        <div>
+          <div style="width:40px;height:40px;border:2px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;margin-bottom:12px;">Logo</div>
+          <div style="font-weight:700;font-size:14px;color:#333;margin-bottom:8px;">Ohio State Events</div>
+          <div style="line-height:1.8;color:#888;font-size:12px;">The Ohio State University<br>Columbus, OH 43210</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;" class="resp-2col">
+          <div>
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Plan</div>
+            <div style="font-size:12px;color:#888;line-height:2;">Venues<br>Catering</div>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Stay</div>
+            <div style="font-size:12px;color:#888;line-height:2;">Blackwell Inn<br>Hotels</div>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Experience</div>
+            <div style="font-size:12px;color:#888;line-height:2;">Buckeye Experiences</div>
+          </div>
+          <div>
+            <div style="font-weight:700;font-size:12px;color:#333;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">About Us</div>
+            <div style="font-size:12px;color:#888;line-height:2;">Our Story<br>Blog</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:20px;border-top:1px solid #ddd;font-size:11px;color:#999;" class="resp-stack-sm">
+        <div>&copy; 2026 The Ohio State University</div>
+        <div style="display:flex;gap:20px;">
+          <span>Privacy Policy</span> <span>Terms</span> <span>Accessibility</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 21. SEARCH OVERLAY -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c21">
+  <div class="comp__title">Component 21</div>
+  <div class="comp__name">Search Overlay</div>
+  <span class="comp__url">Used on: All pages (triggered by search icon)</span>
+  <span class="bux-label">BUX: Search Overlay</span>
+  <div class="comp__demo" style="margin-top:12px;background:#333;color:#fff;padding:40px;text-align:center;">
+    <div style="font-size:24px;font-weight:700;margin-bottom:16px;font-family:'BuckeyeSerif',Georgia,serif;">Search Ohio State Events</div>
+    <div style="display:flex;max-width:500px;margin:0 auto;">
+      <input type="text" placeholder="Search..." style="flex:1;height:44px;border:none;border-bottom:2px solid #fff;background:transparent;padding:0 12px;font-size:15px;color:#fff;outline:none;font-family:'BuckeyeSans',Arial,sans-serif;">
+      <button style="height:44px;padding:0 24px;border:none;background:#fff;color:#333;font-weight:600;cursor:pointer;font-family:'BuckeyeSans',Arial,sans-serif;">Search</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 22. SEARCH RESULTS -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c22">
+  <div class="comp__title">Component 22</div>
+  <div class="comp__name">Search Results</div>
+  <span class="comp__url">Used on: search-results.html</span>
+  <span class="bux-label">BUX: Search Results</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:600px;">
+      <div style="display:flex;margin-bottom:16px;">
+        <input type="text" placeholder="Search Ohio State Events..." value="events" style="flex:1;height:44px;border:none;border-bottom:2px solid #333;background:#f0f0f0;padding:0 12px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:15px;color:#333;outline:none;">
+        <button style="height:44px;padding:0 28px;border:none;border-bottom:2px solid #333;background:#333;color:#fff;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;font-weight:600;cursor:pointer;">Search</button>
+      </div>
+      <div style="font-size:13px;color:#888;margin-bottom:12px;">Showing 1&ndash;8 of 24 results</div>
+      <div style="padding:16px 0;border-bottom:1px solid #e0e0e0;">
+        <a href="#" style="font-size:16px;font-weight:700;color:#333;text-decoration:none;">Venues &amp; Event Spaces</a>
+        <div style="font-size:12px;color:#888;margin-top:4px;">scarletandgrayexperiences.osu.edu &rsaquo; plan &rsaquo; venues</div>
+        <div style="font-size:13px;color:#666;line-height:1.5;margin-top:6px;">Explore over 140 indoor and outdoor venues across campus.</div>
+      </div>
+      <div style="padding:16px 0;border-bottom:1px solid #e0e0e0;">
+        <a href="#" style="font-size:16px;font-weight:700;color:#333;text-decoration:none;">The Blackwell Inn</a>
+        <div style="font-size:12px;color:#888;margin-top:4px;">scarletandgrayexperiences.osu.edu &rsaquo; stay &rsaquo; blackwell-inn</div>
+        <div style="font-size:13px;color:#666;line-height:1.5;margin-top:6px;">A full-service boutique hotel located in the heart of campus.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 23. CONFIRMATION PAGE -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c23">
+  <div class="comp__title">Component 23</div>
+  <div class="comp__name">Confirmation Page</div>
+  <span class="comp__url">Used on: request-confirmation.html</span>
+  <span class="bux-label">Confirmation Page</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="width:64px;height:64px;border:3px solid #999;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;color:#999;margin:0 auto 16px;">&#10003;</div>
+    <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:26px;font-weight:700;text-align:center;margin-bottom:8px;">Thank You for Your Request!</div>
+    <div style="font-size:14px;color:#666;text-align:center;max-width:480px;margin:0 auto 20px;line-height:1.6;">We've received your inquiry and will be in touch within 1-2 business days.</div>
+    <div style="display:flex;gap:12px;justify-content:center;">
+      <span class="btn">Return to Homepage</span>
+      <span class="btn btn--filled">Explore Venues</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 24. PHOTO GALLERY + LIGHTBOX -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c24">
+  <div class="comp__title">Component 24</div>
+  <div class="comp__name">Photo Gallery + Lightbox</div>
+  <span class="comp__url">Used on: Blackwell Inn</span>
+  <span class="bux-label">BUX: Photo Gallery (click to enlarge)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div>
+      <div class="img-placeholder" style="height:200px;width:100%;"></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:12px;color:#888;">
+        <span>Hotel Exterior</span><span>1 of 9</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+      <button style="width:32px;height:32px;border:1px solid #ccc;background:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&larr;</button>
+      <div style="display:flex;gap:4px;flex:1;overflow:hidden;">
+        <div style="width:48px;height:36px;background:#e8e8e8;border:2px solid #333;flex-shrink:0;"></div>
+        <div style="width:48px;height:36px;background:#e8e8e8;border:1px solid #ccc;flex-shrink:0;"></div>
+        <div style="width:48px;height:36px;background:#e8e8e8;border:1px solid #ccc;flex-shrink:0;"></div>
+        <div style="width:48px;height:36px;background:#e8e8e8;border:1px solid #ccc;flex-shrink:0;"></div>
+        <div style="width:48px;height:36px;background:#e8e8e8;border:1px solid #ccc;flex-shrink:0;"></div>
+      </div>
+      <button style="width:32px;height:32px;border:1px solid #ccc;background:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 25. QUICK INFO BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c25">
+  <div class="comp__title">Component 25</div>
+  <div class="comp__name">Quick Info Bar</div>
+  <span class="comp__url">Used on: Blackwell Inn</span>
+  <span class="bux-label">Quick Info Bar</span>
+  <div class="comp__demo" style="margin-top:12px;background:#f7f7f7;">
+    <div style="display:flex;gap:32px;flex-wrap:wrap;font-size:13px;color:#555;">
+      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#999;">&#9679;</span><span><strong style="color:#333;">Location:</strong> 2110 Tuttle Park Place</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#999;">&#9679;</span><span><strong style="color:#333;">Phone:</strong> (614) 247-4000</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="color:#999;">&#9679;</span><span><strong style="color:#333;">Check-in:</strong> 4:00 PM</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 26. AMENITIES LIST -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c26">
+  <div class="comp__title">Component 26</div>
+  <div class="comp__name">Amenities List</div>
+  <span class="comp__url">Used on: Blackwell Inn</span>
+  <span class="bux-label">Amenities</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 48px;max-width:500px;">
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>Complimentary WiFi</div>
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>Concierge Service</div>
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>Fitness Center</div>
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>Room Service</div>
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>On-Site Parking</div>
+      <div style="font-size:13px;color:#555;line-height:1.6;padding:10px 0;border-bottom:1px solid #eee;padding-left:24px;position:relative;"><span style="position:absolute;left:0;color:#666;font-weight:700;">&#10003;</span>ADA Accessible</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 27. HOTEL/VENUE CARD GRID -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c27">
+  <div class="comp__title">Component 27</div>
+  <div class="comp__name">Hotel/Venue Card Grid</div>
+  <span class="comp__url">Used on: Venues &amp; Spaces</span>
+  <span class="bux-label">BUX: Card Grid</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="resp-stack">
+      <div style="border:1px solid #ccc;background:#fff;overflow:hidden;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Blackwell Inn</div>
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">2110 Tuttle Park Place</div>
+          <div style="font-size:11px;color:#999;margin-bottom:8px;">Capacity: 300</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">View Details &rarr;</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;overflow:hidden;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Ohio Union</div>
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">1739 N. High Street</div>
+          <div style="font-size:11px;color:#999;margin-bottom:8px;">Capacity: 1,700</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">View Details &rarr;</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;overflow:hidden;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Ohio Stadium</div>
+          <div style="font-size:12px;color:#888;margin-bottom:4px;">411 Woody Hayes Dr</div>
+          <div style="font-size:11px;color:#999;margin-bottom:8px;">Capacity: 102,780</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">View Details &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 28. BLOG ARTICLE LAYOUT -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c28">
+  <div class="comp__title">Component 28</div>
+  <div class="comp__name">Blog Article Layout</div>
+  <span class="comp__url">Used on: blog-article.html</span>
+  <span class="bux-label">BUX: Blog Article</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="max-width:600px;">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#999;font-weight:600;margin-bottom:8px;">Event Planning</div>
+      <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:24px;font-weight:700;line-height:1.2;margin-bottom:8px;">How Ohio State Hosted 500+ Attendees in 3 Days</div>
+      <div style="font-size:13px;color:#999;margin-bottom:16px;">Published March 12, 2026</div>
+      <div class="img-placeholder" style="height:180px;width:100%;margin-bottom:16px;"></div>
+      <p style="font-size:14px;line-height:1.7;color:#444;margin-bottom:16px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <div style="border-left:3px solid #333;padding:16px 24px;margin:24px 0;font-style:italic;font-size:18px;line-height:1.6;color:#333;font-family:'BuckeyeSerif',Georgia,serif;">&ldquo;The collaboration between our events team and campus partners made it possible.&rdquo;</div>
+      <div style="background:#f7f7f7;border:1px solid #eee;padding:20px;display:flex;gap:16px;align-items:center;margin-top:16px;">
+        <div style="width:40px;height:40px;border-radius:50%;background:#ddd;border:1px solid #ccc;flex-shrink:0;"></div>
+        <div>
+          <div style="font-size:14px;font-weight:700;color:#333;margin-bottom:2px;">Ohio State Events Team</div>
+          <div style="font-size:12px;color:#888;line-height:1.5;">The official blog of Ohio State Events.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 29. BLOG CARD GRID WITH PAGINATION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c29">
+  <div class="comp__title">Component 29</div>
+  <div class="comp__name">Blog Card Grid with Pagination</div>
+  <span class="comp__url">Used on: blog.html</span>
+  <span class="bux-label">BUX: Card Grid (3-col)</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="resp-stack">
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Event Planning</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">10 Tips for Planning a Conference</div>
+          <div style="font-size:11px;color:#aaa;margin-bottom:8px;">March 5, 2026</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Read Article &rarr;</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Campus Life</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">Spring on the Oval</div>
+          <div style="font-size:11px;color:#aaa;margin-bottom:8px;">Feb 28, 2026</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Read Article &rarr;</a>
+        </div>
+      </div>
+      <div style="border:1px solid #ccc;background:#fff;">
+        <div class="img-placeholder" style="height:140px;"></div>
+        <div style="padding:16px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#999;font-weight:600;margin-bottom:6px;">Venues</div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3;">Inside the Ohio Union</div>
+          <div style="font-size:11px;color:#aaa;margin-bottom:8px;">Feb 20, 2026</div>
+          <a href="#" style="font-size:12px;color:#555;font-weight:600;text-decoration:underline;">Read Article &rarr;</a>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;margin-top:24px;">
+      <span style="background:#333;color:#fff;padding:8px 14px;font-size:13px;border:1px solid #333;font-family:'BuckeyeSans',Arial,sans-serif;font-weight:600;">1</span>
+      <span style="background:#fff;color:#333;padding:8px 14px;font-size:13px;border:1px solid #ccc;font-family:'BuckeyeSans',Arial,sans-serif;font-weight:600;">2</span>
+      <span style="background:#fff;color:#333;padding:8px 14px;font-size:13px;border:1px solid #ccc;font-family:'BuckeyeSans',Arial,sans-serif;font-weight:600;">3</span>
+      <span style="background:#fff;color:#333;padding:8px 14px;font-size:13px;border:1px solid #ccc;font-family:'BuckeyeSans',Arial,sans-serif;font-weight:600;">Next &rarr;</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 30. VENUE FILTER BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c30">
+  <div class="comp__title">Component 30</div>
+  <div class="comp__name">Venue Filter Bar</div>
+  <span class="comp__url">Used on: venues-spaces.html</span>
+  <span class="bux-label">BUX: Panel + Filter Bar</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:16px 0;">
+      <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;">Filter:</span>
+      <select style="height:38px;border:1px solid #ccc;padding:0 12px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#555;background:#fff;appearance:auto;cursor:pointer;">
+        <option>Capacity</option><option>50 or Less</option><option>51 - 200</option>
+      </select>
+      <select style="height:38px;border:1px solid #ccc;padding:0 12px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#555;background:#fff;appearance:auto;cursor:pointer;">
+        <option>Venue Type</option><option>Conference</option><option>Athletic</option>
+      </select>
+      <select style="height:38px;border:1px solid #ccc;padding:0 12px;font-family:'BuckeyeSans',Arial,sans-serif;font-size:13px;color:#555;background:#fff;appearance:auto;cursor:pointer;">
+        <option>Location</option><option>Central Campus</option><option>North Campus</option>
+      </select>
+      <span class="btn btn--filled" style="height:38px;display:inline-flex;align-items:center;padding:0 20px;font-size:12px;">GO</span>
+      <span style="font-size:12px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:0.5px;cursor:pointer;">Clear</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 31. CATEGORY DIVIDER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c31">
+  <div class="comp__title">Component 31</div>
+  <div class="comp__name">Category Divider</div>
+  <span class="comp__url">Used on: venues-spaces.html</span>
+  <span class="bux-label">Category Divider</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:18px;font-weight:700;padding:16px 0 8px;border-bottom:2px solid #333;">Signature &amp; Conference Venues</div>
+    <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:18px;font-weight:700;padding:16px 0 8px;border-bottom:2px solid #333;margin-top:16px;">Athletic Venues</div>
+    <div style="font-family:'BuckeyeSerif',Georgia,serif;font-size:18px;font-weight:700;padding:16px 0 8px;border-bottom:2px solid #333;margin-top:16px;">Recreation &amp; Outdoor</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- 32. CALLOUT BOX -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c32">
+  <div class="comp__title">Component 32</div>
+  <div class="comp__name">Callout Box</div>
+  <span class="comp__url">Used on: Blackwell Inn, venue detail pages</span>
+  <span class="bux-label">Callout Box</span>
+  <div class="comp__demo" style="margin-top:12px;">
+    <div style="border-left:4px solid #333;background:#f7f7f7;padding:24px 28px;max-width:500px;">
+      <div style="font-size:16px;font-weight:700;margin-bottom:8px;">Need Immediate Assistance?</div>
+      <div style="font-size:13px;color:#666;line-height:1.6;margin-bottom:16px;">For urgent requests or time-sensitive inquiries, please contact us directly at (614) 292-XXXX.</div>
+      <span class="btn btn--filled">Contact Us</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
