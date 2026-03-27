@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - FK Non Branded Nutrition</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <style>
+
+    /* ===== RESET & BASE ===== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #333;
+      background: #fff;
+    }
+
+    /* ===== DS TOKENS (wireframe-mapped) ===== */
+    :root {
+      --pad-3xs: 2px; --pad-2xs: 4px; --pad-xs: 8px; --pad-sm: 12px;
+      --pad-md: 16px; --pad-lg: 24px; --pad-xl: 32px; --pad-2xl: 40px; --pad-3xl: 48px;
+      --mar-3xs: 12px; --mar-2xs: 16px; --mar-xs: 24px; --mar-sm: 32px;
+      --mar-md: 48px; --mar-lg: 64px; --mar-xl: 80px;
+      --radius-md: 6px; --radius-lg: 8px; --radius-xl: 24px; --radius-full: 9999px;
+      --max-width: 1200px;
+      --text-neg2: 12px; --lh-neg2: 18px; --text-neg1: 14px; --lh-neg1: 22px;
+      --text-0: 16px; --lh-0: 24px; --text-1: 18px; --lh-1: 28px;
+      --text-2: 20px; --lh-2: 30px; --text-3: 24px; --lh-3: 36px;
+      --text-4: 30px; --lh-4: 46px; --text-5: 36px; --lh-5: 56px;
+      --display-1: 22px; --dlh-1: 36px; --display-2: 28px; --dlh-2: 46px;
+      --display-3: 36px; --dlh-3: 56px; --display-4: 40px; --dlh-4: 60px;
+      --display-5: 56px; --dlh-5: 84px;
+      --wire-dark: #333; --wire-mid: #666; --wire-light: #999; --wire-faint: #ccc;
+      --wire-bg: #f5f5f5; --wire-bg-alt: #fafafa; --wire-white: #fff;
+    }
+
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 var(--pad-md); width: 100%; }
+
+    /* ===== IMAGE PLACEHOLDER WITH X ===== */
+    .img-placeholder,
+    .card__image,
+    .feature-row__image {
+      background: #e8e8e8;
+      position: relative;
+      overflow: hidden;
+    }
+    .card__image::before, .card__image::after,
+    .feature-row__image::before, .feature-row__image::after {
+      content: '';
+      position: absolute;
+      background: var(--wire-faint);
+      width: 141%;
+      height: 1px;
+      top: 50%; left: 50%;
+    }
+    .card__image::before, .feature-row__image::before { transform: translate(-50%, -50%) rotate(20deg); }
+    .card__image::after, .feature-row__image::after { transform: translate(-50%, -50%) rotate(-20deg); }
+
+    /* ===== FDS COMPONENT LABEL ===== */
+    .fds-label {
+      display: inline-block;
+      background: #e8ecf4;
+      color: #5060a0;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    /* ===== FDS: BUTTON (7:9231) ===== */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: var(--pad-xs); min-height: 24px; min-width: 100px;
+      padding: var(--pad-sm) var(--pad-lg);
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: var(--text-0); font-weight: 600; line-height: var(--lh-0);
+      text-decoration: none; cursor: pointer;
+      border-radius: var(--radius-lg); border: 2px solid var(--wire-dark);
+      background: var(--wire-white); color: var(--wire-dark);
+      white-space: nowrap;    }
+    .btn--primary { background: var(--wire-dark); color: var(--wire-white); border-color: var(--wire-dark); }
+    .btn--secondary { background: var(--wire-white); color: var(--wire-dark); border-color: var(--wire-dark); }
+    .btn--tertiary { background: transparent; color: var(--wire-mid); border-color: var(--wire-faint); }
+
+    /* ===== FDS: PILL (7:9234) ===== */
+    .pill {
+      display: inline-block; padding: var(--pad-2xs) var(--pad-sm);
+      font-size: var(--text-neg2); font-weight: 600; line-height: var(--lh-neg2);
+      border-radius: var(--radius-full); border: 1px solid var(--wire-faint);
+      background: #eee; color: var(--wire-mid);
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* ===== FDS: NAVBAR (4393:9070) ===== */
+    .top-navbar { background: var(--wire-dark); padding: var(--pad-lg) var(--pad-md); }
+    .top-navbar__inner {
+      max-width: var(--max-width); margin: 0 auto;
+      display: flex; align-items: center; gap: var(--pad-3xl);
+    }
+    .top-navbar__logo {
+      width: 100px; height: 19px; border: 1px solid #888; border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #aaa; flex-shrink: 0;
+    }
+    .top-navbar__search {
+      flex: 1; background: var(--wire-white); border-radius: var(--radius-lg);
+      padding: var(--pad-xs) var(--pad-sm);
+      display: flex; align-items: center; gap: var(--pad-xs);
+      font-size: var(--text-0); color: var(--wire-light);
+    }
+    .top-navbar__search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--wire-dark);
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: var(--text-neg1);
+      flex: 1;
+      min-width: 0;
+    }
+    .top-navbar__search-input::placeholder { color: #aaa; }
+    .top-navbar__utils { display: flex; align-items: center; gap: var(--pad-md); flex-shrink: 0; }
+    .top-navbar__util-link {
+      display: flex; align-items: center; gap: var(--pad-2xs);
+      font-size: var(--text-neg1); font-weight: 600; line-height: var(--lh-neg1);
+      color: #ddd; text-decoration: none;
+    }
+    .bottom-navbar { background: var(--wire-bg-alt); padding: var(--pad-lg) var(--pad-md); position: relative; }
+    .bottom-navbar__inner {
+      max-width: var(--max-width); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .bottom-navbar__nav { display: flex; align-items: center; gap: var(--pad-xl); list-style: none; }
+    .bottom-navbar__nav-item {
+      font-size: var(--text-0); font-weight: 400; line-height: var(--lh-0);
+      color: var(--wire-dark); text-decoration: none;
+      display: flex; align-items: center; gap: var(--pad-2xs);
+    }
+    .bottom-navbar__nav-item.is-active {
+      font-weight: 700;
+      color: var(--wire-dark);
+    }
+    .bottom-navbar__nav-item.is-active .bottom-navbar__chevron svg path {
+      stroke: var(--wire-dark);
+    }
+    .bottom-navbar__chevron { font-size: 10px; color: var(--wire-light); display: inline-flex; }
+    .bottom-navbar__chevron svg { width: 10px; height: 10px; }
+    .bottom-navbar__divider {
+      color: #ccc;
+      font-size: 20px;
+      font-weight: 300;
+      padding-left: var(--pad-lg);
+      margin-left: var(--pad-xs);
+      user-select: none;
+    }
+    .bottom-navbar__divider-item { list-style: none; display: flex; align-items: center; }
+
+    /* FDS icon sizing */
+    .fds-icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .fds-icon svg { display: block; }
+    .fds-icon--sm svg { width: 16px; height: 16px; }
+    .fds-icon--md svg { width: 20px; height: 20px; }
+    .fds-icon--nav svg { width: 12px; height: 12px; }
+    .nav-divider { height: 4px; background: linear-gradient(to right, var(--wire-dark), var(--wire-faint)); }
+
+    /* ===== SECTION HELPERS ===== */
+    .section { padding: var(--mar-md) 0; }
+    .section--bordered { border-bottom: 1px solid #eee; }
+    .section--shaded { background: var(--wire-bg); }
+    .section__header { margin-bottom: var(--pad-xl); }
+    .section__eyebrow {
+      font-size: var(--text-neg2); font-weight: 600; text-transform: uppercase;
+      letter-spacing: 2px; color: var(--wire-light); margin-bottom: var(--pad-xs);
+    }
+    .section__title { font-size: var(--text-5); font-weight: 700; line-height: var(--lh-5); margin-bottom: var(--pad-xs); }
+    .section__subtitle { font-size: var(--text-0); line-height: var(--lh-0); color: var(--wire-mid); max-width: 600px; }
+
+    /* ===== FDS: CARDS (9:11824) ===== */
+    .card-grid { display: grid; gap: var(--pad-lg); }
+    .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .card-grid--4 { grid-template-columns: repeat(4, 1fr); }
+    .card {
+      border: 1px solid #ddd; border-radius: var(--radius-xl);
+      overflow: hidden; background: var(--wire-white);
+    }
+    .card__image { height: 180px; border-bottom: 1px solid #eee; }
+    .card__body { padding: var(--pad-lg); }
+    .card__tag { margin-bottom: var(--pad-xs); }
+    .card__title { font-size: var(--text-1); font-weight: 700; line-height: var(--lh-1); margin-bottom: var(--pad-xs); }
+    .card__desc { font-size: var(--text-neg1); line-height: var(--lh-neg1); color: var(--wire-mid); margin-bottom: var(--pad-md); }
+    .card__link { font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+    .card__link svg { width: 14px; height: 14px; }
+
+    /* ===== FDS: PROMO BANNER (9:11823) ===== */
+    .promo-banner {
+      background: #eee; border: 1px solid var(--wire-faint); border-radius: var(--radius-xl);
+      padding: var(--pad-xl) var(--pad-3xl);
+      display: flex; justify-content: space-between; align-items: center; gap: var(--pad-xl);
+    }
+    .promo-banner__title { font-size: var(--text-2); font-weight: 700; line-height: var(--lh-2); margin-bottom: var(--pad-2xs); }
+    .promo-banner__desc { font-size: var(--text-neg1); line-height: var(--lh-neg1); color: var(--wire-mid); }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--wire-dark);
+      color: var(--wire-white);
+      padding: var(--pad-lg) 0;
+      margin-top: var(--pad-xxl);
+    }
+    .footer__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 var(--pad-md);
+    }
+    .footer__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--pad-sm);
+    }
+    .footer__copyright {
+      font-size: 13px;
+      line-height: 20px;
+      color: rgba(255,255,255,0.8);
+      margin: 0;
+    }
+    .footer__logo-mark {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--wire-white);
+    }
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .footer__links a {
+      font-size: 12px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+    .footer__links a:hover { text-decoration: underline; color: var(--wire-white); }
+    .footer__pipe {
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+    }
+    @media (max-width: 767px) {
+      .footer__top { flex-direction: column; align-items: flex-start; gap: var(--pad-sm); }
+    }
+
+    /* ===== STICKY NAV ===== */
+    .site-nav-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid var(--wire-dark);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    /* ===== FDS: MOBILE NAVBAR (3860:20361) ===== */
+    .mobile-navbar {
+      display: none;
+      background: linear-gradient(to right, #555, #444);
+      padding: var(--pad-lg) var(--pad-lg);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+      position: relative; z-index: 100;
+    }
+    .mobile-navbar__inner {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .mobile-navbar__logo {
+      width: 105px; height: 20px; border: 1px solid #888; border-radius: var(--radius-lg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; color: #aaa;
+    }
+    .mobile-navbar__actions { display: flex; align-items: center; gap: var(--pad-lg); }
+    .mobile-navbar__icon {
+      display: flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; cursor: pointer;
+    }
+    .mobile-navbar__icon svg { width: 20px; height: 20px; }
+
+    /* ===== DESKTOP MEGA MENU ===== */
+    .bottom-navbar { position: relative; }
+    .bottom-navbar__nav > li { position: relative; }
+    .bottom-navbar__nav-item { cursor: pointer; }
+    .bottom-navbar__nav-item.is-open .bottom-navbar__chevron svg {
+      transform: rotate(180deg);
+    }
+    .bottom-navbar__chevron svg { transition: transform 0.2s ease; }
+    /* ===== DESKTOP MEGA MENU DROPDOWN ===== */
+    .mega-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      width: 100%;
+      background: var(--wire-white);
+      border-top: 3px solid var(--wire-dark);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      z-index: 90;
+    }
+    .mega-menu.is-open { display: block; }
+    .mega-menu__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: var(--pad-xl) var(--pad-md);
+      display: flex; align-items: stretch;
+      gap: var(--pad-xl);
+    }
+    .mega-menu__left {
+      flex: 1;
+    }
+    .mega-menu__right {
+      width: 280px;
+      flex-shrink: 0;
+    }
+    .mega-menu__section-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--wire-dark);
+      text-decoration: none;
+      margin-bottom: 4px;
+    }
+    .mega-menu__section-title:hover { text-decoration: underline; }
+    .mega-menu__section-title svg { width: 16px; height: 16px; }
+    .mega-menu__section-desc {
+      font-size: 14px;
+      line-height: 20px;
+      color: var(--wire-mid);
+      margin-bottom: var(--pad-lg);
+    }
+    .mega-menu__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--pad-lg) var(--pad-xl);
+    }
+    .mega-menu__item {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .mega-menu__item:hover .mega-menu__item-title { text-decoration: underline; }
+    .mega-menu__item-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--wire-dark);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .mega-menu__item-title svg { width: 12px; height: 12px; flex-shrink: 0; }
+    .mega-menu__item-desc {
+      font-size: 13px;
+      line-height: 18px;
+      color: var(--wire-light);
+    }
+    .mega-menu__promo { display: flex; flex-direction: column; height: 100%;
+      background: #f5f5f5;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    .mega-menu__promo-image {
+      width: 100%;
+      height: 120px;
+      background: #ddd;
+    }
+    .mega-menu__promo-body {
+      flex: 1; padding: var(--pad-md) var(--pad-lg) var(--pad-lg);
+    }
+    .mega-menu__promo-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--wire-dark);
+      margin-bottom: 8px;
+    }
+    .mega-menu__promo-desc {
+      font-size: 13px;
+      line-height: 18px;
+      color: var(--wire-mid);
+      margin-bottom: var(--pad-md);
+    }
+    .mega-menu__promo-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 20px;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--wire-white);
+      background: var(--wire-dark);
+      border: none;
+      border-radius: var(--radius-lg);
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* ===== MOBILE MENU OVERLAY ===== */
+    .mobile-menu {
+      display: none; position: relative; width: 100%;
+      background: var(--wire-white); z-index: 99; border-bottom: 1px solid #cbccd0;
+    }
+    .mobile-menu.is-open { display: block; }
+    .mobile-menu__item { border-bottom: 1px solid #cbccd0; }
+    .mobile-menu__row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px; font-size: 16px; font-weight: 400; color: #333;
+      cursor: pointer; text-decoration: none; background: none; border: none;
+      width: 100%; font-family: inherit;
+    }
+    .mobile-menu__row:hover { background: #f9f9f9; }
+    .mobile-menu__chevron {
+      font-size: 18px; color: #999; transition: transform 0.2s ease;
+      display: inline-flex; flex-shrink: 0;
+    }
+    .mobile-menu__item.is-expanded .mobile-menu__chevron { transform: rotate(90deg); }
+    .mobile-menu__sub { display: none; padding: 0 24px 16px 40px; }
+    .mobile-menu__item.is-expanded .mobile-menu__sub { display: block; }
+    .mobile-menu__sub-link {
+      display: block; font-size: 14px; line-height: 22px; color: #555;
+      text-decoration: none; padding: 8px 0; border-bottom: 1px solid #eee;
+    }
+    .mobile-menu__sub-link:last-child { border-bottom: none; }
+    .mobile-menu__sub-link:hover { color: #333; text-decoration: underline; }
+    .mobile-menu__footer { padding: 24px; border-top: 1px solid #cbccd0; }
+    .mobile-menu__footer-link {
+      display: flex; align-items: center; gap: 8px; font-size: 16px;
+      color: #333; text-decoration: none; padding: 12px 0;
+    }
+    .mobile-menu__footer-link:hover { text-decoration: underline; }
+    .mobile-menu__contact-btn {
+      display: block; width: 100%; text-align: center; padding: 14px 24px;
+      font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; font-weight: 600;
+      color: var(--wire-white); background: var(--wire-dark); border: 2px solid var(--wire-dark);
+      border-radius: var(--radius-lg); cursor: pointer; text-decoration: none; margin-top: 8px;
+    }
+
+    /* ===== MOBILE SEARCH BAR ===== */
+    .mobile-search {
+      display: none; padding: 16px 24px; background: var(--wire-white); border-bottom: 1px solid #cbccd0;
+    }
+    .mobile-search.is-open { display: block; }
+    .mobile-search__input {
+      width: 100%; padding: 10px 14px; font-family: 'Open Sans', Arial, sans-serif;
+      font-size: 16px; border: 2px solid #6699cc; border-radius: var(--radius-lg);
+      outline: none; background: var(--wire-white); color: #333;
+    }
+    .mobile-search__input::placeholder { color: #999; }
+    .mobile-search__input:focus { border-color: #4477aa; }
+
+    /* Hide mega menu on mobile */
+    @media (max-width: 767px) {
+      .mega-menu { display: none !important; }
+    }
+
+    /* ===== FDS: HERO / TERTIARY ===== */
+    .tertiary-hero {
+      background: #e8e8e8;
+      padding: 16px 16px 48px;
+      position: relative;
+    }
+    .tertiary-hero__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 32px 16px;
+    }
+    .tertiary-hero__content {
+      flex: 1;
+      min-width: 0;
+    }
+    .tertiary-hero__spacer {
+      flex: 1;
+      min-width: 0;
+    }
+    .tertiary-hero__title {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 56px;
+      color: #333;
+      margin-bottom: 32px;
+    }
+    .tertiary-hero__subtitle {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 30px;
+      color: #666;
+    }
+
+    /* ===== BREADCRUMB ===== */
+    .breadcrumb {
+      padding: var(--pad-md) 0;
+      font-size: var(--text-neg1);
+      line-height: var(--lh-neg1);
+      color: var(--wire-light);
+      border-bottom: 1px solid #eee;
+    }
+    .breadcrumb a {
+      color: var(--wire-mid);
+      text-decoration: none;
+    }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb__sep { margin: 0 var(--pad-xs); color: var(--wire-faint); }
+    .breadcrumb__current { color: var(--wire-dark); font-weight: 600; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 991px) {
+      .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
+      .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
+      .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 767px) {
+      .mobile-navbar { display: block; }
+      .top-navbar { display: none; }
+      .bottom-navbar { display: none; }
+      .nav-divider { display: none; }
+      .card-grid--3, .card-grid--4 { grid-template-columns: 1fr; }
+      .card-grid--2 { grid-template-columns: 1fr; }
+      .promo-banner { flex-direction: column; text-align: center; }
+      .tertiary-hero__spacer { display: none; }
+      .tertiary-hero__title { font-size: 30px; line-height: 46px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="site-nav-wrapper">
+  <!-- ===== FDS: NAVBAR (4393:9070) -- Top Bar ===== -->
+  <div class="top-navbar">
+    <div class="top-navbar__inner">
+      <span class="fds-label">FDS: Navbar / Top Bar</span>
+      <a href="homepage-wireframe.html" class="top-navbar__logo" style="text-decoration:none;">LOGO</a>
+      <form class="top-navbar__search" action="search-results.html" method="GET">
+        <span class="fds-icon fds-icon--sm" style="--stroke-0: #999;"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19L14.66 14.66M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="var(--stroke-0, #999)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <input type="text" name="q" class="top-navbar__search-input" placeholder="Search" autocomplete="off">
+      </form>
+      <div class="top-navbar__utils">
+        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11C21 16.5228 16.5228 21 11 21M21 11C21 5.47715 16.5228 1 11 1M21 11H1M11 21C5.47715 21 1 16.5228 1 11M11 21C8.43223 18.3038 7 14.7233 7 11C7 7.27674 8.43223 3.69615 11 1M11 21C13.5678 18.3038 15 14.7233 15 11C15 7.27674 13.5678 3.69615 11 1M1 11C1 5.47715 5.47715 1 11 1" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Global</a>
+        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 1H19M19 1V7M19 1L8 12M16 11V17C16 17.5304 15.7893 18.0391 15.4142 18.4142C15.0391 18.7893 14.5304 19 14 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V6C1 5.46957 1.21071 4.96086 1.58579 4.58579C1.96086 4.21071 2.46957 4 3 4H9" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> For Clinicians</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FDS: NAVBAR -- Bottom Bar ===== -->
+  <nav class="bottom-navbar">
+    <div class="bottom-navbar__inner">
+      <span class="fds-label">FDS: Navbar / Bottom Bar</span>
+      <ul class="bottom-navbar__nav">
+        <li><a href="pn-fundamentals.html" class="bottom-navbar__nav-item" data-toggle="pn-fundamentals">PN Fundamentals <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+        <li><a href="clinical-practice.html" class="bottom-navbar__nav-item" data-toggle="clinical-practice">Clinical Practice <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+        <li><a href="therapeutic-areas.html" class="bottom-navbar__nav-item" data-toggle="therapeutic-areas">Therapeutic Areas <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+        <li><a href="evidence-guidelines.html" class="bottom-navbar__nav-item" data-toggle="evidence-guidelines">Evidence &amp; Guidelines <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+        <li><a href="tools-resources.html" class="bottom-navbar__nav-item" data-toggle="tools-resources">Tools &amp; Resources <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+        <li class="bottom-navbar__divider-item"><span class="bottom-navbar__divider">|</span></li>
+        <li><a href="about.html" class="bottom-navbar__nav-item is-active" data-toggle="about">About <span class="bottom-navbar__chevron"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L13 1" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a></li>
+      </ul>
+    </div>
+
+    <!-- ===== DESKTOP MEGA MENU DROPDOWNS ===== -->
+    <div class="mega-menu" data-menu="pn-fundamentals">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="pn-fundamentals.html" class="mega-menu__section-title">PN Fundamentals <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Build a solid foundation in parenteral nutrition science.</p>
+          <div class="mega-menu__grid">
+            <a href="what-is-parenteral-nutrition.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">What is Parenteral Nutrition <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="when-to-initiate-pn.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">When to Initiate PN <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="macro-micro-nutrients.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Macro &amp; Micro Nutrients <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="patient-selection-criteria.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Patient Selection Criteria <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-menu__right">
+          <div class="mega-menu__promo">
+            <div class="mega-menu__promo-image"></div>
+            <div class="mega-menu__promo-body">
+              <div class="mega-menu__promo-title">Clinical Quick Start</div>
+              <div class="mega-menu__promo-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+              <a href="what-is-parenteral-nutrition.html" class="mega-menu__promo-btn">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mega-menu" data-menu="clinical-practice">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="clinical-practice.html" class="mega-menu__section-title">Clinical Practice <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Protocol-driven guidance for PN management and safety.</p>
+          <div class="mega-menu__grid">
+            <a href="complications.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Complications <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="pn-safety-administration.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">PN Safety &amp; Administration <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="pn-formulation.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">PN Formulation <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="prescription-writing.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Prescription Writing <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="monitoring-protocols.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Monitoring Protocols <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="multi-chamber-bags.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Multi-Chamber Bags <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+          <a href="pharmacy-compatibility.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Pharmacy Compatibility &amp; Stability <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Drug compatibility, stability, and storage for PN solutions.</div>
+            </a>
+            <a href="enteral-nutrition.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Enteral Nutrition <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Enteral feeding routes, formulas, and EN-to-PN transitions.</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-menu__right">
+          <div class="mega-menu__promo">
+            <div class="mega-menu__promo-image"></div>
+            <div class="mega-menu__promo-body">
+              <div class="mega-menu__promo-title">PN Protocols</div>
+              <div class="mega-menu__promo-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+              <a href="complications.html" class="mega-menu__promo-btn">View Protocols</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mega-menu" data-menu="therapeutic-areas">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="therapeutic-areas.html" class="mega-menu__section-title">Therapeutic Areas <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Condition-specific PN guidance across clinical specialties.</p>
+          <div class="mega-menu__grid">
+            <a href="oncology.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Oncology <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="critical-care.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Critical Care <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="malnutrition.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Malnutrition <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="intestinal-failure.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Intestinal Failure <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="pediatrics-neonatal.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Pediatrics &amp; Neonatal <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="pancreatitis.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Pancreatitis <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="home-ambulatory-pn.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Home &amp; Ambulatory PN <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">PN management for stable patients transitioning to home care.</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-menu__right">
+          <div class="mega-menu__promo">
+            <div class="mega-menu__promo-image"></div>
+            <div class="mega-menu__promo-body">
+              <div class="mega-menu__promo-title">Condition Guides</div>
+              <div class="mega-menu__promo-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+              <a href="therapeutic-areas.html" class="mega-menu__promo-btn">Browse Guides</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mega-menu" data-menu="evidence-guidelines">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="evidence-guidelines.html" class="mega-menu__section-title">Evidence &amp; Guidelines <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Clinical evidence and practice guidelines supporting PN decisions.</p>
+          <div class="mega-menu__grid">
+            <a href="emerging-research.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">What's New & Emerging Research <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="clinical-studies.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Clinical Studies <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="aspen-protocols.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">ASPEN-Aligned Protocols <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="best-practices.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Best Practice Recommendations <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="expert-contributors.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Expert Contributors <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="external-resources.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">External Resources <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-menu__right">
+          <div class="mega-menu__promo">
+            <div class="mega-menu__promo-image"></div>
+            <div class="mega-menu__promo-body">
+              <div class="mega-menu__promo-title">Latest Evidence</div>
+              <div class="mega-menu__promo-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+              <a href="emerging-research.html" class="mega-menu__promo-btn">View Studies</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mega-menu" data-menu="tools-resources">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="tools-resources.html" class="mega-menu__section-title">Tools &amp; Resources <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Clinical calculators, downloadable tools, and educational resources.</p>
+          <div class="mega-menu__grid">
+            <a href="downloadable-tools.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Quick Reference Guides <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="videos-webinars.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Videos & Webinars <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="downloadable-tools.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Downloadable Tools & Calculators <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="infographics.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Infographics <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="patient-caregiver-resources.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Patient & Caregiver Resources <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="ce-professional-development.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">CE & Professional Development <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-menu__right">
+          <div class="mega-menu__promo">
+            <div class="mega-menu__promo-image"></div>
+            <div class="mega-menu__promo-body">
+              <div class="mega-menu__promo-title">PN Calculator</div>
+              <div class="mega-menu__promo-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</div>
+              <a href="downloadable-tools.html#pn-dosing-calculator" class="mega-menu__promo-btn">Try Calculator</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mega-menu" data-menu="about">
+      <div class="mega-menu__inner">
+        <div class="mega-menu__left">
+          <span class="fds-label">FDS: Mega Menu</span>
+          <a href="about.html" class="mega-menu__section-title">About <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <p class="mega-menu__section-desc">Learn about our mission and connect with the clinical team.</p>
+          <div class="mega-menu__grid">
+            <a href="about.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">About This Resource <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+            <a href="contact.html" class="mega-menu__item">
+              <div class="mega-menu__item-title">Contact <svg viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L7 7L1 13" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="mega-menu__item-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  </div>
+  <div class="nav-divider"></div>
+
+  <!-- ===== FDS: MOBILE NAVBAR (3860:20361) -- visible <768px ===== -->
+  <div class="mobile-navbar">
+    <div class="mobile-navbar__inner">
+      <span class="fds-label" style="position:absolute;top:4px;left:4px;">FDS: Navbar / Mobile</span>
+      <a href="homepage-wireframe.html" class="mobile-navbar__logo" style="text-decoration:none;">LOGO</a>
+      <div class="mobile-navbar__actions">
+        <div class="mobile-navbar__icon" id="mobile-search-toggle"><svg viewBox="0 0 19.5 19.5" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.75 18.75L13.55 13.55M13.55 13.55C14.96 12.15 15.75 10.24 15.75 8.25C15.75 6.26 14.96 4.35 13.55 2.95C12.15 1.54 10.24 0.75 8.25 0.75C6.26 0.75 4.35 1.54 2.95 2.95C1.54 4.35 0.75 6.26 0.75 8.25C0.75 10.24 1.54 12.15 2.95 13.55C4.35 14.96 6.26 15.75 8.25 15.75C10.24 15.75 12.15 14.96 13.55 13.55Z" stroke="#ddd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="mobile-navbar__icon" id="mobile-hamburger"><svg viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1H19M1 7H19M1 13H19" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Search Bar -->
+  <form class="mobile-search" id="mobile-search" action="search-results.html" method="GET">
+    <input type="text" name="q" class="mobile-search__input" placeholder="Search...">
+  </form>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu__item" data-l1="pn-fundamentals">
+      <div class="mobile-menu__row">PN Fundamentals <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="what-is-parenteral-nutrition.html" class="mobile-menu__sub-link">What is Parenteral Nutrition</a>
+        <a href="when-to-initiate-pn.html" class="mobile-menu__sub-link">When to Initiate PN</a>
+        <a href="macro-micro-nutrients.html" class="mobile-menu__sub-link">Macro &amp; Micro Nutrients</a>
+        <a href="patient-selection-criteria.html" class="mobile-menu__sub-link">Patient Selection Criteria</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item" data-l1="clinical-practice">
+      <div class="mobile-menu__row">Clinical Practice <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="complications.html" class="mobile-menu__sub-link">Complications</a>
+        <a href="pn-safety-administration.html" class="mobile-menu__sub-link">PN Safety & Administration</a>
+        <a href="pn-formulation.html" class="mobile-menu__sub-link">PN Formulation</a>
+        <a href="prescription-writing.html" class="mobile-menu__sub-link">Prescription Writing</a>
+        <a href="monitoring-protocols.html" class="mobile-menu__sub-link">Monitoring Protocols</a>
+        <a href="pharmacy-compatibility.html" class="mobile-menu__sub-link">Pharmacy Compatibility & Stability</a>
+        <a href="multi-chamber-bags.html" class="mobile-menu__sub-link">Multi-Chamber Bags</a>
+        <a href="enteral-nutrition.html" class="mobile-menu__sub-link">Enteral Nutrition</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item" data-l1="therapeutic-areas">
+      <div class="mobile-menu__row">Therapeutic Areas <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="oncology.html" class="mobile-menu__sub-link">Oncology</a>
+        <a href="critical-care.html" class="mobile-menu__sub-link">Critical Care</a>
+        <a href="malnutrition.html" class="mobile-menu__sub-link">Malnutrition</a>
+        <a href="intestinal-failure.html" class="mobile-menu__sub-link">Intestinal Failure</a>
+        <a href="pancreatitis.html" class="mobile-menu__sub-link">Pancreatitis</a>
+        <a href="pediatrics-neonatal.html" class="mobile-menu__sub-link">Pediatrics &amp; Neonatal</a>
+        <a href="home-ambulatory-pn.html" class="mobile-menu__sub-link">Home &amp; Ambulatory PN</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item" data-l1="evidence-guidelines">
+      <div class="mobile-menu__row">Evidence &amp; Guidelines <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="emerging-research.html" class="mobile-menu__sub-link">What's New &amp; Emerging Research</a>
+        <a href="clinical-studies.html" class="mobile-menu__sub-link">Clinical Studies</a>
+        <a href="aspen-protocols.html" class="mobile-menu__sub-link">ASPEN-Aligned Protocols</a>
+        <a href="best-practices.html" class="mobile-menu__sub-link">Best Practice Recommendations</a>
+        <a href="expert-contributors.html" class="mobile-menu__sub-link">Expert Contributors</a>
+        <a href="external-resources.html" class="mobile-menu__sub-link">External Resources</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item" data-l1="tools-resources">
+      <div class="mobile-menu__row">Tools &amp; Resources <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="quick-reference-guides.html" class="mobile-menu__sub-link">Quick Reference Guides</a>
+        <a href="videos-webinars.html" class="mobile-menu__sub-link">Videos &amp; Webinars</a>
+        <a href="downloadable-tools.html" class="mobile-menu__sub-link">Downloadable Tools &amp; Calculators</a>
+        <a href="infographics.html" class="mobile-menu__sub-link">Infographics</a>
+        <a href="patient-caregiver-resources.html" class="mobile-menu__sub-link">Patient &amp; Caregiver Resources</a>
+        <a href="ce-professional-development.html" class="mobile-menu__sub-link">CE &amp; Professional Development</a>
+      </div>
+    </div>
+    <div class="mobile-menu__item" data-l1="about" style="border-top: 2px solid #ccc; margin-top: 8px; padding-top: 8px;">
+      <div class="mobile-menu__row">About <span class="mobile-menu__chevron">&#8250;</span></div>
+      <div class="mobile-menu__sub">
+        <a href="about-this-resource.html" class="mobile-menu__sub-link">About This Resource</a>
+        <a href="contact.html" class="mobile-menu__sub-link">Contact</a>
+      </div>
+    </div>
+    <div class="mobile-menu__footer">
+      <a href="#" class="mobile-menu__footer-link"><svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path d="M21 11C21 16.5228 16.5228 21 11 21M21 11C21 5.47715 16.5228 1 11 1M21 11H1M11 21C5.47715 21 1 16.5228 1 11M11 21C8.43223 18.3038 7 14.7233 7 11C7 7.27674 8.43223 3.69615 11 1M11 21C13.5678 18.3038 15 14.7233 15 11C15 7.27674 13.5678 3.69615 11 1M1 11C1 5.47715 5.47715 1 11 1" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Global</a>
+      <a href="#" class="mobile-menu__footer-link"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" width="18" height="18"><path d="M13 1H19M19 1V7M19 1L8 12M16 11V17C16 17.5304 15.7893 18.0391 15.4142 18.4142C15.0391 18.7893 14.5304 19 14 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V6C1 5.46957 1.21071 4.96086 1.58579 4.58579C1.96086 4.21071 2.46957 4 3 4H9" stroke="#555" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> For Clinicians</a>
+    </div>
+  </div>
+
+  <!-- ===== FDS: HERO / TERTIARY ===== -->
+  <section class="tertiary-hero">
+    <div class="tertiary-hero__inner">
+      <div class="tertiary-hero__content">
+        <span class="fds-label">FDS: Hero / Tertiary</span>
+        <h1 class="tertiary-hero__title">About</h1>
+        <p class="tertiary-hero__subtitle">About</p>
+      </div>
+      <div class="tertiary-hero__spacer"></div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT CONTENT ===== -->
+  <section class="section section--bordered">
+    <div class="container">
+      <span class="fds-label">FDS: Content Block / Text</span>
+      <div class="content-block" style="max-width: 800px;">
+        <h2 class="section__title" style="margin-bottom: var(--pad-lg);">Our Mission</h2>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
+
+        <h2 class="section__title" style="margin-bottom: var(--pad-lg); margin-top: var(--pad-3xl);">Editorial Independence</h2>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+
+        <h2 class="section__title" style="margin-bottom: var(--pad-lg); margin-top: var(--pad-3xl);">About Fresenius Kabi</h2>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.</p>
+        <p style="font-size: var(--text-1); line-height: var(--lh-1); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FDS: PROMO BANNER ===== -->
+  <section class="section">
+    <div class="container">
+      <div class="promo-banner">
+        <div>
+          <span class="fds-label">FDS: Promo Banner</span>
+          <div class="promo-banner__title">Have a Clinical Question?</div>
+          <div class="promo-banner__desc">Our Medical Science Liaison team is available to discuss parenteral nutrition protocols and provide clinical support.</div>
+        </div>
+        <a href="contact.html" class="btn btn--primary">Get in Touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FDS: FOOTER (31:20084) ===== -->
+  <!-- ===== FDS: FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__top">
+        <p class="footer__copyright">Fresenius Kabi Deutschland GmbH – A company of the Fresenius Group &copy; 2025</p>
+        <div class="footer__logo">
+          <span class="fds-label">FDS: Footer</span>
+          <div class="footer__logo-mark">FRESENIUS KABI</div>
+        </div>
+      </div>
+      <div class="footer__links">
+        <a href="terms-and-conditions.html">Terms of Use</a>
+        <span class="footer__pipe">|</span>
+        <a href="privacy-policy.html">Privacy Notice</a>
+        <span class="footer__pipe">|</span>
+        <a href="legal-disclaimer.html">Data Privacy</a>
+        <span class="footer__pipe">|</span>
+        <a href="#">Cookie Notice</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== FDS LABEL TOGGLE ===== -->
+  <script>
+  (function () {
+    var STORAGE_KEY = 'fds-labels-visible';
+    var visible = localStorage.getItem(STORAGE_KEY) !== 'false';
+
+    var style = document.createElement('style');
+    style.textContent =
+      'body.hide-labels .fds-label { display: none !important; }' +
+      '.label-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 9999;' +
+      '  display: flex; align-items: center; gap: 8px; background: #fff;' +
+      '  border: 1px solid #ccc; border-radius: 6px; padding: 8px 14px;' +
+      '  box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer;' +
+      '  font-family: "Open Sans", Arial, sans-serif; font-size: 12px;' +
+      '  font-weight: 600; color: #555; user-select: none; transition: box-shadow 0.15s; }' +
+      '.label-toggle:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.18); }' +
+      '.label-toggle__switch { width: 34px; height: 18px; border-radius: 9px;' +
+      '  background: #ccc; position: relative; transition: background 0.2s; flex-shrink: 0; }' +
+      '.label-toggle__switch.is-on { background: #5060a0; }' +
+      '.label-toggle__knob { width: 14px; height: 14px; border-radius: 50%;' +
+      '  background: #fff; position: absolute; top: 2px; left: 2px;' +
+      '  transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }' +
+      '.label-toggle__switch.is-on .label-toggle__knob { left: 18px; }';
+    document.head.appendChild(style);
+
+    if (!visible) document.body.classList.add('hide-labels');
+
+    var btn = document.createElement('div');
+    btn.className = 'label-toggle';
+    btn.innerHTML =
+      '<div class="label-toggle__switch' + (visible ? ' is-on' : '') + '">' +
+      '  <div class="label-toggle__knob"></div>' +
+      '</div>' +
+      '<span>FDS</span>';
+
+    btn.addEventListener('click', function () {
+      visible = !visible;
+      localStorage.setItem(STORAGE_KEY, visible);
+      document.body.classList.toggle('hide-labels', !visible);
+      btn.querySelector('.label-toggle__switch').classList.toggle('is-on', visible);
+    });
+
+    document.body.appendChild(btn);
+  })();
+  </script>
+
+  <!-- ===== NAVIGATION JAVASCRIPT ===== -->
+  <script>
+  (function () {
+    /* ---- Desktop Mega Menu ---- */
+    var navItems = document.querySelectorAll('.bottom-navbar__nav-item[data-toggle]');
+    var megaMenus = document.querySelectorAll('.mega-menu');
+
+    function closeAllMegaMenus() {
+      megaMenus.forEach(function (m) { m.classList.remove('is-open'); });
+      navItems.forEach(function (n) { n.classList.remove('is-open'); });
+    }
+
+    navItems.forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = item.getAttribute('data-toggle');
+        var menu = document.querySelector('.mega-menu[data-menu="' + target + '"]');
+        var isOpen = menu && menu.classList.contains('is-open');
+
+        closeAllMegaMenus();
+
+        if (!isOpen && menu) {
+          menu.classList.add('is-open');
+          item.classList.add('is-open');
+        }
+      });
+    });
+
+    // Close mega menus when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.bottom-navbar') && !e.target.closest('.mega-menu')) {
+        closeAllMegaMenus();
+      }
+    });
+
+    /* ---- Mobile Hamburger Menu ---- */
+    var hamburger = document.getElementById('mobile-hamburger');
+    var mobileMenu = document.getElementById('mobile-menu');
+
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', function () {
+        mobileMenu.classList.toggle('is-open');
+        var mobileSearch = document.getElementById('mobile-search');
+        if (mobileSearch && mobileMenu.classList.contains('is-open')) {
+          mobileSearch.classList.remove('is-open');
+        }
+      });
+    }
+
+    /* ---- Mobile L1 Accordion ---- */
+    var mobileItems = document.querySelectorAll('.mobile-menu__item');
+    mobileItems.forEach(function (item) {
+      var row = item.querySelector('.mobile-menu__row');
+      if (row) {
+        row.addEventListener('click', function () {
+          var wasExpanded = item.classList.contains('is-expanded');
+          mobileItems.forEach(function (i) { i.classList.remove('is-expanded'); });
+          if (!wasExpanded) {
+            item.classList.add('is-expanded');
+          }
+        });
+      }
+    });
+
+    /* ---- Mobile Search Toggle ---- */
+    var searchToggle = document.getElementById('mobile-search-toggle');
+    var mobileSearch = document.getElementById('mobile-search');
+
+    if (searchToggle && mobileSearch) {
+      searchToggle.addEventListener('click', function () {
+        mobileSearch.classList.toggle('is-open');
+        if (mobileMenu && mobileSearch.classList.contains('is-open')) {
+          mobileMenu.classList.remove('is-open');
+        }
+        if (mobileSearch.classList.contains('is-open')) {
+          var input = mobileSearch.querySelector('.mobile-search__input');
+          if (input) input.focus();
+        }
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
