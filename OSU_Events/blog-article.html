@@ -51,10 +51,27 @@
     .btn--filled { background: #333; color: #fff; }
     .btn--outline { background: transparent; border: 2px solid #666; color: #666; }
 
+    /* ===== STICKY HEADER WRAPPER ===== */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
     /* ===== 1. OSU NAVBAR ===== */
     .osu-navbar {
       background: #f0f0f0; border-bottom: 1px solid #ccc;
       padding: 8px 0; font-size: 11px; color: #666;
+      max-height: 40px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .osu-navbar--hidden {
+      max-height: 0;
+      padding: 0;
+      border-bottom: none;
     }
     .osu-navbar .container { display: flex; justify-content: space-between; align-items: center; }
     .osu-navbar__logo { font-weight: bold; font-size: 12px; color: #333; letter-spacing: 0.5px; }
@@ -344,6 +361,9 @@
 </head>
 <body>
 
+  <!-- STICKY HEADER WRAPPER -->
+  <div class="sticky-header">
+
   <!-- 1. OSU NAVBAR -->
   <nav class="osu-navbar">
     <div class="container">
@@ -499,6 +519,8 @@
       </ul>
     </div>
   </nav>
+
+  </div><!-- end sticky-header -->
 
   <!-- 4. BREADCRUMB -->
   <div class="breadcrumb">
@@ -703,5 +725,20 @@
 <script src="toggle-labels.js"></script>
 <script src="review-comments.js"></script>
 <script src="search-overlay.js"></script>
+<script>
+(function() {
+  var osuNav = document.querySelector('.osu-navbar');
+  var lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    var currentScroll = window.pageYOffset;
+    if (currentScroll > lastScroll && currentScroll > 50) {
+      osuNav.classList.add('osu-navbar--hidden');
+    } else {
+      osuNav.classList.remove('osu-navbar--hidden');
+    }
+    lastScroll = currentScroll;
+  });
+})();
+</script>
 </body>
 </html>
