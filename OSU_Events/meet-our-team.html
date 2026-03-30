@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ohio Stadium Tours — Ohio State Events</title>
+  <title>Meet Our Team — Ohio State Events</title>
   <style>
     /* ===== BUCKEYE FONTS ===== */
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
@@ -198,7 +198,7 @@
     }
     .interior-hero__title { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
     .interior-hero__subtitle { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; }
-    .interior-hero__cta { margin-top: 0; display: flex; gap: 12px; flex-wrap: wrap; }
+    .interior-hero__cta { margin-top: 0; }
 
     /* ===== SECTION ===== */
     .section { padding: 48px 0; }
@@ -214,80 +214,6 @@
     .section__subtitle { font-size: 13px; color: #888; max-width: 600px; line-height: 1.5; }
     .section__header--centered .section__subtitle { margin: 0 auto; }
 
-    /* ===== INTRO BLOCK ===== */
-    .intro-block { padding: 48px 0; border-bottom: 1px solid #ddd; }
-    .intro-block__inner { max-width: 720px; }
-    .intro-block__title { font-size: 26px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
-    .intro-block__text { font-size: 14px; color: #666; line-height: 1.7; }
-    .intro-block__text + .intro-block__text { margin-top: 12px; }
-
-    /* ===== FEATURED CARD ===== */
-    .featured-card {
-      display: grid; grid-template-columns: 7fr 5fr;
-      border: 1px solid #ccc; background: #fff;
-    }
-    .featured-card--content-left { grid-template-columns: 5fr 7fr; }
-    .featured-card--image-right { grid-template-columns: 5fr 7fr; }
-    .featured-card__image { min-height: 300px; }
-    .featured-card__content {
-      padding: 40px; display: flex; flex-direction: column; justify-content: center;
-    }
-    .featured-card__eyebrow {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-      color: #999; font-weight: 600; margin-bottom: 10px;
-    }
-    .featured-card__title { font-size: 22px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
-    .featured-card__desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
-
-    /* ===== CARD GRID ===== */
-    .card-grid { display: grid; gap: 20px; }
-    .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
-    .card { border: 1px solid #ccc; background: #fff; }
-    .card__image { height: 160px; }
-    .card__body { padding: 16px; }
-    .card__tag {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-      color: #999; font-weight: 600; margin-bottom: 6px;
-    }
-    .card__title { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
-    .card__desc { font-size: 12px; color: #888; line-height: 1.5; margin-bottom: 12px; }
-    .card__link { font-size: 12px; color: #555; font-weight: 600; text-decoration: underline; }
-
-    /* ===== QUOTE ===== */
-    .quote-section { padding: 48px 0; border-bottom: 1px solid #ddd; background: #f7f7f7; }
-    .quote__inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .quote__mark { font-family: 'BuckeyeSerif', Georgia, serif; font-size: 60px; color: #ccc; line-height: 1; margin-bottom: -10px; }
-    .quote__text {
-      font-family: 'BuckeyeSerif', Georgia, serif;
-      font-size: 20px; font-weight: 400; line-height: 1.6; color: #444;
-      font-style: italic; margin-bottom: 16px;
-    }
-    .quote__attribution { font-size: 12px; color: #999; font-weight: 600; }
-
-    /* ===== FACTOID ===== */
-    .factoid-section {
-      border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
-      padding: 40px 0; background: #f7f7f7;
-    }
-    .factoid-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
-    .factoid { border-right: 1px solid #ddd; padding: 0 16px; }
-    .factoid:last-child { border-right: none; }
-    .factoid__number { font-family: 'BuckeyeSerif', Georgia, serif; font-size: 36px; font-weight: 700; color: #333; margin-bottom: 4px; }
-    .factoid__label { font-size: 12px; color: #888; line-height: 1.4; }
-
-    /* ===== AMENITIES GRID ===== */
-    .amenities-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px;
-    }
-    .amenity-item {
-      font-size: 13px; color: #555; line-height: 1.6;
-      padding: 10px 0; border-bottom: 1px solid #eee;
-      padding-left: 24px; position: relative;
-    }
-    .amenity-item::before {
-      content: '\2713'; position: absolute; left: 0; color: #666; font-weight: 700;
-    }
-
     /* ===== CTA IN PAGE ===== */
     .cta-in-page {
       text-align: center; padding: 48px 0;
@@ -297,6 +223,34 @@
     .cta-in-page__desc {
       font-size: 13px; color: #888; max-width: 480px;
       margin: 0 auto 20px; line-height: 1.5;
+    }
+    .cta-in-page__buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    /* ===== TEAM GRID ===== */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+    }
+    .team-card {
+      border: 1px solid #ccc; background: #fff; overflow: hidden; text-align: center;
+    }
+    .team-card__image {
+      height: 200px; width: 100%;
+    }
+    .team-card__body {
+      padding: 24px;
+    }
+    .team-card__name {
+      font-family: 'BuckeyeSerif', Georgia, serif;
+      font-size: 17px; font-weight: 700; margin-bottom: 4px; color: #333;
+    }
+    .team-card__title {
+      font-size: 13px; color: #888; font-weight: 500; margin-bottom: 16px;
+    }
+    .team-card__link {
+      font-size: 13px; color: #555; font-weight: 600; text-decoration: none;
+    }
+    .team-card__link:hover {
+      color: #333; text-decoration: underline;
     }
 
     /* ===== FOOTER ===== */
@@ -329,22 +283,15 @@
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 760px) {
-      .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
-      .featured-card,
-      .featured-card--content-left,
-      .featured-card--image-right { grid-template-columns: 1fr; }
-      .featured-card__image { min-height: 220px; }
-      .featured-card__content { padding: 28px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
       .interior-hero__inner { grid-template-columns: 1fr; }
       .interior-hero__image { min-height: 200px; }
       .interior-hero__content { padding: 32px 24px; }
+
       .site-footer__grid { grid-template-columns: 1fr; }
       .site-footer__nav { grid-template-columns: repeat(2, 1fr); }
-      .factoid-row { grid-template-columns: repeat(2, 1fr); }
-      .factoid:nth-child(2) { border-right: none; }
-      .factoid:nth-child(1),
-      .factoid:nth-child(2) { margin-bottom: 20px; }
-      .amenities-grid { grid-template-columns: 1fr; }
+
       .hamburger { display: flex; }
       .main-nav { display: none; }
       .site-header__search { display: none; }
@@ -352,11 +299,8 @@
     }
 
     @media (max-width: 640px) {
-      .card-grid--3 { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
       .osu-navbar__links { display: none; }
-      .factoid-row { grid-template-columns: 1fr; }
-      .factoid { border-right: none; border-bottom: 1px solid #ddd; padding-bottom: 16px; margin-bottom: 16px; }
-      .factoid:last-child { border-bottom: none; }
       .site-footer__nav { grid-template-columns: 1fr; }
       .site-footer__bottom { flex-direction: column; gap: 8px; }
       .site-footer__bottom-links { flex-wrap: wrap; gap: 12px; }
@@ -374,8 +318,8 @@
       </div>
       <ul class="osu-navbar__links">
         <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;text-decoration:none;">Map</a></li>
-        
-        
+
+
         <li><a href="https://www.osu.edu/search" target="_blank" style="color:inherit;text-decoration:none;">Search Ohio State</a></li>
       </ul>
     </div>
@@ -495,9 +439,9 @@
             <a href="columbus-hotels.html" class="main-nav__dropdown-item">Columbus Hotels</a>
           </div>
         </li>
-        <!-- EXPERIENCE dropdown (active) -->
+        <!-- EXPERIENCE dropdown -->
         <li class="main-nav__dropdown-wrap">
-          <a href="experience.html" class="main-nav__dropdown-trigger main-nav__dropdown-trigger--active">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
+          <a href="experience.html" class="main-nav__dropdown-trigger">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Experience</div>
             <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
@@ -506,9 +450,9 @@
             <a href="experience-columbus.html" class="main-nav__dropdown-item">Experience Columbus</a>
           </div>
         </li>
-        <!-- ABOUT US dropdown -->
+        <!-- ABOUT US dropdown (active) -->
         <li class="main-nav__dropdown-wrap">
-          <a href="about-us.html" class="main-nav__dropdown-trigger">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
+          <a href="about-us.html" class="main-nav__dropdown-trigger main-nav__dropdown-trigger--active">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">About Us</div>
             <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
@@ -530,11 +474,9 @@
       <div style="margin-top:4px;">
         <a href="index.html">Home</a>
         <span class="breadcrumb__sep">/</span>
-        <a href="experience.html">Experience</a>
+        <a href="about-us.html">About Us</a>
         <span class="breadcrumb__sep">/</span>
-        <a href="buckeye-experiences.html">Buckeye Experiences</a>
-        <span class="breadcrumb__sep">/</span>
-        <span>Ohio Stadium Tours</span>
+        <span>Meet Our Team</span>
       </div>
     </div>
   </div>
@@ -544,164 +486,56 @@
     <div class="interior-hero__inner">
       <div class="interior-hero__content">
         <span class="bux-label">BUX: Interior Page Hero</span>
-        <div class="interior-hero__eyebrow">Buckeye Experiences &mdash; Tours</div>
-        <h1 class="interior-hero__title">Ohio Stadium Tours</h1>
-        <p class="interior-hero__subtitle">Walk the tunnel, stand on the field, and explore behind-the-scenes at The Horseshoe &mdash; one of college football's most iconic venues.</p>
-        <div class="interior-hero__cta">
-          <a href="request-information.html" class="btn btn--filled">Request Information</a>
-        </div>
+        <div class="interior-hero__eyebrow">About Us</div>
+        <h1 class="interior-hero__title">Meet Our Team</h1>
+        <p class="interior-hero__subtitle">Get to know the people behind Ohio State Events &mdash; a dedicated team of event professionals ready to help you plan, coordinate, and execute unforgettable campus experiences.</p>
       </div>
       <div class="interior-hero__image"></div>
     </div>
   </section>
 
-  <!-- 6. INTRO BLOCK -->
-  <section class="intro-block">
-    <div class="container">
-      <span class="bux-label">BUX: Panel</span>
-      <div class="intro-block__inner" style="margin-top:8px;">
-        <h2 class="intro-block__title">Step Inside The Horseshoe.</h2>
-        <p class="intro-block__text">Ohio Stadium is one of the largest and most storied venues in all of college athletics. With 104,944 seats and nearly a century of tradition, The Horseshoe offers private group tours that take visitors through the press box, recruiting lounge, and historic displays that chronicle Ohio State football's legendary past. Every tour culminates with the iconic tunnel walk and field access &mdash; giving your group an unforgettable, behind-the-scenes look at the home of the Buckeyes.</p>
-        <p class="intro-block__text">Whether you're hosting a corporate outing, welcoming conference attendees, or treating alumni to a trip down memory lane, Ohio Stadium tours provide a one-of-a-kind experience that captures the energy and pride of Ohio State. Tours are fully customizable, ADA accessible, and available year-round with group rates for parties of all sizes.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. FEATURED CARD -->
+  <!-- 6. TEAM GRID -->
   <section class="section section--bordered">
     <div class="container">
-      <span class="bux-label">BUX: Featured Card (image-left)</span>
-      <div class="featured-card" style="margin-top:12px;">
-        <div class="featured-card__image img-placeholder"></div>
-        <div class="featured-card__content">
-          <div class="featured-card__eyebrow">Corporate &amp; Group Tours</div>
-          <h2 class="featured-card__title">Perfect for Corporate Groups</h2>
-          <p class="featured-card__desc">Ohio Stadium tours are a powerful team-building experience, a memorable client entertainment option, and an ideal add-on for conferences and retreats hosted on campus. Private tours can be tailored to your group's interests and schedule, with options for catered hospitality before or after the experience.</p>
-          <div>
-            <a href="request-information.html" class="btn btn--filled">Request Information</a>
+      <div class="section__header section__header--centered">
+        <div class="section__eyebrow">Our Team</div>
+        <h2 class="section__title">Your Event Partners</h2>
+        <p class="section__subtitle">From first inquiry to final farewell, our team is here to guide you every step of the way.</p>
+      </div>
+      <div class="team-grid" style="max-width:700px;margin:0 auto;grid-template-columns:repeat(2, 1fr);">
+        <!-- Elizabeth Willy -->
+        <div class="team-card">
+          <div class="team-card__image img-placeholder"></div>
+          <div class="team-card__body">
+            <h3 class="team-card__name">Elizabeth Willy</h3>
+            <p class="team-card__title">Regional and National Marketing Manager</p>
+            <a href="elizabeth-willy.html" class="team-card__link">View Profile &rarr;</a>
+          </div>
+        </div>
+        <!-- Kelly Mulhern -->
+        <div class="team-card">
+          <div class="team-card__image img-placeholder"></div>
+          <div class="team-card__body">
+            <h3 class="team-card__name">Kelly Mulhern</h3>
+            <p class="team-card__title">Senior Director of Regional and National Sales</p>
+            <a href="kelly-mulhern.html" class="team-card__link">View Profile &rarr;</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 8. FACTOIDS -->
-  <section class="factoid-section">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:20px;">
-        <span class="bux-label">BUX: Factoid</span>
-      </div>
-      <div class="factoid-row">
-        <div class="factoid">
-          <div class="factoid__number">104,944</div>
-          <div class="factoid__label">Seats</div>
-        </div>
-        <div class="factoid">
-          <div class="factoid__number">Built 1922</div>
-          <div class="factoid__label">Over a Century of History</div>
-        </div>
-        <div class="factoid">
-          <div class="factoid__number">8th Largest</div>
-          <div class="factoid__label">Stadium in the World</div>
-        </div>
-        <div class="factoid">
-          <div class="factoid__number">Private</div>
-          <div class="factoid__label">Tours Available</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. HIGHLIGHTS CHECKLIST -->
-  <section class="section section--bordered">
-    <div class="container">
-      <div class="section__header">
-        <span class="bux-label">Highlights</span>
-        <div class="section__eyebrow">What's Included</div>
-        <h2 class="section__title">Tour Highlights &amp; Features</h2>
-      </div>
-      <div class="amenities-grid">
-        <div class="amenity-item">Tunnel Walk</div>
-        <div class="amenity-item">Field Access</div>
-        <div class="amenity-item">Press Box Tour</div>
-        <div class="amenity-item">Recruiting Lounge</div>
-        <div class="amenity-item">Historic Displays</div>
-        <div class="amenity-item">Photo Opportunities</div>
-        <div class="amenity-item">Guided Experience</div>
-        <div class="amenity-item">Group Rates</div>
-        <div class="amenity-item">ADA Accessible</div>
-        <div class="amenity-item">Gift Shop</div>
-        <div class="amenity-item">Customizable Routes</div>
-        <div class="amenity-item">Year-Round Availability</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 10. QUOTE -->
-  <section class="quote-section">
-    <div class="container">
-      <span class="bux-label">BUX: Quote</span>
-      <div class="quote__inner" style="margin-top:12px;">
-        <div class="quote__mark">&ldquo;</div>
-        <p class="quote__text">Walking through the tunnel and stepping onto the field gave our entire team goosebumps. It was the highlight of our conference and something everyone still talks about.</p>
-        <div class="quote__attribution">&mdash; Director of Events, National Sales Conference</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11. CROSS-LINKS -->
-  <section class="section section--bordered">
-    <div class="container">
-      <div class="section__header">
-        <span class="bux-label">BUX: Card (default) &times; 3</span>
-        <div class="section__eyebrow">More Buckeye Experiences</div>
-        <h2 class="section__title">Explore More Experiences</h2>
-      </div>
-      <div class="card-grid card-grid--3">
-        <a href="game-day-events.html" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card__image img-placeholder"></div>
-          <div class="card__body">
-            <div class="card__tag">Game Day</div>
-            <h3 class="card__title">Game Day Events</h3>
-            <p class="card__desc">Premium tailgates, luxury suites, and group hospitality packages for Buckeye home games.</p>
-            <span class="card__link">Learn More &rarr;</span>
-          </div>
-        </a>
-        <a href="jack-nicklaus-museum.html" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card__image img-placeholder"></div>
-          <div class="card__body">
-            <div class="card__tag">Culture</div>
-            <h3 class="card__title">Jack Nicklaus Museum</h3>
-            <p class="card__desc">The world's premier golf museum on campus, with private event space and guided tours.</p>
-            <span class="card__link">Learn More &rarr;</span>
-          </div>
-        </a>
-        <a href="schottenstein-center.html" class="card" style="text-decoration:none;color:inherit;">
-          <div class="card__image img-placeholder"></div>
-          <div class="card__body">
-            <div class="card__tag">Entertainment</div>
-            <h3 class="card__title">Schottenstein Center</h3>
-            <p class="card__desc">Ohio State's 20,000-seat multi-purpose arena for concerts, basketball, and private events.</p>
-            <span class="card__link">Learn More &rarr;</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 12. CTA IN PAGE -->
-  <section class="cta-in-page">
+  <!-- 7. CTA — Closing Statement -->
+  <section class="cta-in-page" style="border-top:1px solid #ddd;">
     <div class="container">
       <span class="bux-label">BUX: CTA In Page</span>
-      <h2 class="cta-in-page__title" style="margin-top:12px;">Interested in This Experience?</h2>
-      <p class="cta-in-page__desc">Tell us about your event and our team will be in touch with personalized recommendations.</p>
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a href="request-information.html" class="btn btn--filled">Request Information</a>
-      </div>
+      <h2 class="cta-in-page__title" style="margin-top:12px;">Ready to Start Planning?</h2>
+      <p class="cta-in-page__desc" style="max-width:600px;">Our team is here to help you navigate venues, services, and logistics &mdash; so you can focus on your event.</p>
+      <a href="request-information.html" class="btn btn--filled">Request Information</a>
     </div>
   </section>
 
-  <!-- 13. FOOTER -->
+  <!-- 11. FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <div style="margin-bottom:12px;"><span class="bux-label">BUX: Site Footer</span></div>

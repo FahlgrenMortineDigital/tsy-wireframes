@@ -104,7 +104,8 @@
       min-width: 260px; padding: 8px 0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 200;
     }
-    .main-nav__dropdown-wrap:hover .main-nav__dropdown { display: block; }
+    .main-nav__dropdown-wrap:hover .main-nav__dropdown,
+    .main-nav__dropdown-wrap:focus-within .main-nav__dropdown { display: block; }
     .main-nav__dropdown-item {
       display: block; padding: 10px 24px; font-size: 13px; color: #555;
       text-decoration: none; font-weight: 500; border-left: 3px solid transparent;
@@ -116,8 +117,8 @@
       letter-spacing: 1.5px; color: #999; font-weight: 700;
     }
     .main-nav__dropdown-item--view-all {
-      font-weight: 700; color: #333; border-top: 1px solid #eee;
-      margin-top: 4px; padding-top: 12px;
+      font-weight: 700; color: #333; border-bottom: 1px solid #eee;
+      margin-bottom: 4px; padding-bottom: 12px;
     }
 
     /* ===== HAMBURGER MENU ===== */
@@ -332,6 +333,11 @@
       padding-top: 20px; border-top: 1px solid #ddd; font-size: 11px; color: #999;
     }
     .site-footer__bottom-links { display: flex; gap: 20px; }
+    .site-footer__legal {
+      border-top: 1px solid #ccc; padding-top: 12px; margin-top: 12px;
+      font-size: 10px; color: #aaa; line-height: 1.7;
+    }
+    .site-footer__legal a { color: #aaa; text-decoration: underline; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1080px) {
@@ -401,7 +407,7 @@
   <!-- 2. SITE HEADER -->
   <div class="site-header">
     <div class="container">
-      <a href="homepage-wireframe.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
+      <a href="index.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
         <div class="site-header__logo-box">Logo</div>
         <div>
           <span class="bux-label">BUX: Site Header</span>
@@ -470,10 +476,12 @@
         <ul class="mobile-menu__subnav">
           <a href="about-us.html" class="mobile-menu__subitem">About Us Overview</a>
           <a href="our-story.html" class="mobile-menu__subitem">Our Story</a>
-          <a href="#" class="mobile-menu__subitem">Meet Our Team</a>
-          <a href="why-ohio-state.html" class="mobile-menu__subitem">Why Ohio State</a>
+          <a href="meet-our-team.html" class="mobile-menu__subitem">Meet Our Team</a>
           <a href="blog.html" class="mobile-menu__subitem">Blog</a>
         </ul>
+      </li>
+      <li>
+        <a href="why-ohio-state.html" class="mobile-menu__item" style="text-decoration:none;">Why Host at Ohio State</a>
       </li>
     </ul>
     <div class="mobile-menu__cta">
@@ -491,12 +499,11 @@
           <a href="plan.html" class="main-nav__dropdown-trigger main-nav__dropdown-trigger--active">Plan <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Plan Your Event</div>
+            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Planning &rarr;</a>
             <a href="venues-spaces.html" class="main-nav__dropdown-item">Venues &amp; Spaces</a>
             <a href="catering-dining.html" class="main-nav__dropdown-item">Catering &amp; Dining</a>
             <a href="av-technology.html" class="main-nav__dropdown-item">AV &amp; Technology</a>
             <a href="transportation-parking.html" class="main-nav__dropdown-item">Transportation &amp; Parking</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Planning &rarr;</a>
           </div>
         </li>
         <!-- STAY dropdown -->
@@ -504,12 +511,11 @@
           <a href="stay.html" class="main-nav__dropdown-trigger">Stay <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Where to Stay</div>
+            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Lodging &rarr;</a>
             <a href="blackwell-inn.html" class="main-nav__dropdown-item">The Blackwell Inn</a>
             <a href="residence-halls.html" class="main-nav__dropdown-item">Residence Halls</a>
             <a href="university-hospitality-district.html" class="main-nav__dropdown-item">University Hospitality District</a>
             <a href="columbus-hotels.html" class="main-nav__dropdown-item">Columbus Hotels</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Lodging &rarr;</a>
           </div>
         </li>
         <!-- EXPERIENCE dropdown -->
@@ -517,11 +523,10 @@
           <a href="experience.html" class="main-nav__dropdown-trigger">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Experience</div>
+            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
             <a href="buckeye-experiences.html" class="main-nav__dropdown-item">Buckeye Experiences</a>
             <a href="explore-ohio-state.html" class="main-nav__dropdown-item">Explore Ohio State</a>
             <a href="experience-columbus.html" class="main-nav__dropdown-item">Experience Columbus</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
           </div>
         </li>
         <!-- ABOUT US dropdown -->
@@ -529,14 +534,14 @@
           <a href="about-us.html" class="main-nav__dropdown-trigger">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">About Us</div>
-            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
-            <a href="#" class="main-nav__dropdown-item">Meet Our Team</a>
-            <a href="why-ohio-state.html" class="main-nav__dropdown-item">Why Ohio State</a>
-            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
-            <div class="main-nav__dropdown-divider"></div>
             <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
+            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
+            <a href="meet-our-team.html" class="main-nav__dropdown-item">Meet Our Team</a>
+            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
           </div>
         </li>
+        <!-- WHY HOST AT OHIO STATE (standalone) -->
+        <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
     </div>
   </nav>
@@ -546,7 +551,7 @@
     <div class="container">
       <span class="bux-label">BUX: Breadcrumb</span>
       <div style="margin-top:4px;">
-        <a href="homepage-wireframe.html">Home</a>
+        <a href="index.html">Home</a>
         <span class="breadcrumb__sep">/</span>
         <a href="plan.html">Plan</a>
         <span class="breadcrumb__sep">/</span>
@@ -589,12 +594,11 @@
         </select>
         <select id="filter-type" class="explorer-cta__filter" style="appearance:auto;cursor:pointer;">
           <option value="">Venue Type</option>
-          <option value="conference">Conference & Meeting</option>
-          <option value="performance">Performance & Cultural</option>
-          <option value="athletic">Athletic & Stadium</option>
-          <option value="outdoor">Outdoor & Recreation</option>
-          <option value="dining">Dining & Hospitality</option>
-          <option value="hotel">Hotel & Lodging</option>
+          <option value="meetings">Meetings &amp; Conferences</option>
+          <option value="athletics">Athletics &amp; Recreation</option>
+          <option value="celebrations">Celebrations &amp; Special Events</option>
+          <option value="outdoor">Outdoor Spaces</option>
+          <option value="classrooms">Classrooms</option>
         </select>
         <select id="filter-location" class="explorer-cta__filter" style="appearance:auto;cursor:pointer;">
           <option value="">Location</option>
@@ -622,10 +626,10 @@
       </div>
       <div class="venue-grid">
 
-        <!-- ===== SIGNATURE & CONFERENCE VENUES ===== -->
-        <div class="category-divider">Signature &amp; Conference Venues</div>
+        <!-- ===== MEETINGS & CONFERENCES ===== -->
+        <div class="category-divider">Meetings &amp; Conferences</div>
 
-        <div class="venue-card" data-capacity="300" data-type="conference hotel" data-location="west">
+        <div class="venue-card" data-capacity="300" data-type="meetings" data-location="west">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Blackwell Inn &amp; Pfahl Conference Center</h3>
@@ -636,7 +640,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="500" data-type="conference" data-location="west">
+        <div class="venue-card" data-capacity="500" data-type="meetings" data-location="west">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Fawcett Center</h3>
@@ -647,7 +651,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="1700" data-type="conference" data-location="central">
+        <div class="venue-card" data-capacity="1700" data-type="meetings" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Ohio Union</h3>
@@ -658,7 +662,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="200" data-type="conference dining" data-location="west">
+        <div class="venue-card" data-capacity="200" data-type="meetings" data-location="west">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Longaberger Alumni House</h3>
@@ -669,7 +673,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="500" data-type="conference dining" data-location="south">
+        <div class="venue-card" data-capacity="500" data-type="meetings celebrations" data-location="south">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Vitria on the Square</h3>
@@ -680,7 +684,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="1000" data-type="conference dining" data-location="central">
+        <div class="venue-card" data-capacity="1000" data-type="meetings celebrations" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Faculty Club</h3>
@@ -691,203 +695,7 @@
           </div>
         </div>
 
-        <!-- ===== PERFORMANCE & CULTURAL VENUES ===== -->
-        <div class="category-divider">Performance &amp; Cultural Venues</div>
-
-        <div class="venue-card" data-capacity="1000" data-type="performance" data-location="central">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Mershon Auditorium</h3>
-            <div class="venue-card__address">1871 N High St</div>
-            <div class="venue-card__capacity">Capacity: 1,000</div>
-            <div class="venue-card__type">Auditorium, Performance Space</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="500" data-type="performance" data-location="central">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Wexner Center for the Arts</h3>
-            <div class="venue-card__address">1871 North High Street</div>
-            <div class="venue-card__capacity">Capacity: 500</div>
-            <div class="venue-card__type">Performance, Gallery, Meeting</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="200" data-type="performance" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Jack Nicklaus Museum</h3>
-            <div class="venue-card__address">2355 Olentangy River Road</div>
-            <div class="venue-card__capacity">Capacity: 200</div>
-            <div class="venue-card__type">Indoor Event Facility</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="150" data-type="performance" data-location="central">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">The Sandy and Andy Ross Community Studio</h3>
-            <div class="venue-card__address">1800 N. Pearl St</div>
-            <div class="venue-card__capacity">Capacity: 100&ndash;150</div>
-            <div class="venue-card__type">Studio, Conference, Reception</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <!-- ===== ATHLETIC VENUES ===== -->
-        <div class="category-divider">Athletic Venues</div>
-
-        <div class="venue-card" data-capacity="102780" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Ohio Stadium</h3>
-            <div class="venue-card__address">411 Woody Hayes Dr</div>
-            <div class="venue-card__capacity">Capacity: 102,780</div>
-            <div class="venue-card__type">Football Stadium</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="20000" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Jerome Schottenstein Center</h3>
-            <div class="venue-card__address">555 Borror Dr</div>
-            <div class="venue-card__capacity">Capacity: 20,000</div>
-            <div class="venue-card__type">Arena</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="3700" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Covelli Center</h3>
-            <div class="venue-card__address">2640 Fred Taylor Dr</div>
-            <div class="venue-card__capacity">Capacity: 3,700</div>
-            <div class="venue-card__type">Gymnasium</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="4450" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Bill Davis Baseball Stadium</h3>
-            <div class="venue-card__address">560 Borror Dr</div>
-            <div class="venue-card__capacity">Capacity: 4,450</div>
-            <div class="venue-card__type">Baseball Stadium</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="3242" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Jesse Owens Memorial Stadium</h3>
-            <div class="venue-card__address">2450 Fred Taylor Dr</div>
-            <div class="venue-card__capacity">Capacity: 3,242</div>
-            <div class="venue-card__type">Track &amp; Soccer</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="800" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">French Field House</h3>
-            <div class="venue-card__address">460 Woody Hayes Dr</div>
-            <div class="venue-card__capacity">Capacity: 800</div>
-            <div class="venue-card__type">Indoor Track &amp; Field</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="1400" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">McCorkle Aquatic Pavilion</h3>
-            <div class="venue-card__address">337 Annie &amp; John Glenn Ave</div>
-            <div class="venue-card__capacity">Capacity: 1,400</div>
-            <div class="venue-card__type">Aquatic Center</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="2200" data-type="athletic outdoor" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Lacrosse Stadium</h3>
-            <div class="venue-card__address">630 Irving Schottenstein Dr</div>
-            <div class="venue-card__capacity">Capacity: 2,200</div>
-            <div class="venue-card__type">Outdoor Turf</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="1500" data-type="athletic outdoor" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Buckeye Softball Field</h3>
-            <div class="venue-card__address">615 Irving Schottenstein Dr</div>
-            <div class="venue-card__capacity">Capacity: 1,500</div>
-            <div class="venue-card__type">Softball</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="500" data-type="athletic outdoor" data-location="north">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Buckeye Varsity Hockey Field</h3>
-            <div class="venue-card__address">530 Irving Schottenstein Dr</div>
-            <div class="venue-card__capacity">Capacity: 500</div>
-            <div class="venue-card__type">Field Hockey</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="1000" data-type="athletic outdoor" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Outdoor Varsity Tennis Center</h3>
-            <div class="venue-card__address">2491 Olentangy River Rd</div>
-            <div class="venue-card__capacity">Capacity: 1,000</div>
-            <div class="venue-card__type">Tennis</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="450" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Ty Tucker Tennis Center</h3>
-            <div class="venue-card__address">600 Irving Schottenstein Dr</div>
-            <div class="venue-card__capacity">Capacity: 450</div>
-            <div class="venue-card__type">Indoor Tennis</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="13000" data-type="athletic" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Woody Hayes Athletic Center</h3>
-            <div class="venue-card__address">535 Irving Schottenstein Dr</div>
-            <div class="venue-card__capacity">Capacity: 13,000 sq ft</div>
-            <div class="venue-card__type">Training</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <!-- ===== MEETING & FLEXIBLE SPACES ===== -->
-        <div class="category-divider">Meeting &amp; Flexible Spaces</div>
-
-        <div class="venue-card" data-capacity="200" data-type="conference" data-location="north">
+        <div class="venue-card" data-capacity="200" data-type="meetings" data-location="north">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">North District Venues</h3>
@@ -898,7 +706,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="200" data-type="conference" data-location="west">
+        <div class="venue-card" data-capacity="200" data-type="meetings" data-location="west">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Nationwide &amp; Ohio Farm Bureau 4H Center</h3>
@@ -909,7 +717,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="200" data-type="conference" data-location="west">
+        <div class="venue-card" data-capacity="200" data-type="meetings" data-location="west">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Energy Advancement &amp; Innovation Center</h3>
@@ -920,7 +728,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="45" data-type="conference" data-location="central">
+        <div class="venue-card" data-capacity="45" data-type="meetings" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">COhatch Design Lab</h3>
@@ -931,21 +739,197 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="746" data-type="conference" data-location="central">
+        <div class="venue-card" data-capacity="1000" data-type="meetings celebrations" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
-            <h3 class="venue-card__name">Classrooms</h3>
-            <div class="venue-card__address">All across campus</div>
-            <div class="venue-card__capacity">Capacity: 746</div>
-            <div class="venue-card__type">Meeting Rooms</div>
+            <h3 class="venue-card__name">Mershon Auditorium</h3>
+            <div class="venue-card__address">1871 N High St</div>
+            <div class="venue-card__capacity">Capacity: 1,000</div>
+            <div class="venue-card__type">Auditorium, Performance Space</div>
             <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
           </div>
         </div>
 
-        <!-- ===== RECREATION & OUTDOOR ===== -->
-        <div class="category-divider">Recreation &amp; Outdoor</div>
+        <div class="venue-card" data-capacity="500" data-type="meetings celebrations" data-location="central">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Wexner Center for the Arts</h3>
+            <div class="venue-card__address">1871 North High Street</div>
+            <div class="venue-card__capacity">Capacity: 500</div>
+            <div class="venue-card__type">Performance, Gallery, Meeting</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
 
-        <div class="venue-card" data-capacity="1000" data-type="outdoor athletic" data-location="south">
+        <div class="venue-card" data-capacity="200" data-type="meetings celebrations" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Jack Nicklaus Museum</h3>
+            <div class="venue-card__address">2355 Olentangy River Road</div>
+            <div class="venue-card__capacity">Capacity: 200</div>
+            <div class="venue-card__type">Indoor Event Facility</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="150" data-type="meetings" data-location="central">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">The Sandy and Andy Ross Community Studio</h3>
+            <div class="venue-card__address">1800 N. Pearl St</div>
+            <div class="venue-card__capacity">Capacity: 100&ndash;150</div>
+            <div class="venue-card__type">Studio, Conference, Reception</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- ===== ATHLETICS & RECREATION ===== -->
+        <div class="category-divider">Athletics &amp; Recreation</div>
+
+        <div class="venue-card" data-capacity="102780" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Ohio Stadium</h3>
+            <div class="venue-card__address">411 Woody Hayes Dr</div>
+            <div class="venue-card__capacity">Capacity: 102,780</div>
+            <div class="venue-card__type">Football Stadium</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="20000" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Jerome Schottenstein Center</h3>
+            <div class="venue-card__address">555 Borror Dr</div>
+            <div class="venue-card__capacity">Capacity: 20,000</div>
+            <div class="venue-card__type">Arena</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="3700" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Covelli Center</h3>
+            <div class="venue-card__address">2640 Fred Taylor Dr</div>
+            <div class="venue-card__capacity">Capacity: 3,700</div>
+            <div class="venue-card__type">Gymnasium</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="4450" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Bill Davis Baseball Stadium</h3>
+            <div class="venue-card__address">560 Borror Dr</div>
+            <div class="venue-card__capacity">Capacity: 4,450</div>
+            <div class="venue-card__type">Baseball Stadium</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="3242" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Jesse Owens Memorial Stadium</h3>
+            <div class="venue-card__address">2450 Fred Taylor Dr</div>
+            <div class="venue-card__capacity">Capacity: 3,242</div>
+            <div class="venue-card__type">Track &amp; Soccer</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="800" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">French Field House</h3>
+            <div class="venue-card__address">460 Woody Hayes Dr</div>
+            <div class="venue-card__capacity">Capacity: 800</div>
+            <div class="venue-card__type">Indoor Track &amp; Field</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="1400" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">McCorkle Aquatic Pavilion</h3>
+            <div class="venue-card__address">337 Annie &amp; John Glenn Ave</div>
+            <div class="venue-card__capacity">Capacity: 1,400</div>
+            <div class="venue-card__type">Aquatic Center</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="2200" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Lacrosse Stadium</h3>
+            <div class="venue-card__address">630 Irving Schottenstein Dr</div>
+            <div class="venue-card__capacity">Capacity: 2,200</div>
+            <div class="venue-card__type">Outdoor Turf</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="1500" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Buckeye Softball Field</h3>
+            <div class="venue-card__address">615 Irving Schottenstein Dr</div>
+            <div class="venue-card__capacity">Capacity: 1,500</div>
+            <div class="venue-card__type">Softball</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="500" data-type="athletics" data-location="north">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Buckeye Varsity Hockey Field</h3>
+            <div class="venue-card__address">530 Irving Schottenstein Dr</div>
+            <div class="venue-card__capacity">Capacity: 500</div>
+            <div class="venue-card__type">Field Hockey</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="1000" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Outdoor Varsity Tennis Center</h3>
+            <div class="venue-card__address">2491 Olentangy River Rd</div>
+            <div class="venue-card__capacity">Capacity: 1,000</div>
+            <div class="venue-card__type">Tennis</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="450" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Ty Tucker Tennis Center</h3>
+            <div class="venue-card__address">600 Irving Schottenstein Dr</div>
+            <div class="venue-card__capacity">Capacity: 450</div>
+            <div class="venue-card__type">Indoor Tennis</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="13000" data-type="athletics" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Woody Hayes Athletic Center</h3>
+            <div class="venue-card__address">535 Irving Schottenstein Dr</div>
+            <div class="venue-card__capacity">Capacity: 13,000 sq ft</div>
+            <div class="venue-card__type">Training</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="1000" data-type="athletics" data-location="south">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">RPAC &mdash; Recreation &amp; Physical Activity Center</h3>
@@ -956,7 +940,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="50" data-type="outdoor athletic" data-location="north">
+        <div class="venue-card" data-capacity="50" data-type="athletics" data-location="north">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">ARC &mdash; Adventure Recreation Center</h3>
@@ -967,7 +951,7 @@
           </div>
         </div>
 
-        <div class="venue-card" data-capacity="999" data-type="outdoor athletic" data-location="central">
+        <div class="venue-card" data-capacity="999" data-type="athletics outdoor" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
             <h3 class="venue-card__name">Recreational Sports Complex</h3>
@@ -977,6 +961,56 @@
             <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
           </div>
         </div>
+
+        <div class="venue-card" data-capacity="20000" data-type="athletics" data-location="offcampus">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Nationwide Arena</h3>
+            <div class="venue-card__address">200 W Nationwide Blvd</div>
+            <div class="venue-card__capacity">Capacity: 20,000</div>
+            <div class="venue-card__type">Multi-purpose Arena (off campus)</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- ===== CELEBRATIONS & SPECIAL EVENTS ===== -->
+        <div class="category-divider">Celebrations &amp; Special Events</div>
+
+        <div class="venue-card" data-capacity="180" data-type="celebrations outdoor" data-location="west">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">OSU Golf Club</h3>
+            <div class="venue-card__address">3605 Tremont Rd</div>
+            <div class="venue-card__capacity">Capacity: 180</div>
+            <div class="venue-card__type">Indoor/Outdoor, Catering</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="950" data-type="celebrations" data-location="central">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Dining Halls</h3>
+            <div class="venue-card__address">All across campus</div>
+            <div class="venue-card__capacity">Capacity: 950</div>
+            <div class="venue-card__type">Nearly 30 Locations</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <div class="venue-card" data-capacity="115" data-type="celebrations" data-location="central">
+          <div class="venue-card__image img-placeholder"></div>
+          <div class="venue-card__body">
+            <h3 class="venue-card__name">Residence Halls</h3>
+            <div class="venue-card__address">All across campus</div>
+            <div class="venue-card__capacity">Capacity: 115 (meeting)</div>
+            <div class="venue-card__type">40+ Halls</div>
+            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
+          </div>
+        </div>
+
+        <!-- ===== OUTDOOR SPACES ===== -->
+        <div class="category-divider">Outdoor Spaces</div>
 
         <div class="venue-card" data-capacity="40000" data-type="outdoor" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
@@ -989,49 +1023,16 @@
           </div>
         </div>
 
-        <!-- ===== DINING & HOSPITALITY ===== -->
-        <div class="category-divider">Dining &amp; Hospitality</div>
+        <!-- ===== CLASSROOMS ===== -->
+        <div class="category-divider">Classrooms</div>
 
-        <div class="venue-card" data-capacity="950" data-type="hotel dining" data-location="central">
+        <div class="venue-card" data-capacity="746" data-type="classrooms" data-location="central">
           <div class="venue-card__image img-placeholder"></div>
           <div class="venue-card__body">
-            <h3 class="venue-card__name">Dining Halls</h3>
+            <h3 class="venue-card__name">Classrooms</h3>
             <div class="venue-card__address">All across campus</div>
-            <div class="venue-card__capacity">Capacity: 950</div>
-            <div class="venue-card__type">Nearly 30 Locations</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="180" data-type="dining outdoor" data-location="west">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">OSU Golf Club</h3>
-            <div class="venue-card__address">3605 Tremont Rd</div>
-            <div class="venue-card__capacity">Capacity: 180</div>
-            <div class="venue-card__type">Indoor/Outdoor, Catering</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="115" data-type="hotel" data-location="central">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Residence Halls</h3>
-            <div class="venue-card__address">All across campus</div>
-            <div class="venue-card__capacity">Capacity: 115 (meeting)</div>
-            <div class="venue-card__type">40+ Halls</div>
-            <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
-          </div>
-        </div>
-
-        <div class="venue-card" data-capacity="20000" data-type="athletic" data-location="offcampus">
-          <div class="venue-card__image img-placeholder"></div>
-          <div class="venue-card__body">
-            <h3 class="venue-card__name">Nationwide Arena</h3>
-            <div class="venue-card__address">200 W Nationwide Blvd</div>
-            <div class="venue-card__capacity">Capacity: 20,000</div>
-            <div class="venue-card__type">Multi-purpose Arena (off campus)</div>
+            <div class="venue-card__capacity">Capacity: 746</div>
+            <div class="venue-card__type">Meeting Rooms</div>
             <a href="venue-detail.html" class="venue-card__link">View Details &rarr;</a>
           </div>
         </div>
@@ -1113,22 +1114,26 @@
           <div>
             <div class="site-footer__nav-title">About Us</div>
             <ul class="site-footer__nav-list">
-              <li><a href="about-us.html" style="color:inherit;">Meet Our Team</a></li>
-              <li><a href="why-ohio-state.html" style="color:inherit;">Why Ohio State</a></li>
+              <li><a href="meet-our-team.html" style="color:inherit;">Meet Our Team</a></li>
+              <li><a href="why-ohio-state.html" style="color:inherit;">Why Host at Ohio State</a></li>
               <li><a href="blog.html" style="color:inherit;">Blog</a></li>
             </ul>
           </div>
         </nav>
+      </div>      <div class="site-footer__bottom">
+        <span>&copy; 2026 The Ohio State University</span>
+        <ul class="site-footer__bottom-links">
+          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Statement</a></li>
+          <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
+          <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
+          <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
+          <li><a href="cookies.html" style="color:inherit;">Cookie Settings</a></li>
+          <li><a href="#" style="color:inherit;">Site Map</a></li>
+          <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
+        </ul>
       </div>
-      <div class="site-footer__bottom">
-        <div>&copy; 2026 The Ohio State University</div>
-        <div class="site-footer__bottom-links">
-          <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>
-          <a href="terms-conditions.html" style="color:inherit;text-decoration:underline;">Terms &amp; Conditions</a>
-          <a href="accessibility.html" style="color:inherit;text-decoration:underline;">Accessibility</a>
-          <a href="cookies.html" style="color:inherit;text-decoration:underline;">Cookies</a>
-          <a href="https://maps.osu.edu/" target="_blank" style="color:inherit;text-decoration:underline;">Campus Maps ↗</a>
-        </div>
+      <div class="site-footer__legal">
+        If you have a disability and experience difficulty accessing this content, please <a href="accessibility.html">contact us for assistance</a>.
       </div>
     </div>
   </footer>
@@ -1166,12 +1171,7 @@ function filterVenues() {
 
     // Type filter
     if (typeVal) {
-      if (typeVal === 'conference' && type.indexOf('conference') === -1 && type.indexOf('hotel') === -1) show = false;
-      else if (typeVal === 'performance' && type.indexOf('performance') === -1) show = false;
-      else if (typeVal === 'athletic' && type.indexOf('athletic') === -1) show = false;
-      else if (typeVal === 'outdoor' && type.indexOf('outdoor') === -1) show = false;
-      else if (typeVal === 'dining' && type.indexOf('dining') === -1) show = false;
-      else if (typeVal === 'hotel' && type.indexOf('hotel') === -1) show = false;
+      if (type.indexOf(typeVal) === -1) show = false;
     }
 
     // Location filter

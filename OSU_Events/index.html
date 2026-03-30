@@ -84,6 +84,15 @@
     .btn--filled { background: #333; color: #fff; }
     .btn--outline { background: transparent; border: 2px solid #666; color: #666; }
 
+    /* ===== STICKY HEADER WRAPPER ===== */
+    .sticky-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
     /* ===== 1. OSU NAVBAR ===== */
     .osu-navbar {
       background: #f0f0f0;
@@ -91,6 +100,14 @@
       padding: 8px 0;
       font-size: 11px;
       color: #666;
+      max-height: 40px;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .osu-navbar--hidden {
+      max-height: 0;
+      padding: 0;
+      border-bottom: none;
     }
     .osu-navbar .container {
       display: flex;
@@ -176,7 +193,8 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       z-index: 200;
     }
-    .main-nav__dropdown-wrap:hover .main-nav__dropdown { display: block; }
+    .main-nav__dropdown-wrap:hover .main-nav__dropdown,
+    .main-nav__dropdown-wrap:focus-within .main-nav__dropdown { display: block; }
     .main-nav__dropdown-item {
       display: block; padding: 10px 24px; font-size: 13px; color: #555;
       text-decoration: none; font-weight: 500; border-left: 3px solid transparent;
@@ -192,8 +210,8 @@
       letter-spacing: 1.5px; color: #999; font-weight: 700;
     }
     .main-nav__dropdown-item--view-all {
-      font-weight: 700; color: #333; border-top: 1px solid #eee;
-      margin-top: 4px; padding-top: 12px;
+      font-weight: 700; color: #333; border-bottom: 1px solid #eee;
+      margin-bottom: 4px; padding-bottom: 12px;
     }
 
     /* ===== HAMBURGER MENU ===== */
@@ -268,10 +286,13 @@
     /* ===== 4. HERO ===== */
     .hero {
       position: relative;
-      height: 400px;
+      height: 500px;
       background: #e8e8e8;
       border-bottom: 1px solid #ccc;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .hero::before,
     .hero::after {
@@ -287,19 +308,36 @@
     .hero__content {
       position: relative;
       z-index: 1;
-      background: #fff;
-      border: 1px solid #ccc;
+      text-align: center;
       padding: 32px;
-      max-width: 460px;
-      margin: 48px 0 0 48px;
+      max-width: 800px;
     }
     .hero__headline {
-      font-size: 28px; font-weight: 700; color: #333;
-      line-height: 1.25; margin-bottom: 12px;
+      font-size: 44px; font-weight: 800; color: #fff;
+      line-height: 1.15; margin-bottom: 20px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.5);
     }
-    .hero__subhead {
-      font-size: 13px; color: #777;
-      line-height: 1.6; margin-bottom: 20px;
+    .hero__cta {
+      margin-top: 8px;
+    }
+    .hero__cta .btn--filled {
+      background: #fff;
+      color: #333;
+      border-color: #fff;
+    }
+
+    /* ===== 4b. HERO INTRO ===== */
+    .hero-intro {
+      text-align: center;
+      padding: 40px 24px;
+      border-bottom: 1px solid #ddd;
+    }
+    .hero-intro__text {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #555;
     }
 
     /* ===== 5. CTA COLLECTION ===== */
@@ -477,6 +515,11 @@
       display: flex; justify-content: space-between; font-size: 11px; color: #aaa;
     }
     .site-footer__bottom-links { display: flex; gap: 20px; list-style: none; }
+    .site-footer__legal {
+      border-top: 1px solid #ccc; padding-top: 12px; margin-top: 12px;
+      font-size: 10px; color: #aaa; line-height: 1.7;
+    }
+    .site-footer__legal a { color: #aaa; text-decoration: underline; }
 
     /* ===== RESPONSIVE — BUX BREAKPOINTS ===== */
     /* BUX: sm=640, md=760, lg=1080, xl=1260 */
@@ -510,8 +553,11 @@
       .factoid:nth-child(2) { margin-bottom: 20px; }
 
       /* Hero content */
-      .hero { height: auto; min-height: 320px; }
-      .hero__content { max-width: 100%; margin: 32px 24px; }
+      .hero { height: auto; min-height: 350px; }
+      .hero__content { max-width: 100%; padding: 32px 24px; }
+      .hero__headline { font-size: 30px; }
+      .hero-intro { padding: 28px 20px; }
+      .hero-intro__text { font-size: 15px; }
 
       /* HAMBURGER: Show hamburger, hide desktop nav */
       .hamburger { display: flex; }
@@ -555,6 +601,9 @@
 </head>
 <body>
 
+  <!-- STICKY HEADER WRAPPER -->
+  <div class="sticky-header">
+
   <!-- 1. OSU NAVBAR -->
   <nav class="osu-navbar">
     <div class="container">
@@ -574,7 +623,7 @@
   <!-- 2. SITE HEADER -->
   <div class="site-header">
     <div class="container">
-      <a href="homepage-wireframe.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
+      <a href="index.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
         <div class="site-header__logo-box">Logo</div>
         <div>
           <span class="bux-label">BUX: Site Header</span>
@@ -643,10 +692,12 @@
         <ul class="mobile-menu__subnav">
           <a href="about-us.html" class="mobile-menu__subitem">About Us Overview</a>
           <a href="our-story.html" class="mobile-menu__subitem">Our Story</a>
-          <a href="#" class="mobile-menu__subitem">Meet Our Team</a>
-          <a href="#" class="mobile-menu__subitem">Why Ohio State</a>
+          <a href="meet-our-team.html" class="mobile-menu__subitem">Meet Our Team</a>
           <a href="blog.html" class="mobile-menu__subitem">Blog</a>
         </ul>
+      </li>
+      <li>
+        <a href="why-ohio-state.html" class="mobile-menu__item" style="text-decoration:none;">Why Host at Ohio State</a>
       </li>
     </ul>
     <div class="mobile-menu__cta">
@@ -664,12 +715,11 @@
           <a href="plan.html" class="main-nav__dropdown-trigger">Plan <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Plan Your Event</div>
+            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Plan &rarr;</a>
             <a href="venues-spaces.html" class="main-nav__dropdown-item">Venues &amp; Spaces</a>
             <a href="catering-dining.html" class="main-nav__dropdown-item">Catering &amp; Dining</a>
             <a href="av-technology.html" class="main-nav__dropdown-item">AV &amp; Technology</a>
             <a href="transportation-parking.html" class="main-nav__dropdown-item">Transportation &amp; Parking</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Plan &rarr;</a>
           </div>
         </li>
         <!-- STAY dropdown -->
@@ -677,12 +727,11 @@
           <a href="stay.html" class="main-nav__dropdown-trigger">Stay <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Where to Stay</div>
+            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Stay &rarr;</a>
             <a href="blackwell-inn.html" class="main-nav__dropdown-item">The Blackwell Inn</a>
             <a href="residence-halls.html" class="main-nav__dropdown-item">Residence Halls</a>
             <a href="university-hospitality-district.html" class="main-nav__dropdown-item">University Hospitality District</a>
             <a href="columbus-hotels.html" class="main-nav__dropdown-item">Columbus Hotels</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Stay &rarr;</a>
           </div>
         </li>
         <!-- EXPERIENCE dropdown -->
@@ -690,11 +739,10 @@
           <a href="experience.html" class="main-nav__dropdown-trigger">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Experience Ohio State</div>
+            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
             <a href="buckeye-experiences.html" class="main-nav__dropdown-item">Buckeye Experiences</a>
             <a href="explore-ohio-state.html" class="main-nav__dropdown-item">Explore Ohio State</a>
             <a href="experience-columbus.html" class="main-nav__dropdown-item">Experience Columbus</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
           </div>
         </li>
         <!-- ABOUT US dropdown -->
@@ -702,26 +750,35 @@
           <a href="about-us.html" class="main-nav__dropdown-trigger">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">About Us</div>
-            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
-            <a href="#" class="main-nav__dropdown-item">Meet Our Team</a>
-            <a href="#" class="main-nav__dropdown-item">Why Ohio State</a>
-            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
-            <div class="main-nav__dropdown-divider"></div>
             <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
+            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
+            <a href="meet-our-team.html" class="main-nav__dropdown-item">Meet Our Team</a>
+            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
           </div>
         </li>
+        <!-- WHY HOST AT OHIO STATE (standalone) -->
+        <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- 4. HERO -->
+  </div><!-- end sticky-header -->
+
+  <!-- 4. HERO (text overlay — no card box) -->
   <section class="hero">
     <div class="hero__content">
-      <span class="bux-label">BUX: Hero (card-full)</span>
+      <span class="bux-label">BUX: Hero (video bg + text overlay)</span>
       <h1 class="hero__headline">Your Event. Our Campus.<br>The Buckeye Experience.</h1>
-      <p class="hero__subhead">At Ohio State, it's not just hosting an event — it's becoming part of the Buckeye story. 140+ venues, world-class services, one unforgettable destination.</p>
-      <a href="#" class="btn btn--filled">Plan Your Event</a>
+      <div class="hero__cta">
+        <a href="#" class="btn btn--filled">Plan Your Event</a>
+      </div>
     </div>
+  </section>
+
+  <!-- 4b. INTRO SECTION (moved from hero card) -->
+  <section class="hero-intro">
+    <span class="bux-label">Intro Text</span>
+    <p class="hero-intro__text">At Ohio State, it's not just hosting an event — it's becoming part of the Buckeye story. 140+ venues, world-class services, one unforgettable destination.</p>
   </section>
 
 
@@ -990,8 +1047,8 @@
           <div>
             <div class="site-footer__nav-title">About Us</div>
             <ul class="site-footer__nav-list">
-              <li><a href="about-us.html" style="color:inherit;">Meet Our Team</a></li>
-              <li><a href="why-ohio-state.html" style="color:inherit;">Why Ohio State</a></li>
+              <li><a href="meet-our-team.html" style="color:inherit;">Meet Our Team</a></li>
+              <li><a href="why-ohio-state.html" style="color:inherit;">Why Host at Ohio State</a></li>
               <li><a href="blog.html" style="color:inherit;">Blog</a></li>
             </ul>
           </div>
@@ -1000,12 +1057,17 @@
       <div class="site-footer__bottom">
         <span>&copy; 2026 The Ohio State University</span>
         <ul class="site-footer__bottom-links">
-          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Policy</a></li>
+          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Statement</a></li>
+          <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
           <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
           <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
-          <li><a href="cookies.html" style="color:inherit;">Cookies</a></li>
+          <li><a href="cookies.html" style="color:inherit;">Cookie Settings</a></li>
+          <li><a href="#" style="color:inherit;">Site Map</a></li>
           <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
         </ul>
+      </div>
+      <div class="site-footer__legal">
+        If you have a disability and experience difficulty accessing this content, please <a href="accessibility.html">contact us for assistance</a>.
       </div>
     </div>
   </footer>
@@ -1023,5 +1085,20 @@
 <script src="toggle-labels.js"></script>
 <script src="review-comments.js"></script>
 <script src="search-overlay.js"></script>
+<script>
+(function() {
+  var osuNav = document.querySelector('.osu-navbar');
+  var lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    var currentScroll = window.pageYOffset;
+    if (currentScroll > lastScroll && currentScroll > 50) {
+      osuNav.classList.add('osu-navbar--hidden');
+    } else {
+      osuNav.classList.remove('osu-navbar--hidden');
+    }
+    lastScroll = currentScroll;
+  });
+})();
+</script>
 </body>
 </html>

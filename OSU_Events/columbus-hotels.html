@@ -104,7 +104,8 @@
       min-width: 260px; padding: 8px 0;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 200;
     }
-    .main-nav__dropdown-wrap:hover .main-nav__dropdown { display: block; }
+    .main-nav__dropdown-wrap:hover .main-nav__dropdown,
+    .main-nav__dropdown-wrap:focus-within .main-nav__dropdown { display: block; }
     .main-nav__dropdown-item {
       display: block; padding: 10px 24px; font-size: 13px; color: #555;
       text-decoration: none; font-weight: 500; border-left: 3px solid transparent;
@@ -116,8 +117,8 @@
       letter-spacing: 1.5px; color: #999; font-weight: 700;
     }
     .main-nav__dropdown-item--view-all {
-      font-weight: 700; color: #333; border-top: 1px solid #eee;
-      margin-top: 4px; padding-top: 12px;
+      font-weight: 700; color: #333; border-bottom: 1px solid #eee;
+      margin-bottom: 4px; padding-bottom: 12px;
     }
 
     /* ===== HAMBURGER MENU ===== */
@@ -334,6 +335,11 @@
       padding-top: 20px; border-top: 1px solid #ddd; font-size: 11px; color: #999;
     }
     .site-footer__bottom-links { display: flex; gap: 20px; }
+    .site-footer__legal {
+      border-top: 1px solid #ccc; padding-top: 12px; margin-top: 12px;
+      font-size: 10px; color: #aaa; line-height: 1.7;
+    }
+    .site-footer__legal a { color: #aaa; text-decoration: underline; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 760px) {
@@ -400,7 +406,7 @@
   <!-- 2. SITE HEADER -->
   <div class="site-header">
     <div class="container">
-      <a href="homepage-wireframe.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
+      <a href="index.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
         <div class="site-header__logo-box">Logo</div>
         <div>
           <span class="bux-label">BUX: Site Header</span>
@@ -469,10 +475,12 @@
         <ul class="mobile-menu__subnav">
           <a href="about-us.html" class="mobile-menu__subitem">About Us Overview</a>
           <a href="our-story.html" class="mobile-menu__subitem">Our Story</a>
-          <a href="#" class="mobile-menu__subitem">Meet Our Team</a>
-          <a href="why-ohio-state.html" class="mobile-menu__subitem">Why Ohio State</a>
+          <a href="meet-our-team.html" class="mobile-menu__subitem">Meet Our Team</a>
           <a href="blog.html" class="mobile-menu__subitem">Blog</a>
         </ul>
+      </li>
+      <li>
+        <a href="why-ohio-state.html" class="mobile-menu__item" style="text-decoration:none;">Why Host at Ohio State</a>
       </li>
     </ul>
     <div class="mobile-menu__cta">
@@ -490,12 +498,11 @@
           <a href="plan.html" class="main-nav__dropdown-trigger">Plan <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Plan Your Event</div>
+            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Planning &rarr;</a>
             <a href="venues-spaces.html" class="main-nav__dropdown-item">Venues &amp; Spaces</a>
             <a href="catering-dining.html" class="main-nav__dropdown-item">Catering &amp; Dining</a>
             <a href="av-technology.html" class="main-nav__dropdown-item">AV &amp; Technology</a>
             <a href="transportation-parking.html" class="main-nav__dropdown-item">Transportation &amp; Parking</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Planning &rarr;</a>
           </div>
         </li>
         <!-- STAY dropdown (active) -->
@@ -503,12 +510,11 @@
           <a href="stay.html" class="main-nav__dropdown-trigger main-nav__dropdown-trigger--active">Stay <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Where to Stay</div>
+            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Lodging &rarr;</a>
             <a href="blackwell-inn.html" class="main-nav__dropdown-item">The Blackwell Inn</a>
             <a href="residence-halls.html" class="main-nav__dropdown-item">Residence Halls</a>
             <a href="university-hospitality-district.html" class="main-nav__dropdown-item">University Hospitality District</a>
             <a href="columbus-hotels.html" class="main-nav__dropdown-item">Columbus Hotels</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Lodging &rarr;</a>
           </div>
         </li>
         <!-- EXPERIENCE dropdown -->
@@ -516,11 +522,10 @@
           <a href="experience.html" class="main-nav__dropdown-trigger">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Experience</div>
+            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
             <a href="buckeye-experiences.html" class="main-nav__dropdown-item">Buckeye Experiences</a>
             <a href="explore-ohio-state.html" class="main-nav__dropdown-item">Explore Ohio State</a>
             <a href="experience-columbus.html" class="main-nav__dropdown-item">Experience Columbus</a>
-            <div class="main-nav__dropdown-divider"></div>
-            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
           </div>
         </li>
         <!-- ABOUT US dropdown -->
@@ -528,14 +533,14 @@
           <a href="about-us.html" class="main-nav__dropdown-trigger">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">About Us</div>
-            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
-            <a href="#" class="main-nav__dropdown-item">Meet Our Team</a>
-            <a href="why-ohio-state.html" class="main-nav__dropdown-item">Why Ohio State</a>
-            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
-            <div class="main-nav__dropdown-divider"></div>
             <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
+            <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
+            <a href="meet-our-team.html" class="main-nav__dropdown-item">Meet Our Team</a>
+            <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
           </div>
         </li>
+        <!-- WHY HOST AT OHIO STATE (standalone) -->
+        <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
     </div>
   </nav>
@@ -545,7 +550,7 @@
     <div class="container">
       <span class="bux-label">BUX: Breadcrumb</span>
       <div style="margin-top:4px;">
-        <a href="homepage-wireframe.html">Home</a>
+        <a href="index.html">Home</a>
         <span class="breadcrumb__sep">/</span>
         <a href="stay.html">Stay</a>
         <span class="breadcrumb__sep">/</span>
@@ -589,7 +594,7 @@
         </div>
         <div class="quick-info__item">
           <span class="quick-info__icon">&#9679;</span>
-          <a href="https://www.experiencecolumbus.com/" class="quick-info__link">experiencecolumbus.com</a>
+          <a href="https://www.experiencecolumbus.com/" class="quick-info__link" target="_blank">experiencecolumbus.com</a>
         </div>
       </div>
     </div>
@@ -651,7 +656,7 @@
             <h3 class="hotel-card__name">Hilton Columbus Downtown</h3>
             <div class="hotel-card__address">401 N High St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 384-8600</div>
-            <a href="https://www.hilton.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hilton.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -661,7 +666,7 @@
             <h3 class="hotel-card__name">Hyatt Regency Columbus</h3>
             <div class="hotel-card__address">350 N High St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 463-1234</div>
-            <a href="https://www.hyatt.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hyatt.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -671,7 +676,7 @@
             <h3 class="hotel-card__name">Le M&eacute;ridien Columbus, The Joseph</h3>
             <div class="hotel-card__address">620 N High St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 227-0100</div>
-            <a href="https://www.marriott.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.marriott.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -681,7 +686,7 @@
             <h3 class="hotel-card__name">Canopy by Hilton Columbus Short North</h3>
             <div class="hotel-card__address">77 E Nationwide Blvd, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 223-1400</div>
-            <a href="https://www.hilton.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hilton.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -691,7 +696,7 @@
             <h3 class="hotel-card__name">Hotel LeVeque, Autograph Collection</h3>
             <div class="hotel-card__address">50 W Broad St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 223-1800</div>
-            <a href="https://www.marriott.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.marriott.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -701,7 +706,7 @@
             <h3 class="hotel-card__name">Marriott Columbus University Area</h3>
             <div class="hotel-card__address">3100 Olentangy River Rd, Columbus, OH 43202</div>
             <div class="hotel-card__phone">(614) 461-3100</div>
-            <a href="https://www.marriott.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.marriott.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -711,7 +716,7 @@
             <h3 class="hotel-card__name">Sonesta Columbus Downtown</h3>
             <div class="hotel-card__address">33 E Nationwide Blvd, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 461-4100</div>
-            <a href="https://www.sonesta.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.sonesta.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -721,7 +726,7 @@
             <h3 class="hotel-card__name">Drury Inn &amp; Suites Columbus Convention Center</h3>
             <div class="hotel-card__address">88 E Nationwide Blvd, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 221-7008</div>
-            <a href="https://www.druryhotels.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.druryhotels.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -731,7 +736,7 @@
             <h3 class="hotel-card__name">Hampton Inn Columbus Downtown</h3>
             <div class="hotel-card__address">501 N High St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 559-2000</div>
-            <a href="https://www.hilton.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hilton.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -741,7 +746,7 @@
             <h3 class="hotel-card__name">Courtyard Columbus Downtown</h3>
             <div class="hotel-card__address">35 W Spring St, Columbus, OH 43215</div>
             <div class="hotel-card__phone">(614) 228-3200</div>
-            <a href="https://www.marriott.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.marriott.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -751,7 +756,7 @@
             <h3 class="hotel-card__name">Embassy Suites Columbus Airport</h3>
             <div class="hotel-card__address">2886 Airport Dr, Columbus, OH 43219</div>
             <div class="hotel-card__phone">(614) 536-0500</div>
-            <a href="https://www.hilton.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hilton.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -761,7 +766,7 @@
             <h3 class="hotel-card__name">Hilton Columbus/Polaris</h3>
             <div class="hotel-card__address">8700 Lyra Dr, Columbus, OH 43240</div>
             <div class="hotel-card__phone">(614) 885-1600</div>
-            <a href="https://www.hilton.com/" class="hotel-card__link">Visit Website &rarr;</a>
+            <a href="https://www.hilton.com/" class="hotel-card__link" target="_blank">Visit Website &rarr;</a>
           </div>
         </div>
 
@@ -847,7 +852,7 @@
       <p class="cta-in-page__desc">Let our team help you find the perfect lodging options for your event attendees across greater Columbus.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         <a href="request-information.html" class="btn btn--filled">Request Information</a>
-        <a href="https://www.experiencecolumbus.com/" class="btn btn--outline">Visit experiencecolumbus.com</a>
+        <a href="https://www.experiencecolumbus.com/hotels/" target="_blank" class="btn btn--outline">Visit experiencecolumbus.com</a>
       </div>
     </div>
   </section>
@@ -895,22 +900,26 @@
           <div>
             <div class="site-footer__nav-title">About Us</div>
             <ul class="site-footer__nav-list">
-              <li><a href="about-us.html" style="color:inherit;">Meet Our Team</a></li>
-              <li><a href="why-ohio-state.html" style="color:inherit;">Why Ohio State</a></li>
+              <li><a href="meet-our-team.html" style="color:inherit;">Meet Our Team</a></li>
+              <li><a href="why-ohio-state.html" style="color:inherit;">Why Host at Ohio State</a></li>
               <li><a href="blog.html" style="color:inherit;">Blog</a></li>
             </ul>
           </div>
         </nav>
+      </div>      <div class="site-footer__bottom">
+        <span>&copy; 2026 The Ohio State University</span>
+        <ul class="site-footer__bottom-links">
+          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Statement</a></li>
+          <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
+          <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
+          <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
+          <li><a href="cookies.html" style="color:inherit;">Cookie Settings</a></li>
+          <li><a href="#" style="color:inherit;">Site Map</a></li>
+          <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
+        </ul>
       </div>
-      <div class="site-footer__bottom">
-        <div>&copy; 2026 The Ohio State University</div>
-        <div class="site-footer__bottom-links">
-          <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>
-          <a href="terms-conditions.html" style="color:inherit;text-decoration:underline;">Terms &amp; Conditions</a>
-          <a href="accessibility.html" style="color:inherit;text-decoration:underline;">Accessibility</a>
-          <a href="cookies.html" style="color:inherit;text-decoration:underline;">Cookies</a>
-          <a href="https://maps.osu.edu/" target="_blank" style="color:inherit;text-decoration:underline;">Campus Maps ↗</a>
-        </div>
+      <div class="site-footer__legal">
+        If you have a disability and experience difficulty accessing this content, please <a href="accessibility.html">contact us for assistance</a>.
       </div>
     </div>
   </footer>
