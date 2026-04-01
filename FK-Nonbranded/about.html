@@ -99,10 +99,15 @@
     }
 
     /* ===== FDS: NAVBAR (4393:9070) ===== */
+    .site-nav-wrapper {
+      position: sticky; top: 0; z-index: 100;
+      transition: top 0.3s ease;
+    }
     .top-navbar { background: var(--wire-dark); padding: var(--pad-lg) var(--pad-md); }
     .top-navbar__inner {
       max-width: var(--max-width); margin: 0 auto;
       display: flex; align-items: center; gap: var(--pad-3xl);
+      min-height: 35px; /* prevent height jump when search toggles */
     }
     .top-navbar__logo {
       width: 100px; height: 19px; border: 1px solid #888; border-radius: var(--radius-lg);
@@ -112,8 +117,14 @@
     .top-navbar__search {
       flex: 1; background: var(--wire-white); border-radius: var(--radius-lg);
       padding: var(--pad-xs) var(--pad-sm);
-      display: flex; align-items: center; gap: var(--pad-xs);
+      display: none; align-items: center; gap: var(--pad-xs);
       font-size: var(--text-0); color: var(--wire-light);
+    }
+    .top-navbar__search.is-open {
+      display: flex;
+    }
+    .top-navbar__search-placeholder {
+      flex: 1;
     }
     .top-navbar__search-input {
       background: transparent;
@@ -536,9 +547,76 @@
       .tertiary-hero__spacer { display: none; }
       .tertiary-hero__title { font-size: 30px; line-height: 46px; }
     }
-  </style>
+  
+    /* ===== ENTRY MODAL ===== */
+    .entry-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.5);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .entry-modal-overlay.is-hidden { display: none; }
+    .entry-modal {
+      background: var(--wire-white);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      max-width: 560px;
+      width: 90%;
+      padding: var(--pad-3xl) var(--pad-3xl) var(--pad-xl);
+      text-align: center;
+    }
+    .entry-modal__message {
+      font-size: var(--text-2);
+      line-height: var(--lh-2);
+      color: var(--wire-dark);
+      margin-bottom: var(--pad-xl);
+    }
+    .entry-modal__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      padding: var(--pad-sm) var(--pad-xl);
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: var(--text-0);
+      font-weight: 600;
+      line-height: var(--lh-0);
+      color: var(--wire-white);
+      background: var(--wire-dark);
+      border: 2px solid var(--wire-dark);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .entry-modal__btn:hover { opacity: 0.85; }
+
+    /* ===== LINK ICONS ===== */
+    .link-icon { display: inline-flex; align-items: center; margin-left: 4px; flex-shrink: 0; vertical-align: middle; }
+    .link-icon svg { width: 14px; height: 14px; display: block; }
+</style>
 </head>
 <body>
+  <!-- ===== ENTRY MODAL ===== -->
+  <div class="entry-modal-overlay" id="entry-modal">
+    <div class="entry-modal">
+      <p class="entry-modal__message">The information on this site is intended for healthcare professionals who are residents of the United States.</p>
+      <button class="entry-modal__btn" id="entry-modal-continue">Continue</button>
+    </div>
+  </div>
+
+  <!-- ===== EXIT MODAL ===== -->
+  <div class="entry-modal-overlay is-hidden" id="exit-modal">
+    <div class="entry-modal">
+      <p class="entry-modal__message">FPO: You have clicked on a link which leaves the Fresenius Kabi nutrition site.</p>
+      <a class="entry-modal__btn" id="exit-modal-continue" href="#" target="_blank" rel="noopener noreferrer">Continue</a>
+    </div>
+  </div>
+
+
 
   <div class="site-nav-wrapper">
   <!-- ===== FDS: NAVBAR (4393:9070) -- Top Bar ===== -->
@@ -546,13 +624,13 @@
     <div class="top-navbar__inner">
       <span class="fds-label">FDS: Navbar / Top Bar</span>
       <a href="index.html" class="top-navbar__logo" style="text-decoration:none;">LOGO</a>
-      <form class="top-navbar__search" action="search-results.html" method="GET">
+      <div class="top-navbar__search-placeholder" id="desktop-search-placeholder"></div>
+      <form class="top-navbar__search" id="desktop-search-form" action="search-results.html" method="GET">
         <span class="fds-icon fds-icon--sm" style="--stroke-0: #999;"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19L14.66 14.66M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="var(--stroke-0, #999)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <input type="text" name="q" class="top-navbar__search-input" placeholder="Search" autocomplete="off">
       </form>
-      <div class="top-navbar__utils">
-        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11C21 16.5228 16.5228 21 11 21M21 11C21 5.47715 16.5228 1 11 1M21 11H1M11 21C5.47715 21 1 16.5228 1 11M11 21C8.43223 18.3038 7 14.7233 7 11C7 7.27674 8.43223 3.69615 11 1M11 21C13.5678 18.3038 15 14.7233 15 11C15 7.27674 13.5678 3.69615 11 1M1 11C1 5.47715 5.47715 1 11 1" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Global</a>
-        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 1H19M19 1V7M19 1L8 12M16 11V17C16 17.5304 15.7893 18.0391 15.4142 18.4142C15.0391 18.7893 14.5304 19 14 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V6C1 5.46957 1.21071 4.96086 1.58579 4.58579C1.96086 4.21071 2.46957 4 3 4H9" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> For Clinicians</a>
+            <div class="top-navbar__utils">
+        <a href="#" class="top-navbar__util-link" id="desktop-search-toggle"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19L14.66 14.66M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Search</a>
       </div>
     </div>
   </div>
@@ -964,7 +1042,7 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__top">
-        <p class="footer__copyright">Fresenius Kabi Deutschland GmbH – A company of the Fresenius Group &copy; 2025</p>
+        <p class="footer__copyright">Fresenius Kabi Deutschland GmbH – A company of the Fresenius Group &copy; 2026</p>
         <div class="footer__logo">
           <span class="fds-label">FDS: Footer</span>
           <div class="footer__logo-mark">FRESENIUS KABI</div>
@@ -978,6 +1056,8 @@
         <a href="legal-disclaimer.html">Data Privacy</a>
         <span class="footer__pipe">|</span>
         <a href="#">Cookie Notice</a>
+        <span class="footer__pipe">|</span>
+        <a href="sitemap.html">Site Map</a>
       </div>
     </div>
   </footer>
@@ -1015,9 +1095,9 @@
       '<div class="label-toggle__switch' + (visible ? ' is-on' : '') + '">' +
       '  <div class="label-toggle__knob"></div>' +
       '</div>' +
-      '<span>FDS</span>';
+      '<a href="project-components.html" style="color: #555; text-decoration: none; font-weight: 600;" title="View Component Library">FDS</a>';
 
-    btn.addEventListener('click', function () {
+    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) { e.stopPropagation();
       visible = !visible;
       localStorage.setItem(STORAGE_KEY, visible);
       document.body.classList.toggle('hide-labels', !visible);
@@ -1108,7 +1188,129 @@
         }
       });
     }
+
+    /* ---- Desktop Search Toggle ---- */
+    var desktopSearchToggle = document.getElementById('desktop-search-toggle');
+    var desktopSearchForm = document.getElementById('desktop-search-form');
+    var desktopSearchPlaceholder = document.getElementById('desktop-search-placeholder');
+
+    if (desktopSearchToggle && desktopSearchForm) {
+      desktopSearchToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var isOpen = desktopSearchForm.classList.toggle('is-open');
+        if (desktopSearchPlaceholder) {
+          desktopSearchPlaceholder.style.display = isOpen ? 'none' : '';
+        }
+        if (isOpen) {
+          var input = desktopSearchForm.querySelector('.top-navbar__search-input');
+          if (input) input.focus();
+        }
+      });
+    }
+
+    /* ---- Sticky Nav: hide top bar on scroll down (desktop only) ---- */
+    var siteNavWrapper = document.querySelector('.site-nav-wrapper');
+    var topNavbar = document.querySelector('.top-navbar');
+    if (siteNavWrapper && topNavbar) {
+      var lastScrollY = 0;
+      window.addEventListener('scroll', function () {
+        if (window.innerWidth <= 767) return; // skip on mobile
+        var currentScrollY = window.pageYOffset;
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          var topBarHeight = topNavbar.offsetHeight;
+          siteNavWrapper.style.top = '-' + topBarHeight + 'px';
+        } else {
+          siteNavWrapper.style.top = '0';
+        }
+        lastScrollY = currentScrollY;
+      });
+    }
   })();
   </script>
+  <!-- ===== ENTRY MODAL SCRIPT ===== -->
+  <script>
+  (function () {
+    var modal = document.getElementById('entry-modal');
+    var btn = document.getElementById('entry-modal-continue');
+    if (!modal || !btn) return;
+
+    // If already dismissed this session, hide immediately
+    if (sessionStorage.getItem('entryModalDismissed')) {
+      modal.classList.add('is-hidden');
+      return;
+    }
+
+    // Show modal (prevent background scroll)
+    document.body.style.overflow = 'hidden';
+
+    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) { e.stopPropagation();
+      modal.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      sessionStorage.setItem('entryModalDismissed', '1');
+    });
+  })();
+  </script>
+
+  <!-- ===== LINK ICON INJECTION ===== -->
+  <script>
+  (function () {
+    var downloadSVG = '<span class="link-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+    var externalSVG = '<span class="link-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11M15 3H21M21 3V9M21 3L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+    // Download links
+    document.querySelectorAll('a, button').forEach(function (el) {
+      var txt = el.textContent.trim();
+      if (/^(View\s*\/\s*)?Download(\s*(PDF|CSV|XLS|DOC))?(\s*\u2192)?$/i.test(txt)) {
+        if (!el.querySelector('.link-icon')) el.insertAdjacentHTML('beforeend', ' ' + downloadSVG);
+      }
+    });
+
+    // External links
+    document.querySelectorAll('a[target="_blank"]').forEach(function (el) {
+      if (el.href && /^https?:\/\//.test(el.href)) {
+        if (!el.querySelector('.link-icon')) el.insertAdjacentHTML('beforeend', ' ' + externalSVG);
+      }
+    });
+  })();
+  </script>
+
+  <!-- ===== EXIT MODAL SCRIPT ===== -->
+  <script>
+  (function () {
+    var exitModal = document.getElementById('exit-modal');
+    var exitBtn = document.getElementById('exit-modal-continue');
+    if (!exitModal || !exitBtn) return;
+
+    // Intercept external link clicks
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[target="_blank"]');
+      if (!link) return;
+      if (!link.href || !/^https?:\/\//.test(link.href)) return;
+
+      e.preventDefault();
+      exitBtn.href = link.href;
+      exitModal.classList.remove('is-hidden');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal on Continue click and open link
+    exitBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = exitBtn.href;
+      exitModal.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
+    });
+
+    // Close modal on overlay click
+    exitModal.addEventListener('click', function (e) {
+      if (e.target === exitModal) {
+        exitModal.classList.add('is-hidden');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+  </script>
+
 </body>
 </html>

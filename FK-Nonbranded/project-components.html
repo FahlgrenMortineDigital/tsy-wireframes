@@ -75,6 +75,23 @@
       text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; margin-top: 16px;
     }
 
+    .lib-section-header {
+      max-width: 1200px; margin: 48px auto 0; padding: 0 32px;
+    }
+    .lib-section-header h2 {
+      font-size: 28px; font-weight: 700; margin-bottom: 8px;
+    }
+    .lib-section-header p {
+      font-size: 14px; color: var(--wire-mid); margin-bottom: 0;
+    }
+    .lib-section-header--fds {
+      border-bottom: 3px solid #5060a0; padding-bottom: 16px;
+    }
+    .lib-section-header--fds h2 { color: #5060a0; }
+    .lib-section-header--custom {
+      border-bottom: 3px solid var(--wire-dark); padding-bottom: 16px;
+    }
+
     /* ===== DEMO COMPONENT STYLES ===== */
 
     /* ---- Buttons ---- */
@@ -109,53 +126,60 @@
   <div class="lib-header">
     <h1>Project Component Library</h1>
     <p>43 components used across the FK Non Branded Nutrition wireframe site</p>
+    <a href="index.html" style="display: inline-block; margin-top: 24px; padding: 10px 24px; background: var(--wire-white); color: var(--wire-dark); font-size: 14px; font-weight: 600; border-radius: var(--radius-lg); text-decoration: none;">← Back to Wireframes</a>
   </div>
 
   <!-- ===== TABLE OF CONTENTS ===== -->
   <div class="lib-toc">
-    <h2>Table of Contents</h2>
+    <h2>Fresubin Design System Components</h2>
     <div class="lib-toc__grid">
       <a href="#comp-01"><span>01</span> Top Navbar</a>
       <a href="#comp-02"><span>02</span> Bottom Navbar</a>
       <a href="#comp-03"><span>03</span> Mega Menu</a>
       <a href="#comp-04"><span>04</span> Mobile Navbar</a>
-      <a href="#comp-05"><span>05</span> Mobile Search Bar</a>
       <a href="#comp-06"><span>06</span> Mobile Menu Overlay</a>
       <a href="#comp-07"><span>07</span> Nav Divider</a>
       <a href="#comp-08"><span>08</span> Breadcrumb</a>
       <a href="#comp-09"><span>09</span> Hero / Tertiary</a>
       <a href="#comp-10"><span>10</span> Hero / Secondary Carousel</a>
       <a href="#comp-11"><span>11</span> Hero / Primary</a>
-      <a href="#comp-12"><span>12</span> FPO Notice Banner</a>
       <a href="#comp-13"><span>13</span> Content Block / Text</a>
       <a href="#comp-14"><span>14</span> Content Block / Callout</a>
       <a href="#comp-15"><span>15</span> Card Grid (2-column)</a>
       <a href="#comp-16"><span>16</span> Card Grid (3-column)</a>
       <a href="#comp-17"><span>17</span> Card Grid (2x2)</a>
       <a href="#comp-18"><span>18</span> Data Table</a>
-      <a href="#comp-19"><span>19</span> Numbered Steps</a>
       <a href="#comp-20"><span>20</span> Promo Banner</a>
       <a href="#comp-21"><span>21</span> Button / Primary</a>
       <a href="#comp-22"><span>22</span> Pill</a>
       <a href="#comp-23"><span>23</span> Video Card</a>
       <a href="#comp-24"><span>24</span> Video Modal</a>
-      <a href="#comp-25"><span>25</span> Resource List</a>
       <a href="#comp-26"><span>26</span> Content Block / Text + Image</a>
       <a href="#comp-27"><span>27</span> Footer</a>
-      <a href="#comp-28"><span>28</span> Search Results</a>
-      <a href="#comp-29"><span>29</span> Form / Contact</a>
       <a href="#comp-30"><span>30</span> FDS Component Label</a>
       <a href="#comp-31"><span>31</span> Content Block + Accordion</a>
       <a href="#comp-32"><span>32</span> Feature Card</a>
-      <a href="#comp-33"><span>33</span> Feature Card / Calculator</a>
-      <a href="#comp-34"><span>34</span> Content Block / References</a>
-      <a href="#comp-35"><span>35</span> Content Block / Confirmation</a>
-      <a href="#comp-36"><span>36</span> CTA Block (Dark)</a>
       <a href="#comp-37"><span>37</span> Condition Card</a>
       <a href="#comp-38"><span>38</span> Research Highlight Card</a>
       <a href="#comp-39"><span>39</span> Webinar Event Card</a>
       <a href="#comp-40"><span>40</span> Contributor Card</a>
       <a href="#comp-41"><span>41</span> Infographic Card</a>
+    </div>
+  </div>
+
+  <div class="lib-toc">
+    <h2>FK Non-Branded Components</h2>
+    <div class="lib-toc__grid">
+      <a href="#comp-05"><span>05</span> Mobile Search Bar</a>
+      <a href="#comp-12"><span>12</span> FPO Notice Banner</a>
+      <a href="#comp-19"><span>19</span> Numbered Steps</a>
+      <a href="#comp-25"><span>25</span> Resource List</a>
+      <a href="#comp-28"><span>28</span> Search Results</a>
+      <a href="#comp-29"><span>29</span> Form / Contact</a>
+      <a href="#comp-33"><span>33</span> Feature Card / Calculator</a>
+      <a href="#comp-34"><span>34</span> Content Block / References</a>
+      <a href="#comp-35"><span>35</span> Content Block / Confirmation</a>
+      <a href="#comp-36"><span>36</span> CTA Block (Dark)</a>
       <a href="#comp-42"><span>42</span> Resource List / Download</a>
       <a href="#comp-43"><span>43</span> Stat Block / Key Number</a>
     </div>
@@ -163,6 +187,11 @@
 
   <!-- ===== COMPONENT DEMOS ===== -->
   <div class="lib-body">
+
+    <div class="lib-section-header lib-section-header--fds" id="section-fds">
+      <h2>Fresubin Design System Components</h2>
+      <p>Components sourced from the Fresubin Design System (FDS) in Figma. These components follow the global design system patterns and tokens.</p>
+    </div>
 
     <!-- ====================== COMPONENT 01 ====================== -->
     <div class="comp" id="comp-01">
@@ -270,19 +299,6 @@
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 12H21M3 6H21M3 18H21" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 05 ====================== -->
-    <div class="comp" id="comp-05">
-      <div class="comp__title">Component 05</div>
-      <div class="comp__name">Mobile Search Bar</div>
-      <span class="comp__url">Used on: All pages (mobile)</span>
-      <span class="fds-label">FDS: Mobile Search</span>
-      <div class="comp__demo" style="padding: 0; overflow: hidden; max-width: 375px;">
-        <div style="padding: 16px 24px; background: #fff; border-bottom: 1px solid #cbccd0;">
-          <input type="text" placeholder="Search" style="width: 100%; padding: 10px 14px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; border: 2px solid #6699cc; border-radius: 8px; outline: none; background: #fff; color: #333;">
         </div>
       </div>
     </div>
@@ -430,19 +446,6 @@
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 3L9 7L5 11" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 12 ====================== -->
-    <div class="comp" id="comp-12">
-      <div class="comp__title">Component 12</div>
-      <div class="comp__name">FPO Notice Banner</div>
-      <span class="comp__url">Used on: All content pages</span>
-      <span class="fds-label">FDS: Notice Banner</span>
-      <div class="comp__demo">
-        <div style="background: #fff3cd; border: 1px solid #e0c36a; border-radius: 8px; padding: 16px 24px;">
-          <p style="font-size: 14px; line-height: 20px; color: #664d03; margin: 0;"><strong>FPO Content:</strong> The text and data on this page are for position only and do not represent our final copy. This is directional content only and is intended to help inform how the page and site experience can be structured based on stakeholder feedback and strategic objectives for the site.</p>
         </div>
       </div>
     </div>
@@ -611,39 +614,6 @@
       </div>
     </div>
 
-    <!-- ====================== COMPONENT 19 ====================== -->
-    <div class="comp" id="comp-19">
-      <div class="comp__title">Component 19</div>
-      <div class="comp__name">Numbered Steps</div>
-      <span class="comp__url">Used on: PN Safety, Prescription Writing, Malnutrition</span>
-      <span class="fds-label">FDS: Numbered Steps</span>
-      <div class="comp__demo">
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
-            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">1</div>
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Verify the PN order against patient-specific requirements</p>
-              <p style="font-size: 14px; line-height: 22px; color: #666;">Confirm that the prescribed macronutrient and micronutrient composition aligns with the patient's metabolic needs.</p>
-            </div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
-            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">2</div>
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Confirm line placement and patency</p>
-              <p style="font-size: 14px; line-height: 22px; color: #666;">Verify that the vascular access device is properly positioned and patent before initiating infusion.</p>
-            </div>
-          </div>
-          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
-            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">3</div>
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Check solution integrity and expiration</p>
-              <p style="font-size: 14px; line-height: 22px; color: #666;">Inspect the PN solution for particulate matter, precipitates, or color changes.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- ====================== COMPONENT 20 ====================== -->
     <div class="comp" id="comp-20">
       <div class="comp__title">Component 20</div>
@@ -759,39 +729,6 @@
       </div>
     </div>
 
-    <!-- ====================== COMPONENT 25 ====================== -->
-    <div class="comp" id="comp-25">
-      <div class="comp__title">Component 25</div>
-      <div class="comp__name">Resource List</div>
-      <span class="comp__url">Used on: Downloadable Tools, External Resources</span>
-      <span class="fds-label">FDS: Resource List</span>
-      <div class="comp__demo" style="padding: 0; overflow: hidden;">
-        <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
-          <div style="border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">PN Order Template</p>
-              <p style="font-size: 12px; color: #999;">PDF &middot; Standardized PN prescription form with macronutrient fields</p>
-            </div>
-            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
-          </div>
-          <div style="border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: #f5f5f5;">
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">Monitoring Checklist</p>
-              <p style="font-size: 12px; color: #999;">PDF &middot; Daily lab monitoring schedule for PN patients</p>
-            </div>
-            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
-          </div>
-          <div style="padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">Patient Education Handout</p>
-              <p style="font-size: 12px; color: #999;">PDF &middot; Plain-language guide for patients receiving PN at home</p>
-            </div>
-            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <!-- ====================== COMPONENT 26 ====================== -->
     <div class="comp" id="comp-26">
       <div class="comp__title">Component 26</div>
@@ -841,72 +778,6 @@
               <a href="#" style="font-size: 12px; color: rgba(255,255,255,0.7); text-decoration: none;">Contact</a>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 28 ====================== -->
-    <div class="comp" id="comp-28">
-      <div class="comp__title">Component 28</div>
-      <div class="comp__name">Search Results</div>
-      <span class="comp__url">Used on: Search Results page</span>
-      <span class="fds-label">FDS: Search Results</span>
-      <div class="comp__demo">
-        <div style="background: #f5f5f5; padding: 32px 0 24px; border-bottom: 1px solid #ddd; margin-bottom: 24px; border-radius: 8px 8px 0 0; padding-left: 24px; padding-right: 24px;">
-          <h2 style="font-size: 30px; font-weight: 700; line-height: 46px; margin-bottom: 24px;">Search Results</h2>
-          <div style="display: flex; max-width: 600px;">
-            <input type="text" value="parenteral nutrition" style="flex: 1; height: 48px; border: none; border-bottom: 2px solid #333; background: transparent; padding: 0 12px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; color: #333; outline: none;">
-            <button style="height: 48px; padding: 0 32px; border: none; border-bottom: 2px solid #333; background: #333; color: #fff; font-family: 'Open Sans', Arial, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;">Search</button>
-          </div>
-          <p style="font-size: 14px; color: #999; margin-top: 4px;">12 results found</p>
-        </div>
-        <div style="max-width: 600px; padding-left: 24px;">
-          <div style="padding: 12px 0 24px; border-bottom: 1px solid #e0e0e0;">
-            <a href="#" style="font-size: 16px; font-weight: 700; color: #333; text-decoration: none; line-height: 1.3;">What is Parenteral Nutrition</a>
-            <p style="font-size: 12px; color: #999; margin-top: 4px;">pnresource.com/pn-fundamentals/what-is-parenteral-nutrition</p>
-            <p style="font-size: 14px; color: #666; line-height: 22px; margin-top: 8px;">An introduction to intravenous nutrition therapy, including definitions, types of PN, and clinical indications...</p>
-          </div>
-          <div style="padding: 24px 0; border-bottom: 1px solid #e0e0e0;">
-            <a href="#" style="font-size: 16px; font-weight: 700; color: #333; text-decoration: none; line-height: 1.3;">When to Initiate PN</a>
-            <p style="font-size: 12px; color: #999; margin-top: 4px;">pnresource.com/pn-fundamentals/when-to-initiate-pn</p>
-            <p style="font-size: 14px; color: #666; line-height: 22px; margin-top: 8px;">Evidence-based criteria and clinical decision frameworks for starting parenteral nutrition therapy...</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 29 ====================== -->
-    <div class="comp" id="comp-29">
-      <div class="comp__title">Component 29</div>
-      <div class="comp__name">Form / Contact</div>
-      <span class="comp__url">Used on: Contact page</span>
-      <span class="fds-label">FDS: Form / Contact</span>
-      <div class="comp__demo">
-        <div style="max-width: 600px;">
-          <div style="display: flex; gap: 24px; margin-bottom: 24px;">
-            <div style="flex: 1;">
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">First Name <span style="color: #999; font-weight: 400;">(required)</span></label>
-              <input type="text" placeholder="Enter first name" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
-            </div>
-            <div style="flex: 1;">
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Last Name <span style="color: #999; font-weight: 400;">(required)</span></label>
-              <input type="text" placeholder="Enter last name" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
-            </div>
-          </div>
-          <div style="margin-bottom: 24px;">
-            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Email Address <span style="color: #999; font-weight: 400;">(required)</span></label>
-            <input type="email" placeholder="Enter email address" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
-          </div>
-          <div style="margin-bottom: 24px;">
-            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Topic</label>
-            <div style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #666; background: #fff; border: 1px solid #ccc; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">Select a topic <span style="color: #ccc;">&#9662;</span></div>
-          </div>
-          <div style="margin-bottom: 24px;">
-            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Message</label>
-            <textarea placeholder="Enter your message" rows="4" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none; resize: vertical;"></textarea>
-          </div>
-          <a href="#" class="demo-btn demo-btn--primary">Submit</a>
-          <p style="font-size: 12px; line-height: 18px; color: #999; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;">By submitting this form, you agree to our Privacy Policy and Terms of Use. Your information will be used to respond to your inquiry and will not be shared with third parties.</p>
         </div>
       </div>
     </div>
@@ -1004,118 +875,6 @@
         <div style="display: flex; gap: 24px; margin-top: 8px;">
           <div style="font-size: 12px; color: #666;"><strong>Filled bg:</strong> background: #f5f5f5, no border (used on Downloadable Tools, Expert Contributors)</div>
           <div style="font-size: 12px; color: #666;"><strong>Bordered:</strong> border: 1px solid #e0e0e0, white background (used on Emerging Research highlights)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 33 ====================== -->
-    <div class="comp" id="comp-33">
-      <div class="comp__title">Component 33</div>
-      <div class="comp__name">Feature Card / Calculator</div>
-      <span class="comp__url">Used on: Downloadable Tools &amp; Calculators</span>
-      <span class="fds-label">FDS: Feature Card / Calculator</span>
-      <div class="comp__demo">
-        <div style="background: #f5f5f5; border: 2px solid #ccc; border-radius: 24px; padding: 32px;">
-          <!-- Input Fields -->
-          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Patient Inputs</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Patient Weight (kg)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 70</div>
-            </div>
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Height (cm)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 175</div>
-            </div>
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">BMI (kg/m&sup2;)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">Auto-calculated</div>
-            </div>
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Clinical Status</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #666; display: flex; justify-content: space-between; align-items: center;">Select status <span style="color: #ccc;">&#9662;</span></div>
-            </div>
-          </div>
-          <!-- Output Fields -->
-          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Calculated Outputs</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px;">
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Protein</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Energy</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">kcal/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lipid</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Dextrose</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
-          </div>
-          <a href="#" class="demo-btn demo-btn--primary">Launch Calculator</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 34 ====================== -->
-    <div class="comp" id="comp-34">
-      <div class="comp__title">Component 34</div>
-      <div class="comp__name">Content Block / References</div>
-      <span class="comp__url">Used on: All content pages (31 pages)</span>
-      <span class="fds-label">FDS: Content Block / References</span>
-      <div class="comp__demo">
-        <div style="border-top: 1px solid #e0e0e0; padding-top: 24px;">
-          <h4 style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">References &amp; Further Reading</h4>
-          <ol style="font-size: 12px; line-height: 1.8; color: #999; padding-left: 20px; max-width: 700px;">
-            <li>Calder PC, et al. Lipid emulsions in parenteral nutrition of intensive care patients: current thinking and future directions. Intensive Care Med. 2010;36(5):735&ndash;749.</li>
-            <li>Singer P, et al. ESPEN guideline on clinical nutrition in the intensive care unit. Clin Nutr. 2019;38(1):48&ndash;79.</li>
-            <li>Gura KM, et al. Fish oil-based lipid emulsion in the treatment of parenteral nutrition-associated liver disease. Pediatrics. 2008;121(3):e678&ndash;e686.</li>
-            <li>ASPEN Clinical Guidelines: Parenteral Nutrition Ordering, Order Review, Compounding, Labeling, and Dispensing. JPEN 2014.</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 35 ====================== -->
-    <div class="comp" id="comp-35">
-      <div class="comp__title">Component 35</div>
-      <div class="comp__name">Content Block / Confirmation</div>
-      <span class="comp__url">Used on: Contact Confirmation page</span>
-      <span class="fds-label">FDS: Content Block / Confirmation</span>
-      <div class="comp__demo">
-        <div style="max-width: 600px;">
-          <div style="width: 56px; height: 56px; background: #333; border-radius: 50%; margin-bottom: 24px; display: flex; align-items: center; justify-content: center;">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h2 style="font-size: 30px; font-weight: 700; line-height: 46px; margin-bottom: 24px;">Your Request Has Been Submitted</h2>
-          <p style="font-size: 16px; line-height: 24px; color: #666; margin-bottom: 32px;">Thank you for reaching out. A member of our Medical Science Liaison team will review your inquiry and respond within 2 business days.</p>
-          <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
-            <a href="#" class="demo-btn demo-btn--primary">Return to Home</a>
-            <a href="#" style="font-size: 16px; font-weight: 600; color: #333; text-decoration: none;">Browse Resources</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ====================== COMPONENT 36 ====================== -->
-    <div class="comp" id="comp-36">
-      <div class="comp__title">Component 36</div>
-      <div class="comp__name">CTA Block (Dark)</div>
-      <span class="comp__url">Used on: CE &amp; Professional Development, Emerging Research, Expert Contributors</span>
-      <span class="fds-label">FDS: CTA Block</span>
-      <div class="comp__demo" style="padding: 0; overflow: hidden;">
-        <div style="background: #333; border-radius: 24px; padding: 32px 48px; text-align: center;">
-          <h3 style="font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px;">Sign Up for Updates</h3>
-          <p style="font-size: 16px; line-height: 24px; color: rgba(255,255,255,0.7); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Join clinicians who receive our monthly research digest featuring condensed study summaries, infographic highlights, and guideline updates delivered directly to your inbox.</p>
-          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #333; background: #fff; border: 2px solid #fff; border-radius: 8px; text-decoration: none;">Subscribe to Monthly Digest</a>
         </div>
       </div>
     </div>
@@ -1261,6 +1020,281 @@
         </div>
         <span class="comp__variant-label">Note</span>
         <div style="font-size: 12px; color: #666; margin-top: 8px;">Portrait-oriented card with tall image placeholder (280px), topic pill tag, title, description, and download link. Displayed in a 2-column grid on the Infographics page.</div>
+      </div>
+    </div>
+
+    <div class="lib-section-header lib-section-header--custom" id="section-custom">
+      <h2>FK Non-Branded Components</h2>
+      <p>Custom components created specifically for the FK Non-Branded Nutrition wireframes. These extend the FDS with project-specific patterns.</p>
+    </div>
+
+    <!-- ====================== COMPONENT 05 ====================== -->
+    <div class="comp" id="comp-05">
+      <div class="comp__title">Component 05</div>
+      <div class="comp__name">Mobile Search Bar</div>
+      <span class="comp__url">Used on: All pages (mobile)</span>
+      <span class="fds-label">FDS: Mobile Search</span>
+      <div class="comp__demo" style="padding: 0; overflow: hidden; max-width: 375px;">
+        <div style="padding: 16px 24px; background: #fff; border-bottom: 1px solid #cbccd0;">
+          <input type="text" placeholder="Search" style="width: 100%; padding: 10px 14px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; border: 2px solid #6699cc; border-radius: 8px; outline: none; background: #fff; color: #333;">
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 12 ====================== -->
+    <div class="comp" id="comp-12">
+      <div class="comp__title">Component 12</div>
+      <div class="comp__name">FPO Notice Banner</div>
+      <span class="comp__url">Used on: All content pages</span>
+      <span class="fds-label">FDS: Notice Banner</span>
+      <div class="comp__demo">
+        <div style="background: #fff3cd; border: 1px solid #e0c36a; border-radius: 8px; padding: 16px 24px;">
+          <p style="font-size: 14px; line-height: 20px; color: #664d03; margin: 0;"><strong>FPO Content:</strong> The text and data on this page are for position only and do not represent our final copy. This is directional content only and is intended to help inform how the page and site experience can be structured based on stakeholder feedback and strategic objectives for the site.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 19 ====================== -->
+    <div class="comp" id="comp-19">
+      <div class="comp__title">Component 19</div>
+      <div class="comp__name">Numbered Steps</div>
+      <span class="comp__url">Used on: PN Safety, Prescription Writing, Malnutrition</span>
+      <span class="fds-label">FDS: Numbered Steps</span>
+      <div class="comp__demo">
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
+            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">1</div>
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Verify the PN order against patient-specific requirements</p>
+              <p style="font-size: 14px; line-height: 22px; color: #666;">Confirm that the prescribed macronutrient and micronutrient composition aligns with the patient's metabolic needs.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
+            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">2</div>
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Confirm line placement and patency</p>
+              <p style="font-size: 14px; line-height: 22px; color: #666;">Verify that the vascular access device is properly positioned and patent before initiating infusion.</p>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 16px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 24px;">
+            <div style="width: 32px; height: 32px; background: #333; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0;">3</div>
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px;">Check solution integrity and expiration</p>
+              <p style="font-size: 14px; line-height: 22px; color: #666;">Inspect the PN solution for particulate matter, precipitates, or color changes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 25 ====================== -->
+    <div class="comp" id="comp-25">
+      <div class="comp__title">Component 25</div>
+      <div class="comp__name">Resource List</div>
+      <span class="comp__url">Used on: Downloadable Tools, External Resources</span>
+      <span class="fds-label">FDS: Resource List</span>
+      <div class="comp__demo" style="padding: 0; overflow: hidden;">
+        <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+          <div style="border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">PN Order Template</p>
+              <p style="font-size: 12px; color: #999;">PDF &middot; Standardized PN prescription form with macronutrient fields</p>
+            </div>
+            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
+          </div>
+          <div style="border-bottom: 1px solid #eee; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; background: #f5f5f5;">
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">Monitoring Checklist</p>
+              <p style="font-size: 12px; color: #999;">PDF &middot; Daily lab monitoring schedule for PN patients</p>
+            </div>
+            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
+          </div>
+          <div style="padding: 16px 24px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <p style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 2px;">Patient Education Handout</p>
+              <p style="font-size: 12px; color: #999;">PDF &middot; Plain-language guide for patients receiving PN at home</p>
+            </div>
+            <a href="#" class="demo-btn" style="font-size: 12px; min-width: 80px; min-height: 20px; padding: 8px 16px;">Download</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 28 ====================== -->
+    <div class="comp" id="comp-28">
+      <div class="comp__title">Component 28</div>
+      <div class="comp__name">Search Results</div>
+      <span class="comp__url">Used on: Search Results page</span>
+      <span class="fds-label">FDS: Search Results</span>
+      <div class="comp__demo">
+        <div style="background: #f5f5f5; padding: 32px 0 24px; border-bottom: 1px solid #ddd; margin-bottom: 24px; border-radius: 8px 8px 0 0; padding-left: 24px; padding-right: 24px;">
+          <h2 style="font-size: 30px; font-weight: 700; line-height: 46px; margin-bottom: 24px;">Search Results</h2>
+          <div style="display: flex; max-width: 600px;">
+            <input type="text" value="parenteral nutrition" style="flex: 1; height: 48px; border: none; border-bottom: 2px solid #333; background: transparent; padding: 0 12px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; color: #333; outline: none;">
+            <button style="height: 48px; padding: 0 32px; border: none; border-bottom: 2px solid #333; background: #333; color: #fff; font-family: 'Open Sans', Arial, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;">Search</button>
+          </div>
+          <p style="font-size: 14px; color: #999; margin-top: 4px;">12 results found</p>
+        </div>
+        <div style="max-width: 600px; padding-left: 24px;">
+          <div style="padding: 12px 0 24px; border-bottom: 1px solid #e0e0e0;">
+            <a href="#" style="font-size: 16px; font-weight: 700; color: #333; text-decoration: none; line-height: 1.3;">What is Parenteral Nutrition</a>
+            <p style="font-size: 12px; color: #999; margin-top: 4px;">pnresource.com/pn-fundamentals/what-is-parenteral-nutrition</p>
+            <p style="font-size: 14px; color: #666; line-height: 22px; margin-top: 8px;">An introduction to intravenous nutrition therapy, including definitions, types of PN, and clinical indications...</p>
+          </div>
+          <div style="padding: 24px 0; border-bottom: 1px solid #e0e0e0;">
+            <a href="#" style="font-size: 16px; font-weight: 700; color: #333; text-decoration: none; line-height: 1.3;">When to Initiate PN</a>
+            <p style="font-size: 12px; color: #999; margin-top: 4px;">pnresource.com/pn-fundamentals/when-to-initiate-pn</p>
+            <p style="font-size: 14px; color: #666; line-height: 22px; margin-top: 8px;">Evidence-based criteria and clinical decision frameworks for starting parenteral nutrition therapy...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 29 ====================== -->
+    <div class="comp" id="comp-29">
+      <div class="comp__title">Component 29</div>
+      <div class="comp__name">Form / Contact</div>
+      <span class="comp__url">Used on: Contact page</span>
+      <span class="fds-label">FDS: Form / Contact</span>
+      <div class="comp__demo">
+        <div style="max-width: 600px;">
+          <div style="display: flex; gap: 24px; margin-bottom: 24px;">
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">First Name <span style="color: #999; font-weight: 400;">(required)</span></label>
+              <input type="text" placeholder="Enter first name" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
+            </div>
+            <div style="flex: 1;">
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Last Name <span style="color: #999; font-weight: 400;">(required)</span></label>
+              <input type="text" placeholder="Enter last name" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
+            </div>
+          </div>
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Email Address <span style="color: #999; font-weight: 400;">(required)</span></label>
+            <input type="email" placeholder="Enter email address" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none;">
+          </div>
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Topic</label>
+            <div style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #666; background: #fff; border: 1px solid #ccc; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">Select a topic <span style="color: #ccc;">&#9662;</span></div>
+          </div>
+          <div style="margin-bottom: 24px;">
+            <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Message</label>
+            <textarea placeholder="Enter your message" rows="4" style="display: block; width: 100%; padding: 12px 16px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; line-height: 24px; color: #333; background: #fff; border: 1px solid #ccc; border-radius: 8px; outline: none; resize: vertical;"></textarea>
+          </div>
+          <a href="#" class="demo-btn demo-btn--primary">Submit</a>
+          <p style="font-size: 12px; line-height: 18px; color: #999; margin-top: 24px; padding-top: 16px; border-top: 1px solid #eee;">By submitting this form, you agree to our Privacy Policy and Terms of Use. Your information will be used to respond to your inquiry and will not be shared with third parties.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 33 ====================== -->
+    <div class="comp" id="comp-33">
+      <div class="comp__title">Component 33</div>
+      <div class="comp__name">Feature Card / Calculator</div>
+      <span class="comp__url">Used on: Downloadable Tools &amp; Calculators</span>
+      <span class="fds-label">FDS: Feature Card / Calculator</span>
+      <div class="comp__demo">
+        <div style="background: #f5f5f5; border: 2px solid #ccc; border-radius: 24px; padding: 32px;">
+          <!-- Input Fields -->
+          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Patient Inputs</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+            <div>
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Patient Weight (kg)</label>
+              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 70</div>
+            </div>
+            <div>
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Height (cm)</label>
+              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 175</div>
+            </div>
+            <div>
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">BMI (kg/m&sup2;)</label>
+              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">Auto-calculated</div>
+            </div>
+            <div>
+              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Clinical Status</label>
+              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #666; display: flex; justify-content: space-between; align-items: center;">Select status <span style="color: #ccc;">&#9662;</span></div>
+            </div>
+          </div>
+          <!-- Output Fields -->
+          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Calculated Outputs</p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Protein</p>
+              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
+              <p style="font-size: 12px; color: #999;">g/day</p>
+            </div>
+            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Energy</p>
+              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
+              <p style="font-size: 12px; color: #999;">kcal/day</p>
+            </div>
+            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lipid</p>
+              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
+              <p style="font-size: 12px; color: #999;">g/day</p>
+            </div>
+            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
+              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Dextrose</p>
+              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
+              <p style="font-size: 12px; color: #999;">g/day</p>
+            </div>
+          </div>
+          <a href="#" class="demo-btn demo-btn--primary">Launch Calculator</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 34 ====================== -->
+    <div class="comp" id="comp-34">
+      <div class="comp__title">Component 34</div>
+      <div class="comp__name">Content Block / References</div>
+      <span class="comp__url">Used on: All content pages (31 pages)</span>
+      <span class="fds-label">FDS: Content Block / References</span>
+      <div class="comp__demo">
+        <div style="border-top: 1px solid #e0e0e0; padding-top: 24px;">
+          <h4 style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">References &amp; Further Reading</h4>
+          <ol style="font-size: 12px; line-height: 1.8; color: #999; padding-left: 20px; max-width: 700px;">
+            <li>Calder PC, et al. Lipid emulsions in parenteral nutrition of intensive care patients: current thinking and future directions. Intensive Care Med. 2010;36(5):735&ndash;749.</li>
+            <li>Singer P, et al. ESPEN guideline on clinical nutrition in the intensive care unit. Clin Nutr. 2019;38(1):48&ndash;79.</li>
+            <li>Gura KM, et al. Fish oil-based lipid emulsion in the treatment of parenteral nutrition-associated liver disease. Pediatrics. 2008;121(3):e678&ndash;e686.</li>
+            <li>ASPEN Clinical Guidelines: Parenteral Nutrition Ordering, Order Review, Compounding, Labeling, and Dispensing. JPEN 2014.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 35 ====================== -->
+    <div class="comp" id="comp-35">
+      <div class="comp__title">Component 35</div>
+      <div class="comp__name">Content Block / Confirmation</div>
+      <span class="comp__url">Used on: Contact Confirmation page</span>
+      <span class="fds-label">FDS: Content Block / Confirmation</span>
+      <div class="comp__demo">
+        <div style="max-width: 600px;">
+          <div style="width: 56px; height: 56px; background: #333; border-radius: 50%; margin-bottom: 24px; display: flex; align-items: center; justify-content: center;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17L4 12" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2 style="font-size: 30px; font-weight: 700; line-height: 46px; margin-bottom: 24px;">Your Request Has Been Submitted</h2>
+          <p style="font-size: 16px; line-height: 24px; color: #666; margin-bottom: 32px;">Thank you for reaching out. A member of our Medical Science Liaison team will review your inquiry and respond within 2 business days.</p>
+          <div style="display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
+            <a href="#" class="demo-btn demo-btn--primary">Return to Home</a>
+            <a href="#" style="font-size: 16px; font-weight: 600; color: #333; text-decoration: none;">Browse Resources</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== COMPONENT 36 ====================== -->
+    <div class="comp" id="comp-36">
+      <div class="comp__title">Component 36</div>
+      <div class="comp__name">CTA Block (Dark)</div>
+      <span class="comp__url">Used on: CE &amp; Professional Development, Emerging Research, Expert Contributors</span>
+      <span class="fds-label">FDS: CTA Block</span>
+      <div class="comp__demo" style="padding: 0; overflow: hidden;">
+        <div style="background: #333; border-radius: 24px; padding: 32px 48px; text-align: center;">
+          <h3 style="font-size: 24px; font-weight: 700; color: #fff; margin-bottom: 8px;">Sign Up for Updates</h3>
+          <p style="font-size: 16px; line-height: 24px; color: rgba(255,255,255,0.7); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Join clinicians who receive our monthly research digest featuring condensed study summaries, infographic highlights, and guideline updates delivered directly to your inbox.</p>
+          <a href="#" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; font-family: 'Open Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; color: #333; background: #fff; border: 2px solid #fff; border-radius: 8px; text-decoration: none;">Subscribe to Monthly Digest</a>
+        </div>
       </div>
     </div>
 

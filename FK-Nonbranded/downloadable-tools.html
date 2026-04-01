@@ -57,10 +57,15 @@
     .btn--primary { background: var(--wire-dark); color: var(--wire-white); border-color: var(--wire-dark); }
 
     /* ===== FDS: NAVBAR ===== */
+    .site-nav-wrapper {
+      position: sticky; top: 0; z-index: 100;
+      transition: top 0.3s ease;
+    }
     .top-navbar { background: var(--wire-dark); padding: var(--pad-lg) var(--pad-md); }
     .top-navbar__inner {
       max-width: var(--max-width); margin: 0 auto;
       display: flex; align-items: center; gap: var(--pad-3xl);
+      min-height: 35px; /* prevent height jump when search toggles */
     }
     .top-navbar__logo {
       width: 100px; height: 19px; border: 1px solid #888; border-radius: var(--radius-lg);
@@ -70,8 +75,14 @@
     .top-navbar__search {
       flex: 1; background: var(--wire-white); border-radius: var(--radius-lg);
       padding: var(--pad-xs) var(--pad-sm);
-      display: flex; align-items: center; gap: var(--pad-xs);
+      display: none; align-items: center; gap: var(--pad-xs);
       font-size: var(--text-0); color: var(--wire-light);
+    }
+    .top-navbar__search.is-open {
+      display: flex;
+    }
+    .top-navbar__search-placeholder {
+      flex: 1;
     }
     .top-navbar__search-input {
       background: transparent;
@@ -424,9 +435,88 @@
     @media (max-width: 767px) {
       .promo-banner { flex-direction: column; text-align: center; }
     }
-  </style>
+  
+    /* ===== ENTRY MODAL ===== */
+    .entry-modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.5);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .entry-modal-overlay.is-hidden { display: none; }
+    .entry-modal {
+      background: var(--wire-white);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+      max-width: 560px;
+      width: 90%;
+      padding: var(--pad-3xl) var(--pad-3xl) var(--pad-xl);
+      text-align: center;
+    }
+    .entry-modal__message {
+      font-size: var(--text-2);
+      line-height: var(--lh-2);
+      color: var(--wire-dark);
+      margin-bottom: var(--pad-xl);
+    }
+    .entry-modal__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      padding: var(--pad-sm) var(--pad-xl);
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: var(--text-0);
+      font-weight: 600;
+      line-height: var(--lh-0);
+      color: var(--wire-white);
+      background: var(--wire-dark);
+      border: 2px solid var(--wire-dark);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .entry-modal__btn:hover { opacity: 0.85; }
+
+    /* ===== LINK ICONS ===== */
+    .link-icon { display: inline-flex; align-items: center; margin-left: 4px; flex-shrink: 0; vertical-align: middle; }
+    .link-icon svg { width: 14px; height: 14px; display: block; }
+
+    /* ===== PRINT LINK ===== */
+    .print-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-size: var(--text-neg1); font-weight: 400; line-height: var(--lh-neg1);
+      color: var(--wire-dark); text-decoration: none;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .print-link:hover { opacity: 0.7; }
+    .print-link__icon { display: inline-flex; align-items: center; }
+    .print-link__icon svg { width: 18px; height: 18px; display: block; }
+</style>
 </head>
 <body>
+  <!-- ===== ENTRY MODAL ===== -->
+  <div class="entry-modal-overlay" id="entry-modal">
+    <div class="entry-modal">
+      <p class="entry-modal__message">The information on this site is intended for healthcare professionals who are residents of the United States.</p>
+      <button class="entry-modal__btn" id="entry-modal-continue">Continue</button>
+    </div>
+  </div>
+
+  <!-- ===== EXIT MODAL ===== -->
+  <div class="entry-modal-overlay is-hidden" id="exit-modal">
+    <div class="entry-modal">
+      <p class="entry-modal__message">FPO: You have clicked on a link which leaves the Fresenius Kabi nutrition site.</p>
+      <a class="entry-modal__btn" id="exit-modal-continue" href="#" target="_blank" rel="noopener noreferrer">Continue</a>
+    </div>
+  </div>
+
+
 
   <div class="site-nav-wrapper">
   <!-- ===== FDS: NAVBAR -- Top Bar ===== -->
@@ -434,13 +524,13 @@
     <div class="top-navbar__inner">
       <span class="fds-label">FDS: Navbar / Top Bar</span>
       <a href="index.html" class="top-navbar__logo" style="text-decoration:none;">LOGO</a>
-      <form class="top-navbar__search" action="search-results.html" method="GET">
+      <div class="top-navbar__search-placeholder" id="desktop-search-placeholder"></div>
+      <form class="top-navbar__search" id="desktop-search-form" action="search-results.html" method="GET">
         <span class="fds-icon fds-icon--sm" style="--stroke-0: #999;"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19L14.66 14.66M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="var(--stroke-0, #999)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <input type="text" name="q" class="top-navbar__search-input" placeholder="Search" autocomplete="off">
       </form>
-      <div class="top-navbar__utils">
-        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11C21 16.5228 16.5228 21 11 21M21 11C21 5.47715 16.5228 1 11 1M21 11H1M11 21C5.47715 21 1 16.5228 1 11M11 21C8.43223 18.3038 7 14.7233 7 11C7 7.27674 8.43223 3.69615 11 1M11 21C13.5678 18.3038 15 14.7233 15 11C15 7.27674 13.5678 3.69615 11 1M1 11C1 5.47715 5.47715 1 11 1" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Global</a>
-        <a href="#" class="top-navbar__util-link"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 1H19M19 1V7M19 1L8 12M16 11V17C16 17.5304 15.7893 18.0391 15.4142 18.4142C15.0391 18.7893 14.5304 19 14 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V6C1 5.46957 1.21071 4.96086 1.58579 4.58579C1.96086 4.21071 2.46957 4 3 4H9" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> For Clinicians</a>
+            <div class="top-navbar__utils">
+        <a href="#" class="top-navbar__util-link" id="desktop-search-toggle"><span class="fds-icon fds-icon--sm"><svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 19L14.66 14.66M17 9C17 13.4183 13.4183 17 9 17C4.58172 17 1 13.4183 1 9C1 4.58172 4.58172 1 9 1C13.4183 1 17 4.58172 17 9Z" stroke="#ddd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Search</a>
       </div>
     </div>
   </div>
@@ -830,13 +920,18 @@
     <div class="container" style="max-width: 900px;">
 
       <!-- FPO Notice -->
-      <div style="background: #fff3cd; border: 1px solid #e0c36a; border-radius: 8px; padding: 16px 24px; margin-bottom: 48px;">
+      <div style="background: #fff3cd; border: 1px solid #e0c36a; border-radius: 8px; padding: 16px 24px; margin-bottom: var(--pad-lg);">
         <p style="font-size: 14px; line-height: 20px; color: #664d03; margin: 0;"><strong>FPO Content:</strong> The text and data on this page are for position only and do not represent our final copy. This is directional content only and is intended to help inform how the page and site experience can be structured based on stakeholder feedback and strategic objectives for the site.</p>
       </div>
 
-      <!-- Intro -->
-      <span class="fds-label">FDS: Content Block / Text</span>
-      <h2 style="font-size: var(--text-4); font-weight: 700; line-height: var(--lh-4); margin-bottom: var(--pad-md);">Clinical Tools &amp; Calculators</h2>
+      <!-- Page heading with Print link -->
+      <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--pad-md);">
+        <div>
+          <span class="fds-label">FDS: Content Block / Text</span>
+          <h2 style="font-size: var(--text-4); font-weight: 700; line-height: var(--lh-4); margin: 0;">Clinical Tools &amp; Calculators</h2>
+        </div>
+        <a href="javascript:void(0)" class="print-link" onclick="window.print()"><span class="print-link__icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9V2H18V9M6 18H4C3.46957 18 2.96086 17.7893 2.58579 17.4142C2.21071 17.0391 2 16.5304 2 16V11C2 10.4696 2.21071 9.96086 2.58579 9.58579C2.96086 9.21071 3.46957 9 4 9H20C20.5304 9 21.0391 9.21071 21.4142 9.58579C21.7893 9.96086 22 10.4696 22 11V16C22 16.5304 21.7893 17.0391 21.4142 17.4142C21.0391 17.7893 20.5304 18 20 18H18M6 14H18V22H6V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Print</a>
+      </div>
       <p style="font-size: var(--text-0); line-height: var(--lh-0); color: var(--wire-mid); margin-bottom: var(--pad-xl);">Interactive tools designed for point-of-care decision making. Input patient-specific parameters and receive evidence-based dosing recommendations, monitoring schedules, and clinical assessment guidance to support parenteral nutrition management at every stage of care.</p>
 
       <!-- In-the-Moment Tools callout -->
@@ -846,80 +941,183 @@
         <p style="font-size: var(--text-0); line-height: var(--lh-0); color: var(--wire-mid);">These tools are designed for use at the bedside &mdash; input patient parameters and receive evidence-based dosing, monitoring, and assessment guidance in real time.</p>
       </div>
 
-      <!-- PN Dosing Calculator -->
-      <h3 id="pn-dosing-calculator" style="font-size: var(--text-2); font-weight: 700; margin-bottom: 24px; scroll-margin-top: 200px;">PN Dosing Calculator</h3>
-      <p style="font-size: var(--text-0); line-height: var(--lh-0); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Calculate weight-based macronutrient dosing for parenteral nutrition prescriptions. Enter patient anthropometrics and clinical status to generate individualized protein, energy, lipid, and dextrose targets aligned with ASPEN/ESPEN guideline recommendations.</p>
+      <!-- TPN Macronutrient Calculator -->
+      <h3 id="pn-dosing-calculator" style="font-size: var(--text-2); font-weight: 700; margin-bottom: 24px; scroll-margin-top: 200px;">TPN Macronutrient Calculator</h3>
+      <p style="font-size: var(--text-0); line-height: var(--lh-0); color: var(--wire-mid); margin-bottom: var(--pad-lg);">Calculate empiric macronutrient dosing for total parenteral nutrition formulations. Adjust TPN formulation parameters and enter patient data to generate individualized dosing with caloric breakdown.</p>
 
       <div style="background: var(--wire-bg); border: 2px solid var(--wire-faint); border-radius: var(--radius-xl); padding: var(--pad-xl); margin-bottom: 16px;">
         <span class="fds-label">FDS: Feature Card / Calculator</span>
 
-        <!-- Input Fields -->
-        <p style="font-size: var(--text-neg1); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--wire-light); margin-bottom: var(--pad-md);">Patient Inputs</p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--pad-md); margin-bottom: var(--pad-xl);">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--pad-3xl);">
+          <!-- Left Column: TPN Formulation -->
           <div>
-            <label for="calc-weight" style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-2xs);">Patient Weight (lbs)</label>
-            <input type="number" id="calc-weight" placeholder="e.g. 154" min="1" max="660" step="0.1" style="width: 100%; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;" onfocus="this.style.borderColor='#0057b8'" onblur="this.style.borderColor=''" />
-          </div>
-          <div>
-            <label for="calc-feet" style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-2xs);">Height</label>
-            <div style="display: flex; gap: 8px; align-items: center;">
-              <input type="number" id="calc-feet" placeholder="5" min="1" max="8" step="1" style="width: 50%; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;" onfocus="this.style.borderColor='#0057b8'" onblur="this.style.borderColor=''" />
-              <span style="font-size: var(--text-neg1); font-weight: 600; color: var(--wire-mid);">ft</span>
-              <input type="number" id="calc-inches" placeholder="8" min="0" max="11" step="1" style="width: 50%; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;" onfocus="this.style.borderColor='#0057b8'" onblur="this.style.borderColor=''" />
-              <span style="font-size: var(--text-neg1); font-weight: 600; color: var(--wire-mid);">in</span>
+            <p style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark); margin-bottom: var(--pad-lg);">TPN Formulation</p>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Goal kcal/kg</label>
+              <input type="range" id="tpn-kcal" min="15" max="35" step="1" value="25" style="width: 100%; accent-color: var(--wire-dark);">
+              <div id="tpn-kcal-val" style="font-size: var(--text-neg1); color: var(--wire-mid); text-align: center; margin-top: 4px;">25 kcal/kg</div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Percent goal</label>
+              <input type="range" id="tpn-pct" min="50" max="100" step="25" value="100" style="width: 100%; accent-color: var(--wire-dark);">
+              <div id="tpn-pct-val" style="font-size: var(--text-neg1); color: var(--wire-mid); text-align: center; margin-top: 4px;">100%</div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Total protein/kg</label>
+              <input type="range" id="tpn-protein" min="0" max="2.5" step="0.1" value="1.5" style="width: 100%; accent-color: var(--wire-dark);">
+              <div id="tpn-protein-val" style="font-size: var(--text-neg1); color: var(--wire-mid); text-align: center; margin-top: 4px;">1.5 g/kg</div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Non-protein calories</label>
+              <input type="range" id="tpn-npc" min="0" max="100" step="5" value="70" style="width: 100%; accent-color: var(--wire-dark);">
+              <div style="display: flex; justify-content: space-between; font-size: var(--text-neg1); color: var(--wire-mid); margin-top: 4px;">
+                <span>Lipids <span id="tpn-lipid-pct">30</span>%</span>
+                <span>Dextrose <span id="tpn-dex-pct">70</span>%</span>
+              </div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-md);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Lipid formulation</label>
+              <div style="display: inline-flex; border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); overflow: hidden;">
+                <button type="button" class="lipid-form-btn" data-val="10" style="padding: 6px 16px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-white); color: var(--wire-dark);">10%</button>
+                <button type="button" class="lipid-form-btn is-active" data-val="20" style="padding: 6px 16px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-dark); color: var(--wire-white);">20%</button>
+              </div>
+              <input type="hidden" id="tpn-lipid-form" value="20">
             </div>
           </div>
+
+          <!-- Right Column: Patient Parameters -->
           <div>
-            <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-2xs);">BMI (kg/m²)</label>
-            <div id="calc-bmi" style="background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-light); min-height: 20px;">Auto-calculated</div>
-          </div>
-          <div>
-            <label for="calc-status" style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-2xs);">Clinical Status</label>
-            <select id="calc-status" style="width: 100%; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; appearance: auto; outline: none; cursor: pointer;" onfocus="this.style.borderColor='#0057b8'" onblur="this.style.borderColor=''">
-              <option value="" disabled selected>Select status</option>
-              <option value="standard">Standard Adult</option>
-              <option value="critical">Critically Ill (ICU)</option>
-              <option value="obese">Obese (BMI &gt; 30)</option>
-              <option value="malnourished">Malnourished / Refeeding Risk</option>
-            </select>
+            <p style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark); margin-bottom: var(--pad-lg);">Patient Parameters</p>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Gender</label>
+              <div style="display: inline-flex; border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); overflow: hidden;">
+                <button type="button" class="gender-btn is-active" data-val="male" style="padding: 6px 16px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-dark); color: var(--wire-white);">Male</button>
+                <button type="button" class="gender-btn" data-val="female" style="padding: 6px 16px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-white); color: var(--wire-dark);">Female</button>
+              </div>
+              <input type="hidden" id="tpn-gender" value="male">
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Height</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="number" id="tpn-feet" placeholder="" min="1" max="8" step="1" style="width: 60px; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;">
+                <span style="font-size: var(--text-neg1); font-weight: 600; color: var(--wire-mid);">ft</span>
+                <input type="number" id="tpn-inches" placeholder="" min="0" max="11" step="1" style="width: 60px; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;">
+                <span style="font-size: var(--text-neg1); font-weight: 600; color: var(--wire-mid);">in</span>
+              </div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Weight</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="number" id="tpn-weight" placeholder="" style="width: 80px; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;">
+                <div style="display: inline-flex; border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); overflow: hidden;">
+                  <button type="button" class="weight-unit-btn is-active" data-val="lbs" style="padding: 6px 12px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-dark); color: var(--wire-white);">lbs</button>
+                  <button type="button" class="weight-unit-btn" data-val="kg" style="padding: 6px 12px; font-size: var(--text-neg1); font-weight: 600; border: none; cursor: pointer; font-family: inherit; background: var(--wire-white); color: var(--wire-dark);">kg</button>
+                </div>
+                <input type="hidden" id="tpn-weight-unit" value="lbs">
+              </div>
+            </div>
+
+            <div style="margin-bottom: var(--pad-lg);">
+              <label style="display: block; font-size: var(--text-neg1); font-weight: 600; color: var(--wire-dark); margin-bottom: var(--pad-xs);">Propofol</label>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <input type="number" id="tpn-propofol" value="0" min="0" style="width: 80px; box-sizing: border-box; background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-sm) var(--pad-md); font-size: var(--text-neg1); color: var(--wire-dark); font-family: inherit; outline: none;">
+                <span style="font-size: var(--text-neg1); color: var(--wire-mid);">mcg/kg/min</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <!-- Output Fields -->
-        <p style="font-size: var(--text-neg1); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--wire-light); margin-bottom: var(--pad-md);">Calculated Outputs</p>
-        <div id="calc-outputs" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: var(--pad-md); margin-bottom: var(--pad-xl);">
-          <div style="background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-md); text-align: center; transition: border-color 0.3s;">
-            <p style="font-size: var(--text-neg2); font-weight: 600; color: var(--wire-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--pad-2xs);">Protein</p>
-            <p id="out-protein" style="font-size: var(--text-3); font-weight: 700; color: var(--wire-dark); margin-bottom: 2px;">&mdash;</p>
-            <p style="font-size: var(--text-neg2); color: var(--wire-light);">g/day</p>
-          </div>
-          <div style="background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-md); text-align: center; transition: border-color 0.3s;">
-            <p style="font-size: var(--text-neg2); font-weight: 600; color: var(--wire-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--pad-2xs);">Energy</p>
-            <p id="out-energy" style="font-size: var(--text-3); font-weight: 700; color: var(--wire-dark); margin-bottom: 2px;">&mdash;</p>
-            <p style="font-size: var(--text-neg2); color: var(--wire-light);">kcal/day</p>
-          </div>
-          <div style="background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-md); text-align: center; transition: border-color 0.3s;">
-            <p style="font-size: var(--text-neg2); font-weight: 600; color: var(--wire-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--pad-2xs);">Lipid</p>
-            <p id="out-lipid" style="font-size: var(--text-3); font-weight: 700; color: var(--wire-dark); margin-bottom: 2px;">&mdash;</p>
-            <p style="font-size: var(--text-neg2); color: var(--wire-light);">g/day</p>
-          </div>
-          <div style="background: var(--wire-white); border: 1px solid var(--wire-faint); border-radius: var(--radius-lg); padding: var(--pad-md); text-align: center; transition: border-color 0.3s;">
-            <p style="font-size: var(--text-neg2); font-weight: 600; color: var(--wire-light); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: var(--pad-2xs);">Dextrose</p>
-            <p id="out-dextrose" style="font-size: var(--text-3); font-weight: 700; color: var(--wire-dark); margin-bottom: 2px;">&mdash;</p>
-            <p style="font-size: var(--text-neg2); color: var(--wire-light);">g/day</p>
-          </div>
+        <!-- Buttons -->
+        <div style="display: flex; gap: var(--pad-md); margin-top: var(--pad-md);">
+          <button type="button" id="tpn-reset" class="btn btn--secondary" style="cursor: pointer; font-family: inherit;">Reset</button>
+          <button type="button" id="tpn-calc" class="btn btn--primary" style="cursor: pointer; border: none; font-family: inherit;">Calculate</button>
         </div>
-
-        <!-- Dosing Rationale (hidden until calculated) -->
-        <div id="calc-rationale" style="display: none; background: #f0f6ff; border: 1px solid #cce0ff; border-radius: var(--radius-lg); padding: var(--pad-md); margin-bottom: var(--pad-md);">
-          <p style="font-size: var(--text-neg1); font-weight: 700; color: #0057b8; margin-bottom: var(--pad-xs);">Dosing Rationale</p>
-          <p id="rationale-text" style="font-size: var(--text-neg1); line-height: 1.6; color: var(--wire-mid);"></p>
-        </div>
-
-        <button type="button" id="calc-btn" class="btn btn--primary" style="margin-bottom: var(--pad-xs); cursor: pointer; border: none; font-family: inherit;">Calculate Dosing</button>
-        <button type="button" id="calc-reset" style="display: none; background: none; border: 1px solid var(--wire-faint); border-radius: var(--radius-xl); padding: var(--pad-xs) var(--pad-lg); font-size: var(--text-neg1); color: var(--wire-mid); cursor: pointer; margin-left: var(--pad-sm); font-family: inherit;">Reset</button>
       </div>
-      <p style="font-size: var(--text-neg1); line-height: var(--lh-neg1); color: var(--wire-light); margin-bottom: 64px;">Includes dosing scenarios for standard adult patients, critically ill (ICU), obese (BMI &gt;30), and malnourished patients. Outputs are based on adjusted body weight calculations where applicable.</p>
+
+      <!-- Results (hidden until calculated) -->
+      <div id="tpn-results" style="display: none; background: var(--wire-bg); border: 2px solid var(--wire-faint); border-radius: var(--radius-xl); padding: var(--pad-xl); margin-bottom: 16px;">
+        <p style="font-size: var(--text-neg1); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--wire-light); margin-bottom: var(--pad-lg);">Results</p>
+
+        <!-- Administration -->
+        <p style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark); margin-bottom: var(--pad-md);">Administration</p>
+        <div style="display: flex; gap: var(--pad-3xl); align-items: baseline; margin-bottom: var(--pad-xs);">
+          <div style="display: flex; align-items: baseline; gap: var(--pad-xs);">
+            <span style="font-size: var(--text-neg1); color: var(--wire-mid);">Total volume</span>
+            <span id="res-volume" style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark);">&mdash;</span>
+            <span style="font-size: var(--text-neg1); color: var(--wire-mid);">mL</span>
+          </div>
+          <div style="display: flex; align-items: baseline; gap: var(--pad-xs);">
+            <span style="font-size: var(--text-neg1); color: var(--wire-mid);">Infusion duration</span>
+            <span style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark);">24</span>
+            <span style="font-size: var(--text-neg1); color: var(--wire-mid);">hrs</span>
+          </div>
+        </div>
+        <p style="font-size: var(--text-neg1); color: var(--wire-mid); margin-bottom: var(--pad-xl);">(<span id="res-rate">&mdash;</span> mL/hr)</p>
+
+        <!-- Macronutrients Table -->
+        <p style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark); margin-bottom: var(--pad-md);">Macronutrients</p>
+        <table style="width: 100%; border-collapse: collapse; font-size: var(--text-neg1); margin-bottom: var(--pad-xl);">
+          <thead>
+            <tr style="background: var(--wire-dark); color: var(--wire-white);">
+              <th style="text-align: left; padding: 10px 14px; font-weight: 600;">Macro.</th>
+              <th style="text-align: center; padding: 10px 14px; font-weight: 600;">Percent</th>
+              <th style="text-align: center; padding: 10px 14px; font-weight: 600;">Amount</th>
+              <th style="text-align: center; padding: 10px 14px; font-weight: 600;">Calories</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--wire-faint);">
+              <td style="padding: 10px 14px; font-weight: 600;">Dextrose</td>
+              <td id="res-dex-pct" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-dex-amt" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-dex-cal" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--wire-faint);">
+              <td style="padding: 10px 14px; font-weight: 600;">Protein</td>
+              <td id="res-pro-pct" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-pro-amt" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-pro-cal" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--wire-faint);">
+              <td id="res-lipid-label" style="padding: 10px 14px; font-weight: 600;">Lipids</td>
+              <td id="res-lip-pct" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-lip-amt" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+              <td id="res-lip-cal" style="padding: 10px 14px; text-align: center; color: var(--wire-mid);">&mdash;</td>
+            </tr>
+            <tr style="background: var(--wire-bg);">
+              <td style="padding: 10px 14px; font-weight: 700;">Total</td>
+              <td style="padding: 10px 14px;"></td>
+              <td style="padding: 10px 14px;"></td>
+              <td id="res-total-cal" style="padding: 10px 14px; text-align: center; font-weight: 700;">&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Formulation Parameters -->
+        <p style="font-size: var(--text-1); font-weight: 700; color: var(--wire-dark); margin-bottom: var(--pad-md);">Formulation Parameters</p>
+        <table style="width: 100%; border-collapse: collapse; font-size: var(--text-neg1); margin-bottom: var(--pad-md);">
+          <tr style="border-bottom: 1px solid var(--wire-faint);">
+            <td style="padding: 10px 14px; font-weight: 600; width: 120px;">Osmolarity</td>
+            <td id="res-osm" style="padding: 10px 14px; font-weight: 700;">&mdash;</td>
+            <td style="padding: 10px 14px; color: var(--wire-light); font-size: var(--text-neg2);">Does not include micronutrients (electrolytes). PN with osmolarity &gt; 900 mOsm/L should only be infused with a central line.</td>
+          </tr>
+          <tr style="border-bottom: 1px solid var(--wire-faint);">
+            <td style="padding: 10px 14px; font-weight: 600;">GIR</td>
+            <td id="res-gir" style="padding: 10px 14px; font-weight: 700;">&mdash;</td>
+            <td style="padding: 10px 14px; color: var(--wire-light); font-size: var(--text-neg2);">Glucose infusion rate. Typically should be &lt; 4 mg/kg/min to prevent hyperglycemia and steatosis.</td>
+          </tr>
+        </table>
+      </div>
+
+      <p style="font-size: var(--text-neg1); line-height: var(--lh-neg1); color: var(--wire-light); margin-bottom: 64px;">This calculator provides empiric dosing estimates. Always verify with clinical judgment and institutional protocols. Not appropriate for pediatric patients or those at risk for refeeding syndrome without additional clinical assessment.</p>
 
       <!-- Additional Tools -->
       <h3 style="font-size: var(--text-2); font-weight: 700; margin-bottom: 24px;">Additional Tools</h3>
@@ -1026,7 +1224,7 @@
   <footer class="footer">
     <div class="footer__inner">
       <div class="footer__top">
-        <p class="footer__copyright">Fresenius Kabi Deutschland GmbH – A company of the Fresenius Group &copy; 2025</p>
+        <p class="footer__copyright">Fresenius Kabi Deutschland GmbH – A company of the Fresenius Group &copy; 2026</p>
         <div class="footer__logo">
           <span class="fds-label">FDS: Footer</span>
           <div class="footer__logo-mark">FRESENIUS KABI</div>
@@ -1040,6 +1238,8 @@
         <a href="legal-disclaimer.html">Data Privacy</a>
         <span class="footer__pipe">|</span>
         <a href="#">Cookie Notice</a>
+        <span class="footer__pipe">|</span>
+        <a href="sitemap.html">Site Map</a>
       </div>
     </div>
   </footer>
@@ -1072,8 +1272,8 @@
     btn.className = 'label-toggle';
     btn.innerHTML =
       '<div class="label-toggle__switch' + (visible ? ' is-on' : '') + '">' +
-      '  <div class="label-toggle__knob"></div></div><span>FDS</span>';
-    btn.addEventListener('click', function () {
+      '  <div class="label-toggle__knob"></div></div><a href="project-components.html" style="color: #555; text-decoration: none; font-weight: 600;" title="View Component Library">FDS</a>';
+    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) { e.stopPropagation();
       visible = !visible;
       localStorage.setItem(STORAGE_KEY, visible);
       document.body.classList.toggle('hide-labels', !visible);
@@ -1137,251 +1337,337 @@
         }
       });
     }
+
+    /* ---- Desktop Search Toggle ---- */
+    var desktopSearchToggle = document.getElementById('desktop-search-toggle');
+    var desktopSearchForm = document.getElementById('desktop-search-form');
+    var desktopSearchPlaceholder = document.getElementById('desktop-search-placeholder');
+
+    if (desktopSearchToggle && desktopSearchForm) {
+      desktopSearchToggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        var isOpen = desktopSearchForm.classList.toggle('is-open');
+        if (desktopSearchPlaceholder) {
+          desktopSearchPlaceholder.style.display = isOpen ? 'none' : '';
+        }
+        if (isOpen) {
+          var input = desktopSearchForm.querySelector('.top-navbar__search-input');
+          if (input) input.focus();
+        }
+      });
+    }
+
+    /* ---- Sticky Nav: hide top bar on scroll down (desktop only) ---- */
+    var siteNavWrapper = document.querySelector('.site-nav-wrapper');
+    var topNavbar = document.querySelector('.top-navbar');
+    if (siteNavWrapper && topNavbar) {
+      var lastScrollY = 0;
+      window.addEventListener('scroll', function () {
+        if (window.innerWidth <= 767) return; // skip on mobile
+        var currentScrollY = window.pageYOffset;
+        if (currentScrollY > lastScrollY && currentScrollY > 50) {
+          var topBarHeight = topNavbar.offsetHeight;
+          siteNavWrapper.style.top = '-' + topBarHeight + 'px';
+        } else {
+          siteNavWrapper.style.top = '0';
+        }
+        lastScrollY = currentScrollY;
+      });
+    }
   })();
   </script>
 
-  <!-- ===== PN DOSING CALCULATOR ===== -->
+  <!-- ===== TPN MACRONUTRIENT CALCULATOR ===== -->
   <script>
   (function() {
-    var weightInput = document.getElementById('calc-weight');
-    var feetInput   = document.getElementById('calc-feet');
-    var inchesInput = document.getElementById('calc-inches');
-    var bmiDisplay  = document.getElementById('calc-bmi');
-    var statusSelect = document.getElementById('calc-status');
-    var calcBtn     = document.getElementById('calc-btn');
-    var resetBtn    = document.getElementById('calc-reset');
-    var outProtein  = document.getElementById('out-protein');
-    var outEnergy   = document.getElementById('out-energy');
-    var outLipid    = document.getElementById('out-lipid');
-    var outDextrose = document.getElementById('out-dextrose');
-    var rationale   = document.getElementById('calc-rationale');
-    var rationaleText = document.getElementById('rationale-text');
-    var outputCards  = document.getElementById('calc-outputs');
+    // --- Slider live updates ---
+    var sliders = [
+      { id: 'tpn-kcal', valId: 'tpn-kcal-val', fmt: function(v) { return v + ' kcal/kg'; } },
+      { id: 'tpn-pct', valId: 'tpn-pct-val', fmt: function(v) { return v + '%'; } },
+      { id: 'tpn-protein', valId: 'tpn-protein-val', fmt: function(v) { return parseFloat(v).toFixed(1) + ' g/kg'; } }
+    ];
+    sliders.forEach(function(s) {
+      var el = document.getElementById(s.id);
+      var val = document.getElementById(s.valId);
+      if (el && val) el.addEventListener('input', function() { val.textContent = s.fmt(el.value); });
+    });
 
-    // ASPEN/ESPEN-aligned dosing parameters by clinical status
-    var dosingParams = {
-      standard: {
-        label: 'Standard Adult',
-        protein: { min: 1.2, max: 1.5 },    // g/kg/day
-        energy:  { min: 25, max: 30 },       // kcal/kg/day
-        lipid:   { min: 0.8, max: 1.0 },     // g/kg/day (max 2.5)
-        dexPct:  0.60,                        // % of non-protein kcal from dextrose
-        note: 'Standard adult dosing per ASPEN Safe Practices (2023). Protein 1.2–1.5 g/kg/day, energy 25–30 kcal/kg/day using actual body weight. Lipids provide ~30–40% of non-protein calories.'
-      },
-      critical: {
-        label: 'Critically Ill (ICU)',
-        protein: { min: 1.2, max: 2.0 },
-        energy:  { min: 20, max: 25 },       // permissive underfeeding early
-        lipid:   { min: 0.7, max: 1.0 },
-        dexPct:  0.55,
-        note: 'ICU dosing per ASPEN/SCCM Critical Care Guidelines (2022). Lower energy targets (20–25 kcal/kg) to avoid overfeeding in acute phase. Higher protein (1.2–2.0 g/kg) to attenuate muscle loss. Monitor glucose closely; target <180 mg/dL.'
-      },
-      obese: {
-        label: 'Obese (BMI > 30)',
-        protein: { min: 2.0, max: 2.5 },     // based on IBW
-        energy:  { min: 11, max: 14 },        // kcal/kg actual or 22-25/IBW
-        lipid:   { min: 0.5, max: 0.8 },
-        dexPct:  0.55,
-        note: 'Obese dosing per ASPEN guidelines uses adjusted body weight (ABW = IBW + 0.25 × (actual − IBW)). High-protein hypocaloric feeding: protein 2.0–2.5 g/IBW/day, energy 11–14 kcal/actual kg/day. Outputs shown use adjusted body weight for protein and actual weight for energy.'
-      },
-      malnourished: {
-        label: 'Malnourished / Refeeding Risk',
-        protein: { min: 1.2, max: 1.5 },
-        energy:  { min: 10, max: 15 },        // start low, advance
-        lipid:   { min: 0.5, max: 0.8 },
-        dexPct:  0.50,
-        note: 'Refeeding risk dosing per ASPEN/NICE guidelines. Start LOW: 10–15 kcal/kg/day, advance by 5 kcal/kg every 1–2 days to goal. Supplement thiamine, phosphorus, potassium, and magnesium BEFORE initiating PN. Monitor electrolytes every 6–12 hours for first 72 hours.'
-      }
-    };
-
-    // Convert US units to metric internally
-    function lbsToKg(lbs) { return lbs * 0.453592; }
-    function inchesToCm(inches) { return inches * 2.54; }
-
-    // Get total inches from feet + inches fields
-    function getTotalInches() {
-      var ft = parseFloat(feetInput.value) || 0;
-      var inc = parseFloat(inchesInput.value) || 0;
-      return (ft * 12) + inc;
+    // Non-protein calorie slider (lipid/dextrose split)
+    var npcSlider = document.getElementById('tpn-npc');
+    var lipPctEl = document.getElementById('tpn-lipid-pct');
+    var dexPctEl = document.getElementById('tpn-dex-pct');
+    if (npcSlider) {
+      npcSlider.addEventListener('input', function() {
+        var dex = parseInt(npcSlider.value);
+        dexPctEl.textContent = dex;
+        lipPctEl.textContent = 100 - dex;
+      });
     }
 
-    // Auto-calculate BMI on weight/height input
-    function updateBMI() {
-      var wLbs = parseFloat(weightInput.value);
-      var hIn = getTotalInches();
-      if (wLbs > 0 && hIn > 0) {
-        var w = lbsToKg(wLbs);
-        var h = inchesToCm(hIn);
-        var bmi = (w / ((h / 100) * (h / 100))).toFixed(1);
-        bmiDisplay.textContent = bmi;
-        bmiDisplay.style.color = 'var(--wire-dark)';
-        bmiDisplay.style.fontWeight = '600';
-        // Auto-select obese if BMI > 30 and no status selected
-        if (parseFloat(bmi) > 30 && !statusSelect.value) {
-          statusSelect.value = 'obese';
-        }
-      } else {
-        bmiDisplay.textContent = 'Auto-calculated';
-        bmiDisplay.style.color = 'var(--wire-light)';
-        bmiDisplay.style.fontWeight = '400';
-      }
+    // --- Toggle button groups ---
+    function setupToggles(className, hiddenId) {
+      var btns = document.querySelectorAll('.' + className);
+      var hidden = document.getElementById(hiddenId);
+      btns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          btns.forEach(function(b) {
+            b.style.background = 'var(--wire-white)';
+            b.style.color = 'var(--wire-dark)';
+            b.classList.remove('is-active');
+          });
+          btn.style.background = 'var(--wire-dark)';
+          btn.style.color = 'var(--wire-white)';
+          btn.classList.add('is-active');
+          if (hidden) hidden.value = btn.getAttribute('data-val');
+        });
+      });
     }
-    weightInput.addEventListener('input', updateBMI);
-    feetInput.addEventListener('input', updateBMI);
-    inchesInput.addEventListener('input', updateBMI);
+    setupToggles('lipid-form-btn', 'tpn-lipid-form');
+    setupToggles('gender-btn', 'tpn-gender');
+    setupToggles('weight-unit-btn', 'tpn-weight-unit');
 
-    // Calculate dosing
+    // --- Calculate ---
+    var calcBtn = document.getElementById('tpn-calc');
+    var resetBtn = document.getElementById('tpn-reset');
+    var resultsDiv = document.getElementById('tpn-results');
+
     function calculate() {
-      var weightLbs = parseFloat(weightInput.value);
-      var heightIn = getTotalInches();
-      var status = statusSelect.value;
-
-      // Validation
-      if (!weightLbs || weightLbs <= 0) {
-        weightInput.style.borderColor = '#c00';
-        weightInput.focus();
-        return;
-      }
-      if (!heightIn || heightIn <= 0) {
-        feetInput.style.borderColor = '#c00';
-        feetInput.focus();
-        return;
-      }
-      if (!status) {
-        statusSelect.style.borderColor = '#c00';
-        statusSelect.focus();
+      var feetVal = parseFloat(document.getElementById('tpn-feet').value) || 0;
+      var inchesVal = parseFloat(document.getElementById('tpn-inches').value) || 0;
+      var totalInches = (feetVal * 12) + inchesVal;
+      var weightVal = parseFloat(document.getElementById('tpn-weight').value);
+      if (!totalInches || totalInches <= 0 || !weightVal || weightVal <= 0) {
+        alert('Please enter height and weight.');
         return;
       }
 
-      // Convert to metric for all calculations
-      var weight = lbsToKg(weightLbs);
-      var height = inchesToCm(heightIn);
-      var params = dosingParams[status];
-      var bmi = weight / ((height / 100) * (height / 100));
+      var weightUnit = document.getElementById('tpn-weight-unit').value;
+      var gender = document.getElementById('tpn-gender').value;
 
-      // Calculate dosing weight
-      var dosingWeight = weight; // default: actual body weight
-      var ibw, abw;
-      if (status === 'obese') {
-        // Ideal body weight (Hamwi) — use median assumption
-        ibw = 50 + 0.91 * (height - 152.4); // approximate
-        if (ibw < 40) ibw = 40;
-        abw = ibw + 0.25 * (weight - ibw);
-        dosingWeight = abw;
-      }
+      // Convert to metric
+      var heightCm = totalInches * 2.54;
+      var weightKg = weightUnit === 'lbs' ? weightVal * 0.453592 : weightVal;
 
-      // Protein: g/kg/day × dosing weight
-      var proteinPerKg = (params.protein.min + params.protein.max) / 2;
-      var proteinTotal = Math.round(proteinPerKg * dosingWeight);
-      var proteinRange = Math.round(params.protein.min * dosingWeight) + '–' + Math.round(params.protein.max * dosingWeight);
+      // Formulation params
+      var goalKcalKg = parseFloat(document.getElementById('tpn-kcal').value);
+      var pctGoal = parseFloat(document.getElementById('tpn-pct').value) / 100;
+      var proteinPerKg = parseFloat(document.getElementById('tpn-protein').value);
+      var dexNpcPct = parseFloat(document.getElementById('tpn-npc').value) / 100;
+      var lipNpcPct = 1 - dexNpcPct;
+      var lipidForm = parseInt(document.getElementById('tpn-lipid-form').value); // 10 or 20
+      var propofolMcg = parseFloat(document.getElementById('tpn-propofol').value) || 0;
 
-      // Energy: kcal/kg/day × weight
-      var energyWeight = (status === 'obese') ? weight : weight; // energy based on actual for obese per guidelines
-      var energyPerKg = (params.energy.min + params.energy.max) / 2;
-      var energyTotal = Math.round(energyPerKg * energyWeight);
-      var energyRange = Math.round(params.energy.min * energyWeight) + '–' + Math.round(params.energy.max * energyWeight);
+      // Caloric densities
+      var LIPID_KCAL = 9;       // kcal/g (10%) or 2 kcal/mL (20%)
+      var DEX_KCAL = 3.4;       // kcal/g
+      var PRO_KCAL = 4;         // kcal/g
+      var PROPOFOL_KCAL = 1.1;  // kcal/mL
+
+      // Total goal calories
+      var totalGoalKcal = goalKcalKg * weightKg * pctGoal;
+
+      // Protein
+      var proteinG = proteinPerKg * weightKg;
+      var proteinKcal = proteinG * PRO_KCAL;
+
+      // Propofol contribution (as lipid calories)
+      var propofolMlDay = propofolMcg > 0 ? (propofolMcg * weightKg * 60 * 24) / (10 * 1000000) : 0;
+      var propofolKcal = propofolMlDay * PROPOFOL_KCAL;
 
       // Non-protein calories
-      var proteinKcal = proteinTotal * 4;
-      var nonProteinKcal = energyTotal - proteinKcal;
+      var nonProteinKcal = totalGoalKcal - proteinKcal;
       if (nonProteinKcal < 0) nonProteinKcal = 0;
 
-      // Lipid: g/kg/day × dosing weight (max 2.5 g/kg/day)
-      var lipidPerKg = (params.lipid.min + params.lipid.max) / 2;
-      var lipidTotal = Math.round(lipidPerKg * dosingWeight);
-      var maxLipid = Math.round(2.5 * dosingWeight);
-      if (lipidTotal > maxLipid) lipidTotal = maxLipid;
-      var lipidRange = Math.round(params.lipid.min * dosingWeight) + '–' + Math.round(params.lipid.max * dosingWeight);
+      // Lipid calories (subtract propofol contribution from lipid budget)
+      var lipidKcal = (nonProteinKcal * lipNpcPct) - propofolKcal;
+      if (lipidKcal < 0) lipidKcal = 0;
+      var lipidG = lipidKcal / LIPID_KCAL;
+      var lipidMl = (lipidForm === 20) ? lipidG * 5 : lipidG * 10;
 
-      // Dextrose: remaining non-protein kcal from dextrose (3.4 kcal/g)
-      var dexKcal = nonProteinKcal * params.dexPct;
-      var dexTotal = Math.round(dexKcal / 3.4);
-      // Check max GIR (glucose infusion rate) — ~5 mg/kg/min max
-      var maxDexGrams = Math.round(5 * weight * 1440 / 1000); // mg/kg/min → g/day
-      if (dexTotal > maxDexGrams) dexTotal = maxDexGrams;
+      // Dextrose
+      var dexKcal = nonProteinKcal * dexNpcPct;
+      var dexG = dexKcal / DEX_KCAL;
 
-      // Animate outputs
-      animateValue(outProtein, proteinTotal);
-      animateValue(outEnergy, energyTotal);
-      animateValue(outLipid, lipidTotal);
-      animateValue(outDextrose, dexTotal);
+      // Total calories
+      var totalKcal = proteinKcal + lipidKcal + dexKcal;
 
-      // Highlight output cards
-      var cards = outputCards.children;
-      for (var i = 0; i < cards.length; i++) {
-        cards[i].style.borderColor = '#0057b8';
-        cards[i].style.background = '#f8fbff';
-      }
+      // Fluid estimation (Holliday-Segar)
+      var fluidMl;
+      if (weightKg <= 10) fluidMl = weightKg * 100;
+      else if (weightKg <= 20) fluidMl = 1000 + (weightKg - 10) * 50;
+      else fluidMl = 1500 + (weightKg - 20) * 20;
 
-      // Show rationale
-      var rangeInfo = 'Protein range: ' + proteinRange + ' g/day | Energy range: ' + energyRange + ' kcal/day | Lipid range: ' + lipidRange + ' g/day.';
-      var dispFt = Math.floor(heightIn / 12);
-      var dispIn = Math.round(heightIn % 12);
-      rangeInfo = 'Patient: ' + weightLbs + ' lbs (' + Math.round(weight) + ' kg), ' + dispFt + '\u2032' + dispIn + '\u2033 (' + Math.round(height) + ' cm), BMI ' + bmi.toFixed(1) + '. ' + rangeInfo;
-      if (status === 'obese') {
-        rangeInfo = 'Using adjusted body weight (' + Math.round(abw) + ' kg / ' + Math.round(abw * 2.20462) + ' lbs) for protein dosing. IBW estimate: ' + Math.round(ibw) + ' kg (' + Math.round(ibw * 2.20462) + ' lbs). ' + rangeInfo;
-      }
-      rationaleText.textContent = params.note + ' ' + rangeInfo;
-      rationale.style.display = 'block';
+      // Total volume = amino acid vol + dextrose vol + lipid vol (simplified)
+      var aaVolMl = proteinG * 10;         // ~10% amino acid solution
+      var dexVolMl = dexG / 0.7 * 1;      // ~70% dextrose (diluted in final vol)
+      var totalVolume = Math.round(fluidMl);
+      var ratePerHr = (totalVolume / 24).toFixed(1);
 
-      // Show reset button
-      resetBtn.style.display = 'inline-block';
-      calcBtn.textContent = 'Recalculate';
+      // Dextrose concentration in final volume
+      var dexConcPct = ((dexG / totalVolume) * 100).toFixed(1);
+
+      // Osmolarity (simplified: dextrose 5 mOsm/g, protein 10 mOsm/g, lipids negligible)
+      var osmolarity = Math.round((dexG * 5 + proteinG * 10) / (totalVolume / 1000));
+
+      // GIR (glucose infusion rate) mg/kg/min
+      var girVal = ((dexG * 1000) / (weightKg * 1440)).toFixed(1);
+
+      // Populate results
+      document.getElementById('res-volume').textContent = totalVolume;
+      document.getElementById('res-rate').textContent = ratePerHr;
+
+      // Macronutrient table
+      document.getElementById('res-dex-pct').textContent = dexConcPct + '%';
+      document.getElementById('res-dex-amt').textContent = Math.round(dexG) + ' g (' + (dexG / weightKg).toFixed(1) + ' g/kg)';
+      document.getElementById('res-dex-cal').textContent = Math.round(dexKcal) + ' kcal (' + Math.round(dexKcal / totalKcal * 100) + '%)';
+
+      document.getElementById('res-pro-pct').textContent = ((proteinG / totalVolume) * 100).toFixed(1) + '%';
+      document.getElementById('res-pro-amt').textContent = Math.round(proteinG) + ' g (' + proteinPerKg.toFixed(1) + ' g/kg)';
+      document.getElementById('res-pro-cal').textContent = Math.round(proteinKcal) + ' kcal (' + Math.round(proteinKcal / totalKcal * 100) + '%)';
+
+      document.getElementById('res-lipid-label').textContent = 'Lipids' + (propofolMcg > 0 ? ' (propofol ' + lipidForm + ' mg/mL)' : '');
+      document.getElementById('res-lip-pct').textContent = '-';
+      document.getElementById('res-lip-amt').textContent = Math.round(lipidMl) + ' mL';
+      document.getElementById('res-lip-cal').textContent = Math.round(lipidKcal) + ' kcal (' + Math.round(lipidKcal / totalKcal * 100) + '%)';
+
+      document.getElementById('res-total-cal').textContent = Math.round(totalKcal) + ' kcal (' + Math.round(totalKcal / weightKg) + ' kcal/kg)';
+
+      document.getElementById('res-osm').textContent = osmolarity + ' mOsm/L';
+      document.getElementById('res-gir').textContent = girVal + ' mg/kg/min';
+
+      resultsDiv.style.display = 'block';
+      resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
-    // Animate number counting up
-    function animateValue(el, target) {
-      var duration = 600;
-      var start = 0;
-      var startTime = null;
-      function step(timestamp) {
-        if (!startTime) startTime = timestamp;
-        var progress = Math.min((timestamp - startTime) / duration, 1);
-        var eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-        var current = Math.round(eased * target);
-        el.textContent = current.toLocaleString();
-        if (progress < 1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    }
-
-    // Reset calculator
     function resetCalc() {
-      weightInput.value = '';
-      feetInput.value = '';
-      inchesInput.value = '';
-      statusSelect.selectedIndex = 0;
-      bmiDisplay.textContent = 'Auto-calculated';
-      bmiDisplay.style.color = 'var(--wire-light)';
-      bmiDisplay.style.fontWeight = '400';
-      outProtein.innerHTML = '&mdash;';
-      outEnergy.innerHTML = '&mdash;';
-      outLipid.innerHTML = '&mdash;';
-      outDextrose.innerHTML = '&mdash;';
-      rationale.style.display = 'none';
-      resetBtn.style.display = 'none';
-      calcBtn.textContent = 'Calculate Dosing';
-      var cards = outputCards.children;
-      for (var i = 0; i < cards.length; i++) {
-        cards[i].style.borderColor = '';
-        cards[i].style.background = 'var(--wire-white)';
-      }
+      document.getElementById('tpn-kcal').value = 25;
+      document.getElementById('tpn-kcal-val').textContent = '25 kcal/kg';
+      document.getElementById('tpn-pct').value = 100;
+      document.getElementById('tpn-pct-val').textContent = '100%';
+      document.getElementById('tpn-protein').value = 1.5;
+      document.getElementById('tpn-protein-val').textContent = '1.5 g/kg';
+      document.getElementById('tpn-npc').value = 70;
+      document.getElementById('tpn-dex-pct').textContent = '70';
+      document.getElementById('tpn-lipid-pct').textContent = '30';
+      document.getElementById('tpn-feet').value = '';
+      document.getElementById('tpn-inches').value = '';
+      document.getElementById('tpn-weight').value = '';
+      document.getElementById('tpn-propofol').value = 0;
+      resultsDiv.style.display = 'none';
+
+      // Reset toggles to defaults
+      document.querySelectorAll('.lipid-form-btn').forEach(function(b) {
+        b.style.background = b.getAttribute('data-val') === '20' ? 'var(--wire-dark)' : 'var(--wire-white)';
+        b.style.color = b.getAttribute('data-val') === '20' ? 'var(--wire-white)' : 'var(--wire-dark)';
+      });
+      document.getElementById('tpn-lipid-form').value = '20';
+      document.querySelectorAll('.gender-btn').forEach(function(b) {
+        b.style.background = b.getAttribute('data-val') === 'male' ? 'var(--wire-dark)' : 'var(--wire-white)';
+        b.style.color = b.getAttribute('data-val') === 'male' ? 'var(--wire-white)' : 'var(--wire-dark)';
+      });
+      document.getElementById('tpn-gender').value = 'male';
+      document.querySelectorAll('.weight-unit-btn').forEach(function(b) {
+        b.style.background = b.getAttribute('data-val') === 'lbs' ? 'var(--wire-dark)' : 'var(--wire-white)';
+        b.style.color = b.getAttribute('data-val') === 'lbs' ? 'var(--wire-white)' : 'var(--wire-dark)';
+      });
+      document.getElementById('tpn-weight-unit').value = 'lbs';
     }
 
     calcBtn.addEventListener('click', function(e) { e.preventDefault(); calculate(); });
     resetBtn.addEventListener('click', function(e) { e.preventDefault(); resetCalc(); });
 
     // Allow Enter key to trigger calculation
-    [weightInput, feetInput, inchesInput].forEach(function(el) {
+    [document.getElementById('tpn-feet'), document.getElementById('tpn-inches'), document.getElementById('tpn-weight'), document.getElementById('tpn-propofol')].forEach(function(el) {
       el.addEventListener('keydown', function(e) {
         if (e.key === 'Enter') { e.preventDefault(); calculate(); }
       });
     });
-    statusSelect.addEventListener('change', function() {
-      // If all fields are filled, auto-calculate on status change
-      if (weightInput.value && (feetInput.value || inchesInput.value)) calculate();
+  })();
+  </script>
+  <!-- ===== ENTRY MODAL SCRIPT ===== -->
+  <script>
+  (function () {
+    var modal = document.getElementById('entry-modal');
+    var btn = document.getElementById('entry-modal-continue');
+    if (!modal || !btn) return;
+
+    // If already dismissed this session, hide immediately
+    if (sessionStorage.getItem('entryModalDismissed')) {
+      modal.classList.add('is-hidden');
+      return;
+    }
+
+    // Show modal (prevent background scroll)
+    document.body.style.overflow = 'hidden';
+
+    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) { e.stopPropagation();
+      modal.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      sessionStorage.setItem('entryModalDismissed', '1');
     });
   })();
   </script>
+
+  <!-- ===== LINK ICON INJECTION ===== -->
+  <script>
+  (function () {
+    var downloadSVG = '<span class="link-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+    var externalSVG = '<span class="link-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11M15 3H21M21 3V9M21 3L10 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+    // Download links
+    document.querySelectorAll('a, button').forEach(function (el) {
+      var txt = el.textContent.trim();
+      if (/^(View\s*\/\s*)?Download(\s*(PDF|CSV|XLS|DOC))?(\s*\u2192)?$/i.test(txt)) {
+        if (!el.querySelector('.link-icon')) el.insertAdjacentHTML('beforeend', ' ' + downloadSVG);
+      }
+    });
+
+    // External links
+    document.querySelectorAll('a[target="_blank"]').forEach(function (el) {
+      if (el.href && /^https?:\/\//.test(el.href)) {
+        if (!el.querySelector('.link-icon')) el.insertAdjacentHTML('beforeend', ' ' + externalSVG);
+      }
+    });
+  })();
+  </script>
+
+  <!-- ===== EXIT MODAL SCRIPT ===== -->
+  <script>
+  (function () {
+    var exitModal = document.getElementById('exit-modal');
+    var exitBtn = document.getElementById('exit-modal-continue');
+    if (!exitModal || !exitBtn) return;
+
+    // Intercept external link clicks
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[target="_blank"]');
+      if (!link) return;
+      if (!link.href || !/^https?:\/\//.test(link.href)) return;
+
+      e.preventDefault();
+      exitBtn.href = link.href;
+      exitModal.classList.remove('is-hidden');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal on Continue click and open link
+    exitBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = exitBtn.href;
+      exitModal.classList.add('is-hidden');
+      document.body.style.overflow = '';
+      if (url && url !== '#') window.open(url, '_blank', 'noopener,noreferrer');
+    });
+
+    // Close modal on overlay click
+    exitModal.addEventListener('click', function (e) {
+      if (e.target === exitModal) {
+        exitModal.classList.add('is-hidden');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+  </script>
+
 </body>
 </html>
