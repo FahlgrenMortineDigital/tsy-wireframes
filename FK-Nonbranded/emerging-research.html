@@ -1249,7 +1249,7 @@
     });
 
     // External links
-    document.querySelectorAll('a[target="_blank"]').forEach(function (el) {
+    document.querySelectorAll('a[target="_blank"]:not(.fds-label)').forEach(function (el) {
       if (el.href && /^https?:\/\//.test(el.href)) {
         if (!el.querySelector('.link-icon')) el.insertAdjacentHTML('beforeend', ' ' + externalSVG);
       }
@@ -1266,7 +1266,7 @@
 
     // Intercept external link clicks
     document.addEventListener('click', function (e) {
-      var link = e.target.closest('a[target="_blank"]');
+      var link = e.target.closest('a[target="_blank"]:not(.fds-label)');
       if (!link) return;
       if (!link.href || !/^https?:\/\//.test(link.href)) return;
 
