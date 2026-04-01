@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Component Library — Columbus Region</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Arial, Helvetica, sans-serif; color: #333; background: #fff; padding: 40px 0; }
+    :root { --max-width: 1200px; --red: #B22222; --teal: #3D5A5A; --light-blue: #E8F4F8; --dark: #2C3E3E; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* ===== PILL LABEL ===== */
+    .pill {
+      display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; padding: 3px 10px; border-radius: 10px; line-height: 1.4;
+    }
+    .pill--wp { background: #e0f0e0; color: #2a7a2a; }
+    .pill--cms { background: #fff3cd; color: #856404; }
+    .pill--global { background: #e0e7ff; color: #3b4fc4; }
+    .pill--page { background: #fce4ec; color: #c62828; }
+    .pill--interactive { background: #f3e5f5; color: #7b1fa2; }
+
+    /* ===== COMPONENT SECTION ===== */
+    .comp {
+      border: 1px solid #ddd; margin: 0 auto 40px; max-width: var(--max-width);
+      padding: 32px; background: #fff;
+    }
+    .comp__title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; margin-bottom: 4px;
+    }
+    .comp__name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .comp__url {
+      font-size: 10px; color: #aaa; margin-bottom: 12px; display: block;
+    }
+    .comp__pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .comp__demo {
+      border: 1px dashed #ddd; padding: 24px; background: #fafafa;
+    }
+    .comp__variant-label {
+      font-size: 10px; color: #999; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 600; margin: 20px 0 8px; display: block;
+    }
+    .comp__notes {
+      font-size: 11px; color: #666; margin-top: 12px; padding: 10px;
+      background: #fffde7; border: 1px solid #fff9c4; border-radius: 4px;
+    }
+    .comp__notes strong { color: #333; }
+
+    /* Image placeholder with X */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc;
+      width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+
+    /* Generic btn */
+    .btn {
+      display: inline-block; border: 2px solid var(--teal); background: var(--teal);
+      color: #fff; padding: 10px 24px; font-size: 12px; font-weight: 700;
+      text-decoration: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .btn--outline { background: transparent; color: var(--teal); }
+    .btn--red { background: var(--red); border-color: var(--red); }
+    .btn--sm { padding: 6px 16px; font-size: 10px; }
+
+    /* Arrow link */
+    .arrow-link {
+      font-size: 12px; font-weight: 700; color: var(--red); text-decoration: none;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* ===== TOC ===== */
+    .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 16px; }
+    .toc-grid a { font-size: 12px; color: #555; text-decoration: underline; }
+    .toc-section { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-top: 16px; grid-column: 1 / -1; }
+
+    /* ===== CMS TABLE ===== */
+    .cms-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px; }
+    .cms-table th { text-align: left; padding: 8px 12px; background: #f5f5f5; border: 1px solid #ddd; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+    .cms-table td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
+    .cms-table tr:nth-child(even) td { background: #fafafa; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 760px) {
+      .toc-grid { grid-template-columns: 1fr; }
+      .resp-stack { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" style="margin-bottom:40px;">
+  <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Project Component Library</h1>
+  <p style="font-size:13px;color:#888;">38 components identified across columbusregion.com</p>
+  <p style="font-size:11px;color:#aaa;margin-top:4px;">Site audit: March 2026 &middot; Current platform: WordPress &middot; Target platform: Statamic</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+
+<div class="comp" style="margin-bottom:40px;">
+  <div class="comp__title">Table of Contents</div>
+  <div class="comp__name">38 Components</div>
+  <div class="toc-grid">
+    <div class="toc-section">Global / Sitewide</div>
+    <div><a href="#c1">1. Utility Bar</a></div>
+    <div><a href="#c2">2. Site Header</a></div>
+    <div><a href="#c3">3. Main Navigation (Dropdowns)</a></div>
+    <div><a href="#c4">4. Mobile Menu</a></div>
+    <div><a href="#c5">5. Footer</a></div>
+
+    <div class="toc-section">Heroes</div>
+    <div><a href="#c6">6. Homepage Hero (Split Layout)</a></div>
+    <div><a href="#c7">7. Interior Hero &mdash; Full-Width Photo Overlay</a></div>
+    <div><a href="#c8">8. Interior Hero &mdash; Half-Width Block</a></div>
+    <div><a href="#c9">9. Counties Hero (Map + Dropdown)</a></div>
+
+    <div class="toc-section">Content Sections</div>
+    <div><a href="#c10">10. Stats Panel (Large Numbers)</a></div>
+    <div><a href="#c11">11. Stats Callout Bar</a></div>
+    <div><a href="#c12">12. Feature Card Grid (2&times;2)</a></div>
+    <div><a href="#c13">13. Accordion Section &mdash; Dark Background</a></div>
+    <div><a href="#c14">14. Accordion Section &mdash; Light Background</a></div>
+    <div><a href="#c15">15. FAQ Accordion</a></div>
+    <div><a href="#c16">16. Alternating Content Block</a></div>
+    <div><a href="#c17">17. Two-Column Content (Text + Image)</a></div>
+    <div><a href="#c18">18. Region Map Section</a></div>
+    <div><a href="#c19">19. Contact CTA &mdash; Light Background</a></div>
+    <div><a href="#c20">20. Contact CTA &mdash; Image Overlay</a></div>
+    <div><a href="#c21">21. Quote / Testimonial Block</a></div>
+
+    <div class="toc-section">Cards</div>
+    <div><a href="#c22">22. News Card</a></div>
+    <div><a href="#c23">23. Press Release Card (Text-Only)</a></div>
+    <div><a href="#c24">24. News Feed Card (Large Image)</a></div>
+    <div><a href="#c25">25. County Snapshot Card</a></div>
+    <div><a href="#c26">26. City Card</a></div>
+    <div><a href="#c27">27. Employer Card</a></div>
+    <div><a href="#c28">28. Team Member Card</a></div>
+
+    <div class="toc-section">Navigation &amp; Interactive</div>
+    <div><a href="#c29">29. County Tab Bar</a></div>
+    <div><a href="#c30">30. Interactive County Map</a></div>
+    <div><a href="#c31">31. Scroll-to-Page Navigation</a></div>
+
+    <div class="toc-section">Article / Page Templates</div>
+    <div><a href="#c32">32. Article Detail Layout</a></div>
+    <div><a href="#c33">33. Plain Text Page Layout</a></div>
+
+    <div class="toc-section">Forms &amp; Inputs</div>
+    <div><a href="#c34">34. Newsletter Signup Bar</a></div>
+    <div><a href="#c35">35. HubSpot Contact Form</a></div>
+    <div><a href="#c36">36. Inline Email Signup</a></div>
+
+    <div class="toc-section">Atoms / UI Elements</div>
+    <div><a href="#c37">37. CTA Button</a></div>
+    <div><a href="#c38">38. Arrow Link</a></div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- CMS MIGRATION NOTES -->
+<!-- ============================================================ -->
+
+<div class="comp" style="margin-bottom:40px;background:#f8f9fa;">
+  <div class="comp__title">CMS Migration Notes</div>
+  <div class="comp__name">WordPress &rarr; Statamic</div>
+  <table class="cms-table" style="margin-top:16px;">
+    <thead>
+      <tr>
+        <th style="width:25%;">WordPress Feature</th>
+        <th style="width:25%;">Current Plugin / Method</th>
+        <th style="width:25%;">Statamic Equivalent</th>
+        <th style="width:25%;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contact / Lead Forms</td>
+        <td>HubSpot embedded forms</td>
+        <td>HubSpot embed (keep) or Statamic Forms</td>
+        <td>Evaluate if HubSpot CRM integration is needed or if native Statamic forms suffice</td>
+      </tr>
+      <tr>
+        <td>Newsletter Signup</td>
+        <td>HubSpot form embed</td>
+        <td>HubSpot embed (keep) or Mailchimp / native form</td>
+        <td>Simple email capture &mdash; could be native Statamic form with webhook</td>
+      </tr>
+      <tr>
+        <td>Translation / i18n</td>
+        <td>Weglot</td>
+        <td>Not needed</td>
+        <td>English-only site &mdash; remove Weglot entirely</td>
+      </tr>
+      <tr>
+        <td>Blog / News posts</td>
+        <td>WordPress Posts + Content Views Pro</td>
+        <td>Statamic Collections</td>
+        <td>Create &ldquo;News&rdquo; and &ldquo;Press Releases&rdquo; collections</td>
+      </tr>
+      <tr>
+        <td>Staff / Team directory</td>
+        <td>Custom post type or page</td>
+        <td>Statamic Collection (&ldquo;Team&rdquo;)</td>
+        <td>Fields: name, title, organization, headshot, leadership flag</td>
+      </tr>
+      <tr>
+        <td>Counties</td>
+        <td>Custom post type / pages</td>
+        <td>Statamic Collection (&ldquo;Counties&rdquo;)</td>
+        <td>11 entries with snapshot data, cities, employers</td>
+      </tr>
+      <tr>
+        <td>Industries taxonomy</td>
+        <td>Page sections / accordion content</td>
+        <td>Statamic Collection or Taxonomy</td>
+        <td>7 industries with descriptions &mdash; could be a reusable collection</td>
+      </tr>
+      <tr>
+        <td>Page builder / blocks</td>
+        <td>Gutenberg + Columbus Blocks (custom plugin)</td>
+        <td>Statamic Bard / Replicator fieldtype</td>
+        <td>Replicate block types as Bard sets or Replicator sets</td>
+      </tr>
+      <tr>
+        <td>PDF downloads</td>
+        <td>Download Monitor</td>
+        <td>Statamic Assets</td>
+        <td>Press release PDFs &mdash; store in asset container</td>
+      </tr>
+      <tr>
+        <td>Image optimization</td>
+        <td>EWWW Image Optimizer</td>
+        <td>Statamic Glide (built-in)</td>
+        <td>Glide handles responsive images and optimization natively</td>
+      </tr>
+      <tr>
+        <td>iFrame embeds</td>
+        <td>Advanced iFrame plugin</td>
+        <td>Bard embed set or raw HTML</td>
+        <td>19 iframes detected on Economy page alone &mdash; audit which are needed</td>
+      </tr>
+      <tr>
+        <td>Scroll-to-page navigation</td>
+        <td>Custom JavaScript</td>
+        <td>Evaluate: keep or remove</td>
+        <td>Auto-navigates to next page on scroll-past &mdash; potential a11y/SEO issue</td>
+      </tr>
+      <tr>
+        <td>Search</td>
+        <td>None found</td>
+        <td>Statamic Search (Algolia or local)</td>
+        <td>No search currently exists &mdash; consider adding in redesign</td>
+      </tr>
+      <tr>
+        <td>SEO</td>
+        <td>Likely Yoast or similar</td>
+        <td>Statamic SEO Pro or SEO addon</td>
+        <td>Meta fields, OG tags, sitemap generation</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 1. UTILITY BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c1">
+  <div class="comp__title">Component 01</div>
+  <div class="comp__name">Utility Bar</div>
+  <span class="comp__url">Used on: All pages (top of page, above main header)</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:24px;padding:8px 0;font-size:12px;">
+      <a href="#" style="color:#555;text-decoration:none;">One Columbus</a>
+      <a href="#" style="color:#555;text-decoration:none;">Columbus Partnership</a>
+      <a href="#" style="color:#555;text-decoration:none;">Smart Columbus</a>
+      <a href="#" style="color:white;text-decoration:none;background:var(--teal);padding:8px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Contact Us</a>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Links to partner/sister organization sites. &ldquo;Contact Us&rdquo; is a styled CTA button.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 2. SITE HEADER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c2">
+  <div class="comp__title">Component 02</div>
+  <div class="comp__name">Site Header</div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;align-items:center;padding:12px 0;border-bottom:2px solid #eee;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <span style="font-size:8px;color:#999;text-transform:uppercase;line-height:1;">THE</span>
+        <span style="font-size:22px;font-weight:800;color:#333;letter-spacing:-0.5px;">COLUMBUS</span>
+        <span style="font-size:22px;font-weight:800;color:var(--red);margin-top:-8px;">&#x2726;</span>
+      </div>
+      <span style="font-size:10px;color:#999;display:block;margin-left:4px;">REGION</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Logo with red diamond accent. Sticky on scroll. Contains the main navigation below on desktop.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 3. MAIN NAVIGATION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c3">
+  <div class="comp__title">Component 03</div>
+  <div class="comp__name">Main Navigation (with Dropdowns)</div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:0;border-bottom:2px solid #eee;">
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">The Columbus Region <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Economy <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Talent <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Doing Business <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">About Us <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">News and Events <span style="font-size:8px;">&#9660;</span></span>
+    </div>
+    <span class="comp__variant-label">Dropdown Panel</span>
+    <div style="border:1px solid #ddd;padding:16px 20px;max-width:280px;background:#fff;font-size:12px;line-height:2.4;color:#555;border-top:2px solid var(--red);">
+      Sub-page Link 1<br>
+      Sub-page Link 2<br>
+      Sub-page Link 3<br>
+      Sub-page Link 4
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 6 top-level items, each with dropdown sub-navigation. Active section highlighted in red. Dropdown opens on hover with red top border.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 4. MOBILE MENU -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c4">
+  <div class="comp__title">Component 04</div>
+  <div class="comp__name">Mobile Menu</div>
+  <span class="comp__url">Used on: All pages (below breakpoint)</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo" style="max-width:400px;">
+    <div style="background:#fff;border:1px solid #ddd;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee;">
+        <span style="font-size:16px;font-weight:800;color:#333;">COLUMBUS</span>
+        <div style="width:24px;height:18px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;">
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">The Columbus Region <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Economy <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Talent <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Doing Business <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">About Us <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">News and Events <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;">
+        <span class="btn btn--red" style="display:block;text-align:center;font-size:11px;">Contact Us</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 5. FOOTER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c5">
+  <div class="comp__title">Component 05</div>
+  <div class="comp__name">Footer</div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#fff;padding:32px 0;border-top:3px solid #eee;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;font-size:11px;color:#555;">
+        <!-- Col 1 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:12px;color:var(--teal);">One Columbus</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:4px;color:var(--teal);">Columbus Partnership</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:16px;color:var(--teal);">Smart Columbus</div>
+          <div style="font-size:10px;color:#888;line-height:1.6;">
+            150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500
+          </div>
+          <div style="margin-top:8px;font-size:10px;color:var(--teal);text-decoration:underline;">Privacy Policy</div>
+        </div>
+        <!-- Col 2 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">The Columbus Region</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Economy</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Talent</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;color:var(--teal);">Doing Business</div>
+        </div>
+        <!-- Col 3 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">About Us</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">News</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Staff</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;color:var(--teal);">Contact Us</div>
+        </div>
+        <!-- Col 4 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:4px;">Subscribe to Columbus Region News</div>
+          <div style="font-size:10px;color:#888;margin-bottom:8px;">The latest news, articles and resources sent to your inbox.</div>
+          <div style="display:flex;gap:4px;">
+            <input type="text" placeholder="Email" style="flex:1;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+            <button style="background:var(--teal);color:#fff;border:none;padding:0 14px;font-size:10px;font-weight:700;cursor:pointer;">SIGN UP</button>
+          </div>
+          <div style="margin-top:12px;display:flex;align-items:center;gap:6px;">
+            <span style="font-size:10px;font-weight:700;color:#333;">JobsOhio</span>
+            <span style="font-size:9px;color:#888;">Network Partner</span>
+          </div>
+        </div>
+      </div>
+      <!-- Sub-footer -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid #eee;">
+        <span style="font-size:9px;color:#aaa;">&copy; 2023 All Rights Reserved</span>
+        <div style="display:flex;gap:8px;">
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 4-column layout. Col 1: partner org links + address. Cols 2-3: site nav links. Col 4: newsletter signup + JobsOhio partner badge. Sub-footer: copyright + social icons (Instagram, Twitter/X, YouTube, LinkedIn).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 6. HOMEPAGE HERO -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c6">
+  <div class="comp__title">Component 06</div>
+  <div class="comp__name">Homepage Hero (Split Layout)</div>
+  <span class="comp__url">Used on: Homepage</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Homepage Only</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:280px;">
+      <div style="background:var(--red);padding:40px 32px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h2 style="font-size:28px;font-weight:800;margin-bottom:16px;line-height:1.15;">See the Progress.<br>Join the Momentum.</h2>
+        <p style="font-size:12px;margin-bottom:20px;opacity:0.9;">Be a part of the transformation. Learn more about the Columbus Region.</p>
+        <div><span class="btn" style="background:var(--teal);border-color:var(--teal);font-size:11px;">Learn More</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:280px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 50/50 split. Red panel left with headline, supporting text, and CTA button. Full-bleed image right. Background image appears to be an aerial/city photo.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 7. INTERIOR HERO — FULL WIDTH -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c7">
+  <div class="comp__title">Component 07</div>
+  <div class="comp__name">Interior Hero &mdash; Full-Width Photo Overlay</div>
+  <span class="comp__url">Used on: News &amp; Events, section landing pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="position:relative;min-height:200px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;padding:48px 32px;max-width:50%;">
+        <div style="background:rgba(178,34,34,0.85);padding:32px;color:#fff;">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:8px;">News and Events</h2>
+          <p style="font-size:12px;opacity:0.9;">The latest updates from the Columbus Region economic development community.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width background image with semi-transparent red overlay block positioned over the left side. Contains title + description text. No CTA button in this variant.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 8. INTERIOR HERO — HALF WIDTH -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c8">
+  <div class="comp__title">Component 08</div>
+  <div class="comp__name">Interior Hero &mdash; Half-Width Block</div>
+  <span class="comp__url">Used on: About Us, Cost, Talent, and most interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Variant A: Red Block</span>
+    <div style="position:relative;min-height:180px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;background:var(--red);padding:32px;max-width:45%;min-height:180px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Cost of Business</h2>
+        <p style="font-size:11px;margin-bottom:16px;opacity:0.9;">Description text about this section goes here with supporting details.</p>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Connect With Our Team</span></div>
+      </div>
+    </div>
+    <span class="comp__variant-label">Variant B: Teal Block (Contact page)</span>
+    <div style="position:relative;min-height:140px;">
+      <div style="background:var(--teal);padding:32px;max-width:45%;min-height:140px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Let's stay connected.</h2>
+        <div style="display:flex;gap:4px;margin-top:8px;">
+          <input type="text" placeholder="Email" style="flex:1;height:30px;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;padding:0 8px;font-size:10px;">
+          <button style="background:#fff;color:var(--teal);border:none;padding:0 14px;font-size:10px;font-weight:700;">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+    <span class="comp__variant-label">Variant C: Red Block without CTA</span>
+    <div style="position:relative;min-height:140px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;background:var(--red);padding:32px;max-width:45%;min-height:140px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Meet the Team</h2>
+        <p style="font-size:11px;opacity:0.9;">Learn about the people driving the Columbus Region forward.</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Most common interior hero pattern. A colored block (~40-45% width) overlays a background photo. Three observed color variants: red (most common), teal (contact page), and red without CTA button. Some variants include an email signup form instead of a CTA.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 9. COUNTIES HERO -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c9">
+  <div class="comp__title">Component 09</div>
+  <div class="comp__name">Counties Hero (Map + Dropdown)</div>
+  <span class="comp__url">Used on: Counties landing page</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:200px;">
+      <div style="position:relative;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:32px;color:#fff;">
+          <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Explore the Counties</h2>
+          <p style="font-size:11px;margin-bottom:16px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">Description of the 11-county region.</p>
+          <select style="padding:8px 12px;font-size:11px;border:1px solid #ccc;min-width:180px;">
+            <option>COUNTIES</option>
+            <option>Franklin</option>
+            <option>Delaware</option>
+            <option>Fairfield</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:#e8e8e8;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;">
+        <!-- Simplified map wireframe -->
+        <div style="width:200px;height:180px;position:relative;">
+          <div style="position:absolute;top:10%;left:30%;font-size:8px;color:var(--red);font-weight:700;">DELAWARE</div>
+          <div style="position:absolute;top:45%;left:35%;font-size:8px;color:var(--red);font-weight:700;">FRANKLIN</div>
+          <div style="position:absolute;top:75%;left:25%;font-size:8px;color:var(--red);font-weight:700;">PICKAWAY</div>
+          <div style="position:absolute;top:30%;left:5%;font-size:8px;color:var(--red);font-weight:700;">UNION</div>
+          <div style="position:absolute;top:30%;right:5%;font-size:8px;color:var(--red);font-weight:700;">KNOX</div>
+          <div style="border:1px solid #aaa;position:absolute;inset:0;border-radius:8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Unique to counties page. Left side has text + county dropdown selector over background photo. Right side has interactive SVG map of 11 counties with hover states (county highlights red on hover). Dropdown navigates to individual county detail.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 10. STATS PANEL -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c10">
+  <div class="comp__title">Component 10</div>
+  <div class="comp__name">Stats Panel (Large Numbers)</div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Region by the Numbers&rdquo;), Economy, Counties</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:32px;color:#fff;">
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:24px;">The Region by the Numbers</h3>
+      <div style="display:flex;gap:32px;">
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">2.3M</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Talented People</div>
+        </div>
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">150,000</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Enrolled College Students</div>
+        </div>
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">No. 1</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">In the Midwest for GDP Growth</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;"><span class="btn" style="font-size:10px;padding:8px 18px;">Learn More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Red background panel with large stat figures. On homepage this appears alongside a background image (split layout). Also used standalone on interior pages. Stats are editable content fields.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 11. STATS CALLOUT BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c11">
+  <div class="comp__title">Component 11</div>
+  <div class="comp__name">Stats Callout Bar</div>
+  <span class="comp__url">Used on: Cost of Business, Economy, Counties</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:32px;color:#fff;text-align:center;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Section Title</h3>
+      <p style="font-size:11px;opacity:0.8;margin-bottom:20px;">Supporting description text for this data section.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">$10B</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Capital Investment Secured</div>
+        </div>
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">$2B</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">New Payroll Across the Region</div>
+        </div>
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">Top 10</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Millennial Concentration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width dark red bar with centered heading, subheading, and 3-column stats layout. Differs from #10 in being full-width and centered rather than inline with an image.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 12. FEATURE CARD GRID -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c12">
+  <div class="comp__title">Component 12</div>
+  <div class="comp__name">Feature Card Grid (2&times;2)</div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Doing Business&rdquo;), section landing pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div>
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:20px;">Doing Business</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Cost</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Cost of living in the Columbus Region is 10% lower than the national average.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Market Access</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">60% of the population of the U.S. and Canada within a one-day drive.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Talent</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">A top talent incubator for all key industries.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Economic Development Ecosystem</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Community partners can directly assist in growing your business.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 2&times;2 grid of text-only feature cards. Each card has red top border, red title, description text, and arrow link. Section heading above the grid.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 13. ACCORDION — DARK BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c13">
+  <div class="comp__title">Component 13</div>
+  <div class="comp__name">Accordion Section &mdash; Dark Background</div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Industries&rdquo;)</span>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--dark);color:#fff;min-height:240px;">
+      <div class="img-placeholder" style="min-height:240px;background:#4a6363;border-color:#5a7373;"></div>
+      <div style="padding:24px;">
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px;">Industries</h3>
+        <p style="font-size:11px;opacity:0.8;margin-bottom:16px;">Key industries represent a diverse business community.</p>
+        <!-- Open accordion item -->
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Automotive and Mobility <span style="font-size:10px;">&#9650;</span></div>
+          <p style="font-size:10px;opacity:0.8;margin-top:8px;line-height:1.5;">The Columbus Region is at the forefront of the automotive and mobility technology movement.</p>
+          <a href="#" class="arrow-link" style="color:#fff;font-size:10px;margin-top:8px;display:inline-block;">Learn More &rarr;</a>
+        </div>
+        <!-- Collapsed items -->
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Fashion and Retail <span style="font-size:10px;">&#9660;</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Finance and Fintech <span style="font-size:10px;">&#9660;</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Food and Beverage <span style="font-size:10px;">&#9660;</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Dark teal/slate background. Full-width image on left, accordion list on right. Each accordion item expands to show description + Learn More link. 7 industry items total.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 14. ACCORDION — LIGHT BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c14">
+  <div class="comp__title">Component 14</div>
+  <div class="comp__name">Accordion Section &mdash; Light Background</div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Operations&rdquo;)</span>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 0;">
+      <div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Operations</h3>
+        <p style="font-size:11px;color:#555;margin-bottom:16px;">The Columbus Region is set up for success &mdash; your success.</p>
+        <!-- Accordion items -->
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">IT <span style="color:var(--red);font-size:10px;">&#9650;</span></div>
+        <p style="font-size:10px;color:#555;margin-bottom:12px;line-height:1.5;">The Columbus Region's relatively low cost of living aids in recruiting top IT talent.</p>
+        <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        <div style="border-top:2px solid var(--red);padding:14px 0;margin-top:8px;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Headquarters and Office <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Logistics and E-commerce <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Manufacturing <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+      </div>
+      <!-- Stats column -->
+      <div style="background:var(--red);padding:32px;color:#fff;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div><div style="font-size:36px;font-weight:800;">Top 10</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Millennial Concentration</div></div>
+        <div><div style="font-size:36px;font-weight:800;">52</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">College Campuses</div></div>
+        <div><div style="font-size:36px;font-weight:800;">16</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Fortune 1000 Companies</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> White background. Accordion list on left with red top borders, stats panel on right. The accordion items expand with description + Learn More arrow link. 5 operation categories total.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 15. FAQ ACCORDION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c15">
+  <div class="comp__title">Component 15</div>
+  <div class="comp__name">FAQ Accordion</div>
+  <span class="comp__url">Used on: Economy page, section pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--cms">Statamic: Replicator Set</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:600px;">
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Why should a company consider the Columbus Region?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+        <div style="padding:0 16px 14px;font-size:11px;color:#555;line-height:1.6;">
+          Answer content goes here with detailed information about the Columbus Region's advantages for businesses.
+        </div>
+      </details>
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What industries are driving the economy right now?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+      </details>
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What incentives or support can businesses access?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+      </details>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Uses native HTML <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> elements. Standalone FAQ block (not paired with an image like #13/#14). Found on the Economy page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 16. ALTERNATING CONTENT BLOCK -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c16">
+  <div class="comp__title">Component 16</div>
+  <div class="comp__name">Alternating Content Block</div>
+  <span class="comp__url">Used on: Cost of Business, Talent, Doing Business interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Bard Set</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Image Left</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px;">
+      <div class="img-placeholder" style="min-height:160px;"></div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Favorable Business Economy</h3>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Supporting text about this topic with details about the Columbus Region advantage.</p>
+        <a href="#" class="arrow-link">Learn More &rarr;</a>
+      </div>
+    </div>
+    <span class="comp__variant-label">Image Right</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Real Estate</h3>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Supporting text about real estate advantages in the Columbus Region.</p>
+        <a href="#" class="arrow-link">Learn More &rarr;</a>
+      </div>
+      <div class="img-placeholder" style="min-height:160px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Two-column layout that alternates image position (left/right) between successive blocks. Each block contains image, heading, body text, and optional arrow link. Very common interior page pattern.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 17. TWO-COLUMN CONTENT -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c17">
+  <div class="comp__title">Component 17</div>
+  <div class="comp__name">Two-Column Content (Text + Image)</div>
+  <span class="comp__url">Used on: Various interior pages, section landings</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 0;">
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Section Heading</h3>
+        <p style="font-size:11px;color:#555;line-height:1.7;margin-bottom:16px;">Body text content that describes this section in detail. Can include multiple paragraphs of content with various formatting.</p>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Call to Action</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:200px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> General-purpose two-column layout. Text on one side, image on the other. Unlike #16, this doesn't alternate &mdash; it's a single-use placement. Used for general content sections.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 18. REGION MAP SECTION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c18">
+  <div class="comp__title">Component 18</div>
+  <div class="comp__name">Region Map Section</div>
+  <span class="comp__url">Used on: Homepage, Counties</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:220px;">
+      <div style="position:relative;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:32px;">
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;">Marion</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:30px;">Delaware</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:50px;">Franklin</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:20px;">Madison</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:40px;">Pickaway</div>
+        </div>
+      </div>
+      <div style="background:var(--red);padding:32px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px;">Economic Development</h3>
+        <p style="font-size:11px;opacity:0.9;margin-bottom:16px;line-height:1.6;">Businesses in the 11-county Columbus Region benefit from a robust economic development infrastructure.</p>
+        <div style="display:flex;gap:24px;margin-bottom:16px;">
+          <div><div style="font-size:30px;font-weight:800;">$10B</div><div style="font-size:8px;text-transform:uppercase;opacity:0.8;">Capital Investment</div></div>
+          <div><div style="font-size:30px;font-weight:800;">$2B</div><div style="font-size:8px;text-transform:uppercase;opacity:0.8;">New Payroll</div></div>
+        </div>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Learn More</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Aerial photo with county map overlay on left, red content panel with stats on right. The map shows labeled county boundaries over a background image. Interactive on the counties landing page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 19. CONTACT CTA — LIGHT BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c19">
+  <div class="comp__title">Component 19</div>
+  <div class="comp__name">Contact CTA &mdash; Light Background</div>
+  <span class="comp__url">Used on: Homepage, bottom of many interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--light-blue);padding:40px 32px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Contact</h3>
+          <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:16px;">Our team is on hand to help your business find its place in the Columbus Region.</p>
+          <div><span class="btn" style="font-size:10px;padding:8px 18px;">Let's Talk</span></div>
+        </div>
+        <div class="img-placeholder" style="min-height:180px;border-radius:4px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Light blue (#E8F4F8) background section. Text + CTA on left, city skyline image on right. Common bottom-of-page conversion block.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 20. CONTACT CTA — IMAGE OVERLAY -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c20">
+  <div class="comp__title">Component 20</div>
+  <div class="comp__name">Contact CTA &mdash; Image Overlay</div>
+  <span class="comp__url">Used on: Cost of Business, interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="position:relative;min-height:160px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;padding:40px 32px;max-width:50%;">
+        <h3 style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Contact Us</h3>
+        <p style="font-size:11px;color:#fff;margin-bottom:16px;text-shadow:0 1px 2px rgba(0,0,0,0.3);">Reach out to learn more about opportunities in the Columbus Region.</p>
+        <a href="#" style="color:#fff;font-size:12px;font-weight:700;text-decoration:underline;">Let's Talk</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width background image with text overlay. Simpler than #19 &mdash; no separate content panel, just text floating over the image. Text link instead of button.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 21. QUOTE / TESTIMONIAL -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c21">
+  <div class="comp__title">Component 21</div>
+  <div class="comp__name">Quote / Testimonial Block</div>
+  <span class="comp__url">Used on: Counties, section pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Bard Set</span>
+  </div>
+  <div class="comp__demo">
+    <div style="padding:32px;max-width:600px;margin:0 auto;text-align:center;">
+      <div style="font-size:36px;color:var(--red);line-height:1;margin-bottom:12px;">&ldquo;</div>
+      <p style="font-size:14px;font-style:italic;color:#333;line-height:1.7;margin-bottom:16px;">Quote text goes here, typically a testimonial from a business leader or economic development partner about the Columbus Region.</p>
+      <div style="font-size:11px;font-weight:700;color:#333;">Speaker Name</div>
+      <div style="font-size:10px;color:#888;">Title, Organization</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 22. NEWS CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c22">
+  <div class="comp__title">Component 22</div>
+  <div class="comp__name">News Card</div>
+  <span class="comp__url">Used on: Homepage, News &amp; Events</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="resp-stack">
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">January 16, 2026</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">Ohio State's Wexner Medical Center Opens University Hospital Tower</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here, typically 2-3 lines...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">January 15, 2026</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">United Airlines Announces Daily Nonstop Flights to Los Angeles</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">December 18, 2025</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">STRAUSS Selects Columbus for U.S. Headquarters</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 3-column grid on desktop. Each card: featured image, date (gray), headline, excerpt, &ldquo;READ MORE&rdquo; link. Image lazy-loads. Used for general news items on homepage and news listing page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 23. PRESS RELEASE CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c23">
+  <div class="comp__title">Component 23</div>
+  <div class="comp__name">Press Release Card (Text-Only)</div>
+  <span class="comp__url">Used on: News &amp; Events page</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--light-blue);padding:24px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Press Releases</h3>
+      <p style="font-size:10px;color:#888;margin-bottom:16px;">Latest press releases from the Columbus Region</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 10, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Press Release Headline Goes Here</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 8, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Another Press Release Title</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 5, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Third Press Release</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;"><span class="btn" style="font-size:10px;padding:8px 20px;">View More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Text-only cards (no images) on light blue background. Date in red, title, excerpt, READ MORE link. 3-column grid with &ldquo;View More&rdquo; button. Distinct from news cards (#22) by lacking images.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 24. NEWS FEED CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c24">
+  <div class="comp__title">Component 24</div>
+  <div class="comp__name">News Feed Card (Large Image)</div>
+  <span class="comp__url">Used on: News &amp; Events page</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+  </div>
+  <div class="comp__demo">
+    <div>
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">The Columbus Region News Feed</h3>
+      <p style="font-size:10px;color:#888;margin-bottom:16px;">Curated news coverage</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" class="resp-stack">
+        <div>
+          <div class="img-placeholder" style="height:180px;margin-bottom:10px;"></div>
+          <div style="font-size:10px;color:#888;margin-bottom:4px;">January 12, 2026</div>
+          <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">News Feed Article Title Here</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Excerpt from the aggregated news feed article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div>
+          <div class="img-placeholder" style="height:180px;margin-bottom:10px;"></div>
+          <div style="font-size:10px;color:#888;margin-bottom:4px;">January 11, 2026</div>
+          <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">Another News Feed Article</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Excerpt from the aggregated news feed article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;"><span class="btn" style="font-size:10px;padding:8px 20px;">View More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 2-column grid with larger images than the 3-column news card (#22). Used for curated/aggregated news feed content, separate from press releases and authored news.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 25. COUNTY SNAPSHOT CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c25">
+  <div class="comp__title">Component 25</div>
+  <div class="comp__name">County Snapshot Card</div>
+  <span class="comp__url">Used on: Counties listing, County detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:120px 1fr;gap:20px;padding:20px;border:1px solid #eee;">
+      <div class="img-placeholder" style="height:100px;"></div>
+      <div>
+        <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;">County Snapshot</h4>
+        <p style="font-size:10px;color:#555;margin-bottom:12px;line-height:1.5;">Brief description of the county's key characteristics and economic profile.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px;">
+          <div><strong style="color:#333;">Location:</strong> <span style="color:#555;">Central Ohio</span></div>
+          <div><strong style="color:#333;">Population:</strong> <span style="color:#555;">1,323,000</span></div>
+          <div><strong style="color:#333;">Notable Cities:</strong> <span style="color:#555;">Columbus, Dublin, Westerville</span></div>
+          <div><strong style="color:#333;">Notable Businesses:</strong> <span style="color:#555;">Nationwide, Cardinal Health</span></div>
+        </div>
+        <a href="#" class="arrow-link" style="font-size:10px;margin-top:8px;display:inline-block;">Learn More &rarr;</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Map thumbnail + data grid. Used for all 11 counties. Fields: location, population, notable cities, notable businesses. Repeats on both listing and detail pages.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 26. CITY CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c26">
+  <div class="comp__title">Component 26</div>
+  <div class="comp__name">City Card</div>
+  <span class="comp__url">Used on: County detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">County Detail</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px 0;border-bottom:1px solid #eee;">
+      <div class="img-placeholder" style="min-height:140px;"></div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">City Name</h4>
+        <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:10px;">Description of the city and its key attributes within the county.</p>
+        <div style="font-size:10px;color:#333;margin-bottom:4px;"><strong>Contact Name</strong> &mdash; Title</div>
+        <div style="font-size:10px;color:#555;margin-bottom:2px;">614-555-0100</div>
+        <div style="font-size:10px;color:var(--teal);margin-bottom:10px;">email@city.gov</div>
+        <div><span class="btn btn--sm" style="font-size:9px;">Visit City Website</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Image left, city info right. Includes contact person, phone, email, and external website link button. Used within county detail pages to list member cities.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 27. EMPLOYER CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c27">
+  <div class="comp__title">Component 27</div>
+  <div class="comp__name">Employer Card</div>
+  <span class="comp__url">Used on: County detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">County Detail</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Technology</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Headquarters</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Columbus</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Insurance</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Headquarters</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Columbus</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Healthcare</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Regional Office</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Dublin</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 3-column grid of employer cards. Each shows company logo, industry, operation type, city, and website link. Used in &ldquo;Top Employers&rdquo; sections on county detail pages.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 28. TEAM MEMBER CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c28">
+  <div class="comp__title">Component 28</div>
+  <div class="comp__name">Team Member Card</div>
+  <span class="comp__url">Used on: About Us &gt; Meet the Team (Staff page)</span>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;" class="resp-stack">
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 4-column grid. Circular headshot photos with name (bold, uppercase), title, and organization below. Two sections on the page: &ldquo;Executive Leadership&rdquo; and &ldquo;Staff&rdquo; using the same card component. Some members may have placeholder images.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 29. COUNTY TAB BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c29">
+  <div class="comp__title">Component 29</div>
+  <div class="comp__name">County Tab Bar</div>
+  <span class="comp__url">Used on: Counties landing page</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid #eee;">
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--red);border-bottom:2px solid var(--red);margin-bottom:-2px;">Franklin</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Delaware</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Fairfield</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Knox</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Licking</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Logan</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Madison</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Marion</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Morrow</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Pickaway</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Union</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Horizontal tab navigation for 11 counties. Active tab highlighted in red with red bottom border. Tabs function as anchor links or content switchers. Needs responsive handling (likely stacks or scrolls on mobile).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 30. INTERACTIVE COUNTY MAP -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c30">
+  <div class="comp__title">Component 30</div>
+  <div class="comp__name">Interactive County Map</div>
+  <span class="comp__url">Used on: Counties hero, Homepage</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--cms">Custom Development</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#f5f5f5;padding:24px;text-align:center;">
+      <div style="display:inline-block;padding:20px;border:2px dashed #ccc;border-radius:8px;">
+        <div style="font-size:10px;color:#999;margin-bottom:8px;">SVG / Image Map</div>
+        <div style="width:200px;height:160px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:5%;left:40%;font-size:8px;color:var(--teal);font-weight:600;">MORROW</div>
+          <div style="position:absolute;top:25%;left:10%;font-size:8px;color:var(--teal);font-weight:600;">LOGAN</div>
+          <div style="position:absolute;top:25%;left:55%;font-size:8px;color:var(--teal);font-weight:600;">KNOX</div>
+          <div style="position:absolute;top:40%;left:30%;font-size:8px;color:var(--teal);font-weight:600;">DELAWARE</div>
+          <div style="position:absolute;top:55%;left:10%;font-size:8px;color:var(--teal);font-weight:600;">UNION</div>
+          <div style="position:absolute;top:60%;left:45%;font-size:9px;color:var(--red);font-weight:700;background:rgba(178,34,34,0.1);padding:2px 6px;border-radius:3px;">FRANKLIN</div>
+          <div style="position:absolute;top:60%;left:75%;font-size:8px;color:var(--teal);font-weight:600;">LICKING</div>
+          <div style="position:absolute;top:80%;left:20%;font-size:8px;color:var(--teal);font-weight:600;">MADISON</div>
+          <div style="position:absolute;top:85%;left:50%;font-size:8px;color:var(--teal);font-weight:600;">PICKAWAY</div>
+          <div style="position:absolute;top:80%;left:75%;font-size:8px;color:var(--teal);font-weight:600;">FAIRFIELD</div>
+        </div>
+        <div style="font-size:9px;color:#aaa;margin-top:8px;">Hover: county highlights red</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Custom SVG/image map with hover states. Each county has a default and a red hover image. Clicking navigates to county detail. Requires custom front-end development in Statamic &mdash; not a standard CMS component. 11 county regions with labeled boundaries.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 31. SCROLL-TO-PAGE NAV -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c31">
+  <div class="comp__title">Component 31</div>
+  <div class="comp__name">Scroll-to-Page Navigation</div>
+  <span class="comp__url">Used on: Multiple interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--wp">WP Custom JS</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#fff3cd;padding:20px;border:1px solid #ffc107;border-radius:4px;text-align:center;">
+      <div style="font-size:12px;font-weight:700;color:#856404;margin-bottom:8px;">Custom Scroll Behavior</div>
+      <p style="font-size:10px;color:#856404;line-height:1.5;">When a user scrolls past the end of page content, the browser automatically navigates to a different page. This creates a &ldquo;single-page&rdquo; feel across separate WordPress pages.</p>
+      <div style="margin-top:12px;font-size:10px;color:#856404;">
+        <strong>Recommendation:</strong> Evaluate whether to keep or remove. Potential a11y and SEO concerns.
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> This is a custom JavaScript behavior, not a visual component. It auto-navigates users to the next page in sequence when they scroll past the current page's content. This is unusual and may warrant removal in the redesign for accessibility and SEO reasons.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 32. ARTICLE DETAIL LAYOUT -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c32">
+  <div class="comp__title">Component 32</div>
+  <div class="comp__name">Article Detail Layout</div>
+  <span class="comp__url">Used on: Press release detail, news article detail</span>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection Template</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:640px;">
+      <h1 style="font-size:24px;font-weight:800;margin-bottom:8px;line-height:1.2;">Article Title Goes Here and Can Span Multiple Lines</h1>
+      <div style="font-size:10px;color:#888;margin-bottom:16px;">January 16, 2026</div>
+      <div class="img-placeholder" style="height:200px;margin-bottom:20px;"></div>
+      <div style="font-size:11px;line-height:1.8;color:#444;">
+        <a href="#" style="color:var(--teal);text-decoration:underline;font-size:10px;">Download this Press Release (PDF)</a>
+        <p style="margin-top:12px;">Article body content goes here. Standard WordPress/Statamic prose content with paragraphs, formatted text, and inline links.</p>
+        <blockquote style="border-left:3px solid var(--red);padding:8px 16px;margin:16px 0;font-style:italic;color:#555;">
+          &ldquo;A pull quote or blockquote from the article content, typically attributed to a speaker.&rdquo;
+          <div style="font-size:10px;font-style:normal;margin-top:4px;color:#888;">&mdash; Speaker Name, Title</div>
+        </blockquote>
+        <p>Additional article content continues here with more paragraphs...</p>
+        <p style="text-align:center;color:#999;margin-top:16px;">###</p>
+        <p style="font-weight:700;margin-top:12px;">About One Columbus</p>
+        <p>Boilerplate &ldquo;about&rdquo; text for the organization appears at the end of press releases.</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> No hero image block &mdash; title sits directly below nav. Content includes: title (h1), date, featured image, optional PDF download link, prose body with blockquotes, and boilerplate &ldquo;about&rdquo; section at end. Press releases end with &ldquo;###&rdquo; separator.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 33. PLAIN TEXT PAGE -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c33">
+  <div class="comp__title">Component 33</div>
+  <div class="comp__name">Plain Text Page Layout</div>
+  <span class="comp__url">Used on: Privacy Policy, legal pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:640px;">
+      <h1 style="font-size:20px;font-weight:800;margin-bottom:16px;">Privacy Policy</h1>
+      <div style="font-size:11px;line-height:1.8;color:#444;">
+        <p style="font-weight:700;margin-bottom:8px;">SECTION HEADING IN BOLD</p>
+        <p style="margin-bottom:12px;">Body text for this section goes here with standard formatting and paragraph spacing.</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item one</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item two</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item three</p>
+        <p style="font-weight:700;margin-top:16px;margin-bottom:8px;">ANOTHER SECTION HEADING</p>
+        <p>More body text content for the next section of the policy...</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> No hero, no sidebar. Minimal styling &mdash; just heading, bold section subheadings, body text, and bullet lists using &ldquo;&gt;&rdquo; prefix. Used for legal/policy content.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 34. NEWSLETTER SIGNUP BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c34">
+  <div class="comp__title">Component 34</div>
+  <div class="comp__name">Newsletter Signup Bar</div>
+  <span class="comp__url">Used on: Most interior pages (above footer)</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--wp">HubSpot Form</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;color:#fff;">
+      <div>
+        <h3 style="font-size:16px;font-weight:700;">Sign Up for Our Newsletter</h3>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <input type="text" placeholder="Email" style="height:36px;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;padding:0 12px;font-size:11px;min-width:220px;">
+        <button style="background:var(--teal);color:#fff;border:none;padding:0 20px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width red bar with heading on left, email input + button on right. Appears above footer on most interior pages. Currently powered by HubSpot embedded form. In Statamic, could use native form with webhook to email service.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 35. HUBSPOT CONTACT FORM -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c35">
+  <div class="comp__title">Component 35</div>
+  <div class="comp__name">HubSpot Contact Form</div>
+  <span class="comp__url">Used on: Contact Us, News &amp; Events, bottom of interior pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--wp">HubSpot Embed</span>
+    <span class="pill pill--cms">Evaluate: Keep or Replace</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--red);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Get in Touch</h3>
+        <div style="font-size:11px;opacity:0.8;margin-top:8px;">
+          <div>Contact Person Name</div>
+          <div>Title, Organization</div>
+        </div>
+      </div>
+      <div style="padding:16px;border:1px solid #eee;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px;">
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">First Name *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Last Name *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Email *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Phone Number</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;">
+          <label style="font-weight:600;display:block;margin-bottom:4px;">Message</label>
+          <textarea style="width:100%;height:60px;border:1px solid #ccc;padding:8px;font-size:10px;resize:none;"></textarea>
+        </div>
+        <div style="margin-top:10px;font-size:9px;color:#555;">
+          <div style="font-weight:600;margin-bottom:4px;">Stay Informed:</div>
+          <label style="display:flex;gap:4px;align-items:center;margin-bottom:2px;"><input type="checkbox"> Columbus Region News</label>
+          <label style="display:flex;gap:4px;align-items:center;margin-bottom:2px;"><input type="checkbox"> Blog</label>
+          <label style="display:flex;gap:4px;align-items:center;"><input type="checkbox"> Press Releases</label>
+        </div>
+        <div style="margin-top:12px;font-size:8px;color:#888;">Privacy consent text here...</div>
+        <div style="margin-top:10px;"><span class="btn btn--red" style="font-size:10px;padding:8px 20px;">Submit</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Currently a HubSpot embedded form. Two-column layout: red panel with contact info on left, form fields on right. Fields: first name, last name, email, phone, message, newsletter subscription checkboxes, privacy consent. <strong>Key decision:</strong> keep HubSpot embed (if CRM integration is needed) or rebuild as native Statamic form.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 36. INLINE EMAIL SIGNUP -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c36">
+  <div class="comp__title">Component 36</div>
+  <div class="comp__name">Inline Email Signup</div>
+  <span class="comp__url">Used on: Homepage, Footer, Contact page hero</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Variant A: Dark background</span>
+    <div style="background:var(--teal);padding:16px;display:inline-flex;gap:4px;align-items:flex-end;">
+      <div>
+        <label style="font-size:9px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;">Email</label>
+        <input type="text" style="height:32px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;padding:0 10px;font-size:10px;min-width:200px;">
+      </div>
+      <button style="background:#fff;color:var(--teal);border:none;height:32px;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+    </div>
+    <span class="comp__variant-label">Variant B: Light background</span>
+    <div style="padding:16px;display:inline-flex;gap:4px;align-items:flex-end;">
+      <div>
+        <label style="font-size:9px;font-weight:700;color:#333;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;">Email</label>
+        <input type="text" style="height:32px;border:1px solid #ccc;padding:0 10px;font-size:10px;min-width:200px;">
+      </div>
+      <button style="background:var(--teal);color:#fff;border:none;height:32px;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Simple email + button combo used in multiple contexts. Label + input + submit button in a horizontal row. Two color variants: dark background (teal/red) and light background (white).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 37. CTA BUTTON -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c37">
+  <div class="comp__title">Component 37</div>
+  <div class="comp__name">CTA Button</div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global Atom</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <span class="comp__variant-label" style="margin:0;">Filled Teal</span>
+      <span class="btn">Learn More</span>
+      <span class="comp__variant-label" style="margin:0;">Filled Red</span>
+      <span class="btn btn--red">Contact Us</span>
+      <span class="comp__variant-label" style="margin:0;">Outline</span>
+      <span class="btn btn--outline">View More</span>
+      <span class="comp__variant-label" style="margin:0;">Small</span>
+      <span class="btn btn--sm">Visit Website</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Uppercase text, bold weight, letter-spacing. Three color variants: teal filled (primary), red filled (secondary/CTA), and outline. Small variant used for inline actions. No border-radius (sharp corners).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 38. ARROW LINK -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c38">
+  <div class="comp__title">Component 38</div>
+  <div class="comp__name">Arrow Link</div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global Atom</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;">
+      <span class="comp__variant-label" style="margin:0;">Red (default)</span>
+      <a href="#" class="arrow-link">Learn More &rarr;</a>
+      <span class="comp__variant-label" style="margin:0;">White (on dark bg)</span>
+      <span style="background:var(--dark);padding:8px 16px;display:inline-block;">
+        <a href="#" class="arrow-link" style="color:#fff;">Learn More &rarr;</a>
+      </span>
+      <span class="comp__variant-label" style="margin:0;">Underline variant</span>
+      <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Red uppercase text with right arrow (&rarr;). Two color variants: red on light backgrounds, white on dark backgrounds. Also appears as an underlined &ldquo;READ MORE&rdquo; variant in teal on news cards. Used extensively throughout the site as the primary inline navigation pattern.
+  </div>
+</div>
+
+
+</body>
+</html>
