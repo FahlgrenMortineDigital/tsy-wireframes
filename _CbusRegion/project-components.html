@@ -90,6 +90,22 @@
     .cms-table td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
     .cms-table tr:nth-child(even) td { background: #fafafa; }
 
+    /* ===== STATAMIC SECTION ===== */
+    .statamic-section {
+      border-left: 4px solid #FF6B35; background: #FFF8F5;
+    }
+    .pill--statamic { background: #FF6B35; color: #fff; }
+    .pill--collection { background: #2563eb; color: #fff; }
+    .pill--taxonomy { background: #7c3aed; color: #fff; }
+    .pill--integration { background: #059669; color: #fff; }
+    .pill--complex { background: #dc2626; color: #fff; }
+    .complexity { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .complexity--low { background: #d1fae5; color: #065f46; }
+    .complexity--medium { background: #fef3c7; color: #92400e; }
+    .complexity--high { background: #fee2e2; color: #991b1b; }
+    .field-list { font-size: 10px; color: #555; margin-top: 8px; padding: 10px; background: #f8f8f8; border: 1px solid #eee; border-radius: 4px; }
+    .field-list code { background: #e8e8e8; padding: 1px 4px; border-radius: 2px; font-size: 9px; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 760px) {
       .toc-grid { grid-template-columns: 1fr; }
@@ -101,7 +117,7 @@
 
 <div class="container" style="margin-bottom:40px;">
   <h1 style="font-size:28px;font-weight:700;margin-bottom:4px;">Project Component Library</h1>
-  <p style="font-size:13px;color:#888;">38 components identified across columbusregion.com</p>
+  <p style="font-size:13px;color:#888;">38 UI components + 16 Statamic platform components identified across columbusregion.com</p>
   <p style="font-size:11px;color:#aaa;margin-top:4px;">Site audit: March 2026 &middot; Current platform: WordPress &middot; Target platform: Statamic</p>
 </div>
 
@@ -111,7 +127,7 @@
 
 <div class="comp" style="margin-bottom:40px;">
   <div class="comp__title">Table of Contents</div>
-  <div class="comp__name">38 Components</div>
+  <div class="comp__name">38 UI Components + 16 Statamic Platform Components</div>
   <div class="toc-grid">
     <div class="toc-section">Global / Sitewide</div>
     <div><a href="#c1">1. Utility Bar</a></div>
@@ -166,6 +182,24 @@
     <div class="toc-section">Atoms / UI Elements</div>
     <div><a href="#c37">37. CTA Button</a></div>
     <div><a href="#c38">38. Arrow Link</a></div>
+
+    <div class="toc-section" style="color:#FF6B35;">Statamic Platform Components (New Build)</div>
+    <div><a href="#s1">S1. Company Expansions Collection + Filterable Grid</a></div>
+    <div><a href="#s2">S2. Employers Collection</a></div>
+    <div><a href="#s3">S3. Events System (Modern Events Calendar)</a></div>
+    <div><a href="#s4">S4. Counties Collection (Structured Data)</a></div>
+    <div><a href="#s5">S5. Press Releases Collection</a></div>
+    <div><a href="#s6">S6. Content Hub / News Collection</a></div>
+    <div><a href="#s7">S7. Team / Staff Collection</a></div>
+    <div><a href="#s8">S8. Investors / Partners Collection</a></div>
+    <div><a href="#s9">S9. Industries Taxonomy</a></div>
+    <div><a href="#s10">S10. Sectors Taxonomy</a></div>
+    <div><a href="#s11">S11. HubSpot Integration</a></div>
+    <div><a href="#s12">S12. Analytics &amp; Tracking Stack</a></div>
+    <div><a href="#s13">S13. Statamic Globals (Site Settings)</a></div>
+    <div><a href="#s14">S14. Search</a></div>
+    <div><a href="#s15">S15. Meta Box Relationships &rarr; Statamic Relationships</a></div>
+    <div><a href="#s16">S16. iFrame Embeds (Economy Page)</a></div>
   </div>
 </div>
 
@@ -1667,6 +1701,708 @@
   </div>
   <div class="comp__notes">
     <strong>Note:</strong> Red uppercase text with right arrow (&rarr;). Two color variants: red on light backgrounds, white on dark backgrounds. Also appears as an underlined &ldquo;READ MORE&rdquo; variant in teal on news cards. Used extensively throughout the site as the primary inline navigation pattern.
+  </div>
+</div>
+
+
+
+<!-- ============================================================ -->
+<!-- STATAMIC PLATFORM COMPONENTS -->
+<!-- ============================================================ -->
+
+<div class="container" style="margin:40px auto;">
+  <h2 style="font-size:22px;font-weight:700;margin-bottom:4px;color:#FF6B35;">Statamic Platform Components</h2>
+  <p style="font-size:12px;color:#888;">New components required for the Statamic replatform that don&rsquo;t have direct visual UI equivalents above. These represent Collections, Taxonomies, Integrations, and data structures discovered during the WordPress source audit.</p>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S1. COMPANY EXPANSIONS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s1">
+  <div class="comp__title">Statamic Component S1</div>
+  <div class="comp__name">Company Expansions Collection + Filterable Grid</div>
+  <span class="comp__url">Used on: Economy page, possibly section landing pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--complex">Complex</span>
+  </div>
+  <div class="comp__demo">
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Filter Bar</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Industry</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>County</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Year</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Operation Type</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Headquarters</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Investment Level</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Job Count</option></select>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Technology<br>
+            County: Franklin<br>
+            Operation: New HQ<br>
+            Jobs: 500+<br>
+            Investment: $50M+
+          </div>
+        </div>
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Life Sciences<br>
+            County: Delaware<br>
+            Operation: Expansion<br>
+            Jobs: 200+<br>
+            Investment: $25M+
+          </div>
+        </div>
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Finance<br>
+            County: Franklin<br>
+            Operation: Office<br>
+            Jobs: 1,000+<br>
+            Investment: $100M+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>company_expansions</code></strong> &mdash; ~211 entries discovered via WP REST API<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>description</code> (textarea) &middot;
+    <code>year</code> (integer) &middot;
+    <code>county</code> (relationship &rarr; counties) &middot;
+    <code>industry</code> (taxonomy &rarr; spaces) &middot;
+    <code>operation_type</code> (select: New HQ, Expansion, Relocation, Office) &middot;
+    <code>headquarters_country</code> (text) &middot;
+    <code>job_count</code> (integer) &middot;
+    <code>investment_level</code> (text) &middot;
+    <code>website</code> (link)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type <code>company-expansion</code> powered by the <code>columbus-blocks</code> plugin with <strong>7 filter dimensions</strong> via the <code>space</code> taxonomy (17 industry terms). Currently renders as a filterable card grid with JavaScript-based filtering.<br>
+    <strong>Statamic Build:</strong> Create a Collection with taxonomy filtering. Front-end filtering via Alpine.js + Statamic REST API or LiveWire. <strong>This is the most complex dynamic component on the site.</strong><br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S2. EMPLOYERS COLLECTION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s2">
+  <div class="comp__title">Statamic Component S2</div>
+  <div class="comp__name">Employers Collection</div>
+  <span class="comp__url">Used on: Doing Business (&ldquo;Top Employers&rdquo;), County detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--taxonomy">Taxonomy: Sectors</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          16,000 employees<br>
+          Industry: Insurance<br>
+          Operation: HQ<br>
+          Location: Columbus, Franklin County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          8,850 employees<br>
+          Industry: Automotive<br>
+          Operation: HQ<br>
+          Location: Marysville, Union County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          17,480 employees<br>
+          Industry: Finance<br>
+          Operation: Office<br>
+          Location: Columbus, Franklin County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>employers</code></strong><br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>employee_count</code> (integer) &middot;
+    <code>sector</code> (taxonomy &rarr; sectors, 10 terms) &middot;
+    <code>operation_type</code> (select: HQ, Office, Manufacturing, R&amp;D) &middot;
+    <code>county</code> (relationship &rarr; counties) &middot;
+    <code>city</code> (text) &middot;
+    <code>headquarters_country</code> (text, optional) &middot;
+    <code>website</code> (link)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Currently hard-coded as <code>&lt;UL&gt;</code> with <code>&lt;LI&gt;</code> items using the custom <code>flex-grid-3</code> layout. Content is unstructured text with <code>&lt;br&gt;</code> tags &mdash; no CPT or structured fields. Uses <code>sector</code> taxonomy (separate from the <code>space</code> taxonomy on Company Expansions).<br>
+    <strong>Statamic Build:</strong> Create a proper Collection with structured fields. Employers appear on both <code>/doing-business/</code> and county detail pages, so a Collection allows single-source management. Use relationship field to link to Counties.<br>
+    <strong>Key distinction:</strong> The <code>sector</code> taxonomy (10 terms, for employers) is separate from the <code>space</code> taxonomy (17 terms, for company expansions).<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S3. EVENTS SYSTEM -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s3">
+  <div class="comp__title">Statamic Component S3</div>
+  <div class="comp__name">Events System (Modern Events Calendar)</div>
+  <span class="comp__url">Used on: News &amp; Events, About Us (100+ RSVP pages)</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--complex">Complex</span>
+    <span class="pill pill--wp">WP: Modern Events Calendar</span>
+  </div>
+  <div class="comp__demo">
+    <div style="border:1px solid #eee;padding:16px;">
+      <div style="display:flex;gap:16px;margin-bottom:12px;">
+        <div style="background:var(--red);color:#fff;padding:12px;text-align:center;min-width:60px;">
+          <div style="font-size:20px;font-weight:800;line-height:1;">15</div>
+          <div style="font-size:9px;text-transform:uppercase;">APR</div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:700;">Event Title</div>
+          <div style="font-size:10px;color:#555;">10:00 AM &ndash; 2:00 PM EST</div>
+          <div style="font-size:10px;color:#555;">Venue Name, Columbus, OH</div>
+          <div style="font-size:9px;margin-top:4px;">
+            <span style="background:#e8e8e8;padding:2px 6px;border-radius:2px;font-size:8px;">Networking</span>
+            <span style="background:#e8e8e8;padding:2px 6px;border-radius:2px;font-size:8px;">Business</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#555;margin-bottom:8px;">Event description excerpt text goes here...</div>
+      <a href="#" class="arrow-link" style="font-size:10px;">RSVP / Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>events</code></strong> &mdash; 100+ RSVP pages discovered nested under About Us<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>start_date</code> (date) &middot;
+    <code>end_date</code> (date) &middot;
+    <code>start_time</code> (time) &middot;
+    <code>end_time</code> (time) &middot;
+    <code>venue_name</code> (text) &middot;
+    <code>venue_address</code> (text) &middot;
+    <code>description</code> (bard) &middot;
+    <code>category</code> (taxonomy &rarr; event_categories) &middot;
+    <code>label</code> (taxonomy &rarr; event_labels) &middot;
+    <code>organizer</code> (text) &middot;
+    <code>rsvp_url</code> (link) &middot;
+    <code>featured_image</code> (asset)<br><br>
+    <strong>Taxonomies:</strong> <code>event_categories</code>, <code>event_labels</code>, <code>event_locations</code>, <code>event_organizers</code>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Modern Events Calendar</strong> plugin with full taxonomy system (category, label, location, organizer). 100+ event/RSVP pages found nested under <code>/about-us/</code>.<br>
+    <strong>Statamic Build:</strong> Statamic Events addon (e.g., Events by Statamic) or custom Collection with date-based filtering, calendar view, and RSVP functionality. Need to evaluate: do events need registration/RSVP forms, or just link out to external registration? If external links only, a simple Collection suffices.<br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S4. COUNTIES COLLECTION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s4">
+  <div class="comp__title">Statamic Component S4</div>
+  <div class="comp__name">Counties Collection (Structured Data)</div>
+  <span class="comp__url">Used on: Counties landing, County detail pages, Homepage map</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--complex">Complex</span>
+  </div>
+  <div class="comp__demo">
+    <div style="border:1px solid #eee;padding:16px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Franklin County <span style="font-size:9px;color:#888;font-weight:400;">(example entry)</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:10px;">
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Snapshot Fields</div>
+          <div style="color:#555;line-height:1.8;">
+            Location: Central Ohio<br>
+            Population: 1,323,000<br>
+            Notable Cities: Columbus, Dublin, Westerville<br>
+            Notable Businesses: Nationwide, Cardinal Health<br>
+            County Website URL
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Nested Data</div>
+          <div style="color:#555;line-height:1.8;">
+            Cities (repeater): name, description, contact, phone, email, website<br>
+            Top Employers (relationship &rarr; employers)<br>
+            Map SVG/Image: default + hover state<br>
+            County Contact: name, title, phone, email
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>counties</code></strong> &mdash; 11 entries (one per county)<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>name</code> (text) &middot;
+    <code>description</code> (bard) &middot;
+    <code>hero_image</code> (asset) &middot;
+    <code>map_image</code> (asset) &middot;
+    <code>map_image_hover</code> (asset) &middot;
+    <code>population</code> (text) &middot;
+    <code>location</code> (text) &middot;
+    <code>notable_cities_text</code> (text) &middot;
+    <code>notable_businesses_text</code> (text) &middot;
+    <code>county_website</code> (link) &middot;
+    <code>county_contact</code> (group: name, title, phone, email)<br><br>
+    <strong>Nested Replicator &mdash; Cities:</strong><br>
+    <code>city_name</code> (text) &middot;
+    <code>city_image</code> (asset) &middot;
+    <code>city_description</code> (textarea) &middot;
+    <code>city_contact_name</code> (text) &middot;
+    <code>city_contact_title</code> (text) &middot;
+    <code>city_phone</code> (text) &middot;
+    <code>city_email</code> (text) &middot;
+    <code>city_website</code> (link)<br><br>
+    <strong>Relationship:</strong> <code>top_employers</code> (relationship &rarr; employers collection)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type with <strong>Meta Box relationships</strong> linking counties to employers. Cities are likely stored as nested repeater fields or as page children. Each county has an interactive map image (default + red hover state) used in the SVG map component.<br>
+    <strong>Statamic Build:</strong> Collection with complex Blueprint including a Grid/Replicator for cities and a Relationship field for employers. The interactive SVG map (#30) will reference county entry slugs for navigation.<br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S5. PRESS RELEASES -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s5">
+  <div class="comp__title">Statamic Component S5</div>
+  <div class="comp__name">Press Releases Collection</div>
+  <span class="comp__url">Used on: News &amp; Events page, Article detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>press_releases</code></strong> &mdash; Separate from news/blog posts<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>date</code> (date) &middot;
+    <code>featured_image</code> (asset, optional) &middot;
+    <code>excerpt</code> (textarea) &middot;
+    <code>body</code> (bard &mdash; supports blockquotes, links, bold) &middot;
+    <code>pdf_download</code> (asset, optional) &middot;
+    <code>boilerplate</code> (bard &mdash; &ldquo;About One Columbus&rdquo; section)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type <code>press-release</code> (REST API endpoint detected but disabled). Rendered as text-only cards on the News &amp; Events listing page. Detail pages include PDF download links and end with <code>###</code> separator + organizational boilerplate.<br>
+    <strong>Statamic Build:</strong> Straightforward Collection. The boilerplate text could be a Global Set so it updates once across all press releases. PDF handled via Asset field.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S6. CONTENT HUB / NEWS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s6">
+  <div class="comp__title">Statamic Component S6</div>
+  <div class="comp__name">Content Hub / News Collection</div>
+  <span class="comp__url">Used on: Homepage, News &amp; Events page</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--wp">WP: Content Views Pro</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>news</code></strong> &mdash; Displayed via Content Views Pro plugin in WordPress<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>date</code> (date) &middot;
+    <code>featured_image</code> (asset) &middot;
+    <code>excerpt</code> (textarea) &middot;
+    <code>body</code> (bard) &middot;
+    <code>source_url</code> (link, optional &mdash; for aggregated external news) &middot;
+    <code>is_external</code> (toggle &mdash; distinguishes authored vs. curated news)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>Content Hub Articles</code> custom post type plus standard WordPress Posts. Rendered on the News &amp; Events page via <strong>Content Views Pro</strong> plugin (both <code>cv.css</code> and <code>cvpro.min.css</code> enqueued). Two display patterns: 3-column image cards (authored news) and 2-column larger cards (curated news feed).<br>
+    <strong>Statamic Build:</strong> Single Collection with an <code>is_external</code> toggle to differentiate authored content from curated/aggregated links. Replaces Content Views Pro entirely &mdash; Statamic&rsquo;s <code>{{ collection }}</code> tag handles listing, filtering, and pagination natively.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S7. TEAM / STAFF -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s7">
+  <div class="comp__title">Statamic Component S7</div>
+  <div class="comp__name">Team / Staff Collection</div>
+  <span class="comp__url">Used on: About Us &gt; Meet the Team</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>team</code></strong><br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>name</code> (text) &middot;
+    <code>title</code> (text) &middot;
+    <code>organization</code> (text) &middot;
+    <code>headshot</code> (asset) &middot;
+    <code>is_executive</code> (toggle &mdash; separates Executive Leadership from Staff) &middot;
+    <code>sort_order</code> (integer)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Likely a custom post type or page-based content. Two sections: &ldquo;Executive Leadership&rdquo; and &ldquo;Staff&rdquo; &mdash; same card layout, different grouping.<br>
+    <strong>Statamic Build:</strong> Single Collection filtered by <code>is_executive</code> toggle. Circular headshot images handled via Glide transforms. Simple implementation.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S8. INVESTORS / PARTNERS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s8">
+  <div class="comp__title">Statamic Component S8</div>
+  <div class="comp__name">Investors / Partners Collection</div>
+  <span class="comp__url">Used on: About Us (investors section)</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>investors</code></strong> &mdash; CPT detected via WP REST API (endpoint disabled)<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>tier</code> (select: Platinum, Gold, Silver, etc.) &middot;
+    <code>website</code> (link) &middot;
+    <code>description</code> (textarea, optional)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>Investors</code> custom post type detected in WP REST API namespace. REST endpoint is disabled, so exact field structure is inferred. Likely renders as a logo grid grouped by investor tier.<br>
+    <strong>Statamic Build:</strong> Simple Collection. Logo grid partial filtered/grouped by tier taxonomy or select field.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S9. INDUSTRIES TAXONOMY -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s9">
+  <div class="comp__title">Statamic Component S9</div>
+  <div class="comp__name">Industries Taxonomy (<code>space</code>)</div>
+  <span class="comp__url">Used on: Company Expansions filtering, Economy page</span>
+  <div class="comp__pills">
+    <span class="pill pill--taxonomy">Taxonomy</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Automotive and Mobility</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Fashion and Retail</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Finance and Fintech</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Food and Beverage</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Healthcare</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Insurance and Insurtech</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Life Sciences</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Logistics</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Manufacturing</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Semiconductors</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Technology</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">+ 6 more</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>space</code> taxonomy with <strong>17 terms</strong>. Used to filter Company Expansions. Maps to the Industries accordion on the homepage (7 items) but the taxonomy has additional granularity (17 total).<br>
+    <strong>Statamic Build:</strong> Statamic Taxonomy <code>industries</code>. Used as filter on Company Expansions Collection and potentially on industry landing pages.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S10. SECTORS TAXONOMY -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s10">
+  <div class="comp__title">Statamic Component S10</div>
+  <div class="comp__name">Sectors Taxonomy</div>
+  <span class="comp__url">Used on: Top Employers, Industry pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--taxonomy">Taxonomy</span>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>sector</code> taxonomy with <strong>10 terms</strong>. Separate from the <code>space</code> taxonomy &mdash; used specifically for categorizing Employers (not Company Expansions). Terms likely include: Insurance, Retail, Life Sciences, Automotive, Finance, Technology, Healthcare, Food &amp; Beverage, Logistics, Manufacturing.<br>
+    <strong>Statamic Build:</strong> Statamic Taxonomy <code>sectors</code>. Evaluate whether this can be merged with the <code>industries</code> taxonomy during the redesign to simplify the content model.<br>
+    <strong>Key question:</strong> Are <code>space</code> (17 terms) and <code>sector</code> (10 terms) intentionally different, or should they be consolidated?<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S11. HUBSPOT INTEGRATION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s11">
+  <div class="comp__title">Statamic Component S11</div>
+  <div class="comp__name">HubSpot Integration</div>
+  <span class="comp__url">Used on: Contact forms, newsletter signups, tracking</span>
+  <div class="comp__pills">
+    <span class="pill pill--integration">Integration</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#fff3cd;border:1px solid #ffc107;padding:16px;border-radius:4px;">
+      <div style="font-size:11px;font-weight:700;color:#856404;margin-bottom:8px;">HubSpot Portal: 44904048</div>
+      <div style="font-size:10px;color:#856404;line-height:1.6;">
+        <strong>Form ID:</strong> a12f3e48-096c-486f-bd22-d168179bc80e (sitewide contact form)<br>
+        <strong>Tracking:</strong> HubSpot analytics script loaded globally<br>
+        <strong>Forms found on:</strong> Contact Us page, News &amp; Events page, Footer newsletter signup<br>
+        <strong>Features used:</strong> Form submissions, contact management, newsletter subscriptions, &ldquo;Stay Informed&rdquo; checkboxes (Blog, News, Press Releases)
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> HubSpot WordPress plugin with embedded forms and tracking script. Forms include lead capture (first name, last name, email, phone, message) plus newsletter subscription checkboxes and privacy consent.<br>
+    <strong>Statamic Build Decision:</strong><br>
+    &bull; <strong>Option A (recommended if CRM needed):</strong> Keep HubSpot embeds. Simply paste the HubSpot embed code into Antlers partials. Zero migration effort for forms.<br>
+    &bull; <strong>Option B (if no CRM needed):</strong> Replace with native Statamic Forms + email notifications. Would need an email service (Mailchimp, SendGrid) for newsletter delivery.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S12. ANALYTICS & TRACKING STACK -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s12">
+  <div class="comp__title">Statamic Component S12</div>
+  <div class="comp__name">Analytics &amp; Tracking Stack</div>
+  <span class="comp__url">Used on: All pages (global scripts)</span>
+  <div class="comp__pills">
+    <span class="pill pill--integration">Integration</span>
+  </div>
+  <div class="comp__demo">
+    <table class="cms-table" style="margin-top:0;">
+      <thead><tr><th>Service</th><th>Purpose</th><th>Statamic Action</th></tr></thead>
+      <tbody>
+        <tr><td>Google Tag Manager</td><td>Tag management container</td><td>Add GTM snippet to layout <code>&lt;head&gt;</code></td></tr>
+        <tr><td>Google Analytics (GA4)</td><td>Page analytics</td><td>Fires via GTM &mdash; no code change</td></tr>
+        <tr><td>LinkedIn Insight Tag</td><td>LinkedIn ad tracking / retargeting</td><td>Fires via GTM or direct snippet</td></tr>
+        <tr><td>Hotjar</td><td>Session recording, heatmaps</td><td>Add Hotjar snippet to layout or via GTM</td></tr>
+        <tr><td>Leadfeeder</td><td>B2B visitor identification (company-level)</td><td>Add tracking script to layout</td></tr>
+        <tr><td>Basis Technologies</td><td>Programmatic ad serving</td><td>Add pixel/script to layout</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="comp__notes">
+    <strong>Statamic Build:</strong> All tracking scripts go into the Antlers layout template <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>. If using GTM, most tags are managed there. Consider creating a Global Set <code>tracking_scripts</code> with textarea fields so scripts can be edited in the CP without code deploys.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S13. STATAMIC GLOBALS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s13">
+  <div class="comp__title">Statamic Component S13</div>
+  <div class="comp__name">Statamic Globals (Site Settings)</div>
+  <span class="comp__url">Used on: All pages (header, footer, meta)</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+  </div>
+  <div class="field-list">
+    <strong>Global Set: <code>site_settings</code></strong><br>
+    <code>site_name</code> &middot; <code>logo</code> &middot; <code>tagline</code> &middot; <code>address</code> &middot; <code>phone</code> &middot; <code>email</code> &middot; <code>social_links</code> (grid: platform, url, icon)<br><br>
+    <strong>Global Set: <code>partner_links</code></strong><br>
+    <code>one_columbus_url</code> &middot; <code>columbus_partnership_url</code> &middot; <code>smart_columbus_url</code><br><br>
+    <strong>Global Set: <code>footer</code></strong><br>
+    <code>copyright_text</code> &middot; <code>privacy_policy_url</code> &middot; <code>jobsohio_logo</code> &middot; <code>newsletter_heading</code> &middot; <code>newsletter_description</code><br><br>
+    <strong>Global Set: <code>press_release_boilerplate</code></strong><br>
+    <code>about_text</code> (bard &mdash; reusable &ldquo;About One Columbus&rdquo; section appended to all press releases)
+  </div>
+  <div class="comp__notes">
+    <strong>Statamic Build:</strong> Statamic Globals are editable in the Control Panel. These replace hardcoded values in the WordPress theme. The utility bar links (One Columbus, Columbus Partnership, Smart Columbus) and footer content become editable without code changes.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S14. SEARCH -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s14">
+  <div class="comp__title">Statamic Component S14</div>
+  <div class="comp__name">Search</div>
+  <span class="comp__url">Not currently on the site &mdash; recommended addition</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+    <span class="pill pill--page">New Feature</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:500px;">
+      <div style="display:flex;gap:4px;margin-bottom:16px;">
+        <input type="text" placeholder="Search the Columbus Region..." style="flex:1;height:36px;border:1px solid #ccc;padding:0 12px;font-size:11px;">
+        <button style="background:var(--teal);color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;">Search</button>
+      </div>
+      <div style="font-size:10px;color:#888;margin-bottom:12px;">3 results for &ldquo;semiconductors&rdquo;</div>
+      <div style="border-bottom:1px solid #eee;padding:8px 0;">
+        <a href="#" style="font-size:12px;font-weight:700;color:var(--teal);text-decoration:none;">Semiconductor Industry in the Columbus Region</a>
+        <div style="font-size:9px;color:#888;">/economy/semiconductors</div>
+        <div style="font-size:10px;color:#555;margin-top:2px;">Result excerpt text with search term highlighted...</div>
+      </div>
+      <div style="border-bottom:1px solid #eee;padding:8px 0;">
+        <a href="#" style="font-size:12px;font-weight:700;color:var(--teal);text-decoration:none;">Intel Selects Columbus Region for New Fab</a>
+        <div style="font-size:9px;color:#888;">/press-release/intel-columbus-region</div>
+        <div style="font-size:10px;color:#555;margin-top:2px;">Result excerpt text...</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>No search functionality exists on the current site.</strong> No search bar, no search page, no search icon anywhere.<br>
+    <strong>Statamic Build:</strong> Recommend adding site search using Statamic&rsquo;s built-in search with local driver (simple) or Algolia/Meilisearch (for advanced filtering). Would index Pages, News, Press Releases, Counties, and Company Expansions. Add search icon to the header navigation.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S15. META BOX RELATIONSHIPS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s15">
+  <div class="comp__title">Statamic Component S15</div>
+  <div class="comp__name">Meta Box Relationships &rarr; Statamic Relationships</div>
+  <span class="comp__url">Used on: Counties &harr; Employers, Industries &harr; Expansions</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+    <span class="pill pill--complex">Architecture</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:24px;align-items:flex-start;">
+      <div style="border:2px solid #2563eb;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#2563eb;">Counties</div>
+        <div style="font-size:8px;color:#888;">11 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">many-to-many</div>
+      </div>
+      <div style="border:2px solid #2563eb;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#2563eb;">Employers</div>
+        <div style="font-size:8px;color:#888;">~50 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">taxonomy</div>
+      </div>
+      <div style="border:2px solid #7c3aed;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#7c3aed;">Sectors</div>
+        <div style="font-size:8px;color:#888;">10 terms</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:16px;">
+      <div style="border:2px solid #2563eb;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#2563eb;">Company Expansions</div>
+        <div style="font-size:8px;color:#888;">~211 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">taxonomy</div>
+      </div>
+      <div style="border:2px solid #7c3aed;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#7c3aed;">Industries (space)</div>
+        <div style="font-size:8px;color:#888;">17 terms</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">relationship</div>
+      </div>
+      <div style="border:2px solid #2563eb;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#2563eb;">Counties</div>
+        <div style="font-size:8px;color:#888;">11 entries</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Meta Box</strong> plugin with <code>mb-relationships</code> namespace handles entity relationships between custom post types. Detected in the WP REST API namespaces.<br>
+    <strong>Statamic Build:</strong> Statamic&rsquo;s native <code>relationship</code> fieldtype handles this natively. Define relationship fields in Blueprints:<br>
+    &bull; Counties &rarr; Employers (many-to-many via relationship field)<br>
+    &bull; Employers &rarr; Sectors (taxonomy field)<br>
+    &bull; Company Expansions &rarr; Industries (taxonomy field)<br>
+    &bull; Company Expansions &rarr; Counties (relationship field)<br>
+    No plugin needed &mdash; Statamic handles relationships out of the box.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S16. IFRAME EMBEDS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s16">
+  <div class="comp__title">Statamic Component S16</div>
+  <div class="comp__name">iFrame Embeds (Economy Page)</div>
+  <span class="comp__url">Used on: Economy page (19 iframes detected)</span>
+  <div class="comp__pills">
+    <span class="pill pill--wp">WP: Advanced iFrame</span>
+    <span class="pill pill--complex">Audit Needed</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#fff3cd;border:1px solid #ffc107;padding:16px;border-radius:4px;">
+      <div style="font-size:11px;font-weight:700;color:#856404;margin-bottom:8px;">19 iFrame Embeds Detected on /economy/</div>
+      <div style="font-size:10px;color:#856404;line-height:1.6;">
+        These may include: interactive data visualizations, charts, maps, third-party widgets, or embedded dashboards. Each iframe needs to be individually audited to determine:<br><br>
+        &bull; What external service is being embedded?<br>
+        &bull; Is the embed still active / relevant?<br>
+        &bull; Can it be replaced with native content?<br>
+        &bull; Does it require the Advanced iFrame plugin, or can a simple <code>&lt;iframe&gt;</code> suffice?
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Advanced iFrame</strong> plugin used to embed external content. 19 iframes on the Economy page alone suggest heavy use of external data visualizations or interactive widgets.<br>
+    <strong>Statamic Build:</strong> Create a Bard set or Replicator set called &ldquo;Embed&rdquo; with fields for <code>embed_url</code>, <code>width</code>, <code>height</code>, and <code>title</code>. Renders as a responsive <code>&lt;iframe&gt;</code>. No plugin needed &mdash; but each existing embed should be audited for relevance before migration.<br>
+    <strong>Action item:</strong> Audit all 19 Economy page iframes to catalog what&rsquo;s being embedded and whether each is still needed.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
   </div>
 </div>
 
