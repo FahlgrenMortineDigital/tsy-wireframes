@@ -164,14 +164,13 @@
       <a href="#comp-39"><span>39</span> Webinar Event Card</a>
       <a href="#comp-40"><span>40</span> Contributor Card</a>
       <a href="#comp-41"><span>41</span> Infographic Card</a>
+      <a href="#comp-05"><span>05</span> Mobile Search Bar</a>
     </div>
   </div>
 
   <div class="lib-toc">
     <h2>FK Non-Branded Components</h2>
     <div class="lib-toc__grid">
-      <a href="#comp-05"><span>05</span> Mobile Search Bar</a>
-      <a href="#comp-12"><span>12</span> FPO Notice Banner</a>
       <a href="#comp-19"><span>19</span> Numbered Steps</a>
       <a href="#comp-25"><span>25</span> Resource List</a>
       <a href="#comp-28"><span>28</span> Search Results</a>
@@ -1023,11 +1022,6 @@
       </div>
     </div>
 
-    <div class="lib-section-header lib-section-header--custom" id="section-custom">
-      <h2>FK Non-Branded Components</h2>
-      <p>Custom components created specifically for the FK Non-Branded Nutrition wireframes. These extend the FDS with project-specific patterns.</p>
-    </div>
-
     <!-- ====================== COMPONENT 05 ====================== -->
     <div class="comp" id="comp-05">
       <div class="comp__title">Component 05</div>
@@ -1041,17 +1035,9 @@
       </div>
     </div>
 
-    <!-- ====================== COMPONENT 12 ====================== -->
-    <div class="comp" id="comp-12">
-      <div class="comp__title">Component 12</div>
-      <div class="comp__name">FPO Notice Banner</div>
-      <span class="comp__url">Used on: All content pages</span>
-      <span class="fds-label">FDS: Notice Banner</span>
-      <div class="comp__demo">
-        <div style="background: #fff3cd; border: 1px solid #e0c36a; border-radius: 8px; padding: 16px 24px;">
-          <p style="font-size: 14px; line-height: 20px; color: #664d03; margin: 0;"><strong>FPO Content:</strong> The text and data on this page are for position only and do not represent our final copy. This is directional content only and is intended to help inform how the page and site experience can be structured based on stakeholder feedback and strategic objectives for the site.</p>
-        </div>
-      </div>
+    <div class="lib-section-header lib-section-header--custom" id="section-custom">
+      <h2>FK Non-Branded Components</h2>
+      <p>Custom components created specifically for the FK Non-Branded Nutrition wireframes. These extend the FDS with project-specific patterns.</p>
     </div>
 
     <!-- ====================== COMPONENT 19 ====================== -->
@@ -1126,6 +1112,7 @@
       <div class="comp__name">Search Results</div>
       <span class="comp__url">Used on: Search Results page</span>
       <span class="fds-label">FDS: Search Results</span>
+      <p style="font-size: 13px; line-height: 1.6; color: #996600; background: #fff8e6; border: 1px solid #eed89a; border-radius: 6px; padding: 10px 14px; margin-bottom: 16px;"><strong>Note:</strong> This component will be defined once the search engine is confirmed with Global IT and AEM.</p>
       <div class="comp__demo">
         <div style="background: #f5f5f5; padding: 32px 0 24px; border-bottom: 1px solid #ddd; margin-bottom: 24px; border-radius: 8px 8px 0 0; padding-left: 24px; padding-right: 24px;">
           <h2 style="font-size: 30px; font-weight: 700; line-height: 46px; margin-bottom: 24px;">Search Results</h2>
@@ -1189,57 +1176,82 @@
     <!-- ====================== COMPONENT 33 ====================== -->
     <div class="comp" id="comp-33">
       <div class="comp__title">Component 33</div>
-      <div class="comp__name">Feature Card / Calculator</div>
+      <div class="comp__name">Feature Card / TPN Macronutrient Calculator</div>
       <span class="comp__url">Used on: Downloadable Tools &amp; Calculators</span>
       <span class="fds-label">FDS: Feature Card / Calculator</span>
       <div class="comp__demo">
         <div style="background: #f5f5f5; border: 2px solid #ccc; border-radius: 24px; padding: 32px;">
-          <!-- Input Fields -->
-          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Patient Inputs</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px;">
+            <!-- Left: TPN Formulation -->
             <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Patient Weight (kg)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 70</div>
+              <p style="font-size: 18px; font-weight: 700; color: #333; margin-bottom: 24px;">TPN Formulation</p>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Goal kcal/kg</label>
+                <div style="height: 6px; background: #ddd; border-radius: 3px; position: relative;"><div style="width: 50%; height: 100%; background: #999; border-radius: 3px;"></div></div>
+                <p style="font-size: 14px; color: #666; text-align: center; margin-top: 6px;">25 kcal/kg</p>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Total protein/kg</label>
+                <div style="height: 6px; background: #ddd; border-radius: 3px; position: relative;"><div style="width: 60%; height: 100%; background: #999; border-radius: 3px;"></div></div>
+                <p style="font-size: 14px; color: #666; text-align: center; margin-top: 6px;">1.5 g/kg</p>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Non-protein calories</label>
+                <div style="height: 6px; background: #ddd; border-radius: 3px; position: relative;"><div style="width: 70%; height: 100%; background: #999; border-radius: 3px;"></div></div>
+                <div style="display: flex; justify-content: space-between; font-size: 14px; color: #666; margin-top: 6px;">
+                  <span>Lipids 30%</span><span>Dextrose 70%</span>
+                </div>
+              </div>
+              <div>
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Lipid formulation</label>
+                <div style="display: inline-flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
+                  <span style="padding: 6px 16px; font-size: 14px; font-weight: 600; background: #fff; color: #333;">10%</span>
+                  <span style="padding: 6px 16px; font-size: 14px; font-weight: 600; background: #333; color: #fff;">20%</span>
+                </div>
+              </div>
             </div>
+            <!-- Right: Patient Parameters -->
             <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Height (cm)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">e.g. 175</div>
-            </div>
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">BMI (kg/m&sup2;)</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #999;">Auto-calculated</div>
-            </div>
-            <div>
-              <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px;">Clinical Status</label>
-              <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #666; display: flex; justify-content: space-between; align-items: center;">Select status <span style="color: #ccc;">&#9662;</span></div>
+              <p style="font-size: 18px; font-weight: 700; color: #333; margin-bottom: 24px;">Patient Parameters</p>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Gender</label>
+                <div style="display: inline-flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
+                  <span style="padding: 6px 16px; font-size: 14px; font-weight: 600; background: #333; color: #fff;">Male</span>
+                  <span style="padding: 6px 16px; font-size: 14px; font-weight: 600; background: #fff; color: #333;">Female</span>
+                </div>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Height</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <div style="width: 60px; background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #999;">ft</div>
+                  <div style="width: 60px; background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #999;">in</div>
+                </div>
+              </div>
+              <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Weight</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <div style="width: 80px; background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #999;"></div>
+                  <div style="display: inline-flex; border: 1px solid #ccc; border-radius: 8px; overflow: hidden;">
+                    <span style="padding: 6px 12px; font-size: 14px; font-weight: 600; background: #333; color: #fff;">lbs</span>
+                    <span style="padding: 6px 12px; font-size: 14px; font-weight: 600; background: #fff; color: #333;">kg</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label style="display: block; font-size: 14px; font-weight: 600; color: #333; margin-bottom: 8px;">Propofol</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <div style="width: 80px; background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 10px 14px; font-size: 14px; color: #333;">0</div>
+                  <span style="font-size: 14px; color: #666;">mcg/kg/min</span>
+                </div>
+              </div>
             </div>
           </div>
-          <!-- Output Fields -->
-          <p style="font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 16px;">Calculated Outputs</p>
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-bottom: 32px;">
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Protein</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Energy</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">kcal/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lipid</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
-            <div style="background: #fff; border: 1px solid #ccc; border-radius: 8px; padding: 16px; text-align: center;">
-              <p style="font-size: 12px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Dextrose</p>
-              <p style="font-size: 24px; font-weight: 700; color: #333; margin-bottom: 2px;">&mdash;</p>
-              <p style="font-size: 12px; color: #999;">g/day</p>
-            </div>
+          <div style="display: flex; gap: 16px; margin-top: 24px;">
+            <a href="#" class="demo-btn" style="background: #fff; color: #333; border: 2px solid #333;">Reset</a>
+            <a href="#" class="demo-btn demo-btn--primary">Calculate</a>
           </div>
-          <a href="#" class="demo-btn demo-btn--primary">Launch Calculator</a>
         </div>
+        <p style="font-size: 13px; color: #999; margin-top: 12px;">Results display below with Administration (volume, rate), Macronutrients table (Dextrose, Protein, Lipids with amounts and calories), and Formulation Parameters (Osmolarity, GIR). See <a href="downloadable-tools.html#pn-dosing-calculator" style="color: #333; font-weight: 600;">live calculator</a>.</p>
       </div>
     </div>
 
