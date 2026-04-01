@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)file:///Users/scowan/Downloads/ai_workflow_onepager_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Enhanced Digital Workflow — Fahlgren Mortine / The Shipyard</title>
+<link href="./AI-Enhanced Digital Workflow — Fahlgren Mortine _ The Shipyard_files/css2" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#0f1923;
+    --navy-mid:#162030;
+    --navy-light:#1e2d3d;
+    --border:#2a3a4a;
+    --text-primary:#f0f4f8;
+    --text-secondary:#8aa0b4;
+    --text-tertiary:#4d6478;
+    --accent-green:#1db87e;
+    --accent-blue:#3b8fe0;
+    --accent-coral:#e0623b;
+    --accent-amber:#e09a2a;
+    --accent-purple:#8b77e0;
+    --accent-sage:#7eb87e;
+    --figma-green:#1db87e;
+  }
+  html{background:var(--navy);color:var(--text-primary);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased}
+  body{padding:48px 56px;max-width:1240px;margin:0 auto;min-height:100vh}
+
+  /* Header */
+  .header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:36px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+  .header-left{}
+  .eyebrow{font-size:11px;font-weight:500;letter-spacing:.14em;color:var(--text-tertiary);text-transform:uppercase;margin-bottom:10px}
+  .title{font-size:30px;font-weight:300;color:var(--text-primary);letter-spacing:-.02em;line-height:1.2;margin-bottom:8px}
+  .title strong{font-weight:600}
+  .subtitle{font-size:14px;color:var(--text-secondary);font-weight:400}
+  .figma-badge{display:flex;align-items:center;gap:10px;padding:12px 18px;border:1px solid rgba(29,184,126,.3);border-radius:8px;background:rgba(29,184,126,.05)}
+  .figma-dot{width:9px;height:9px;border-radius:50%;background:var(--figma-green);flex-shrink:0}
+  .figma-text{font-size:12px;color:var(--text-secondary);line-height:1.55;max-width:220px}
+  .figma-text strong{color:var(--figma-green);display:block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+
+  /* Phase grid */
+  .phases{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:24px;position:relative}
+
+  .phase{border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--navy-mid);position:relative}
+  .phase-accent{height:3px;width:100%}
+  .phase-head{padding:14px 14px 11px}
+  .phase-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-tertiary);margin-bottom:5px;letter-spacing:.08em}
+  .phase-name{font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.3;margin-bottom:5px}
+  .phase-craft{font-size:11px;color:var(--text-tertiary);font-weight:400}
+  .phase-divider{height:1px;background:var(--border);margin:0 14px}
+  .phase-body{padding:12px 14px}
+  .section-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:7px}
+  .item{font-size:11px;color:var(--text-secondary);line-height:1.55;margin-bottom:5px;padding-left:12px;position:relative}
+  .item::before{content:'—';position:absolute;left:0;color:var(--text-tertiary);font-size:10px;top:1px}
+  .item.bold-item{color:var(--text-primary);font-weight:500}
+
+  .ai-row{padding:12px 14px 0}
+  .ai-pill{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:20px;margin-bottom:9px}
+  .ai-pill .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+  .ai-pill.proven{background:rgba(224,154,42,.12);color:#e09a2a;border:1px solid rgba(224,154,42,.25)}
+  .ai-pill.proven .dot{background:#e09a2a}
+  .ai-pill.high{background:rgba(59,143,224,.12);color:#3b8fe0;border:1px solid rgba(59,143,224,.25)}
+  .ai-pill.high .dot{background:#3b8fe0}
+  .ai-pill.emerging{background:rgba(77,100,120,.2);color:#8aa0b4;border:1px solid rgba(77,100,120,.3)}
+  .ai-pill.emerging .dot{background:#8aa0b4}
+
+  .output-row{padding:9px 14px 14px;margin-top:auto}
+  .output-lbl{font-size:9px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:4px}
+  .output-text{font-size:11px;color:var(--text-secondary);line-height:1.5}
+
+  /* Figma spine bar */
+  .spine-bar{display:flex;align-items:center;gap:0;margin-bottom:24px;border-radius:8px;overflow:hidden;border:1px solid rgba(29,184,126,.2)}
+  .spine-label{background:rgba(29,184,126,.1);padding:10px 18px;font-size:10px;font-weight:600;color:var(--figma-green);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;border-right:1px solid rgba(29,184,126,.2)}
+  .spine-phases{display:flex;align-items:center;flex:1;overflow:hidden}
+  .spine-phase{flex:1;padding:10px 12px;font-size:11px;color:var(--text-tertiary);border-right:1px solid var(--border);text-align:center;line-height:1.4}
+  .spine-phase.active{color:var(--text-secondary)}
+  .spine-phase.primary{color:var(--figma-green);font-weight:500}
+  .spine-phase span{display:block;font-size:10px;color:var(--text-tertiary);margin-top:2px}
+  .spine-phase.inactive{opacity:.4}
+
+  /* Bottom row */
+  .bottom{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:28px}
+
+  /* Library section */
+  .library{border:1px solid var(--border);border-radius:10px;padding:20px 22px;background:var(--navy-mid)}
+  .lib-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .lib-title{font-size:13px;font-weight:600;color:var(--text-primary)}
+  .lib-sub{font-size:11px;color:var(--text-tertiary);margin-top:3px}
+  .verticals{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  .vertical{border:1px solid var(--border);border-radius:8px;padding:13px;background:var(--navy-light)}
+  .v-name{font-size:11px;font-weight:600;color:var(--text-primary);margin-bottom:9px}
+  .v-item{font-size:11px;color:var(--text-secondary);line-height:1.65;padding-left:10px;position:relative}
+  .v-item::before{content:'·';position:absolute;left:0;color:var(--text-tertiary)}
+  .lib-note{font-size:11px;color:var(--text-tertiary);line-height:1.65;padding:11px 14px;border-radius:6px;background:var(--navy-light);border-left:2px solid var(--figma-green)}
+
+  /* Legend */
+  .legend-box{border:1px solid var(--border);border-radius:10px;padding:20px 22px;background:var(--navy-mid)}
+  .legend-title{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:16px}
+  .leg-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+  .leg-icon{width:30px;height:30px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+  .leg-text-title{font-size:11px;font-weight:600;color:var(--text-primary);margin-bottom:3px}
+  .leg-text-body{font-size:11px;color:var(--text-secondary);line-height:1.5}
+
+  /* Footer */
+  .footer{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid var(--border)}
+  .footer-left{font-size:11px;color:var(--text-tertiary)}
+  .footer-right{font-size:11px;color:var(--text-tertiary)}
+  .footer-right span{color:var(--figma-green);font-weight:600}
+
+  @media print{
+    body{padding:32px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    html{background:#0f1923}
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <div class="eyebrow">Digital Practice — Internal Strategy</div>
+    <div class="title"><strong>AI-Enhanced</strong> Project Workflow</div>
+    <div class="subtitle">Six-phase process · AI leverage map · craft ownership · Figma as the persistent project record</div>
+  </div>
+  <div class="figma-badge">
+    <div class="figma-dot"></div>
+    <div class="figma-text">
+      <strong>Figma — Project Spine</strong>
+      Initiated in Phase 02, maintained as the single source of truth through all phases and dev handoff
+    </div>
+  </div>
+</div>
+
+<!-- Figma spine bar -->
+<div class="spine-bar">
+  <div class="spine-label">Figma project file</div>
+  <div class="spine-phases">
+    <div class="spine-phase inactive">01 Strategy<span>Input only</span></div>
+    <div class="spine-phase primary">02 UX<span>File initiated ↓</span></div>
+    <div class="spine-phase active">03 BA<span>Frames referenced</span></div>
+    <div class="spine-phase active">04 Design<span>Primary workspace</span></div>
+    <div class="spine-phase active">05 Dev<span>Dev Mode handoff</span></div>
+    <div class="spine-phase active">06 QA<span>Visual baseline + archive</span></div>
+  </div>
+</div>
+
+<!-- Phase grid -->
+<div class="phases">
+
+  <!-- 01 Strategy -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#8b77e0"></div>
+    <div class="phase-head">
+      <div class="phase-num">01 — STRATEGY</div>
+      <div class="phase-name">Discovery &amp; recommendations</div>
+      <div class="phase-craft">Strategy / Account</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill high"><span class="dot"></span>Moderate impact</div>
+      <div class="item">Stakeholder interview synthesis</div>
+      <div class="item">Competitive research summary</div>
+      <div class="item">Persona and audience frameworks</div>
+      <div class="item">Recommendations brief draft</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">Research synthesis, strategy brief — primary input to UX IA</div>
+    </div>
+  </div>
+
+  <!-- 02 UX -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#1db87e"></div>
+    <div class="phase-head">
+      <div class="phase-num">02 — UX</div>
+      <div class="phase-name">Sitemap &amp; wireframes</div>
+      <div class="phase-craft">UX</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill proven"><span class="dot"></span>Proven — high impact</div>
+      <div class="item bold-item">Claude → XML sitemap from transcripts</div>
+      <div class="item bold-item">Claude Code → responsive HTML wireframes</div>
+      <div class="item">Design system docs as source (BUX, Figma)</div>
+      <div class="item">Figma wireframe setup — project file begins</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">Slickplan sitemap, HTML wireframes, Figma project file initialized</div>
+    </div>
+  </div>
+
+  <!-- 03 BA -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#3b8fe0"></div>
+    <div class="phase-head">
+      <div class="phase-num">03 — BA</div>
+      <div class="phase-name">Functional spec</div>
+      <div class="phase-craft">Business Analysis</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill high"><span class="dot"></span>High potential — building</div>
+      <div class="item bold-item">Claude drafts spec from Figma frames</div>
+      <div class="item bold-item">Notion replaces disconnected Airtable</div>
+      <div class="item">Component requirements per template</div>
+      <div class="item">Developer acceptance criteria</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">Functional spec in Notion, linked to Figma — referenced by Design and Dev</div>
+    </div>
+  </div>
+
+  <!-- 04 Design -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#e0623b"></div>
+    <div class="phase-head">
+      <div class="phase-num">04 — DESIGN</div>
+      <div class="phase-name">Conceptual through production</div>
+      <div class="phase-craft">Design</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill proven" style="background:rgba(224,98,59,.12);color:#e0623b;border-color:rgba(224,98,59,.3)"><span class="dot" style="background:#e0623b"></span>Biggest opportunity ★</div>
+      <div class="item bold-item">Claude + Figma MCP applies components to remaining pages</div>
+      <div class="item bold-item">Shared library reduces design rework</div>
+      <div class="item">New components added to library per project</div>
+      <div class="item">Annotations + dev handoff in Figma</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">Production Figma, updated component library, dev handoff-ready</div>
+    </div>
+  </div>
+
+  <!-- 05 Dev -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#7eb87e"></div>
+    <div class="phase-head">
+      <div class="phase-num">05 — DEV</div>
+      <div class="phase-name">Front-end &amp; CMS build</div>
+      <div class="phase-craft">Development</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill high"><span class="dot"></span>Moderate — maturing</div>
+      <div class="item bold-item">Claude Code translates Figma to markup</div>
+      <div class="item">CMS models from Notion spec</div>
+      <div class="item">Figma Dev Mode as handoff reference</div>
+      <div class="item">Statamic / WordPress (varies by client)</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">Front-end codebase, CMS templates, staging environment</div>
+    </div>
+  </div>
+
+  <!-- 06 QA -->
+  <div class="phase">
+    <div class="phase-accent" style="background:#e09a2a"></div>
+    <div class="phase-head">
+      <div class="phase-num">06 — QA/QC</div>
+      <div class="phase-name">Testing &amp; sign-off</div>
+      <div class="phase-craft">QA / QC</div>
+    </div>
+    <div class="phase-divider"></div>
+    <div class="ai-row">
+      <div class="ai-pill emerging"><span class="dot"></span>Emerging</div>
+      <div class="item bold-item">Claude generates QA checklists from Notion spec</div>
+      <div class="item">Figma as visual comparison baseline</div>
+      <div class="item">Regression cases from acceptance criteria</div>
+      <div class="item">Stakeholder sign-off → file archived</div>
+    </div>
+    <div class="output-row">
+      <div class="output-lbl">Output →</div>
+      <div class="output-text">QA report, resolved backlog, production sign-off, Figma archived</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom section -->
+<div class="bottom">
+
+  <!-- Library -->
+  <div class="library">
+    <div class="lib-head">
+      <div>
+        <div class="lib-title">Shared Figma component library — organized by client vertical</div>
+        <div class="lib-sub">Each project contributes new components back — efficiency compounds across engagements</div>
+      </div>
+    </div>
+    <div class="verticals">
+      <div class="vertical">
+        <div class="v-name">Tourism &amp; destination</div>
+        <div class="v-item">Hero and imagery modules</div>
+        <div class="v-item">Itinerary and listing cards</div>
+        <div class="v-item">Map and location components</div>
+        <div class="v-item">Events and calendar patterns</div>
+      </div>
+      <div class="vertical">
+        <div class="v-name">Technology B2B</div>
+        <div class="v-item">Feature and benefit blocks</div>
+        <div class="v-item">Product comparison tables</div>
+        <div class="v-item">Case study and proof patterns</div>
+        <div class="v-item">CTA and conversion modules</div>
+      </div>
+      <div class="vertical">
+        <div class="v-name">Consumer / e-commerce</div>
+        <div class="v-item">Product display modules</div>
+        <div class="v-item">Review and social proof</div>
+        <div class="v-item">Cart and checkout flows</div>
+        <div class="v-item">Category and filter patterns</div>
+      </div>
+    </div>
+    <div class="lib-note">New components built in any phase are documented in Figma and coded in parallel — added to the relevant vertical library before the project closes. Governance: one designated owner per vertical ensures consistency and prevents library drift.</div>
+  </div>
+
+  <!-- Legend -->
+  <div class="legend-box">
+    <div class="legend-title">AI leverage key</div>
+    <div class="leg-item">
+      <div class="leg-icon" style="background:rgba(224,154,42,.12);border:1px solid rgba(224,154,42,.25)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="#e09a2a"></circle></svg>
+      </div>
+      <div>
+        <div class="leg-text-title">Proven — high impact</div>
+        <div class="leg-text-body">Actively delivering time savings today. Phase 02 UX is the benchmark.</div>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-icon" style="background:rgba(59,143,224,.12);border:1px solid rgba(59,143,224,.25)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="#3b8fe0"></circle></svg>
+      </div>
+      <div>
+        <div class="leg-text-title">High potential — building</div>
+        <div class="leg-text-body">Infrastructure in place; workflows being defined and tested.</div>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-icon" style="background:rgba(77,100,120,.2);border:1px solid rgba(77,100,120,.3)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="#8aa0b4"></circle></svg>
+      </div>
+      <div>
+        <div class="leg-text-title">Emerging</div>
+        <div class="leg-text-body">Approach identified, not yet standardized. Next to formalize.</div>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-icon" style="background:rgba(29,184,126,.1);border:1px solid rgba(29,184,126,.25)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="2" width="8" height="8" rx="2" fill="#1db87e"></rect></svg>
+      </div>
+      <div>
+        <div class="leg-text-title">Figma persistent file</div>
+        <div class="leg-text-body">Single source of truth from UX through archived production handoff.</div>
+      </div>
+    </div>
+    <div class="leg-item">
+      <div class="leg-icon" style="background:rgba(139,119,224,.1);border:1px solid rgba(139,119,224,.25)">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="2" y="5" width="8" height="1.5" rx=".75" fill="#8b77e0"></rect><path d="M7 2.5L10 6.25L7 10" stroke="#8b77e0" stroke-width="1.2" fill="none" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="leg-text-title">Bold items = AI-primary steps</div>
+        <div class="leg-text-body">Steps in each phase where AI does the primary work, not assists.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <div class="footer-left">Fahlgren Mortine / The Shipyard · Digital Practice · Internal — Not for client distribution</div>
+  <div class="footer-right">Tools — not toys. <span>AI accelerates craft. It does not replace it.</span></div>
+</div>
+
+
+
+</body></html>
