@@ -1244,7 +1244,7 @@
     // Show modal (prevent background scroll)
     document.body.style.overflow = 'hidden';
 
-    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) { e.stopPropagation();
+    btn.addEventListener('click', function () {
       modal.classList.add('is-hidden');
       document.body.style.overflow = '';
       sessionStorage.setItem('entryModalDismissed', '1');
