@@ -522,7 +522,6 @@
       /* HAMBURGER: Show hamburger, hide desktop nav */
       .hamburger { display: flex; }
       .main-nav { display: none; }
-      .site-header__search { display: none; }
       .site-header .btn { display: none; }
     }
 
@@ -589,7 +588,7 @@
         </div>
       </a>
       <div class="site-header__right">
-        <div class="site-header__search"></div>
+
         <a href="request-information.html" class="btn btn--filled">Request Information</a>
         <div class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('is-open'); this.classList.toggle('is-open')">
           <span class="hamburger__line"></span>
@@ -716,6 +715,7 @@
         <!-- WHY HOST AT OHIO STATE (standalone) -->
         <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
+      <div class="site-header__search" style="margin-left:auto;"></div>
     </div>
   </nav>
 
@@ -1007,13 +1007,13 @@
           <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
           <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
           <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
-          <li><a href="cookies.html" style="color:inherit;">Cookie Settings</a></li>
+          <li><a href="cookies.html" style="color:inherit;">Manage Cookie Settings</a></li>
           <li><a href="#" style="color:inherit;">Site Map</a></li>
           <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
         </ul>
       </div>
       <div class="site-footer__legal">
-        If you have a disability and experience difficulty accessing this content, please <a href="accessibility.html">contact us for assistance</a>.
+        If you have a disability and experience difficulty accessing this content, please contact our digital accessibility team using the <a href="https://accessibility.ath.ohio-state.edu/site/46">Digital Accessibility Request Form</a>.
       </div>
     </div>
   </footer>
@@ -1021,5 +1021,6 @@
 <script src="toggle-labels.js"></script>
 <script src="review-comments.js"></script>
 <script src="search-overlay.js"></script>
+<script src="cookie-modal.js"></script>
 </body>
 </html>

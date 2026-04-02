@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Privacy Policy — Ohio State Events</title>
+  <title>Privacy Statement — Ohio State Events</title>
   <style>
     /* ===== BUCKEYE FONTS ===== */
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
@@ -216,7 +216,6 @@
       .site-footer__nav { grid-template-columns: repeat(2, 1fr); }
       .hamburger { display: flex; }
       .main-nav { display: none; }
-      .site-header__search { display: none; }
       .site-header .btn { display: none; }
     }
 
@@ -261,7 +260,7 @@
         </div>
       </a>
       <div class="site-header__right">
-        <div class="site-header__search"></div>
+
         <a href="request-information.html" class="btn btn--filled">Request Information</a>
         <div class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('is-open'); this.classList.toggle('is-open')">
           <span class="hamburger__line"></span>
@@ -384,6 +383,7 @@
         <!-- WHY HOST AT OHIO STATE (standalone) -->
         <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
+      <div class="site-header__search" style="margin-left:auto;"></div>
     </div>
   </nav>
 
@@ -396,14 +396,14 @@
       <div style="margin-top:4px;">
         <a href="index.html">Home</a>
         <span class="breadcrumb__sep">/</span>
-        <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">Privacy Policy</a>
+        <a href="privacy-policy.html" style="color:inherit;text-decoration:underline;">Privacy Statement</a>
       </div>
     </div>
   </div>
 
   <!-- 5. LEGAL CONTENT -->
   <div class="legal-content">
-    <h1>Privacy Policy</h1>
+    <h1>Privacy Statement</h1>
     <div class="legal-content__date">Last Updated: March 2026</div>
 
     <h2>Information We Collect</h2>
@@ -431,12 +431,12 @@
     <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula. To exercise any of these rights or if you have questions about your personal data, please contact us using the information provided below.</p>
 
     <h2>Contact Us</h2>
-    <p>Vestibulum id ligula porta felis euismod semper. If you have any questions about this Privacy Policy or our data practices, please contact us at:</p>
+    <p>Vestibulum id ligula porta felis euismod semper. If you have any questions about this Privacy Statement or our data practices, please contact us at:</p>
     <p>Ohio State Events<br>The Ohio State University<br>Columbus, OH 43210<br>Email: placeholder@osu.edu<br>Phone: (614) 292-XXXX</p>
 
     <h2>Changes to This Policy</h2>
-    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. We reserve the right to update or change this Privacy Policy at any time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
-    <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Your continued use of our website and services after any modifications to this Privacy Policy constitutes your acceptance of such changes.</p>
+    <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. We reserve the right to update or change this Privacy Statement at any time. Any changes will be posted on this page with an updated revision date. We encourage you to review this policy periodically.</p>
+    <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Your continued use of our website and services after any modifications to this Privacy Statement constitutes your acceptance of such changes.</p>
   </div>
 
   <!-- 6. FOOTER -->
@@ -495,13 +495,13 @@
           <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
           <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
           <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
-          <li><a href="cookies.html" style="color:inherit;">Cookie Settings</a></li>
+          <li><a href="cookies.html" style="color:inherit;">Manage Cookie Settings</a></li>
           <li><a href="#" style="color:inherit;">Site Map</a></li>
           <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
         </ul>
       </div>
       <div class="site-footer__legal">
-        If you have a disability and experience difficulty accessing this content, please <a href="accessibility.html">contact us for assistance</a>.
+        If you have a disability and experience difficulty accessing this content, please contact our digital accessibility team using the <a href="https://accessibility.ath.ohio-state.edu/site/46">Digital Accessibility Request Form</a>.
       </div>
     </div>
   </footer>
@@ -509,6 +509,7 @@
 <script src="toggle-labels.js"></script>
 <script src="review-comments.js"></script>
 <script src="search-overlay.js"></script>
+<script src="cookie-modal.js"></script>
 <script>
 (function() {
   var osuNav = document.querySelector('.osu-navbar');

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Where to Stay — Ohio State Events</title>
+  <title>Ohio State Events - Homepage Wireframe</title>
   <style>
     /* ===== BUCKEYE FONTS ===== */
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
@@ -11,104 +11,152 @@
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-ExtraBold.woff2') format('woff2'); font-weight: 800; font-style: normal; }
     @font-face { font-family: 'BuckeyeSans'; src: url('Buckeye2_Fonts/Buckeye Sans 2/Web/WOFF2/BuckeyeSans2-Black.woff2') format('woff2'); font-weight: 900; font-style: normal; }
+
     @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Regular.woff2') format('woff2'); font-weight: 400; font-style: normal; }
     @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-SemiBold.woff2') format('woff2'); font-weight: 600; font-style: normal; }
     @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Bold.woff2') format('woff2'); font-weight: 700; font-style: normal; }
     @font-face { font-family: 'BuckeyeSerif'; src: url('Buckeye2_Fonts/Buckeye Serif 2/Web/WOFF2/BuckeyeSerif2-Black.woff2') format('woff2'); font-weight: 900; font-style: normal; }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* BuckeyeSans = body, UI, nav, buttons, labels */
+    /* BuckeyeSerif = headings (h1-h6), hero headlines, section titles, factoid numbers */
     body { font-family: 'BuckeyeSans', Arial, Helvetica, sans-serif; color: #333; background: #fff; }
     h1, h2, h3, h4, h5, h6 { font-family: 'BuckeyeSerif', Georgia, serif; }
 
     :root { --max-width: 1200px; }
-    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      width: 100%;
+    }
 
-    /* ===== BUX PILL LABEL ===== */
+    /* ===== BUX COMPONENT PILL LABEL ===== */
     .bux-label {
-      display: inline-block; background: #e0e7ff; color: #3b4fc4;
+      display: inline-block;
+      background: #e0e7ff;
+      color: #3b4fc4;
       font-family: 'BuckeyeSans', Arial, sans-serif;
-      font-size: 9px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 1px; padding: 3px 10px; border-radius: 10px;
-      margin-bottom: 6px; line-height: 1.4;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      line-height: 1.4;
     }
 
     /* Image placeholder with X */
     .img-placeholder {
-      background: #e8e8e8; border: 1px solid #ccc;
-      position: relative; display: flex; align-items: center;
-      justify-content: center; overflow: hidden;
+      background: #e8e8e8;
+      border: 1px solid #ccc;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    .img-placeholder::before, .img-placeholder::after {
-      content: ''; position: absolute; background: #ccc; width: 141%; height: 1px;
+    .img-placeholder::before,
+    .img-placeholder::after {
+      content: '';
+      position: absolute;
+      background: #ccc;
+      width: 141%;
+      height: 1px;
     }
     .img-placeholder::before { transform: rotate(45deg); }
     .img-placeholder::after { transform: rotate(-45deg); }
 
-    /* Generic button */
+    /* Generic button wireframe style */
     .btn {
-      display: inline-block; border: 2px solid #333; background: #fff; color: #333;
-      padding: 10px 24px; font-family: 'BuckeyeSans', Arial, sans-serif;
-      font-size: 13px; font-weight: 600; text-decoration: none; cursor: pointer;
+      display: inline-block;
+      border: 2px solid #333;
+      background: #fff;
+      color: #333;
+      padding: 10px 24px;
+      font-family: 'BuckeyeSans', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
     }
     .btn--filled { background: #333; color: #fff; }
     .btn--outline { background: transparent; border: 2px solid #666; color: #666; }
 
-    /* ===== STICKY HEADER WRAPPER ===== */
-    .sticky-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
     /* ===== 1. OSU NAVBAR ===== */
     .osu-navbar {
-      background: #f0f0f0; border-bottom: 1px solid #ccc;
-      padding: 8px 0; font-size: 11px; color: #666;
-      max-height: 40px;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: #f0f0f0;
+      border-bottom: 1px solid #ccc;
+      padding: 8px 0;
+      font-size: 11px;
+      color: #666;
     }
-    .osu-navbar--hidden {
-      max-height: 0;
-      padding: 0;
-      border-bottom: none;
+    .osu-navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .osu-navbar .container { display: flex; justify-content: space-between; align-items: center; }
-    .osu-navbar__logo { font-weight: bold; font-size: 12px; color: #333; letter-spacing: 0.5px; }
-    .osu-navbar__links { display: flex; gap: 20px; list-style: none; }
+    .osu-navbar__logo {
+      font-weight: bold;
+      font-size: 12px;
+      color: #333;
+      letter-spacing: 0.5px;
+    }
+    .osu-navbar__links {
+      display: flex; gap: 20px; list-style: none;
+    }
 
     /* ===== 2. SITE HEADER ===== */
-    .site-header { border-bottom: 1px solid #ddd; padding: 16px 0; }
-    .site-header .container { display: flex; justify-content: space-between; align-items: center; }
+    .site-header {
+      border-bottom: 1px solid #ddd;
+      padding: 16px 0;
+    }
+    .site-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     .site-header__logo-area { display: flex; align-items: center; gap: 16px; }
     .site-header__logo-box {
-      width: 48px; height: 48px; border: 2px solid #999; border-radius: 50%;
+      width: 48px; height: 48px;
+      border: 2px solid #999;
+      border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 9px; color: #999; text-align: center; line-height: 1.1; flex-shrink: 0;
+      font-size: 9px; color: #999; text-align: center; line-height: 1.1;
+      flex-shrink: 0;
     }
     .site-header__name { font-family: 'BuckeyeSerif', Georgia, serif; font-size: 20px; font-weight: 700; color: #333; }
     .site-header__parent { font-size: 11px; color: #999; }
     .site-header__right { display: flex; align-items: center; gap: 16px; }
     .site-header__search {
-      width: 20px; height: 20px; border: 2px solid #999; border-radius: 50%; position: relative;
+      width: 20px; height: 20px;
+      border: 2px solid #999; border-radius: 50%;
+      position: relative;
     }
     .site-header__search::after {
-      content: ''; position: absolute; bottom: -4px; right: -4px;
-      width: 8px; height: 2px; background: #999; transform: rotate(45deg);
+      content: '';
+      position: absolute; bottom: -4px; right: -4px;
+      width: 8px; height: 2px; background: #999;
+      transform: rotate(45deg);
     }
 
     /* ===== 3. MAIN NAV ===== */
     .main-nav { border-bottom: 1px solid #ddd; position: relative; z-index: 100; }
     .main-nav__list { list-style: none; display: flex; }
-    .main-nav__item { padding: 12px 24px; font-size: 13px; font-weight: 600; color: #555; text-decoration: none; }
-    .main-nav__item:hover { color: #333; }
-    .main-nav__item--active { color: #333; border-bottom: 2px solid #333; }
-    a.main-nav__item { display: block; }
+    .main-nav__item {
+      padding: 12px 24px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+    }
+    a.main-nav__item { display: block; text-decoration: none; }
+    a.main-nav__item:hover { color: #333; }
 
     /* Dropdown wrapper */
-    .main-nav__dropdown-wrap { position: relative; }
+    .main-nav__dropdown-wrap {
+      position: relative;
+    }
     .main-nav__dropdown-trigger {
       padding: 12px 24px; font-size: 13px; font-weight: 600; color: #555;
       cursor: pointer; display: flex; align-items: center; gap: 4px;
@@ -119,38 +167,60 @@
     .main-nav__dropdown-trigger--active { color: #333; border-bottom: 2px solid #333; }
     .main-nav__dropdown-arrow { font-size: 10px; transition: transform 0.2s; }
     .main-nav__dropdown-wrap:hover .main-nav__dropdown-arrow { transform: rotate(180deg); }
+
+    /* Dropdown panel */
     .main-nav__dropdown {
       display: none; position: absolute; top: 100%; left: 0;
       background: #fff; border: 1px solid #ddd; border-top: 2px solid #333;
       min-width: 260px; padding: 8px 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08); z-index: 200;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      z-index: 200;
     }
-    .main-nav__dropdown-wrap:hover .main-nav__dropdown,
-    .main-nav__dropdown-wrap:focus-within .main-nav__dropdown { display: block; }
+    .main-nav__dropdown-wrap:hover .main-nav__dropdown { display: block; }
     .main-nav__dropdown-item {
       display: block; padding: 10px 24px; font-size: 13px; color: #555;
       text-decoration: none; font-weight: 500; border-left: 3px solid transparent;
     }
-    .main-nav__dropdown-item:hover { background: #f7f7f7; color: #333; border-left-color: #333; }
-    .main-nav__dropdown-divider { height: 1px; background: #eee; margin: 6px 0; }
+    .main-nav__dropdown-item:hover {
+      background: #f7f7f7; color: #333; border-left-color: #333;
+    }
+    .main-nav__dropdown-divider {
+      height: 1px; background: #eee; margin: 6px 0;
+    }
     .main-nav__dropdown-heading {
       padding: 10px 24px 4px; font-size: 10px; text-transform: uppercase;
       letter-spacing: 1.5px; color: #999; font-weight: 700;
     }
     .main-nav__dropdown-item--view-all {
-      font-weight: 700; color: #333; border-bottom: 1px solid #eee;
-      margin-bottom: 4px; padding-bottom: 12px;
+      font-weight: 700; color: #333; border-top: 1px solid #eee;
+      margin-top: 4px; padding-top: 12px;
     }
 
     /* ===== HAMBURGER MENU ===== */
     .hamburger {
-      display: none; width: 28px; height: 20px;
+      display: none;
+      width: 28px; height: 20px;
       flex-direction: column; justify-content: space-between;
       cursor: pointer; flex-shrink: 0;
     }
-    .hamburger__line { display: block; width: 100%; height: 2px; background: #333; }
+    .hamburger__line {
+      display: block; width: 100%; height: 2px; background: #333;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.is-open .hamburger__line:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger.is-open .hamburger__line:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.is-open .hamburger__line:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
     .mobile-menu {
-      display: none; background: #fff; border-bottom: 1px solid #ddd; padding: 0;
+      display: none;
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 0;
     }
     .mobile-menu.is-open { display: block; }
     .mobile-menu__search {
@@ -159,7 +229,8 @@
     }
     .mobile-menu__search-input {
       flex: 1; height: 36px; border: 1px solid #ccc;
-      padding: 0 12px; font-family: 'BuckeyeSans', Arial, sans-serif; font-size: 13px;
+      padding: 0 12px; font-family: 'BuckeyeSans', Arial, sans-serif;
+      font-size: 13px;
     }
     .mobile-menu__search-btn {
       width: 36px; height: 36px; border: 1px solid #ccc;
@@ -168,15 +239,20 @@
     }
     .mobile-menu__nav { list-style: none; }
     .mobile-menu__item {
-      padding: 14px 24px; border-bottom: 1px solid #eee;
-      font-size: 15px; font-weight: 600; color: #333;
-      display: flex; justify-content: space-between; align-items: center;
-      text-decoration: none;
+      padding: 14px 24px;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    a.mobile-menu__item { display: flex; }
     .mobile-menu__item-arrow { color: #999; font-size: 12px; transition: transform 0.2s; }
     .mobile-menu__item-arrow--open { transform: rotate(90deg); }
-    .mobile-menu__subnav { display: none; list-style: none; background: #f7f7f7; }
+    .mobile-menu__subnav {
+      display: none; list-style: none; background: #f7f7f7;
+    }
     .mobile-menu__subnav.is-open { display: block; }
     .mobile-menu__subitem {
       padding: 12px 24px 12px 44px; border-bottom: 1px solid #eee;
@@ -184,46 +260,69 @@
       text-decoration: none; display: block;
     }
     .mobile-menu__subitem:hover { color: #333; background: #f0f0f0; }
-    .mobile-menu__cta { padding: 16px 24px; }
+    .mobile-menu__cta {
+      padding: 16px 24px;
+    }
     .mobile-menu__cta .btn { width: 100%; text-align: center; display: block; }
 
-    /* ===== BREADCRUMB ===== */
-    .breadcrumb {
-      padding: 12px 0; font-size: 12px; color: #999; border-bottom: 1px solid #eee;
+    /* ===== 4. HERO ===== */
+    .hero {
+      position: relative;
+      height: 400px;
+      background: #e8e8e8;
+      border-bottom: 1px solid #ccc;
+      overflow: hidden;
     }
-    .breadcrumb a { color: #666; text-decoration: underline; }
-    .breadcrumb__sep { margin: 0 8px; color: #ccc; }
-
-    /* ===== INTERIOR PAGE HERO (featured-card style, like osu.edu/alumni) ===== */
-    .interior-hero {
-      background: #f0f0f0; border-bottom: 1px solid #ccc;
-    }
-    .interior-hero__inner {
-      display: grid; grid-template-columns: 5fr 7fr;
-      max-width: var(--max-width); margin: 0 auto;
-      min-height: 320px;
-    }
-    .interior-hero__content {
-      padding: 48px 40px 48px 24px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .interior-hero__image {
-      background: #e0e0e0; position: relative; overflow: hidden;
-      min-height: 320px;
-    }
-    .interior-hero__image::before, .interior-hero__image::after {
-      content: ''; position: absolute; background: #ccc; width: 160%; height: 1px;
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      background: #ccc;
+      width: 160%;
+      height: 1px;
       top: 50%; left: 50%;
     }
-    .interior-hero__image::before { transform: translate(-50%, -50%) rotate(20deg); }
-    .interior-hero__image::after { transform: translate(-50%, -50%) rotate(-20deg); }
-    .interior-hero__eyebrow {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-      color: #999; font-weight: 600; margin-bottom: 8px;
+    .hero::before { transform: translate(-50%, -50%) rotate(15deg); }
+    .hero::after { transform: translate(-50%, -50%) rotate(-15deg); }
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 32px;
+      max-width: 460px;
+      margin: 48px 0 0 48px;
     }
-    .interior-hero__title { font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 12px; }
-    .interior-hero__subtitle { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; }
-    .interior-hero__cta { margin-top: 0; }
+    .hero__headline {
+      font-size: 28px; font-weight: 700; color: #333;
+      line-height: 1.25; margin-bottom: 12px;
+    }
+    .hero__subhead {
+      font-size: 13px; color: #777;
+      line-height: 1.6; margin-bottom: 20px;
+    }
+
+    /* ===== 5. CTA COLLECTION ===== */
+    .cta-collection {
+      border-bottom: 1px solid #ddd;
+      padding: 24px 0;
+    }
+    .cta-collection__list {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+    .cta-collection__item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; font-weight: 600; color: #555;
+    }
+    .cta-collection__icon {
+      width: 32px; height: 32px;
+      border: 2px solid #999; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; color: #999; flex-shrink: 0;
+    }
 
     /* ===== SECTION ===== */
     .section { padding: 48px 0; }
@@ -233,86 +332,94 @@
     .section__header { margin-bottom: 32px; }
     .section__header--centered { text-align: center; }
     .section__eyebrow {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-      color: #999; margin-bottom: 6px; font-weight: 600;
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; margin-bottom: 6px; font-weight: 600;
     }
     .section__title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
-    .section__subtitle { font-size: 13px; color: #888; max-width: 600px; line-height: 1.5; }
+    .section__subtitle {
+      font-size: 13px; color: #888; max-width: 520px; line-height: 1.5;
+    }
     .section__header--centered .section__subtitle { margin: 0 auto; }
-
-    /* ===== INTRO BLOCK ===== */
-    .intro-block { padding: 48px 0; border-bottom: 1px solid #ddd; }
-    .intro-block__inner { max-width: 720px; }
-    .intro-block__title { font-size: 26px; font-weight: 700; line-height: 1.3; margin-bottom: 16px; }
-    .intro-block__text { font-size: 14px; color: #666; line-height: 1.7; }
-
-    /* ===== FEATURE CARDS (2x2 grid like ND Gather) ===== */
-    .feature-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    .section__top-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
     }
-    .feature-card {
-      border: 1px solid #ccc; background: #fff; overflow: hidden;
-    }
-    .feature-card__image { height: 200px; }
-    .feature-card__body { padding: 24px; }
-    .feature-card__tag {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-      color: #999; font-weight: 600; margin-bottom: 6px;
-    }
-    .feature-card__title { font-size: 18px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
-    .feature-card__desc { font-size: 13px; color: #777; line-height: 1.6; margin-bottom: 16px; }
-    .feature-card__link {
-      font-size: 13px; color: #555; font-weight: 600; text-decoration: underline;
+    .section__nav-arrows { display: flex; gap: 8px; }
+    .section__arrow {
+      width: 28px; height: 28px;
+      border: 1px solid #ccc; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #999;
     }
 
-    /* ===== FEATURED CARD (full-width) ===== */
-    .featured-card {
-      display: grid; grid-template-columns: 7fr 5fr;
-      border: 1px solid #ccc; background: #fff;
-    }
-    .featured-card--content-left { grid-template-columns: 5fr 7fr; }
-    .featured-card__image { min-height: 300px; }
-    .featured-card__content {
-      padding: 40px; display: flex; flex-direction: column; justify-content: center;
-    }
-    .featured-card__eyebrow {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-      color: #999; font-weight: 600; margin-bottom: 10px;
-    }
-    .featured-card__title { font-size: 22px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
-    .featured-card__desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
-
-    /* ===== QUOTE / TESTIMONIAL ===== */
-    .quote-section { padding: 48px 0; border-bottom: 1px solid #ddd; background: #f7f7f7; }
-    .quote__inner { max-width: 720px; margin: 0 auto; text-align: center; }
-    .quote__mark { font-family: 'BuckeyeSerif', Georgia, serif; font-size: 60px; color: #ccc; line-height: 1; margin-bottom: -10px; }
-    .quote__text {
-      font-family: 'BuckeyeSerif', Georgia, serif;
-      font-size: 20px; font-weight: 400; line-height: 1.6; color: #444;
-      font-style: italic; margin-bottom: 16px;
-    }
-    .quote__attribution { font-size: 12px; color: #999; font-weight: 600; }
-
-    /* ===== CARD GRID (3-up for venue types) ===== */
+    /* ===== CARD GRID ===== */
+    /* BUX: Cards use 12-col grid. 3-up = 4col each, 4-up = 3col each */
+    /* Responsive: 12col mobile, 6col@sm (2-up), 4col@md (3-up) */
     .card-grid { display: grid; gap: 20px; }
     .card-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .card-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
     .card { border: 1px solid #ccc; background: #fff; }
     .card__image { height: 160px; }
     .card__body { padding: 16px; }
     .card__tag {
-      font-size: 10px; text-transform: uppercase; letter-spacing: 1px;
-      color: #999; font-weight: 600; margin-bottom: 6px;
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 1px; color: #999; font-weight: 600; margin-bottom: 6px;
     }
     .card__title { font-size: 15px; font-weight: 700; margin-bottom: 6px; line-height: 1.3; }
     .card__desc { font-size: 12px; color: #888; line-height: 1.5; margin-bottom: 12px; }
     .card__link { font-size: 12px; color: #555; font-weight: 600; text-decoration: underline; }
 
+    /* ===== BLOG ROW (Trending Opportunities style) ===== */
+    .blog-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .blog-row__card {
+      text-decoration: none; color: inherit; display: block;
+      border: 1px solid #ccc; background: #fff; transition: box-shadow .15s;
+    }
+    .blog-row__card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+    .blog-row__image { height: 180px; }
+    .blog-row__body { padding: 16px 16px 20px; }
+    .blog-row__title {
+      font-family: 'BuckeyeSerif', Georgia, serif;
+      font-size: 16px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; color: #333;
+    }
+    .blog-row__desc { font-size: 12px; color: #888; line-height: 1.5; }
+
+    /* ===== FEATURED CARD ===== */
+    /* BUX: content 5col@md, image 7col@md. Stacks 12col on mobile */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    .featured-card--content-left {
+      grid-template-columns: 5fr 7fr;
+    }
+    .featured-card__image { min-height: 300px; }
+    .featured-card__content {
+      padding: 40px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .featured-card__eyebrow {
+      font-size: 10px; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; font-weight: 600; margin-bottom: 10px;
+    }
+    .featured-card__title { font-size: 22px; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+    .featured-card__desc { font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 20px; }
+
     /* ===== FACTOID ===== */
     .factoid-section {
-      border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
-      padding: 40px 0; background: #f7f7f7;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 40px 0;
+      background: #f7f7f7;
     }
-    .factoid-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; text-align: center; }
+    .factoid-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
     .factoid { border-right: 1px solid #ddd; padding: 0 16px; }
     .factoid:last-child { border-right: none; }
     .factoid__number { font-family: 'BuckeyeSerif', Georgia, serif; font-size: 36px; font-weight: 700; color: #333; margin-bottom: 4px; }
@@ -320,8 +427,13 @@
 
     /* ===== CTA IN PAGE ===== */
     .cta-in-page {
-      text-align: center; padding: 48px 0;
-      border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;
+      text-align: center;
+      padding: 48px 0;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+    .cta-in-page__image {
+      width: 100%; max-width: 700px; height: 200px; margin: 0 auto 24px;
     }
     .cta-in-page__title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
     .cta-in-page__desc {
@@ -331,12 +443,21 @@
 
     /* ===== FOOTER ===== */
     .site-footer {
-      background: #f0f0f0; border-top: 1px solid #ddd;
-      padding: 40px 0 20px; font-size: 12px; color: #666;
+      background: #f0f0f0;
+      border-top: 1px solid #ddd;
+      padding: 40px 0 20px;
+      font-size: 12px;
+      color: #666;
     }
-    .site-footer__grid { display: grid; grid-template-columns: 5fr 7fr; gap: 40px; margin-bottom: 24px; }
+    .site-footer__grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      gap: 40px;
+      margin-bottom: 24px;
+    }
     .site-footer__logo-box {
-      width: 40px; height: 40px; border: 2px solid #999; border-radius: 50%;
+      width: 40px; height: 40px;
+      border: 2px solid #999; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 8px; color: #999; margin-bottom: 12px;
     }
@@ -356,59 +477,83 @@
       display: flex; justify-content: space-between; font-size: 11px; color: #aaa;
     }
     .site-footer__bottom-links { display: flex; gap: 20px; list-style: none; }
-    .site-footer__legal {
-      border-top: 1px solid #ccc; padding-top: 12px; margin-top: 12px;
-      font-size: 10px; color: #aaa; line-height: 1.7;
-    }
-    .site-footer__legal a { color: #aaa; text-decoration: underline; }
 
     /* ===== RESPONSIVE — BUX BREAKPOINTS ===== */
+    /* BUX: sm=640, md=760, lg=1080, xl=1260 */
+    /* Container: 100% width + padding until xl, then max-width with auto margins */
+
     @media (max-width: 1080px) {
-      .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
+      .card-grid--4 { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 760px) {
-      .feature-grid { grid-template-columns: 1fr; }
+      /* Cards: 2-up at md */
       .card-grid--3 { grid-template-columns: repeat(2, 1fr); }
+      .card-grid--4 { grid-template-columns: repeat(2, 1fr); }
 
+      /* Featured Card: stack vertically, BUX 12col mobile */
       .featured-card,
-      .featured-card--content-left { grid-template-columns: 1fr; }
+      .featured-card--content-left {
+        grid-template-columns: 1fr;
+      }
       .featured-card__image { min-height: 220px; }
       .featured-card__content { padding: 28px; }
 
+      /* Footer: stack */
       .site-footer__grid { grid-template-columns: 1fr; }
       .site-footer__nav { grid-template-columns: repeat(2, 1fr); }
 
+      /* Factoid: 2-up */
       .factoid-row { grid-template-columns: repeat(2, 1fr); }
       .factoid:nth-child(2) { border-right: none; }
       .factoid:nth-child(1),
       .factoid:nth-child(2) { margin-bottom: 20px; }
 
-      .interior-hero__inner { grid-template-columns: 1fr; }
-      .interior-hero__image { min-height: 200px; }
-      .interior-hero__content { padding: 32px 24px; }
+      /* Hero content */
+      .hero { height: auto; min-height: 320px; }
+      .hero__content { max-width: 100%; margin: 32px 24px; }
 
+      /* HAMBURGER: Show hamburger, hide desktop nav */
       .hamburger { display: flex; }
       .main-nav { display: none; }
+      .site-header__search { display: none; }
       .site-header .btn { display: none; }
     }
 
     @media (max-width: 640px) {
-      .card-grid--3 { grid-template-columns: 1fr; }
+      /* Blog row: 1-up on mobile */
+      .blog-row { grid-template-columns: 1fr; }
+      .blog-row__image { height: 160px; }
+
+      /* Cards: 1-up on mobile */
+      .card-grid--3,
+      .card-grid--4 { grid-template-columns: 1fr; }
+
+      /* CTA Collection: stack vertically, icons hidden per BUX */
+      .cta-collection__list {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .cta-collection__icon { display: none; }
+
+      /* OSU Navbar: collapse links */
       .osu-navbar__links { display: none; }
+
+      /* Factoid: 1-up */
       .factoid-row { grid-template-columns: 1fr; }
       .factoid { border-right: none; border-bottom: 1px solid #ddd; padding-bottom: 16px; margin-bottom: 16px; }
       .factoid:last-child { border-bottom: none; }
+
+      /* Footer nav: 1 col */
       .site-footer__nav { grid-template-columns: 1fr; }
       .site-footer__bottom { flex-direction: column; gap: 8px; }
       .site-footer__bottom-links { flex-wrap: wrap; gap: 12px; }
     }
   </style>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
 </head>
 <body>
-
-  <!-- STICKY HEADER WRAPPER -->
-  <div class="sticky-header">
 
   <!-- 1. OSU NAVBAR -->
   <nav class="osu-navbar">
@@ -429,7 +574,7 @@
   <!-- 2. SITE HEADER -->
   <div class="site-header">
     <div class="container">
-      <a href="index.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
+      <a href="homepage-wireframe.html" class="site-header__logo-area" style="text-decoration:none;color:inherit;">
         <div class="site-header__logo-box">Logo</div>
         <div>
           <span class="bux-label">BUX: Site Header</span>
@@ -438,7 +583,7 @@
         </div>
       </a>
       <div class="site-header__right">
-
+        <div class="site-header__search"></div>
         <a href="request-information.html" class="btn btn--filled">Request Information</a>
         <div class="hamburger" onclick="document.getElementById('mobile-menu').classList.toggle('is-open'); this.classList.toggle('is-open')">
           <span class="hamburger__line"></span>
@@ -449,7 +594,7 @@
     </div>
   </div>
 
-  <!-- MOBILE MENU -->
+  <!-- MOBILE MENU (visible at <=760px when hamburger is tapped) -->
   <div id="mobile-menu" class="mobile-menu">
     <div class="mobile-menu__search">
       <input type="text" class="mobile-menu__search-input" placeholder="Search...">
@@ -498,12 +643,10 @@
         <ul class="mobile-menu__subnav">
           <a href="about-us.html" class="mobile-menu__subitem">About Us Overview</a>
           <a href="our-story.html" class="mobile-menu__subitem">Our Story</a>
-          <a href="meet-our-team.html" class="mobile-menu__subitem">Meet Our Team</a>
+          <a href="#" class="mobile-menu__subitem">Meet Our Team</a>
+          <a href="#" class="mobile-menu__subitem">Why Ohio State</a>
           <a href="blog.html" class="mobile-menu__subitem">Blog</a>
         </ul>
-      </li>
-      <li>
-        <a href="why-ohio-state.html" class="mobile-menu__item" style="text-decoration:none;">Why Host at Ohio State</a>
       </li>
     </ul>
     <div class="mobile-menu__cta">
@@ -521,23 +664,25 @@
           <a href="plan.html" class="main-nav__dropdown-trigger">Plan <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Plan Your Event</div>
-            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Plan &rarr;</a>
             <a href="venues-spaces.html" class="main-nav__dropdown-item">Venues &amp; Spaces</a>
             <a href="catering-dining.html" class="main-nav__dropdown-item">Catering &amp; Dining</a>
             <a href="av-technology.html" class="main-nav__dropdown-item">AV &amp; Technology</a>
             <a href="transportation-parking.html" class="main-nav__dropdown-item">Transportation &amp; Parking</a>
+            <div class="main-nav__dropdown-divider"></div>
+            <a href="plan.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Plan &rarr;</a>
           </div>
         </li>
-        <!-- STAY dropdown — active state on this page -->
+        <!-- STAY dropdown -->
         <li class="main-nav__dropdown-wrap">
-          <a href="stay.html" class="main-nav__dropdown-trigger main-nav__dropdown-trigger--active">Stay <span class="main-nav__dropdown-arrow">&#9662;</span></a>
+          <a href="stay.html" class="main-nav__dropdown-trigger">Stay <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Where to Stay</div>
-            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Stay &rarr;</a>
             <a href="blackwell-inn.html" class="main-nav__dropdown-item">The Blackwell Inn</a>
             <a href="residence-halls.html" class="main-nav__dropdown-item">Residence Halls</a>
             <a href="university-hospitality-district.html" class="main-nav__dropdown-item">University Hospitality District</a>
             <a href="columbus-hotels.html" class="main-nav__dropdown-item">Columbus Hotels</a>
+            <div class="main-nav__dropdown-divider"></div>
+            <a href="stay.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Stay &rarr;</a>
           </div>
         </li>
         <!-- EXPERIENCE dropdown -->
@@ -545,10 +690,11 @@
           <a href="experience.html" class="main-nav__dropdown-trigger">Experience <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">Experience Ohio State</div>
-            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
             <a href="buckeye-experiences.html" class="main-nav__dropdown-item">Buckeye Experiences</a>
             <a href="explore-ohio-state.html" class="main-nav__dropdown-item">Explore Ohio State</a>
             <a href="experience-columbus.html" class="main-nav__dropdown-item">Experience Columbus</a>
+            <div class="main-nav__dropdown-divider"></div>
+            <a href="experience.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All Experience &rarr;</a>
           </div>
         </li>
         <!-- ABOUT US dropdown -->
@@ -556,143 +702,93 @@
           <a href="about-us.html" class="main-nav__dropdown-trigger">About Us <span class="main-nav__dropdown-arrow">&#9662;</span></a>
           <div class="main-nav__dropdown">
             <div class="main-nav__dropdown-heading">About Us</div>
-            <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
             <a href="our-story.html" class="main-nav__dropdown-item">Our Story</a>
-            <a href="meet-our-team.html" class="main-nav__dropdown-item">Meet Our Team</a>
+            <a href="#" class="main-nav__dropdown-item">Meet Our Team</a>
+            <a href="#" class="main-nav__dropdown-item">Why Ohio State</a>
             <a href="blog.html" class="main-nav__dropdown-item">Blog</a>
+            <div class="main-nav__dropdown-divider"></div>
+            <a href="about-us.html" class="main-nav__dropdown-item main-nav__dropdown-item--view-all">View All About Us &rarr;</a>
           </div>
         </li>
-        <!-- WHY HOST AT OHIO STATE (standalone) -->
-        <li><a href="why-ohio-state.html" class="main-nav__item">Why Host at Ohio State</a></li>
       </ul>
-      <div class="site-header__search" style="margin-left:auto;"></div>
     </div>
   </nav>
 
-  </div><!-- end sticky-header -->
-
-  <!-- 4. BREADCRUMB -->
-  <div class="breadcrumb">
-    <div class="container">
-      <span class="bux-label">BUX: Breadcrumb</span>
-      <div style="margin-top:4px;">
-        <a href="index.html">Home</a>
-        <span class="breadcrumb__sep">/</span>
-        <span>Stay</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 5. INTERIOR PAGE HERO -->
-  <section class="interior-hero">
-    <div class="interior-hero__inner">
-      <div class="interior-hero__content">
-        <span class="bux-label">BUX: Interior Page Hero</span>
-        <div class="interior-hero__eyebrow">Ohio State Events</div>
-        <h1 class="interior-hero__title">Where to Stay</h1>
-        <p class="interior-hero__subtitle">From the on-campus Blackwell Inn to residence halls and nearby hotels — find the right place to stay for your event.</p>
-        <div class="interior-hero__cta">
-          <a href="#" class="btn btn--filled">Request Information</a>
-        </div>
-      </div>
-      <div class="interior-hero__image"></div>
+  <!-- 4. HERO -->
+  <section class="hero">
+    <div class="hero__content">
+      <span class="bux-label">BUX: Hero (card-full)</span>
+      <h1 class="hero__headline">Your Event. Our Campus.<br>The Buckeye Experience.</h1>
+      <p class="hero__subhead">At Ohio State, it's not just hosting an event — it's becoming part of the Buckeye story. 140+ venues, world-class services, one unforgettable destination.</p>
+      <a href="#" class="btn btn--filled">Plan Your Event</a>
     </div>
   </section>
 
-  <!-- 6. INTRO BLOCK -->
-  <section class="intro-block">
-    <div class="container">
-      <span class="bux-label">BUX: Panel</span>
-      <div class="intro-block__inner" style="margin-top:8px;">
-        <h2 class="intro-block__title">Ohio State's Premier On-Campus Hotel. Steps From Ohio Stadium.</h2>
-        <p class="intro-block__text">The Blackwell Inn is Ohio State's flagship accommodation — a boutique hotel and conference center steps from the heart of campus. But whether your group needs the full Blackwell experience or more budget-friendly options, we offer lodging solutions for every event. From on-campus residence halls available for summer programs to a collection of hotels in the University Hospitality District and across greater Columbus, there's a place to stay for every budget and preference.</p>
-      </div>
-    </div>
-  </section>
 
-  <!-- 7. FEATURE CARDS — 4 Stay sub-sections (2x2 grid) -->
+  <!-- 6. SIGNATURE VENUES -->
   <section class="section section--bordered">
     <div class="container">
-      <div class="section__header">
-        <span class="bux-label">BUX: Card (default) &times; 4</span>
-        <div class="section__eyebrow">Where to Stay</div>
-        <h2 class="section__title">Accommodations</h2>
-        <p class="section__subtitle">Find the right lodging for your event — from on-campus hotels to Columbus-area options.</p>
+      <div class="section__top-row">
+        <div class="section__header">
+          <span class="bux-label">BUX: Card (default) &times; 3</span>
+          <div class="section__eyebrow">Signature Venues</div>
+          <h2 class="section__title">Iconic Spaces for Every Occasion</h2>
+          <p class="section__subtitle">From intimate boardrooms to 100,000-seat stadiums — discover the venues that make Ohio State a premier event destination.</p>
+        </div>
+        <div class="section__nav-arrows">
+          <span class="section__arrow">&larr;</span>
+          <span class="section__arrow">&rarr;</span>
+        </div>
       </div>
-      <div class="feature-grid">
-        <!-- The Blackwell Inn -->
-        <div class="feature-card">
-          <div class="feature-card__image img-placeholder"></div>
-          <div class="feature-card__body">
-            <div class="feature-card__tag">On Campus</div>
-            <h3 class="feature-card__title">The Blackwell Inn</h3>
-            <p class="feature-card__desc">Ohio State's premier on-campus hotel — exceptional service in a sophisticated setting, steps from Ohio Stadium.</p>
-            <a href="blackwell-inn.html" class="feature-card__link">Explore The Blackwell &rarr;</a>
+      <div class="card-grid card-grid--3">
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <div class="card__tag">Signature Venue</div>
+            <h3 class="card__title">The Blackwell Inn</h3>
+            <p class="card__desc">Ohio State's premier on-campus hotel — exceptional service steps from Ohio Stadium.</p>
+            <a href="#" class="card__link">Explore Venue</a>
           </div>
         </div>
-        <!-- Residence Halls -->
-        <div class="feature-card">
-          <div class="feature-card__image img-placeholder"></div>
-          <div class="feature-card__body">
-            <div class="feature-card__tag">Budget-Friendly</div>
-            <h3 class="feature-card__title">Residence Halls</h3>
-            <p class="feature-card__desc">On-campus residence hall housing options available for summer programs and extended event stays.</p>
-            <a href="residence-halls.html" class="feature-card__link">View Residence Halls &rarr;</a>
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <div class="card__tag">Signature Venue</div>
+            <h3 class="card__title">Ohio Union</h3>
+            <p class="card__desc">Flexible facility offerings to host every type of event — from galas to casual gatherings.</p>
+            <a href="#" class="card__link">Explore Venue</a>
           </div>
         </div>
-        <!-- University Hospitality District -->
-        <div class="feature-card">
-          <div class="feature-card__image img-placeholder"></div>
-          <div class="feature-card__body">
-            <div class="feature-card__tag">Near Campus</div>
-            <h3 class="feature-card__title">University Hospitality District</h3>
-            <p class="feature-card__desc">A collection of hotels conveniently located near Ohio State's campus.</p>
-            <a href="university-hospitality-district.html" class="feature-card__link">Explore the District &rarr;</a>
-          </div>
-        </div>
-        <!-- Columbus Hotels -->
-        <div class="feature-card">
-          <div class="feature-card__image img-placeholder"></div>
-          <div class="feature-card__body">
-            <div class="feature-card__tag">Greater Columbus</div>
-            <h3 class="feature-card__title">Columbus Hotels</h3>
-            <p class="feature-card__desc">A curated list of Columbus hotels at a range of price points to accommodate guests.</p>
-            <a href="columbus-hotels.html" class="feature-card__link">Browse Hotels &rarr;</a>
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <div class="card__tag">Signature Venue</div>
+            <h3 class="card__title">Ohio Stadium</h3>
+            <p class="card__desc">Several spaces and services in one of the most recognizable landmarks in college athletics.</p>
+            <a href="#" class="card__link">Explore Venue</a>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 8. FEATURED CARD — The Blackwell Inn Spotlight -->
+  <!-- 7. FEATURED — Catering -->
   <section class="section section--bordered">
     <div class="container">
       <span class="bux-label">BUX: Featured Card (image-left)</span>
       <div class="featured-card" style="margin-top:8px;">
         <div class="featured-card__image img-placeholder"></div>
         <div class="featured-card__content">
-          <div class="featured-card__eyebrow">Featured Property</div>
-          <h2 class="featured-card__title">The Blackwell Inn &amp; Pfahl Conference Center</h2>
-          <p class="featured-card__desc">Exceptional service in a sophisticated setting, conveniently located across from Ohio Stadium. The Blackwell combines a boutique hotel experience with full-service conference facilities.</p>
-          <a href="blackwell-inn.html" class="btn btn--filled">Explore The Blackwell</a>
+          <div class="featured-card__eyebrow">Plan Your Event</div>
+          <h2 class="featured-card__title">Award-Winning Catering &amp; Dining</h2>
+          <p class="featured-card__desc">From working lunches to black-tie dinners, Ohio State's culinary team delivers experiences that reflect the quality and spirit of the university.</p>
+          <a href="#" class="btn btn--outline">Explore Catering Options</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 9. QUOTE / TESTIMONIAL -->
-  <section class="quote-section">
-    <div class="container">
-      <span class="bux-label">BUX: Quote</span>
-      <div class="quote__inner" style="margin-top:12px;">
-        <div class="quote__mark">&ldquo;</div>
-        <p class="quote__text">The Blackwell made our conference feel truly special. The proximity to campus, the quality of the rooms, and the conference center facilities exceeded every expectation.</p>
-        <div class="quote__attribution">— Conference Organizer, Annual Symposium 2025</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 10. FACTOIDS -->
+  <!-- 8. FACTOIDS -->
   <section class="factoid-section">
     <div class="container">
       <div style="text-align:center;margin-bottom:20px;">
@@ -700,49 +796,142 @@
       </div>
       <div class="factoid-row">
         <div class="factoid">
-          <div class="factoid__number">261</div>
-          <div class="factoid__label">Guest Rooms at The Blackwell</div>
+          <div class="factoid__number">140+</div>
+          <div class="factoid__label">Event Venues Across Campus</div>
         </div>
         <div class="factoid">
-          <div class="factoid__number">5 min</div>
-          <div class="factoid__label">Walk to Ohio Stadium</div>
+          <div class="factoid__number">60K+</div>
+          <div class="factoid__label">Events Hosted Annually</div>
         </div>
         <div class="factoid">
-          <div class="factoid__number">1,000+</div>
-          <div class="factoid__label">Hotel Rooms Near Campus</div>
+          <div class="factoid__number">#1</div>
+          <div class="factoid__label">Largest Campus in the U.S.</div>
+        </div>
+        <div class="factoid">
+          <div class="factoid__number">500K+</div>
+          <div class="factoid__label">Alumni Network Worldwide</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 11. FEATURED CARD — Residence Halls -->
+  <!-- 9. BUCKEYE EXPERIENCES -->
+  <section class="section section--bordered">
+    <div class="container">
+      <div class="section__top-row">
+        <div class="section__header">
+          <span class="bux-label">BUX: Card (default) &times; 4</span>
+          <div class="section__eyebrow">Beyond the Event</div>
+          <h2 class="section__title">Signature Buckeye Experiences</h2>
+          <p class="section__subtitle">Make every visit unforgettable with the iconic Ohio State experiences your attendees will remember.</p>
+        </div>
+        <div class="section__nav-arrows">
+          <span class="section__arrow">&larr;</span>
+          <span class="section__arrow">&rarr;</span>
+        </div>
+      </div>
+      <div class="card-grid card-grid--4">
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <h3 class="card__title">Ohio Stadium Tours</h3>
+            <p class="card__desc">Guided tours of Ohio State's premier facilities.</p>
+            <a href="#" class="card__link">Learn More</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <h3 class="card__title">Game Day Events</h3>
+            <p class="card__desc">The ultimate collegiate atmosphere for your group.</p>
+            <a href="#" class="card__link">Learn More</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <h3 class="card__title">Jack Nicklaus Museum</h3>
+            <p class="card__desc">Where golf history meets hospitality.</p>
+            <a href="#" class="card__link">Learn More</a>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card__image img-placeholder"></div>
+          <div class="card__body">
+            <h3 class="card__title">See a Show</h3>
+            <p class="card__desc">Performances at Mershon Auditorium and more.</p>
+            <a href="#" class="card__link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. FEATURED — Stay -->
   <section class="section section--bordered">
     <div class="container">
       <span class="bux-label">BUX: Featured Card (image-right)</span>
       <div class="featured-card featured-card--content-left" style="margin-top:8px;">
         <div class="featured-card__content">
-          <div class="featured-card__eyebrow">Summer &amp; Extended Stay</div>
-          <h2 class="featured-card__title">On-Campus Residence Halls</h2>
-          <p class="featured-card__desc">Affordable on-campus housing available for summer programs, camps, and extended event stays. Experience campus life firsthand with convenient access to all Ohio State facilities.</p>
-          <a href="#" class="btn btn--outline">Explore Residence Options</a>
+          <div class="featured-card__eyebrow">Where to Stay</div>
+          <h2 class="featured-card__title">Rest Easy, Stay Close</h2>
+          <p class="featured-card__desc">From the on-campus Blackwell Inn to the University Hospitality District and nearby Columbus hotels — find the perfect accommodations for your event.</p>
+          <a href="#" class="btn btn--outline">Explore Lodging</a>
         </div>
         <div class="featured-card__image img-placeholder"></div>
       </div>
     </div>
   </section>
 
-  <!-- 12. FEATURED CARD — Experience Columbus -->
+  <!-- 11. FEATURED — Experience Columbus -->
   <section class="section section--bordered">
     <div class="container">
       <span class="bux-label">BUX: Featured Card (image-left)</span>
       <div class="featured-card" style="margin-top:8px;">
         <div class="featured-card__image img-placeholder"></div>
         <div class="featured-card__content">
-          <div class="featured-card__eyebrow">Beyond Campus</div>
-          <h2 class="featured-card__title">Experience Columbus</h2>
-          <p class="featured-card__desc">Your attendees' experience extends beyond campus. Columbus is one of America's fastest-growing cities — with award-winning dining, vibrant neighborhoods like the Short North and German Village, professional sports, and a thriving arts and culture scene all within easy reach.</p>
-          <a href="experience-columbus.html" class="btn">Explore Columbus &rarr;</a>
+          <div class="featured-card__eyebrow">Experience Columbus</div>
+          <h2 class="featured-card__title">More Than a Campus — A World-Class City</h2>
+          <p class="featured-card__desc">Columbus is more than a backdrop — a thriving city with incredible food, culture, and accessibility that elevates every Ohio State event.</p>
+          <a href="#" class="btn btn--outline">Discover Columbus</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. BLOG (Trending Opportunities style) -->
+  <section class="section section--shaded section--bordered">
+    <div class="container">
+      <div class="section__header">
+        <span class="bux-label">BUX: Card (storytelling) &times; 3</span>
+        <div class="section__eyebrow">Stories &amp; Insights</div>
+        <h2 class="section__title">From the Blog</h2>
+      </div>
+      <div class="blog-row">
+        <a href="blog-article.html" class="blog-row__card">
+          <div class="blog-row__image img-placeholder"></div>
+          <div class="blog-row__body">
+            <h3 class="blog-row__title">5 Reasons to Host Your Next Conference at Ohio State</h3>
+            <p class="blog-row__desc">Discover why event planners keep coming back to Columbus.</p>
+          </div>
+        </a>
+        <a href="blog-article.html" class="blog-row__card">
+          <div class="blog-row__image img-placeholder"></div>
+          <div class="blog-row__body">
+            <h3 class="blog-row__title">Behind the Scenes: Ohio Stadium Events</h3>
+            <p class="blog-row__desc">A look at what it takes to transform The Shoe into an event venue.</p>
+          </div>
+        </a>
+        <a href="blog-article.html" class="blog-row__card">
+          <div class="blog-row__image img-placeholder"></div>
+          <div class="blog-row__body">
+            <h3 class="blog-row__title">Seasonal Guide: Spring Events on Campus</h3>
+            <p class="blog-row__desc">The best times and spaces for spring events at Ohio State.</p>
+          </div>
+        </a>
+      </div>
+      <div style="text-align:center; margin-top:28px;">
+        <a href="blog.html" style="font-family:'BuckeyeSans',Arial,sans-serif; font-size:14px; font-weight:600; color:#333; text-decoration:underline;">See more blog posts &rarr;</a>
       </div>
     </div>
   </section>
@@ -751,9 +940,10 @@
   <section class="cta-in-page">
     <div class="container">
       <span class="bux-label">BUX: CTA In Page</span>
-      <h2 class="cta-in-page__title" style="margin-top:12px;">Need Help Finding Accommodations?</h2>
-      <p class="cta-in-page__desc">Our team can help match your group with the right lodging options based on your event size, budget, and preferences.</p>
-      <a href="request-information.html" class="btn btn--filled">Request Information</a>
+      <div class="cta-in-page__image img-placeholder" style="margin-top:12px;"></div>
+      <h2 class="cta-in-page__title">Ready to Plan Your Event?</h2>
+      <p class="cta-in-page__desc">Tell us about your event — our team will respond quickly with tailored venue and service recommendations.</p>
+      <a href="#" class="btn btn--filled">Request Information</a>
     </div>
   </section>
 
@@ -800,48 +990,39 @@
           <div>
             <div class="site-footer__nav-title">About Us</div>
             <ul class="site-footer__nav-list">
-              <li><a href="meet-our-team.html" style="color:inherit;">Meet Our Team</a></li>
-              <li><a href="why-ohio-state.html" style="color:inherit;">Why Host at Ohio State</a></li>
+              <li><a href="about-us.html" style="color:inherit;">Meet Our Team</a></li>
+              <li><a href="why-ohio-state.html" style="color:inherit;">Why Ohio State</a></li>
               <li><a href="blog.html" style="color:inherit;">Blog</a></li>
             </ul>
           </div>
         </nav>
-      </div>      <div class="site-footer__bottom">
+      </div>
+      <div class="site-footer__bottom">
         <span>&copy; 2026 The Ohio State University</span>
         <ul class="site-footer__bottom-links">
-          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Statement</a></li>
-          <li><a href="#" style="color:inherit;">Non-Discrimination Notice</a></li>
+          <li><a href="privacy-policy.html" style="color:inherit;">Privacy Policy</a></li>
           <li><a href="terms-conditions.html" style="color:inherit;">Terms &amp; Conditions</a></li>
           <li><a href="accessibility.html" style="color:inherit;">Accessibility</a></li>
           <li><a href="cookies.html" style="color:inherit;">Manage Cookie Settings</a></li>
-          <li><a href="#" style="color:inherit;">Site Map</a></li>
           <li><a href="https://maps.osu.edu/" target="_blank" style="color:inherit;">Campus Maps ↗</a></li>
         </ul>
       </div>
-      <div class="site-footer__legal">
-        If you have a disability and experience difficulty accessing this content, please contact our digital accessibility team using the <a href="https://accessibility.ath.ohio-state.edu/site/46">Digital Accessibility Request Form</a>.
-      </div>
     </div>
   </footer>
+
+<!-- Hidden Netlify Form (detected at deploy time) -->
+<form name="wireframe-comments" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input name="bot-field">
+  <input name="page" type="text">
+  <input name="pageTitle" type="text">
+  <input name="name" type="text">
+  <textarea name="comment"></textarea>
+  <input name="timestamp" type="text">
+</form>
 
 <script src="toggle-labels.js"></script>
 <script src="review-comments.js"></script>
 <script src="search-overlay.js"></script>
 <script src="cookie-modal.js"></script>
-<script>
-(function() {
-  var osuNav = document.querySelector('.osu-navbar');
-  var lastScroll = 0;
-  window.addEventListener('scroll', function() {
-    var currentScroll = window.pageYOffset;
-    if (currentScroll > lastScroll && currentScroll > 50) {
-      osuNav.classList.add('osu-navbar--hidden');
-    } else {
-      osuNav.classList.remove('osu-navbar--hidden');
-    }
-    lastScroll = currentScroll;
-  });
-})();
-</script>
 </body>
 </html>
