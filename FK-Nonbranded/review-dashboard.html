@@ -40,8 +40,27 @@
     .dash-stat__number { font-size: 28px; font-weight: 700; color: #3b4fc4; }
     .dash-stat__label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
 
-    .dash-filters {
+    /* Tabs */
+    .dash-tabs {
       max-width: 960px; margin: 24px auto 0; padding: 0 24px;
+      display: flex; gap: 0; border-bottom: 2px solid #ddd;
+    }
+    .dash-tab {
+      padding: 10px 24px; font-size: 13px; font-weight: 600; cursor: pointer;
+      background: none; border: none; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; color: #888;
+      font-family: 'Open Sans', Arial, sans-serif; transition: color 0.15s;
+    }
+    .dash-tab:hover { color: #555; }
+    .dash-tab.is-active { color: #3b4fc4; border-bottom-color: #3b4fc4; }
+    .dash-tab__count {
+      display: inline-block; font-size: 10px; font-weight: 700; background: #e0e7ff;
+      color: #3b4fc4; padding: 1px 7px; border-radius: 8px; margin-left: 6px;
+    }
+    .dash-tab.is-active .dash-tab__count { background: #3b4fc4; color: #fff; }
+
+    .dash-filters {
+      max-width: 960px; margin: 16px auto 0; padding: 0 24px;
       display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
     }
     .dash-filters__label { font-size: 12px; font-weight: 600; color: #555; }
@@ -72,25 +91,23 @@
       padding: 14px 16px; display: flex; gap: 12px;
     }
     .dash-comment:last-child { border-radius: 0 0 8px 8px; }
-    .dash-comment.is-cleared { opacity: 0.5; }
     .dash-comment__avatar {
       width: 32px; height: 32px; border-radius: 50%; background: #e0e7ff;
       color: #3b4fc4; font-size: 13px; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .dash-comment.is-cleared .dash-comment__avatar { background: #eee; color: #999; }
     .dash-comment__body { flex: 1; }
     .dash-comment__text { font-size: 13px; line-height: 1.6; color: #333; }
-    .dash-comment.is-cleared .dash-comment__text { text-decoration: line-through; color: #999; }
-    .dash-comment__meta { font-size: 11px; color: #999; margin-top: 4px; }
+    .dash-comment__meta { font-size: 11px; color: #999; margin-top: 4px;
+      display: flex; justify-content: space-between; align-items: center; }
     .dash-comment__meta strong { color: #555; }
-    .dash-comment__status {
-      display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 8px;
-      border-radius: 8px; margin-left: 8px;
+    .dash-comment__meta-left { display: flex; gap: 4px; align-items: center; }
+    .dash-comment__complete-btn {
+      font-size: 11px; color: #2e7d32; background: #e8f5e9; border: 1px solid #c8e6c9;
+      border-radius: 4px; padding: 3px 10px; cursor: pointer; font-weight: 600;
+      font-family: 'Open Sans', Arial, sans-serif; transition: background 0.15s;
     }
-    .dash-comment__status--active { background: #e8f5e9; color: #2e7d32; }
-    .dash-comment__status--complete { background: #e0e7ff; color: #3b4fc4; }
-    .dash-comment__status--cleared { background: #fce4ec; color: #c62828; }
+    .dash-comment__complete-btn:hover { background: #c8e6c9; }
     .dash-comment.is-completed { border-left: 3px solid #3b4fc4; }
     .dash-comment.is-completed .dash-comment__avatar { background: #e0e7ff; color: #3b4fc4; }
     .dash-comment__completed-info { font-size: 10px; color: #3b4fc4; margin-top: 2px; }
@@ -109,10 +126,31 @@
     }
     .dash-toast.is-visible { opacity: 1; }
 
+    /* Confirmation modal */
+    .dash-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4); z-index: 10002; display: flex;
+      align-items: center; justify-content: center; }
+    .dash-modal { background: #fff; border-radius: 10px; padding: 24px; width: 380px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-family: 'Open Sans', Arial, sans-serif; }
+    .dash-modal__title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #333; }
+    .dash-modal__text { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 16px; }
+    .dash-modal__preview { font-size: 11px; color: #555; background: #f5f5f5; padding: 8px 10px;
+      border-radius: 6px; margin-bottom: 16px; line-height: 1.4; max-height: 80px; overflow: hidden; }
+    .dash-modal__btns { display: flex; gap: 10px; justify-content: flex-end; }
+    .dash-modal__cancel { padding: 7px 16px; font-size: 12px; font-weight: 600; border: 1px solid #ccc;
+      border-radius: 4px; background: #fff; color: #333; cursor: pointer;
+      font-family: 'Open Sans', Arial, sans-serif; }
+    .dash-modal__cancel:hover { background: #f0f0f0; }
+    .dash-modal__confirm { padding: 7px 16px; font-size: 12px; font-weight: 600; border: none;
+      border-radius: 4px; background: #2e7d32; color: #fff; cursor: pointer;
+      font-family: 'Open Sans', Arial, sans-serif; }
+    .dash-modal__confirm:hover { background: #1b5e20; }
+
     @media (max-width: 640px) {
       .dash-stats { flex-direction: column; }
       .dash-header__inner { flex-direction: column; gap: 12px; align-items: flex-start; }
       .dash-header__actions { flex-wrap: wrap; }
+      .dash-tabs { overflow-x: auto; }
     }
   </style>
 </head>
@@ -133,6 +171,11 @@
 
   <div class="dash-stats" id="stats"></div>
 
+  <div class="dash-tabs" id="tabs">
+    <button class="dash-tab is-active" data-tab="open">Open Comments <span class="dash-tab__count" id="tab-open-count">0</span></button>
+    <button class="dash-tab" data-tab="completed">Completed <span class="dash-tab__count" id="tab-completed-count">0</span></button>
+  </div>
+
   <div class="dash-filters" id="filters">
     <span class="dash-filters__label">Filter by page:</span>
     <button class="dash-filter-btn is-active" data-filter="all">All Pages</button>
@@ -147,11 +190,18 @@
     var PROJECT = 'fk';
     var STORAGE_KEY = 'fk-review-comments';
     var currentFilter = 'all';
+    var currentTab = 'open';
     var allComments = [];
 
     function getLocalComments() {
       try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
       catch (e) { return []; }
+    }
+    function saveLocalComments(comments) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+    }
+    function getCurrentReviewer() {
+      return localStorage.getItem('rc-reviewer-name') || '';
     }
 
     function fetchServerComments() {
@@ -160,13 +210,30 @@
           if (!res.ok) throw new Error('Status ' + res.status);
           return res.json();
         })
-        .then(function (data) {
-          return Array.isArray(data) ? data : [];
-        })
+        .then(function (data) { return Array.isArray(data) ? data : []; })
         .catch(function (err) {
           console.warn('[Dashboard] Could not fetch from server:', err.message);
           return [];
         });
+    }
+
+    function completeOnServer(comment, completedBy) {
+      return fetch(API_BASE + '/submit-comment?project=' + PROJECT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'complete',
+          page: comment.page,
+          name: comment.name,
+          timestamp: comment.timestamp,
+          completedBy: completedBy
+        })
+      }).then(function (res) {
+        if (res.ok) { console.log('[Dashboard] Comment marked complete'); }
+        else { res.text().then(function (t) { console.warn('[Dashboard] Complete failed:', res.status, t); }); }
+      }).catch(function (err) {
+        console.warn('[Dashboard] Could not reach server:', err.message);
+      });
     }
 
     function mergeComments(serverComments, localComments) {
@@ -174,12 +241,10 @@
       var merged = [];
       function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
       serverComments.forEach(function (c) {
-        var key = makeKey(c);
-        if (!seen[key]) { seen[key] = true; merged.push(c); }
+        var key = makeKey(c); if (!seen[key]) { seen[key] = true; merged.push(c); }
       });
       localComments.forEach(function (c) {
-        var key = makeKey(c);
-        if (!seen[key]) { seen[key] = true; merged.push(c); }
+        var key = makeKey(c); if (!seen[key]) { seen[key] = true; merged.push(c); }
       });
       merged.sort(function (a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
       return merged;
@@ -196,38 +261,81 @@
       return (name || 'A').split(' ').map(function (w) { return w[0]; }).join('').toUpperCase().slice(0, 2);
     }
 
+    /* ---------- Confirmation modal ---------- */
+    function showConfirmModal(commentText, authorName, onConfirm) {
+      var overlay = document.createElement('div');
+      overlay.className = 'dash-modal-overlay';
+      var preview = commentText.length > 120 ? commentText.substring(0, 120) + '...' : commentText;
+      overlay.innerHTML =
+        '<div class="dash-modal">' +
+        '  <div class="dash-modal__title">Mark Comment as Complete?</div>' +
+        '  <div class="dash-modal__text">This will mark the following comment by <strong>' +
+             authorName.replace(/</g, '&lt;') + '</strong> as complete. Your name will be logged.</div>' +
+        '  <div class="dash-modal__preview">' + preview.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
+        '  <div class="dash-modal__btns">' +
+        '    <button class="dash-modal__cancel">Cancel</button>' +
+        '    <button class="dash-modal__confirm">Mark Complete</button>' +
+        '  </div>' +
+        '</div>';
+
+      overlay.querySelector('.dash-modal__cancel').addEventListener('click', function () {
+        document.body.removeChild(overlay);
+      });
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) document.body.removeChild(overlay);
+      });
+      overlay.querySelector('.dash-modal__confirm').addEventListener('click', function () {
+        document.body.removeChild(overlay);
+        onConfirm();
+      });
+      document.body.appendChild(overlay);
+    }
+
+    /* ---------- Render ---------- */
     function renderWithComments(comments) {
       allComments = comments;
-      var filtered = currentFilter === 'all' ? comments :
-        comments.filter(function (c) { return c.page === currentFilter; });
+
+      // Split into open vs completed (ignore cleared)
+      var openComments = comments.filter(function (c) { return !c.completed && !c.cleared; });
+      var completedComments = comments.filter(function (c) { return c.completed; });
+      var visibleComments = currentTab === 'open' ? openComments : completedComments;
+
+      // Apply page filter
+      var filtered = currentFilter === 'all' ? visibleComments :
+        visibleComments.filter(function (c) { return c.page === currentFilter; });
 
       // Stats
-      var activeComments = comments.filter(function (c) { return !c.cleared && !c.completed; });
-      var completedComments = comments.filter(function (c) { return c.completed; });
-      var clearedComments = comments.filter(function (c) { return c.cleared; });
       var pages = {};
-      activeComments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
+      openComments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
       var reviewers = {};
-      comments.forEach(function (c) { reviewers[c.name] = true; });
+      comments.filter(function (c) { return !c.cleared; }).forEach(function (c) { reviewers[c.name] = true; });
       document.getElementById('stats').innerHTML =
-        '<div class="dash-stat"><div class="dash-stat__number">' + activeComments.length + '</div><div class="dash-stat__label">Active</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + openComments.length + '</div><div class="dash-stat__label">Open</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + completedComments.length + '</div><div class="dash-stat__label">Completed</div></div>' +
-        '<div class="dash-stat"><div class="dash-stat__number">' + clearedComments.length + '</div><div class="dash-stat__label">Cleared</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(pages).length + '</div><div class="dash-stat__label">Pages with Feedback</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(reviewers).length + '</div><div class="dash-stat__label">Reviewers</div></div>';
 
-      // Filters — count ALL comments per page (including cleared)
-      var allPages = {};
-      comments.forEach(function (c) { allPages[c.page] = (allPages[c.page] || 0) + 1; });
+      // Tab counts
+      document.getElementById('tab-open-count').textContent = openComments.length;
+      document.getElementById('tab-completed-count').textContent = completedComments.length;
+
+      // Update tab active states
+      document.querySelectorAll('.dash-tab').forEach(function (t) {
+        t.classList.toggle('is-active', t.dataset.tab === currentTab);
+      });
+
+      // Page filters — scoped to current tab
+      var tabPages = {};
+      visibleComments.forEach(function (c) { tabPages[c.page] = (tabPages[c.page] || 0) + 1; });
       var filterContainer = document.getElementById('filters');
       filterContainer.innerHTML = '<span class="dash-filters__label">Filter by page:</span>' +
-        '<button class="dash-filter-btn' + (currentFilter === 'all' ? ' is-active' : '') + '" data-filter="all">All Pages (' + comments.length + ')</button>';
-      Object.keys(allPages).sort().forEach(function (page) {
+        '<button class="dash-filter-btn' + (currentFilter === 'all' ? ' is-active' : '') + '" data-filter="all">All Pages (' + visibleComments.length + ')</button>';
+      Object.keys(tabPages).sort().forEach(function (page) {
         var label = page.replace('.html', '').replace(/-/g, ' ');
         label = label.charAt(0).toUpperCase() + label.slice(1);
         filterContainer.innerHTML += '<button class="dash-filter-btn' +
           (currentFilter === page ? ' is-active' : '') +
-          '" data-filter="' + page + '">' + label + ' (' + allPages[page] + ')</button>';
+          '" data-filter="' + page + '">' + label + ' (' + tabPages[page] + ')</button>';
       });
       filterContainer.querySelectorAll('.dash-filter-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -239,10 +347,13 @@
       // Content
       var content = document.getElementById('content');
       if (filtered.length === 0) {
+        var emptyMsg = currentTab === 'open'
+          ? 'No open comments. Use the chat widget on any wireframe page to leave feedback.'
+          : 'No completed comments yet.';
         content.innerHTML =
           '<div class="dash-empty">' +
-          '  <div class="dash-empty__icon">&#128172;</div>' +
-          '  <div class="dash-empty__text">No comments yet. Use the chat widget on any wireframe page to leave feedback.</div>' +
+          '  <div class="dash-empty__icon">' + (currentTab === 'open' ? '&#128172;' : '&#10003;') + '</div>' +
+          '  <div class="dash-empty__text">' + emptyMsg + '</div>' +
           '</div>';
         return;
       }
@@ -258,52 +369,93 @@
       Object.keys(grouped).sort().forEach(function (page) {
         var items = grouped[page];
         var title = items[0].pageTitle || page;
-        var activeCount = items.filter(function (c) { return !c.cleared && !c.completed; }).length;
-        var completedCount = items.filter(function (c) { return c.completed; }).length;
-        var clearedCount = items.filter(function (c) { return c.cleared; }).length;
-        var countParts = [];
-        if (activeCount > 0) countParts.push(activeCount + ' active');
-        if (completedCount > 0) countParts.push(completedCount + ' completed');
-        if (clearedCount > 0) countParts.push(clearedCount + ' cleared');
-        var countLabel = countParts.join(', ') || '0';
         html += '<div class="dash-page-group">';
         html += '<div class="dash-page-group__header">' +
           '<div class="dash-page-group__title"><a href="' + page + '">' + title + '</a></div>' +
-          '<span class="dash-page-group__count">' + countLabel + '</span></div>';
+          '<span class="dash-page-group__count">' + items.length + ' comment' + (items.length !== 1 ? 's' : '') + '</span></div>';
+
         items.forEach(function (c) {
           var d = new Date(c.timestamp);
           var time = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          var isCleared = c.cleared;
-          var isCompleted = c.completed;
-          var statusBadge, rowClass, completedInfo = '';
-          if (isCleared) {
-            statusBadge = '<span class="dash-comment__status dash-comment__status--cleared">Cleared</span>';
-            rowClass = ' is-cleared';
-          } else if (isCompleted) {
-            statusBadge = '<span class="dash-comment__status dash-comment__status--complete">Complete</span>';
-            rowClass = ' is-completed';
+
+          if (currentTab === 'open') {
+            // Open tab: show comment with Mark Complete button
+            html += '<div class="dash-comment">' +
+              '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
+              '<div class="dash-comment__body">' +
+              '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
+              '  <div class="dash-comment__meta">' +
+              '    <div class="dash-comment__meta-left"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + '</div>' +
+              '    <button class="dash-comment__complete-btn" data-page="' + c.page + '" data-name="' + (c.name || '').replace(/"/g, '&quot;') + '" data-ts="' + c.timestamp + '" data-text="' + c.text.replace(/"/g, '&quot;').replace(/</g, '&lt;') + '">Mark Complete</button>' +
+              '  </div>' +
+              '</div></div>';
+          } else {
+            // Completed tab: show completed info
             var cd = c.completedAt ? new Date(c.completedAt) : null;
             var completedTime = cd ? cd.toLocaleDateString() + ' at ' + cd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-            completedInfo = '<div class="dash-comment__completed-info">Completed by ' +
-              (c.completedBy || 'Unknown').replace(/</g, '&lt;') +
-              (completedTime ? ' &middot; ' + completedTime : '') + '</div>';
-          } else {
-            statusBadge = '<span class="dash-comment__status dash-comment__status--active">Active</span>';
-            rowClass = '';
+            html += '<div class="dash-comment is-completed">' +
+              '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
+              '<div class="dash-comment__body">' +
+              '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
+              '  <div class="dash-comment__meta">' +
+              '    <div class="dash-comment__meta-left"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + '</div>' +
+              '  </div>' +
+              '  <div class="dash-comment__completed-info">Completed by ' +
+                (c.completedBy || 'Unknown').replace(/</g, '&lt;') +
+                (completedTime ? ' &middot; ' + completedTime : '') + '</div>' +
+              '</div></div>';
           }
-          html += '<div class="dash-comment' + rowClass + '">' +
-            '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
-            '<div class="dash-comment__body">' +
-            '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
-            '  <div class="dash-comment__meta"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + statusBadge + '</div>' +
-            completedInfo +
-            '</div></div>';
         });
         html += '</div>';
       });
       content.innerHTML = html;
+
+      // Bind complete buttons (open tab only)
+      if (currentTab === 'open') {
+        content.querySelectorAll('.dash-comment__complete-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var el = this;
+            var commentData = { page: el.dataset.page, name: el.dataset.name, timestamp: el.dataset.ts };
+            var commentText = el.dataset.text;
+            var reviewer = getCurrentReviewer() || 'Anonymous';
+
+            showConfirmModal(commentText, commentData.name, function () {
+              // Mark complete locally
+              allComments = allComments.map(function (c) {
+                if (c.page === commentData.page && c.name === commentData.name && c.timestamp === commentData.timestamp) {
+                  return Object.assign({}, c, { completed: true, completedBy: reviewer, completedAt: new Date().toISOString() });
+                }
+                return c;
+              });
+              // Update localStorage
+              var local = getLocalComments();
+              local = local.map(function (c) {
+                if (c.page === commentData.page && c.name === commentData.name && c.timestamp === commentData.timestamp) {
+                  return Object.assign({}, c, { completed: true, completedBy: reviewer, completedAt: new Date().toISOString() });
+                }
+                return c;
+              });
+              saveLocalComments(local);
+              renderWithComments(allComments);
+              showToast('Comment marked as complete');
+              // Complete on server
+              completeOnServer(commentData, reviewer);
+            });
+          });
+        });
+      }
     }
 
+    /* ---------- Tab switching ---------- */
+    document.querySelectorAll('.dash-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        currentTab = this.dataset.tab;
+        currentFilter = 'all';
+        renderWithComments(allComments);
+      });
+    });
+
+    /* ---------- Load ---------- */
     function loadAndRender() {
       document.getElementById('content').innerHTML =
         '<div class="dash-empty"><div class="dash-empty__text">Loading comments...</div></div>';
@@ -315,12 +467,13 @@
       });
     }
 
-    // Export CSV — includes ALL comments (active and cleared) with a Status column
+    // Export CSV — all comments (open + completed) with status
     document.getElementById('export-btn').addEventListener('click', function () {
-      if (allComments.length === 0) { showToast('No comments to export'); return; }
+      var exportable = allComments.filter(function (c) { return !c.cleared; });
+      if (exportable.length === 0) { showToast('No comments to export'); return; }
       var csv = 'Page,Page Title,Reviewer,Comment,Timestamp,Status,Completed By,Completed At\n';
-      allComments.forEach(function (c) {
-        var status = c.cleared ? 'Cleared' : (c.completed ? 'Complete' : 'Active');
+      exportable.forEach(function (c) {
+        var status = c.completed ? 'Complete' : 'Active';
         csv += '"' + c.page + '","' + (c.pageTitle || '') + '","' + (c.name || 'Anonymous') + '","' +
           c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '","' + status + '","' +
           (c.completedBy || '') + '","' + (c.completedAt || '') + '"\n';

@@ -1,9 +1,8 @@
 /* ===== WIREFRAME REVIEW COMMENTS =====
-   Floating chat-style widget for reviewers to leave feedback.
-   Comments are stored via Netlify Functions (shared across all reviewers)
-   and cached in localStorage for instant local display.
-   - Authors can clear their own comments (hidden from widget, retained for export).
-   - Any reviewer can mark any comment as complete via confirmation modal.
+   Compact submission-only widget for reviewers to leave feedback.
+   Comments are stored via Netlify Functions (shared across all reviewers).
+   Badge shows count of active (non-completed) comments for the current page.
+   Full comment list, completion workflow, and export live on review-dashboard.html.
 */
 (function () {
   var API_BASE = 'https://osueventssite.netlify.app/.netlify/functions';
@@ -20,15 +19,16 @@
   function saveLocalComments(comments) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
   }
-  function getPageComments(comments) {
-    return comments.filter(function (c) { return c.page === pageFile && !c.cleared; });
-  }
   function getCurrentReviewer() {
     return localStorage.getItem('rc-reviewer-name') || '';
   }
+  function getActivePageCount(comments) {
+    return comments.filter(function (c) {
+      return c.page === pageFile && !c.cleared && !c.completed;
+    }).length;
+  }
 
-  /* ---------- Server sync (Netlify Functions) ---------- */
-
+  /* ---------- Server sync ---------- */
   function submitToServer(comment) {
     fetch(API_BASE + '/submit-comment?project=' + PROJECT, {
       method: 'POST',
@@ -48,52 +48,13 @@
     });
   }
 
-  function clearOnServer(comment) {
-    return fetch(API_BASE + '/submit-comment?project=' + PROJECT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'clear',
-        page: comment.page,
-        name: comment.name,
-        timestamp: comment.timestamp
-      })
-    }).then(function (res) {
-      if (res.ok) { console.log('[Review] Comment cleared on server'); }
-      else { res.text().then(function (t) { console.warn('[Review] Clear failed:', res.status, t); }); }
-    }).catch(function (err) {
-      console.warn('[Review] Could not reach server:', err.message);
-    });
-  }
-
-  function completeOnServer(comment, completedBy) {
-    return fetch(API_BASE + '/submit-comment?project=' + PROJECT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        action: 'complete',
-        page: comment.page,
-        name: comment.name,
-        timestamp: comment.timestamp,
-        completedBy: completedBy
-      })
-    }).then(function (res) {
-      if (res.ok) { console.log('[Review] Comment marked complete on server'); }
-      else { res.text().then(function (t) { console.warn('[Review] Complete failed:', res.status, t); }); }
-    }).catch(function (err) {
-      console.warn('[Review] Could not reach server:', err.message);
-    });
-  }
-
   function fetchServerComments() {
     return fetch(API_BASE + '/get-comments?project=' + PROJECT)
       .then(function (res) {
         if (!res.ok) throw new Error('Status ' + res.status);
         return res.json();
       })
-      .then(function (data) {
-        return Array.isArray(data) ? data : [];
-      })
+      .then(function (data) { return Array.isArray(data) ? data : []; })
       .catch(function (err) {
         console.warn('[Review] Could not fetch from server:', err.message);
         return [];
@@ -106,12 +67,10 @@
     var merged = [];
     function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
     serverComments.forEach(function (c) {
-      var k = makeKey(c);
-      if (!seen[k]) { seen[k] = true; merged.push(c); }
+      var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); }
     });
     localComments.forEach(function (c) {
-      var k = makeKey(c);
-      if (!seen[k]) { seen[k] = true; merged.push(c); }
+      var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); }
     });
     return merged;
   }
@@ -130,7 +89,7 @@
     '  border-radius: 9px; display: flex; align-items: center; justify-content: center;' +
     '  padding: 0 4px; font-family: Arial, sans-serif; }' +
     '.rc-panel { position: fixed; bottom: 80px; left: 20px; z-index: 10001;' +
-    '  width: 340px; max-height: 480px; background: #fff; border: 1px solid #ddd;' +
+    '  width: 340px; background: #fff; border: 1px solid #ddd;' +
     '  border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.18);' +
     '  display: none; flex-direction: column; overflow: hidden;' +
     '  font-family: "Open Sans", Arial, sans-serif; }' +
@@ -141,25 +100,7 @@
     '.rc-panel__close { background: none; border: none; color: #fff; font-size: 18px;' +
     '  cursor: pointer; padding: 0 4px; opacity: 0.8; }' +
     '.rc-panel__close:hover { opacity: 1; }' +
-    '.rc-panel__messages { flex: 1; overflow-y: auto; padding: 12px 16px;' +
-    '  max-height: 260px; min-height: 80px; }' +
-    '.rc-panel__empty { color: #aaa; font-size: 12px; text-align: center; padding: 24px 0; }' +
-    '.rc-msg { margin-bottom: 12px; padding: 10px 12px; background: #f5f5f5;' +
-    '  border-radius: 8px; font-size: 12px; line-height: 1.5; color: #333; position: relative; }' +
-    '.rc-msg.is-completed { background: #f0faf0; border-left: 3px solid #2e7d32; }' +
-    '.rc-msg__text { margin-bottom: 4px; }' +
-    '.rc-msg.is-completed .rc-msg__text { color: #666; }' +
-    '.rc-msg__completed-badge { font-size: 10px; color: #2e7d32; font-weight: 600; margin-bottom: 4px; }' +
-    '.rc-msg__meta { font-size: 10px; color: #999; display: flex; justify-content: space-between; align-items: center; }' +
-    '.rc-msg__info { display: flex; gap: 8px; }' +
-    '.rc-msg__btns { display: flex; gap: 8px; }' +
-    '.rc-msg__clear { font-size: 10px; color: #c00; background: none; border: none;' +
-    '  cursor: pointer; padding: 0; text-decoration: underline; font-family: "Open Sans", Arial, sans-serif; }' +
-    '.rc-msg__clear:hover { color: #900; }' +
-    '.rc-msg__complete { font-size: 10px; color: #2e7d32; background: none; border: none;' +
-    '  cursor: pointer; padding: 0; text-decoration: underline; font-family: "Open Sans", Arial, sans-serif; }' +
-    '.rc-msg__complete:hover { color: #1b5e20; }' +
-    '.rc-panel__form { padding: 12px 16px; border-top: 1px solid #eee; background: #fafafa; }' +
+    '.rc-panel__form { padding: 12px 16px; background: #fafafa; }' +
     '.rc-panel__row { display: flex; gap: 8px; margin-bottom: 8px; }' +
     '.rc-panel__input { flex: 1; height: 32px; border: 1px solid #ccc; border-radius: 4px;' +
     '  padding: 0 10px; font-size: 12px; font-family: "Open Sans", Arial, sans-serif; }' +
@@ -174,59 +115,11 @@
     '.rc-panel__sync-note { font-size: 10px; color: #999; text-align: center; margin-top: 6px; }' +
     '.rc-panel__dashboard { font-size: 11px; color: #3b4fc4; text-decoration: underline; cursor: pointer; }' +
     '.rc-panel__dashboard:hover { color: #2d3ea0; }' +
-    /* Confirmation modal */
-    '.rc-modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0;' +
-    '  background: rgba(0,0,0,0.4); z-index: 10002; display: flex;' +
-    '  align-items: center; justify-content: center; }' +
-    '.rc-modal { background: #fff; border-radius: 10px; padding: 24px; width: 320px;' +
-    '  box-shadow: 0 8px 30px rgba(0,0,0,0.25); font-family: "Open Sans", Arial, sans-serif; }' +
-    '.rc-modal__title { font-size: 14px; font-weight: 700; margin-bottom: 8px; color: #333; }' +
-    '.rc-modal__text { font-size: 12px; color: #666; line-height: 1.5; margin-bottom: 16px; }' +
-    '.rc-modal__preview { font-size: 11px; color: #555; background: #f5f5f5; padding: 8px 10px;' +
-    '  border-radius: 6px; margin-bottom: 16px; line-height: 1.4; max-height: 60px; overflow: hidden; }' +
-    '.rc-modal__btns { display: flex; gap: 10px; justify-content: flex-end; }' +
-    '.rc-modal__cancel { padding: 7px 16px; font-size: 12px; font-weight: 600; border: 1px solid #ccc;' +
-    '  border-radius: 4px; background: #fff; color: #333; cursor: pointer;' +
-    '  font-family: "Open Sans", Arial, sans-serif; }' +
-    '.rc-modal__cancel:hover { background: #f0f0f0; }' +
-    '.rc-modal__confirm { padding: 7px 16px; font-size: 12px; font-weight: 600; border: none;' +
-    '  border-radius: 4px; background: #2e7d32; color: #fff; cursor: pointer;' +
-    '  font-family: "Open Sans", Arial, sans-serif; }' +
-    '.rc-modal__confirm:hover { background: #1b5e20; }';
+    '.rc-panel__success { font-size: 12px; color: #2e7d32; text-align: center; padding: 10px 0 2px;' +
+    '  font-weight: 600; display: none; }';
   document.head.appendChild(style);
 
-  /* ---------- Confirmation modal ---------- */
-  function showConfirmModal(commentText, authorName, onConfirm) {
-    var overlay = document.createElement('div');
-    overlay.className = 'rc-modal-overlay';
-    var preview = commentText.length > 80 ? commentText.substring(0, 80) + '...' : commentText;
-    overlay.innerHTML =
-      '<div class="rc-modal">' +
-      '  <div class="rc-modal__title">Mark Comment as Complete?</div>' +
-      '  <div class="rc-modal__text">This will mark the following comment by <strong>' +
-           authorName.replace(/</g, '&lt;') + '</strong> as complete. Your name will be logged.</div>' +
-      '  <div class="rc-modal__preview">' + preview.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
-      '  <div class="rc-modal__btns">' +
-      '    <button class="rc-modal__cancel">Cancel</button>' +
-      '    <button class="rc-modal__confirm">Mark Complete</button>' +
-      '  </div>' +
-      '</div>';
-
-    overlay.querySelector('.rc-modal__cancel').addEventListener('click', function () {
-      document.body.removeChild(overlay);
-    });
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) document.body.removeChild(overlay);
-    });
-    overlay.querySelector('.rc-modal__confirm').addEventListener('click', function () {
-      document.body.removeChild(overlay);
-      onConfirm();
-    });
-
-    document.body.appendChild(overlay);
-  }
-
-  /* ---------- Build FAB button ---------- */
+  /* ---------- Build FAB ---------- */
   var fab = document.createElement('button');
   fab.className = 'rc-fab';
   fab.innerHTML = '&#128172;';
@@ -241,15 +134,15 @@
   panel.className = 'rc-panel';
   panel.innerHTML =
     '<div class="rc-panel__header">' +
-    '  <div>Review Comments<div class="rc-panel__header-page">' + pageName + '</div></div>' +
+    '  <div>Leave Feedback<div class="rc-panel__header-page">' + pageName + '</div></div>' +
     '  <button class="rc-panel__close">&times;</button>' +
     '</div>' +
-    '<div class="rc-panel__messages"></div>' +
     '<div class="rc-panel__form">' +
     '  <div class="rc-panel__row">' +
     '    <input class="rc-panel__input" id="rc-name" type="text" placeholder="Your name">' +
     '  </div>' +
     '  <textarea class="rc-panel__textarea" id="rc-comment" placeholder="Leave a comment about this page..."></textarea>' +
+    '  <div class="rc-panel__success" id="rc-success">Comment submitted!</div>' +
     '  <div class="rc-panel__actions">' +
     '    <a class="rc-panel__dashboard" href="review-dashboard.html">View All Comments</a>' +
     '    <button class="rc-panel__submit" id="rc-submit">Submit</button>' +
@@ -257,121 +150,27 @@
     '  <div class="rc-panel__sync-note">Comments are shared with all reviewers</div>' +
     '</div>';
 
-  /* ---------- Rendering ---------- */
+  /* ---------- Badge update ---------- */
   var cachedComments = getLocalComments();
 
-  function renderMessages(comments) {
-    var container = panel.querySelector('.rc-panel__messages');
-    var pageComments = getPageComments(comments || cachedComments);
-    var reviewer = getCurrentReviewer();
-    if (pageComments.length === 0) {
-      container.innerHTML = '<div class="rc-panel__empty">No comments on this page yet.</div>';
-    } else {
-      container.innerHTML = pageComments.map(function (c) {
-        var d = new Date(c.timestamp);
-        var time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        var escapedText = c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        var escapedName = (c.name || 'Anonymous').replace(/</g, '&lt;');
-        var isOwner = reviewer && c.name === reviewer;
-        var isCompleted = c.completed;
-
-        var completedBadge = isCompleted
-          ? '<div class="rc-msg__completed-badge">&#10003; Completed by ' + (c.completedBy || '').replace(/</g, '&lt;') + '</div>'
-          : '';
-
-        var btns = '';
-        if (!isCompleted) {
-          var completeBtn = '<button class="rc-msg__complete" data-page="' + c.page + '" data-name="' + escapedName + '" data-ts="' + c.timestamp + '" data-text="' + escapedText.replace(/"/g, '&quot;') + '">Complete</button>';
-          var clearBtn = isOwner
-            ? '<button class="rc-msg__clear" data-page="' + c.page + '" data-name="' + escapedName + '" data-ts="' + c.timestamp + '">Clear</button>'
-            : '';
-          btns = '<div class="rc-msg__btns">' + completeBtn + clearBtn + '</div>';
-        }
-
-        return '<div class="rc-msg' + (isCompleted ? ' is-completed' : '') + '">' +
-          completedBadge +
-          '<div class="rc-msg__text">' + escapedText + '</div>' +
-          '<div class="rc-msg__meta">' +
-          '  <div class="rc-msg__info"><span>' + escapedName + '</span><span>' + time + '</span></div>' +
-          '  ' + btns +
-          '</div>' +
-          '</div>';
-      }).join('');
-      container.scrollTop = container.scrollHeight;
-
-      // Bind complete buttons
-      container.querySelectorAll('.rc-msg__complete').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var el = this;
-          var commentData = { page: el.dataset.page, name: el.dataset.name, timestamp: el.dataset.ts };
-          var commentText = el.dataset.text;
-          var reviewer = getCurrentReviewer() || 'Anonymous';
-
-          showConfirmModal(commentText, commentData.name, function () {
-            // Mark complete locally
-            var local = getLocalComments();
-            local = local.map(function (c) {
-              if (c.page === commentData.page && c.name === commentData.name && c.timestamp === commentData.timestamp) {
-                return Object.assign({}, c, { completed: true, completedBy: reviewer, completedAt: new Date().toISOString() });
-              }
-              return c;
-            });
-            saveLocalComments(local);
-            cachedComments = local;
-            renderMessages(cachedComments);
-            // Complete on server
-            completeOnServer(commentData, reviewer);
-          });
-        });
-      });
-
-      // Bind clear buttons
-      container.querySelectorAll('.rc-msg__clear').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var commentToClr = { page: this.dataset.page, name: this.dataset.name, timestamp: this.dataset.ts };
-          var local = getLocalComments();
-          local = local.map(function (c) {
-            if (c.page === commentToClr.page && c.name === commentToClr.name && c.timestamp === commentToClr.timestamp) {
-              return Object.assign({}, c, { cleared: true, clearedAt: new Date().toISOString() });
-            }
-            return c;
-          });
-          saveLocalComments(local);
-          cachedComments = local;
-          renderMessages(cachedComments);
-          clearOnServer(commentToClr);
-        });
-      });
-    }
-    var count = pageComments.filter(function (c) { return !c.completed; }).length;
+  function updateBadge(comments) {
+    var count = getActivePageCount(comments || cachedComments);
     badge.textContent = count;
     badge.style.display = count > 0 ? 'flex' : 'none';
-  }
-
-  /* ---------- Refresh from server ---------- */
-  function refreshFromServer() {
-    fetchServerComments().then(function (serverComments) {
-      var local = getLocalComments();
-      var merged = mergeComments(serverComments, local);
-      saveLocalComments(merged);
-      cachedComments = merged;
-      renderMessages(cachedComments);
-    });
   }
 
   /* ---------- Toggle panel ---------- */
   fab.addEventListener('click', function () {
     panel.classList.toggle('is-open');
     if (panel.classList.contains('is-open')) {
-      renderMessages(cachedComments);
-      refreshFromServer();
       var savedName = getCurrentReviewer();
       panel.querySelector('#rc-name').value = savedName;
       panel.querySelector('#rc-comment').focus();
+      panel.querySelector('#rc-success').style.display = 'none';
     }
   });
 
-  /* ---------- Close button ---------- */
+  /* ---------- Close ---------- */
   panel.querySelector('.rc-panel__close').addEventListener('click', function () {
     panel.classList.remove('is-open');
   });
@@ -380,6 +179,7 @@
   panel.querySelector('#rc-submit').addEventListener('click', function () {
     var nameInput = panel.querySelector('#rc-name');
     var commentInput = panel.querySelector('#rc-comment');
+    var successMsg = panel.querySelector('#rc-success');
     var text = commentInput.value.trim();
     if (!text) return;
     var name = nameInput.value.trim() || 'Anonymous';
@@ -397,12 +197,16 @@
     local.push(comment);
     saveLocalComments(local);
     cachedComments = local;
-    renderMessages(cachedComments);
+    updateBadge(cachedComments);
     submitToServer(comment);
     commentInput.value = '';
+
+    // Flash success message
+    successMsg.style.display = 'block';
+    setTimeout(function () { successMsg.style.display = 'none'; }, 2500);
   });
 
-  /* ---------- Enter key submits (Shift+Enter for newline) ---------- */
+  /* ---------- Enter key submits ---------- */
   panel.querySelector('#rc-comment').addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -410,22 +214,21 @@
     }
   });
 
-  /* ---------- Persist name on change ---------- */
+  /* ---------- Persist name ---------- */
   panel.querySelector('#rc-name').addEventListener('change', function () {
     var name = this.value.trim();
     if (name) localStorage.setItem('rc-reviewer-name', name);
   });
 
-  /* ---------- Fetch from server on page load for accurate badge ---------- */
+  /* ---------- Fetch from server on page load ---------- */
+  updateBadge(cachedComments);
   fetchServerComments().then(function (serverComments) {
     if (serverComments.length > 0) {
       var local = getLocalComments();
       var merged = mergeComments(serverComments, local);
       saveLocalComments(merged);
       cachedComments = merged;
-      var count = getPageComments(cachedComments).filter(function (c) { return !c.completed; }).length;
-      badge.textContent = count;
-      badge.style.display = count > 0 ? 'flex' : 'none';
+      updateBadge(cachedComments);
     }
   });
 
