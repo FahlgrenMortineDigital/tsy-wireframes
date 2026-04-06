@@ -134,8 +134,8 @@
   <div class="dash-toast" id="toast"></div>
 
   <script>
-    var BLOB_ID = '019d643a-a083-777f-a1b7-44abe2de3c3d';
-    var API_URL = 'https://jsonblob.com/api/jsonBlob/' + BLOB_ID;
+    var API_BASE = 'https://osueventssite.netlify.app/.netlify/functions';
+    var PROJECT = 'fk';
     var STORAGE_KEY = 'fk-review-comments';
     var currentFilter = 'all';
     var allComments = [];
@@ -146,9 +146,7 @@
     }
 
     function fetchServerComments() {
-      return fetch(API_URL, {
-        headers: { 'Accept': 'application/json' }
-      })
+      return fetch(API_BASE + '/get-comments?project=' + PROJECT)
         .then(function (res) {
           if (!res.ok) throw new Error('Status ' + res.status);
           return res.json();
@@ -157,7 +155,7 @@
           return Array.isArray(data) ? data : [];
         })
         .catch(function (err) {
-          console.warn('[Dashboard] Could not fetch from cloud:', err.message);
+          console.warn('[Dashboard] Could not fetch from server:', err.message);
           return [];
         });
     }
