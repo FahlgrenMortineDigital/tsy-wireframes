@@ -1,11 +1,12 @@
 /* ===== WIREFRAME REVIEW COMMENTS =====
    Floating chat-style widget for reviewers to leave feedback.
-   Comments are sent to a PHP backend (review-api.php) for shared
-   visibility across all reviewers, and cached in localStorage
-   for instant local display.
+   Comments are stored in a shared cloud JSON store (jsonblob.com)
+   so all reviewers see each other's comments across browsers.
+   localStorage is used as a fast cache for instant display.
 */
 (function () {
-  var API_URL = 'review-api.php';
+  var BLOB_ID = '019d643a-a083-777f-a1b7-44abe2de3c3d';
+  var API_URL = 'https://jsonblob.com/api/jsonBlob/' + BLOB_ID;
   var STORAGE_KEY = 'fk-review-comments';
   var pageName = document.title.split('—')[0].split('-')[0].trim() || location.pathname.split('/').pop() || 'Unknown Page';
   var pageFile = location.pathname.split('/').pop() || 'index.html';
@@ -15,56 +16,72 @@
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
     catch (e) { return []; }
   }
-  function saveLocalComment(comment) {
-    var comments = getLocalComments();
-    comments.push(comment);
+  function saveLocalComments(comments) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
-  }
-  function mergeServerComments(serverComments) {
-    var local = getLocalComments();
-    var seen = {};
-    function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
-    serverComments.forEach(function (c) { seen[makeKey(c)] = true; });
-    local.forEach(function (c) { seen[makeKey(c)] = true; });
-    var merged = [];
-    serverComments.forEach(function (c) { merged.push(c); });
-    local.forEach(function (c) { if (!seen[makeKey(c)]) merged.push(c); });
-    return merged;
   }
   function getPageComments(comments) {
     return comments.filter(function (c) { return c.page === pageFile; });
   }
 
-  /* ---------- Server sync ---------- */
-  function submitToServer(comment) {
-    fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        page: comment.page,
-        pageTitle: comment.pageTitle,
-        name: comment.name,
-        comment: comment.text,
-        timestamp: comment.timestamp
-      })
-    }).then(function (res) {
-      if (res.ok) { console.log('[Review] Comment submitted to server'); }
-      else { res.text().then(function (t) { console.warn('[Review] Server status:', res.status, t); }); }
-    }).catch(function (err) {
-      console.warn('[Review] Could not reach server:', err.message);
-    });
-  }
+  /* ---------- Cloud sync (jsonblob.com) ---------- */
 
-  function fetchServerComments() {
-    return fetch(API_URL)
+  // Fetch all comments from the shared cloud store
+  function fetchCloudComments() {
+    return fetch(API_URL, {
+      headers: { 'Accept': 'application/json' }
+    })
       .then(function (res) {
         if (!res.ok) throw new Error('Status ' + res.status);
         return res.json();
       })
+      .then(function (data) {
+        return Array.isArray(data) ? data : [];
+      })
       .catch(function (err) {
-        console.warn('[Review] Could not fetch from server:', err.message);
+        console.warn('[Review] Could not fetch cloud comments:', err.message);
         return [];
       });
+  }
+
+  // Submit a comment: fetch current cloud data, append, save back
+  function submitToCloud(comment) {
+    fetchCloudComments().then(function (cloudComments) {
+      cloudComments.push({
+        page: comment.page,
+        pageTitle: comment.pageTitle,
+        name: comment.name,
+        text: comment.text,
+        timestamp: comment.timestamp
+      });
+      return fetch(API_URL, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(cloudComments)
+      });
+    }).then(function (res) {
+      if (res.ok) { console.log('[Review] Comment saved to cloud'); }
+      else { console.warn('[Review] Cloud save status:', res.status); }
+    }).catch(function (err) {
+      console.warn('[Review] Could not save to cloud:', err.message);
+    });
+  }
+
+  /* ---------- Merge & de-duplicate ---------- */
+  function mergeComments(cloudComments, localComments) {
+    var seen = {};
+    var merged = [];
+    function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
+    // Cloud is source of truth
+    cloudComments.forEach(function (c) {
+      var k = makeKey(c);
+      if (!seen[k]) { seen[k] = true; merged.push(c); }
+    });
+    // Add any local-only comments not yet synced
+    localComments.forEach(function (c) {
+      var k = makeKey(c);
+      if (!seen[k]) { seen[k] = true; merged.push(c); }
+    });
+    return merged;
   }
 
   /* ---------- Inject styles ---------- */
@@ -171,20 +188,13 @@
     badge.style.display = count > 0 ? 'flex' : 'none';
   }
 
-  /* ---------- Fetch from server on panel open ---------- */
-  function refreshFromServer() {
-    fetchServerComments().then(function (serverComments) {
-      if (serverComments.length > 0) {
-        // Merge and update localStorage cache
-        var local = getLocalComments();
-        var seen = {};
-        var merged = [];
-        function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
-        serverComments.forEach(function (c) { var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); } });
-        local.forEach(function (c) { var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); } });
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-        cachedComments = merged;
-      }
+  /* ---------- Refresh from cloud ---------- */
+  function refreshFromCloud() {
+    fetchCloudComments().then(function (cloudComments) {
+      var local = getLocalComments();
+      var merged = mergeComments(cloudComments, local);
+      saveLocalComments(merged);
+      cachedComments = merged;
       renderMessages(cachedComments);
     });
   }
@@ -194,7 +204,7 @@
     panel.classList.toggle('is-open');
     if (panel.classList.contains('is-open')) {
       renderMessages(cachedComments);
-      refreshFromServer();
+      refreshFromCloud();
       var savedName = localStorage.getItem('rc-reviewer-name') || '';
       panel.querySelector('#rc-name').value = savedName;
       panel.querySelector('#rc-comment').focus();
@@ -224,13 +234,16 @@
     };
 
     // Save locally for instant display
-    saveLocalComment(comment);
-    cachedComments = getLocalComments();
-    // Submit to server for shared visibility
-    submitToServer(comment);
+    var local = getLocalComments();
+    local.push(comment);
+    saveLocalComments(local);
+    cachedComments = local;
+    renderMessages(cachedComments);
+
+    // Submit to cloud for shared visibility
+    submitToCloud(comment);
 
     commentInput.value = '';
-    renderMessages(cachedComments);
   });
 
   /* ---------- Enter key submits (Shift+Enter for newline) ---------- */
@@ -241,21 +254,12 @@
     }
   });
 
-  /* ---------- Initial badge count from localStorage ---------- */
-  var initCount = getPageComments(cachedComments).length;
-  badge.textContent = initCount;
-  badge.style.display = initCount > 0 ? 'flex' : 'none';
-
-  /* ---------- Fetch from server on page load for accurate badge ---------- */
-  fetchServerComments().then(function (serverComments) {
-    if (serverComments.length > 0) {
+  /* ---------- Fetch from cloud on page load for accurate badge ---------- */
+  fetchCloudComments().then(function (cloudComments) {
+    if (cloudComments.length > 0) {
       var local = getLocalComments();
-      var seen = {};
-      var merged = [];
-      function makeKey(c) { return (c.page || '') + '|' + (c.name || '') + '|' + (c.timestamp || ''); }
-      serverComments.forEach(function (c) { var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); } });
-      local.forEach(function (c) { var k = makeKey(c); if (!seen[k]) { seen[k] = true; merged.push(c); } });
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+      var merged = mergeComments(cloudComments, local);
+      saveLocalComments(merged);
       cachedComments = merged;
       var count = getPageComments(cachedComments).length;
       badge.textContent = count;

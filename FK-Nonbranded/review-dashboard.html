@@ -134,7 +134,8 @@
   <div class="dash-toast" id="toast"></div>
 
   <script>
-    var API_URL = 'review-api.php';
+    var BLOB_ID = '019d643a-a083-777f-a1b7-44abe2de3c3d';
+    var API_URL = 'https://jsonblob.com/api/jsonBlob/' + BLOB_ID;
     var STORAGE_KEY = 'fk-review-comments';
     var currentFilter = 'all';
     var allComments = [];
@@ -145,13 +146,18 @@
     }
 
     function fetchServerComments() {
-      return fetch(API_URL)
+      return fetch(API_URL, {
+        headers: { 'Accept': 'application/json' }
+      })
         .then(function (res) {
           if (!res.ok) throw new Error('Status ' + res.status);
           return res.json();
         })
+        .then(function (data) {
+          return Array.isArray(data) ? data : [];
+        })
         .catch(function (err) {
-          console.warn('[Dashboard] Could not fetch from server:', err.message);
+          console.warn('[Dashboard] Could not fetch from cloud:', err.message);
           return [];
         });
     }
