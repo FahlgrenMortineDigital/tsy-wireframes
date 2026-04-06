@@ -28,8 +28,6 @@
     .dash-btn:hover { background: #f0f0f0; }
     .dash-btn--primary { background: #3b4fc4; color: #fff; border-color: #3b4fc4; }
     .dash-btn--primary:hover { background: #2d3ea0; }
-    .dash-btn--danger { color: #c00; border-color: #c00; }
-    .dash-btn--danger:hover { background: #fff0f0; }
 
     .dash-stats {
       max-width: 960px; margin: 24px auto 0; padding: 0 24px;
@@ -74,15 +72,24 @@
       padding: 14px 16px; display: flex; gap: 12px;
     }
     .dash-comment:last-child { border-radius: 0 0 8px 8px; }
+    .dash-comment.is-cleared { opacity: 0.5; }
     .dash-comment__avatar {
       width: 32px; height: 32px; border-radius: 50%; background: #e0e7ff;
       color: #3b4fc4; font-size: 13px; font-weight: 700;
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
+    .dash-comment.is-cleared .dash-comment__avatar { background: #eee; color: #999; }
     .dash-comment__body { flex: 1; }
     .dash-comment__text { font-size: 13px; line-height: 1.6; color: #333; }
+    .dash-comment.is-cleared .dash-comment__text { text-decoration: line-through; color: #999; }
     .dash-comment__meta { font-size: 11px; color: #999; margin-top: 4px; }
     .dash-comment__meta strong { color: #555; }
+    .dash-comment__status {
+      display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 8px;
+      border-radius: 8px; margin-left: 8px;
+    }
+    .dash-comment__status--active { background: #e8f5e9; color: #2e7d32; }
+    .dash-comment__status--cleared { background: #fce4ec; color: #c62828; }
 
     .dash-empty {
       text-align: center; padding: 60px 24px; color: #aaa;
@@ -116,8 +123,6 @@
       <div class="dash-header__actions">
         <a href="index.html" class="dash-btn">Back to Wireframes</a>
         <button class="dash-btn dash-btn--primary" id="export-btn">Export CSV</button>
-        <button class="dash-btn" id="copy-btn">Copy to Clipboard</button>
-        <button class="dash-btn dash-btn--danger" id="clear-btn">Clear Local Cache</button>
       </div>
     </div>
   </header>
@@ -192,26 +197,31 @@
       var filtered = currentFilter === 'all' ? comments :
         comments.filter(function (c) { return c.page === currentFilter; });
 
-      // Stats
+      // Stats — count only active (non-cleared) comments
+      var activeComments = comments.filter(function (c) { return !c.cleared; });
+      var clearedComments = comments.filter(function (c) { return c.cleared; });
       var pages = {};
-      comments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
+      activeComments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
       var reviewers = {};
       comments.forEach(function (c) { reviewers[c.name] = true; });
       document.getElementById('stats').innerHTML =
-        '<div class="dash-stat"><div class="dash-stat__number">' + comments.length + '</div><div class="dash-stat__label">Total Comments</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + activeComments.length + '</div><div class="dash-stat__label">Active Comments</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + clearedComments.length + '</div><div class="dash-stat__label">Cleared Comments</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(pages).length + '</div><div class="dash-stat__label">Pages with Feedback</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(reviewers).length + '</div><div class="dash-stat__label">Reviewers</div></div>';
 
-      // Filters
+      // Filters — count ALL comments per page (including cleared)
+      var allPages = {};
+      comments.forEach(function (c) { allPages[c.page] = (allPages[c.page] || 0) + 1; });
       var filterContainer = document.getElementById('filters');
       filterContainer.innerHTML = '<span class="dash-filters__label">Filter by page:</span>' +
         '<button class="dash-filter-btn' + (currentFilter === 'all' ? ' is-active' : '') + '" data-filter="all">All Pages (' + comments.length + ')</button>';
-      Object.keys(pages).sort().forEach(function (page) {
+      Object.keys(allPages).sort().forEach(function (page) {
         var label = page.replace('.html', '').replace(/-/g, ' ');
         label = label.charAt(0).toUpperCase() + label.slice(1);
         filterContainer.innerHTML += '<button class="dash-filter-btn' +
           (currentFilter === page ? ' is-active' : '') +
-          '" data-filter="' + page + '">' + label + ' (' + pages[page] + ')</button>';
+          '" data-filter="' + page + '">' + label + ' (' + allPages[page] + ')</button>';
       });
       filterContainer.querySelectorAll('.dash-filter-btn').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -242,18 +252,26 @@
       Object.keys(grouped).sort().forEach(function (page) {
         var items = grouped[page];
         var title = items[0].pageTitle || page;
+        var activeCount = items.filter(function (c) { return !c.cleared; }).length;
+        var clearedCount = items.filter(function (c) { return c.cleared; }).length;
+        var countLabel = activeCount + ' active';
+        if (clearedCount > 0) countLabel += ', ' + clearedCount + ' cleared';
         html += '<div class="dash-page-group">';
         html += '<div class="dash-page-group__header">' +
           '<div class="dash-page-group__title"><a href="' + page + '">' + title + '</a></div>' +
-          '<span class="dash-page-group__count">' + items.length + ' comment' + (items.length !== 1 ? 's' : '') + '</span></div>';
+          '<span class="dash-page-group__count">' + countLabel + '</span></div>';
         items.forEach(function (c) {
           var d = new Date(c.timestamp);
           var time = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          html += '<div class="dash-comment">' +
+          var isCleared = c.cleared;
+          var statusBadge = isCleared
+            ? '<span class="dash-comment__status dash-comment__status--cleared">Cleared</span>'
+            : '<span class="dash-comment__status dash-comment__status--active">Active</span>';
+          html += '<div class="dash-comment' + (isCleared ? ' is-cleared' : '') + '">' +
             '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
             '<div class="dash-comment__body">' +
             '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
-            '  <div class="dash-comment__meta"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + '</div>' +
+            '  <div class="dash-comment__meta"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + statusBadge + '</div>' +
             '</div></div>';
         });
         html += '</div>';
@@ -272,13 +290,14 @@
       });
     }
 
-    // Export CSV
+    // Export CSV — includes ALL comments (active and cleared) with a Status column
     document.getElementById('export-btn').addEventListener('click', function () {
       if (allComments.length === 0) { showToast('No comments to export'); return; }
-      var csv = 'Page,Page Title,Reviewer,Comment,Timestamp\n';
+      var csv = 'Page,Page Title,Reviewer,Comment,Timestamp,Status\n';
       allComments.forEach(function (c) {
+        var status = c.cleared ? 'Cleared' : 'Active';
         csv += '"' + c.page + '","' + (c.pageTitle || '') + '","' + (c.name || 'Anonymous') + '","' +
-          c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '"\n';
+          c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '","' + status + '"\n';
       });
       var blob = new Blob([csv], { type: 'text/csv' });
       var url = URL.createObjectURL(blob);
@@ -288,42 +307,6 @@
       a.click();
       URL.revokeObjectURL(url);
       showToast('CSV downloaded');
-    });
-
-    // Copy to clipboard
-    document.getElementById('copy-btn').addEventListener('click', function () {
-      if (allComments.length === 0) { showToast('No comments to copy'); return; }
-      var text = 'WIREFRAME REVIEW COMMENTS\n' +
-        'FK Non Branded Nutrition\n' +
-        'Exported: ' + new Date().toLocaleString() + '\n' +
-        '========================================\n\n';
-      var grouped = {};
-      allComments.forEach(function (c) {
-        if (!grouped[c.page]) grouped[c.page] = [];
-        grouped[c.page].push(c);
-      });
-      Object.keys(grouped).sort().forEach(function (page) {
-        var items = grouped[page];
-        text += '--- ' + (items[0].pageTitle || page) + ' ---\n';
-        items.forEach(function (c) {
-          var d = new Date(c.timestamp);
-          text += '  [' + (c.name || 'Anonymous') + '] ' + c.text + '\n';
-          text += '  ' + d.toLocaleString() + '\n\n';
-        });
-      });
-      navigator.clipboard.writeText(text).then(function () {
-        showToast('Copied to clipboard');
-      });
-    });
-
-    // Clear local cache only — server data remains
-    document.getElementById('clear-btn').addEventListener('click', function () {
-      if (confirm('This will clear your local comment cache. Comments stored on the server will remain. Continue?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        currentFilter = 'all';
-        loadAndRender();
-        showToast('Local cache cleared — reloading from server');
-      }
     });
 
     loadAndRender();

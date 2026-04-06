@@ -2,6 +2,7 @@
    Floating chat-style widget for reviewers to leave feedback.
    Comments are stored via Netlify Functions (shared across all reviewers)
    and cached in localStorage for instant local display.
+   Users can clear their own comments (marks as cleared, retained for export).
 */
 (function () {
   var API_BASE = 'https://osueventssite.netlify.app/.netlify/functions';
@@ -19,7 +20,10 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
   }
   function getPageComments(comments) {
-    return comments.filter(function (c) { return c.page === pageFile; });
+    return comments.filter(function (c) { return c.page === pageFile && !c.cleared; });
+  }
+  function getCurrentReviewer() {
+    return localStorage.getItem('rc-reviewer-name') || '';
   }
 
   /* ---------- Server sync (Netlify Functions) ---------- */
@@ -38,6 +42,24 @@
     }).then(function (res) {
       if (res.ok) { console.log('[Review] Comment submitted to server'); }
       else { res.text().then(function (t) { console.warn('[Review] Server status:', res.status, t); }); }
+    }).catch(function (err) {
+      console.warn('[Review] Could not reach server:', err.message);
+    });
+  }
+
+  function clearOnServer(comment) {
+    return fetch(API_BASE + '/submit-comment?project=' + PROJECT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'clear',
+        page: comment.page,
+        name: comment.name,
+        timestamp: comment.timestamp
+      })
+    }).then(function (res) {
+      if (res.ok) { console.log('[Review] Comment cleared on server'); }
+      else { res.text().then(function (t) { console.warn('[Review] Clear failed:', res.status, t); }); }
     }).catch(function (err) {
       console.warn('[Review] Could not reach server:', err.message);
     });
@@ -104,8 +126,12 @@
     '.rc-panel__empty { color: #aaa; font-size: 12px; text-align: center; padding: 24px 0; }' +
     '.rc-msg { margin-bottom: 12px; padding: 10px 12px; background: #f5f5f5;' +
     '  border-radius: 8px; font-size: 12px; line-height: 1.5; color: #333; }' +
-    '.rc-msg__meta { font-size: 10px; color: #999; margin-top: 4px;' +
-    '  display: flex; justify-content: space-between; }' +
+    '.rc-msg__text { margin-bottom: 4px; }' +
+    '.rc-msg__meta { font-size: 10px; color: #999; display: flex; justify-content: space-between; align-items: center; }' +
+    '.rc-msg__info { display: flex; gap: 8px; }' +
+    '.rc-msg__clear { font-size: 10px; color: #c00; background: none; border: none;' +
+    '  cursor: pointer; padding: 0; text-decoration: underline; font-family: "Open Sans", Arial, sans-serif; }' +
+    '.rc-msg__clear:hover { color: #900; }' +
     '.rc-panel__form { padding: 12px 16px; border-top: 1px solid #eee; background: #fafafa; }' +
     '.rc-panel__row { display: flex; gap: 8px; margin-bottom: 8px; }' +
     '.rc-panel__input { flex: 1; height: 32px; border: 1px solid #ccc; border-radius: 4px;' +
@@ -160,18 +186,52 @@
   function renderMessages(comments) {
     var container = panel.querySelector('.rc-panel__messages');
     var pageComments = getPageComments(comments || cachedComments);
+    var reviewer = getCurrentReviewer();
     if (pageComments.length === 0) {
       container.innerHTML = '<div class="rc-panel__empty">No comments on this page yet.</div>';
     } else {
-      container.innerHTML = pageComments.map(function (c) {
+      container.innerHTML = pageComments.map(function (c, idx) {
         var d = new Date(c.timestamp);
         var time = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        var escapedText = c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        var escapedName = (c.name || 'Anonymous').replace(/</g, '&lt;');
+        var isOwner = reviewer && c.name === reviewer;
+        var clearBtn = isOwner
+          ? '<button class="rc-msg__clear" data-page="' + c.page + '" data-name="' + escapedName + '" data-ts="' + c.timestamp + '">Clear</button>'
+          : '';
         return '<div class="rc-msg">' +
-          '<div>' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</div>' +
-          '<div class="rc-msg__meta"><span>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</span><span>' + time + '</span></div>' +
+          '<div class="rc-msg__text">' + escapedText + '</div>' +
+          '<div class="rc-msg__meta">' +
+          '  <div class="rc-msg__info"><span>' + escapedName + '</span><span>' + time + '</span></div>' +
+          '  ' + clearBtn +
+          '</div>' +
           '</div>';
       }).join('');
       container.scrollTop = container.scrollHeight;
+
+      // Bind clear buttons
+      container.querySelectorAll('.rc-msg__clear').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var commentToClr = {
+            page: this.dataset.page,
+            name: this.dataset.name,
+            timestamp: this.dataset.ts
+          };
+          // Mark cleared locally
+          var local = getLocalComments();
+          local = local.map(function (c) {
+            if (c.page === commentToClr.page && c.name === commentToClr.name && c.timestamp === commentToClr.timestamp) {
+              return Object.assign({}, c, { cleared: true, clearedAt: new Date().toISOString() });
+            }
+            return c;
+          });
+          saveLocalComments(local);
+          cachedComments = local;
+          renderMessages(cachedComments);
+          // Clear on server
+          clearOnServer(commentToClr);
+        });
+      });
     }
     var count = pageComments.length;
     badge.textContent = count;
@@ -195,7 +255,7 @@
     if (panel.classList.contains('is-open')) {
       renderMessages(cachedComments);
       refreshFromServer();
-      var savedName = localStorage.getItem('rc-reviewer-name') || '';
+      var savedName = getCurrentReviewer();
       panel.querySelector('#rc-name').value = savedName;
       panel.querySelector('#rc-comment').focus();
     }
@@ -242,6 +302,12 @@
       e.preventDefault();
       panel.querySelector('#rc-submit').click();
     }
+  });
+
+  /* ---------- Persist name on change ---------- */
+  panel.querySelector('#rc-name').addEventListener('change', function () {
+    var name = this.value.trim();
+    if (name) localStorage.setItem('rc-reviewer-name', name);
   });
 
   /* ---------- Fetch from server on page load for accurate badge ---------- */
