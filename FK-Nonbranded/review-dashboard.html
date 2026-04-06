@@ -89,7 +89,11 @@
       border-radius: 8px; margin-left: 8px;
     }
     .dash-comment__status--active { background: #e8f5e9; color: #2e7d32; }
+    .dash-comment__status--complete { background: #e0e7ff; color: #3b4fc4; }
     .dash-comment__status--cleared { background: #fce4ec; color: #c62828; }
+    .dash-comment.is-completed { border-left: 3px solid #3b4fc4; }
+    .dash-comment.is-completed .dash-comment__avatar { background: #e0e7ff; color: #3b4fc4; }
+    .dash-comment__completed-info { font-size: 10px; color: #3b4fc4; margin-top: 2px; }
 
     .dash-empty {
       text-align: center; padding: 60px 24px; color: #aaa;
@@ -197,16 +201,18 @@
       var filtered = currentFilter === 'all' ? comments :
         comments.filter(function (c) { return c.page === currentFilter; });
 
-      // Stats — count only active (non-cleared) comments
-      var activeComments = comments.filter(function (c) { return !c.cleared; });
+      // Stats
+      var activeComments = comments.filter(function (c) { return !c.cleared && !c.completed; });
+      var completedComments = comments.filter(function (c) { return c.completed; });
       var clearedComments = comments.filter(function (c) { return c.cleared; });
       var pages = {};
       activeComments.forEach(function (c) { pages[c.page] = (pages[c.page] || 0) + 1; });
       var reviewers = {};
       comments.forEach(function (c) { reviewers[c.name] = true; });
       document.getElementById('stats').innerHTML =
-        '<div class="dash-stat"><div class="dash-stat__number">' + activeComments.length + '</div><div class="dash-stat__label">Active Comments</div></div>' +
-        '<div class="dash-stat"><div class="dash-stat__number">' + clearedComments.length + '</div><div class="dash-stat__label">Cleared Comments</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + activeComments.length + '</div><div class="dash-stat__label">Active</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + completedComments.length + '</div><div class="dash-stat__label">Completed</div></div>' +
+        '<div class="dash-stat"><div class="dash-stat__number">' + clearedComments.length + '</div><div class="dash-stat__label">Cleared</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(pages).length + '</div><div class="dash-stat__label">Pages with Feedback</div></div>' +
         '<div class="dash-stat"><div class="dash-stat__number">' + Object.keys(reviewers).length + '</div><div class="dash-stat__label">Reviewers</div></div>';
 
@@ -252,10 +258,14 @@
       Object.keys(grouped).sort().forEach(function (page) {
         var items = grouped[page];
         var title = items[0].pageTitle || page;
-        var activeCount = items.filter(function (c) { return !c.cleared; }).length;
+        var activeCount = items.filter(function (c) { return !c.cleared && !c.completed; }).length;
+        var completedCount = items.filter(function (c) { return c.completed; }).length;
         var clearedCount = items.filter(function (c) { return c.cleared; }).length;
-        var countLabel = activeCount + ' active';
-        if (clearedCount > 0) countLabel += ', ' + clearedCount + ' cleared';
+        var countParts = [];
+        if (activeCount > 0) countParts.push(activeCount + ' active');
+        if (completedCount > 0) countParts.push(completedCount + ' completed');
+        if (clearedCount > 0) countParts.push(clearedCount + ' cleared');
+        var countLabel = countParts.join(', ') || '0';
         html += '<div class="dash-page-group">';
         html += '<div class="dash-page-group__header">' +
           '<div class="dash-page-group__title"><a href="' + page + '">' + title + '</a></div>' +
@@ -264,14 +274,29 @@
           var d = new Date(c.timestamp);
           var time = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           var isCleared = c.cleared;
-          var statusBadge = isCleared
-            ? '<span class="dash-comment__status dash-comment__status--cleared">Cleared</span>'
-            : '<span class="dash-comment__status dash-comment__status--active">Active</span>';
-          html += '<div class="dash-comment' + (isCleared ? ' is-cleared' : '') + '">' +
+          var isCompleted = c.completed;
+          var statusBadge, rowClass, completedInfo = '';
+          if (isCleared) {
+            statusBadge = '<span class="dash-comment__status dash-comment__status--cleared">Cleared</span>';
+            rowClass = ' is-cleared';
+          } else if (isCompleted) {
+            statusBadge = '<span class="dash-comment__status dash-comment__status--complete">Complete</span>';
+            rowClass = ' is-completed';
+            var cd = c.completedAt ? new Date(c.completedAt) : null;
+            var completedTime = cd ? cd.toLocaleDateString() + ' at ' + cd.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+            completedInfo = '<div class="dash-comment__completed-info">Completed by ' +
+              (c.completedBy || 'Unknown').replace(/</g, '&lt;') +
+              (completedTime ? ' &middot; ' + completedTime : '') + '</div>';
+          } else {
+            statusBadge = '<span class="dash-comment__status dash-comment__status--active">Active</span>';
+            rowClass = '';
+          }
+          html += '<div class="dash-comment' + rowClass + '">' +
             '<div class="dash-comment__avatar">' + getInitials(c.name) + '</div>' +
             '<div class="dash-comment__body">' +
             '  <div class="dash-comment__text">' + c.text.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>') + '</div>' +
             '  <div class="dash-comment__meta"><strong>' + (c.name || 'Anonymous').replace(/</g, '&lt;') + '</strong> &middot; ' + time + statusBadge + '</div>' +
+            completedInfo +
             '</div></div>';
         });
         html += '</div>';
@@ -293,11 +318,12 @@
     // Export CSV — includes ALL comments (active and cleared) with a Status column
     document.getElementById('export-btn').addEventListener('click', function () {
       if (allComments.length === 0) { showToast('No comments to export'); return; }
-      var csv = 'Page,Page Title,Reviewer,Comment,Timestamp,Status\n';
+      var csv = 'Page,Page Title,Reviewer,Comment,Timestamp,Status,Completed By,Completed At\n';
       allComments.forEach(function (c) {
-        var status = c.cleared ? 'Cleared' : 'Active';
+        var status = c.cleared ? 'Cleared' : (c.completed ? 'Complete' : 'Active');
         csv += '"' + c.page + '","' + (c.pageTitle || '') + '","' + (c.name || 'Anonymous') + '","' +
-          c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '","' + status + '"\n';
+          c.text.replace(/"/g, '""').replace(/\n/g, ' ') + '","' + c.timestamp + '","' + status + '","' +
+          (c.completedBy || '') + '","' + (c.completedAt || '') + '"\n';
       });
       var blob = new Blob([csv], { type: 'text/csv' });
       var url = URL.createObjectURL(blob);
