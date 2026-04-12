@@ -8,10 +8,10 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #333; background: #fff; }
+    body { font-family: 'Inter', sans-serif; color: #444; background: #fff; }
     :root {
-      --red: #B22222; --teal: #3D5A5A; --dark: #2C3E3E; --light-blue: #E8F4F8;
-      --max-width: 1200px; --accent-blue: #1799D6;
+      --red: #888; --teal: #666; --dark: #333; --light-blue: #f0f0f0;
+      --max-width: 1200px; --accent-blue: #777; --wf-dark: #555; --wf-mid: #888; --wf-light: #bbb;
     }
     .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
 
@@ -56,7 +56,7 @@
 
     /* ===== VIDEO PLACEHOLDER ===== */
     .video-placeholder {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      background: linear-gradient(135deg, #333 0%, #444 50%, #555 100%);
       position: relative; display: flex; align-items: center; justify-content: center;
       overflow: hidden;
     }
@@ -76,15 +76,15 @@
       display: inline-block; padding: 12px 28px; font-size: 12px; font-weight: 700;
       text-transform: uppercase; letter-spacing: 1px; text-decoration: none; cursor: pointer; border: none;
     }
-    .btn--primary { background: #fff; color: var(--dark); border-radius: 999px; }
-    .btn--teal { background: var(--teal); color: #fff; border-radius: 999px; }
-    .btn--outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); border-radius: 999px; }
-    .arrow-link { font-size: 12px; font-weight: 700; color: var(--red); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+    .btn--primary { background: #fff; color: #444; border-radius: 999px; }
+    .btn--teal { background: #666; color: #fff; border-radius: 999px; }
+    .btn--outline { background: transparent; color: #666; border: 2px solid #999; border-radius: 999px; }
+    .arrow-link { font-size: 12px; font-weight: 700; color: #666; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
 
     /* ===== BACK TO TOP ===== */
     .back-to-top {
       position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
-      background: var(--red); color: #fff; border: none; border-radius: 50%;
+      background: #666; color: #fff; border: none; border-radius: 50%;
       font-size: 16px; cursor: pointer; z-index: 100; display: flex;
       align-items: center; justify-content: center; text-decoration: none;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
@@ -92,10 +92,52 @@
 
     /* ===== VERSION TAG ===== */
     .version-bar {
-      background: #1a1a1a; color: #999; font-size: 10px; padding: 8px 24px;
+      background: #333; color: #999; font-size: 10px; padding: 8px 24px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .version-bar a { color: var(--accent-blue); text-decoration: none; }
+    .version-bar a { color: #aaa; text-decoration: none; }
+
+    /* ===== TOGGLE PANEL ===== */
+    .toggle-panel {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      background: #fff; border: 1px solid #ddd; border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15); overflow: hidden;
+      font-size: 11px; width: 220px; transition: all 0.2s;
+    }
+    .toggle-panel__header {
+      background: #333; color: #fff; padding: 10px 14px; font-size: 10px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    }
+    .toggle-panel__body { padding: 12px 14px; }
+    .toggle-panel__row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid #f0f0f0;
+    }
+    .toggle-panel__row:last-child { border-bottom: none; }
+    .toggle-panel__label { font-size: 11px; color: #555; }
+    .toggle-switch {
+      position: relative; width: 36px; height: 20px; background: #ddd;
+      border-radius: 10px; cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+    }
+    .toggle-switch.active { background: #333; }
+    .toggle-switch::after {
+      content: ''; position: absolute; top: 2px; left: 2px;
+      width: 16px; height: 16px; background: #fff; border-radius: 50%;
+      transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .toggle-switch.active::after { transform: translateX(16px); }
+    .toggle-panel.collapsed .toggle-panel__body { display: none; }
+
+    /* ===== ANNOTATION VISIBILITY ===== */
+    body.hide-annotations .annotation,
+    body.hide-annotations .annotation--anim,
+    body.hide-annotations .annotation--new { display: none !important; }
+    body.hide-section-bars .section-header-bar { display: none !important; }
+    body.hide-section-bars .section-num { display: none !important; }
+    body.hide-comp-tags .comp-tag { display: none !important; }
+    body.hide-new-tags .annotation--new { display: none !important; }
+    body.hide-version-bar .version-bar { display: none !important; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
@@ -132,7 +174,7 @@
       <a href="#" style="color:#555;text-decoration:none;">One Columbus</a>
       <a href="#" style="color:#555;text-decoration:none;">Columbus Partnership</a>
       <a href="#" style="color:#555;text-decoration:none;">Smart Columbus</a>
-      <a href="#" style="color:white;text-decoration:none;background:var(--teal);padding:7px 18px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;border-radius:4px;">Contact Us</a>
+      <a href="#" style="color:white;text-decoration:none;background:#555;padding:7px 18px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;border-radius:4px;">Contact Us</a>
     </div>
   </div>
 </div>
@@ -153,17 +195,17 @@
       <div style="display:flex;align-items:center;gap:4px;">
         <span style="font-size:8px;color:#999;text-transform:uppercase;line-height:1;">THE</span>
         <span style="font-size:22px;font-weight:900;color:#333;letter-spacing:-0.5px;">COLUMBUS</span>
-        <span style="font-size:22px;font-weight:900;color:var(--red);margin-top:-8px;">&#x2726;</span>
+        <span style="font-size:22px;font-weight:900;color:#999;margin-top:-8px;">&#x2726;</span>
         <span style="font-size:10px;color:#999;margin-left:2px;">REGION</span>
       </div>
       <!-- Nav -->
       <nav style="display:flex;gap:0;" class="hide-mobile">
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Why Columbus</a>
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Economy <span style="font-size:7px;">&#9660;</span></a>
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Doing Business <span style="font-size:7px;">&#9660;</span></a>
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Talent <span style="font-size:7px;">&#9660;</span></a>
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">About <span style="font-size:7px;">&#9660;</span></a>
-        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">News <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Why Columbus</a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Economy <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Doing Business <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Talent <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">About <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">News <span style="font-size:7px;">&#9660;</span></a>
       </nav>
       <!-- Search + Mobile toggle -->
       <div style="display:flex;align-items:center;gap:12px;">
@@ -210,7 +252,7 @@
 </div>
 <section style="position:relative;">
   <span class="annotation annotation--anim" style="top:12px;right:16px;">Counter animation on scroll-into-view</span>
-  <div style="background:var(--red);padding:40px 0;">
+  <div style="background:#555;padding:40px 0;">
     <div class="container">
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;color:#fff;" class="desktop-grid">
         <div>
@@ -276,12 +318,12 @@
     <!-- Block 3: 11-County Region -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;" class="desktop-grid">
       <div style="background:#f0f0f0;min-height:300px;border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;">
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:25%;left:35%;">DELAWARE</div>
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:50%;left:38%;">FRANKLIN</div>
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:70%;left:30%;">PICKAWAY</div>
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:35%;left:12%;">UNION</div>
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:35%;right:15%;">LICKING</div>
-        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:15%;right:18%;">KNOX</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:25%;left:35%;">DELAWARE</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:50%;left:38%;">FRANKLIN</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:70%;left:30%;">PICKAWAY</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:35%;left:12%;">UNION</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:35%;right:15%;">LICKING</div>
+        <div style="font-size:9px;color:#777;font-weight:700;position:absolute;top:15%;right:18%;">KNOX</div>
         <span style="position:relative;z-index:1;font-size:8px;color:#999;background:rgba(255,255,255,0.8);padding:4px 8px;border-radius:3px;margin-top:220px;">Interactive SVG Map</span>
       </div>
       <div>
@@ -309,7 +351,7 @@
       <span>Industry Hero Photo (changes per accordion)</span>
     </div>
     <!-- Accordion side -->
-    <div style="background:var(--dark);padding:40px 32px;color:#fff;">
+    <div style="background:#444;padding:40px 32px;color:#fff;">
       <div class="section-label" style="color:rgba(255,255,255,0.5);">Economy &amp; Industries</div>
       <h2 style="font-size:28px;font-weight:800;margin-bottom:8px;">9 Key Industries</h2>
       <p style="font-size:12px;opacity:0.7;margin-bottom:24px;">A diversified economy driving innovation across sectors.</p>
@@ -348,24 +390,24 @@
     <div class="section-label">Doing Business</div>
     <h2 style="font-size:28px;font-weight:800;margin-bottom:32px;">Everything You Need to Get Started</h2>
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" class="desktop-grid">
-      <div style="padding-top:16px;border-top:3px solid var(--red);">
-        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Site Selection Services</h4>
+      <div style="padding-top:16px;border-top:3px solid #999;">
+        <h4 style="font-size:15px;font-weight:700;color:#555;margin-bottom:8px;">Site Selection Services</h4>
         <span class="annotation annotation--new" style="position:relative;margin-bottom:8px;display:inline-block;">New &mdash; Critical</span>
         <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Our team guides companies through every step of the site selection process.</p>
         <a href="#" class="arrow-link">Start Your Search &rarr;</a>
       </div>
-      <div style="padding-top:16px;border-top:3px solid var(--red);">
-        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Cost of Business</h4>
+      <div style="padding-top:16px;border-top:3px solid #999;">
+        <h4 style="font-size:15px;font-weight:700;color:#555;margin-bottom:8px;">Cost of Business</h4>
         <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Operating costs 10% lower than the national average across key categories.</p>
         <a href="#" class="arrow-link">Compare Costs &rarr;</a>
       </div>
-      <div style="padding-top:16px;border-top:3px solid var(--red);">
-        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Incentives &amp; Programs</h4>
+      <div style="padding-top:16px;border-top:3px solid #999;">
+        <h4 style="font-size:15px;font-weight:700;color:#555;margin-bottom:8px;">Incentives &amp; Programs</h4>
         <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Tax credits, enterprise zones, and workforce training grants for growing businesses.</p>
         <a href="#" class="arrow-link">Explore Incentives &rarr;</a>
       </div>
-      <div style="padding-top:16px;border-top:3px solid var(--red);">
-        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Available Real Estate</h4>
+      <div style="padding-top:16px;border-top:3px solid #999;">
+        <h4 style="font-size:15px;font-weight:700;color:#555;margin-bottom:8px;">Available Real Estate</h4>
         <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Industrial sites, office space, and development-ready land across 11 counties.</p>
         <a href="#" class="arrow-link">View Properties &rarr;</a>
       </div>
@@ -447,16 +489,16 @@
       <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;">Home to 40+ colleges and universities producing 130,000+ graduates annually. The Columbus Region ranks as a top-10 metro for young professional concentration.</p>
       <!-- Inline stats -->
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
-        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
-          <div style="font-size:28px;font-weight:900;color:var(--teal);">40+</div>
+        <div style="background:#eee;padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:#555;">40+</div>
           <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Colleges</div>
         </div>
-        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
-          <div style="font-size:28px;font-weight:900;color:var(--teal);">130K</div>
+        <div style="background:#eee;padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:#555;">130K</div>
           <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Annual Grads</div>
         </div>
-        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
-          <div style="font-size:28px;font-weight:900;color:var(--teal);">Top 10</div>
+        <div style="background:#eee;padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:#555;">Top 10</div>
           <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Young Pros</div>
         </div>
       </div>
@@ -526,7 +568,7 @@
 </div>
 <section style="position:relative;">
   <span class="annotation annotation--anim" style="top:12px;right:16px;z-index:10;">Background parallax</span>
-  <div style="background:var(--light-blue);padding:80px 0;">
+  <div style="background:#f0f0f0;padding:80px 0;">
     <div class="container">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" class="desktop-grid">
         <div>
@@ -556,12 +598,12 @@
   <span class="section-num">12</span> Footer
   <span class="comp-tag">D2</span>
 </div>
-<footer style="background:var(--dark);padding:48px 0 24px;color:#fff;">
+<footer style="background:#444;padding:48px 0 24px;color:#fff;">
   <div class="container">
     <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr;gap:24px;font-size:11px;" class="desktop-grid">
       <!-- Col 1: Brand -->
       <div>
-        <div style="font-size:18px;font-weight:900;margin-bottom:12px;">COLUMBUS <span style="color:var(--red);">&#x2726;</span> REGION</div>
+        <div style="font-size:18px;font-weight:900;margin-bottom:12px;">COLUMBUS <span style="color:#999;">&#x2726;</span> REGION</div>
         <div style="opacity:0.6;line-height:1.7;margin-bottom:12px;">150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500</div>
         <div style="display:flex;gap:8px;">
           <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">in</span>
@@ -591,7 +633,7 @@
         <div style="opacity:0.6;margin-bottom:10px;line-height:1.5;">The latest news, articles, and resources sent to your inbox.</div>
         <div style="display:flex;gap:4px;">
           <input type="email" placeholder="Email" style="flex:1;height:36px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;padding:0 10px;font-size:11px;border-radius:4px;">
-          <button style="background:var(--red);color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;border-radius:4px;">SIGN UP</button>
+          <button style="background:#666;color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;border-radius:4px;">SIGN UP</button>
         </div>
         <div style="margin-top:16px;display:flex;align-items:center;gap:8px;">
           <div style="width:60px;height:24px;background:rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;opacity:0.5;">JobsOhio</div>
@@ -611,11 +653,46 @@
   </div>
 </footer>
 
-<!-- ===== BACK TO TOP ===== -->
-<a href="#top" class="back-to-top">&uarr;</a>
+<!-- ===== TOGGLE PANEL ===== -->
+<div class="toggle-panel" id="togglePanel">
+  <div class="toggle-panel__header" onclick="document.getElementById('togglePanel').classList.toggle('collapsed')">
+    <span>Wireframe Controls</span>
+    <span style="font-size:14px;">&#9776;</span>
+  </div>
+  <div class="toggle-panel__body">
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Animation Zones</span>
+      <div class="toggle-switch active" data-toggle="annotations" onclick="toggleLayer(this)"></div>
+    </div>
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Section Bars</span>
+      <div class="toggle-switch active" data-toggle="section-bars" onclick="toggleLayer(this)"></div>
+    </div>
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Component Tags</span>
+      <div class="toggle-switch active" data-toggle="comp-tags" onclick="toggleLayer(this)"></div>
+    </div>
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">New Page Tags</span>
+      <div class="toggle-switch active" data-toggle="new-tags" onclick="toggleLayer(this)"></div>
+    </div>
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Version Bar</span>
+      <div class="toggle-switch active" data-toggle="version-bar" onclick="toggleLayer(this)"></div>
+    </div>
+    <div class="toggle-panel__row" style="border-top:1px solid #ddd;padding-top:10px;margin-top:4px;">
+      <span class="toggle-panel__label" style="font-weight:700;">All Annotations</span>
+      <div class="toggle-switch active" data-toggle="all" onclick="toggleAll(this)"></div>
+    </div>
+    <div style="margin-top:10px;text-align:center;">
+      <a href="#top" style="font-size:10px;color:#888;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">&uarr; Back to Top</a>
+    </div>
+  </div>
+</div>
 
-<!-- ===== SMOOTH SCROLL ===== -->
+<!-- ===== SCRIPTS ===== -->
 <script>
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     e.preventDefault();
@@ -623,6 +700,29 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// Toggle individual layers
+function toggleLayer(el) {
+  el.classList.toggle('active');
+  const layer = el.dataset.toggle;
+  document.body.classList.toggle('hide-' + layer);
+}
+
+// Toggle all annotations at once
+function toggleAll(el) {
+  el.classList.toggle('active');
+  const isOn = el.classList.contains('active');
+  const switches = document.querySelectorAll('.toggle-switch:not([data-toggle="all"])');
+  switches.forEach(sw => {
+    if (isOn) {
+      sw.classList.add('active');
+      document.body.classList.remove('hide-' + sw.dataset.toggle);
+    } else {
+      sw.classList.remove('active');
+      document.body.classList.add('hide-' + sw.dataset.toggle);
+    }
+  });
+}
 </script>
 
 </body>
