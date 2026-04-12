@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Columbus Region — Dynamic Homepage Wireframe</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: auto; }
+    body { font-family: 'Inter', sans-serif; color: #444; background: #fff; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 32px; display: flex; align-items: center; justify-content: space-between;
+      transition: all 0.4s ease; background: transparent;
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      padding: 12px 32px; box-shadow: 0 1px 20px rgba(0,0,0,0.08);
+    }
+    .nav__logo { font-size: 20px; font-weight: 900; color: #fff; letter-spacing: -0.5px; transition: color 0.4s; }
+    .nav.scrolled .nav__logo { color: #333; }
+    .nav__links { display: flex; gap: 24px; }
+    .nav__links a { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: color 0.4s; }
+    .nav.scrolled .nav__links a { color: #555; }
+    .nav__cta { padding: 8px 20px; font-size: 10px; font-weight: 700; color: #fff; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.4); border-radius: 999px; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: all 0.4s; }
+    .nav.scrolled .nav__cta { background: #444; color: #fff; border-color: #444; }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 40%, #3a3a3a 100%);
+      overflow: hidden;
+    }
+    .hero__bg {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(255,255,255,0.015) 3px, rgba(255,255,255,0.015) 6px);
+    }
+    .hero__scanlines {
+      position: absolute; inset: 0; opacity: 0.3;
+      background: radial-gradient(ellipse at 50% 40%, rgba(255,255,255,0.08) 0%, transparent 70%);
+    }
+    .hero__play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 80px; height: 80px; border: 2px solid rgba(255,255,255,0.2); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; opacity: 0.4;
+    }
+    .hero__play::after { content: ''; border-left: 20px solid rgba(255,255,255,0.3); border-top: 12px solid transparent; border-bottom: 12px solid transparent; margin-left: 5px; }
+    .hero__content { position: relative; z-index: 2; text-align: center; color: #fff; max-width: 800px; padding: 0 24px; }
+    .hero__eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.5; margin-bottom: 16px; }
+    .hero__title { font-size: clamp(36px, 6vw, 64px); font-weight: 900; line-height: 1.02; margin-bottom: 20px; }
+    .hero__sub { font-size: 17px; opacity: 0.6; line-height: 1.6; max-width: 500px; margin: 0 auto 32px; }
+    .hero__btn { display: inline-block; padding: 14px 36px; font-size: 12px; font-weight: 700; color: #333; background: #fff; border-radius: 999px; text-decoration: none; text-transform: uppercase; letter-spacing: 1.5px; }
+    .hero__scroll-hint {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      font-size: 9px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+    }
+    .hero__scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent); animation: scrollPulse 2s ease infinite; }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar {
+      background: #444; padding: 48px 0; position: relative; z-index: 2;
+    }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; color: #fff; }
+    .stat__number { font-size: 48px; font-weight: 900; line-height: 1; }
+    .stat__label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.6; margin-top: 8px; }
+
+    /* ===== CONTENT SECTIONS ===== */
+    section { position: relative; overflow: hidden; }
+    .section-pad { padding: 120px 0; }
+    .section-label { font-size: 10px; font-weight: 700; color: #999; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 8px; }
+    .section-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+    .section-body { font-size: 15px; color: #666; line-height: 1.7; max-width: 480px; }
+
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal { opacity: 0; transform: translateY(60px); }
+    .reveal-left { opacity: 0; transform: translateX(-60px); }
+    .reveal-right { opacity: 0; transform: translateX(60px); }
+    .reveal-scale { opacity: 0; transform: scale(0.9); }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-box {
+      background: #e0e0e0; border-radius: 8px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-box::before, .img-box::after {
+      content: ''; position: absolute; background: #ccc; width: 141%; height: 1px;
+    }
+    .img-box::before { transform: rotate(45deg); }
+    .img-box::after { transform: rotate(-45deg); }
+    .img-box span {
+      position: relative; z-index: 1; font-size: 9px; color: #999; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.85);
+      padding: 4px 10px; border-radius: 4px;
+    }
+
+    /* ===== PINNED PARALLAX ===== */
+    .parallax-section { height: 300vh; position: relative; }
+    .parallax-sticky {
+      position: sticky; top: 0; height: 100vh; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .parallax-layer {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ===== INDUSTRIES PINNED ===== */
+    .industries-pin { height: 400vh; }
+    .industries-sticky {
+      position: sticky; top: 0; height: 100vh; display: grid;
+      grid-template-columns: 1fr 1fr; overflow: hidden;
+    }
+    .industries-image { background: #d0d0d0; position: relative; overflow: hidden; }
+    .industries-image .img-box { position: absolute; inset: 0; border-radius: 0; }
+    .industries-content { background: #444; color: #fff; padding: 60px 40px; display: flex; flex-direction: column; justify-content: center; }
+    .ind-item { padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.12); font-size: 15px; font-weight: 600; opacity: 0.5; transition: opacity 0.4s, transform 0.4s; cursor: pointer; }
+    .ind-item.active { opacity: 1; transform: translateX(8px); }
+    .ind-item .ind-desc { font-size: 12px; font-weight: 400; opacity: 0; max-height: 0; overflow: hidden; transition: all 0.4s; margin-top: 0; line-height: 1.6; }
+    .ind-item.active .ind-desc { opacity: 0.7; max-height: 80px; margin-top: 8px; }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: #fff; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06); transition: transform 0.4s ease;
+    }
+    .card:hover { transform: translateY(-4px); }
+    .card__body { padding: 24px; }
+    .card__tag { font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+    .card__title { font-size: 17px; font-weight: 700; line-height: 1.3; margin-bottom: 8px; }
+    .card__text { font-size: 12px; color: #888; line-height: 1.6; }
+    .card__link { display: inline-block; margin-top: 12px; font-size: 11px; font-weight: 700; color: #555; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section { background: #f5f5f5; }
+
+    /* ===== FOOTER ===== */
+    .footer { background: #333; color: #fff; padding: 60px 0 24px; }
+    .footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+    /* ===== TOGGLE PANEL ===== */
+    .toggle-panel {
+      position: fixed; bottom: 24px; right: 24px; z-index: 200;
+      background: #fff; border: 1px solid #ddd; border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-size: 11px; width: 200px;
+    }
+    .toggle-panel__header {
+      background: #333; color: #fff; padding: 10px 14px; font-size: 9px;
+      font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; border-radius: 10px 10px 0 0;
+    }
+    .toggle-panel__body { padding: 10px 14px; }
+    .toggle-panel__row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
+    .toggle-panel__label { font-size: 10px; color: #555; }
+    .tgl { position: relative; width: 32px; height: 18px; background: #ddd; border-radius: 9px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .tgl.on { background: #333; }
+    .tgl::after { content: ''; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; background: #fff; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .tgl.on::after { transform: translateX(14px); }
+    .toggle-panel.collapsed .toggle-panel__body { display: none; }
+    .toggle-panel.collapsed .toggle-panel__header { border-radius: 10px; }
+
+    /* Annotation elements */
+    .anno { font-size: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 2px 8px; border-radius: 3px; display: inline-block; }
+    .anno--anim { background: #7c3aed; color: #fff; }
+    .anno--comp { background: rgba(0,0,0,0.5); color: #fff; }
+    .anno--new { background: #dc2626; color: #fff; }
+    .section-bar {
+      padding: 6px 24px; background: #f5f5f5; border-bottom: 1px solid #eee;
+      font-size: 10px; color: #888; display: flex; align-items: center; gap: 8px;
+    }
+    .section-bar .snum { width: 20px; height: 20px; background: #888; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; }
+    body.hide-annos .anno { display: none !important; }
+    body.hide-bars .section-bar { display: none !important; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .industries-sticky { grid-template-columns: 1fr; }
+      .industries-image { display: none; }
+      .nav__links { display: none; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<!-- ===== NAVIGATION ===== -->
+<nav class="nav" id="mainNav">
+  <div class="nav__logo">COLUMBUS <span style="opacity:0.4;">&#x2726;</span> REGION</div>
+  <div class="nav__links">
+    <a href="#">Why Columbus</a>
+    <a href="#">Economy</a>
+    <a href="#">Doing Business</a>
+    <a href="#">Talent</a>
+    <a href="#">About</a>
+    <a href="#">News</a>
+  </div>
+  <a href="#" class="nav__cta">Contact Us</a>
+</nav>
+
+
+<!-- ============================================================ -->
+<!-- 1. HERO — FULL VIEWPORT VIDEO + STAGGERED TEXT -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">1</span> Hero <span class="anno anno--comp">D4</span> <span class="anno anno--anim">Video + Stagger + Parallax</span></div>
+<section class="hero" id="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__scanlines"></div>
+  <div class="hero__play"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow" id="heroEyebrow">The Columbus Region</p>
+    <h1 class="hero__title" id="heroTitle">The Fastest-Growing<br>Metro in the Midwest</h1>
+    <p class="hero__sub" id="heroSub">Where Fortune 1000 companies, world-class universities, and a thriving talent ecosystem converge.</p>
+    <a href="#" class="hero__btn" id="heroBtn">Explore the Region</a>
+  </div>
+  <div class="hero__scroll-hint">
+    Scroll to explore
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 2. PROOF POINTS — COUNTER ANIMATION -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">2</span> Proof Points <span class="anno anno--comp">D7</span> <span class="anno anno--anim">Counter Animation</span></div>
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="reveal">
+        <div class="stat__number" data-count="2.3" data-suffix="M">0</div>
+        <div class="stat__label">Talented People</div>
+      </div>
+      <div class="reveal">
+        <div class="stat__number" data-count="1" data-prefix="No. ">0</div>
+        <div class="stat__label">Midwest GDP Growth</div>
+      </div>
+      <div class="reveal">
+        <div class="stat__number" data-count="10" data-prefix="$" data-suffix="B">0</div>
+        <div class="stat__label">Capital Investment</div>
+      </div>
+      <div class="reveal">
+        <div class="stat__number" data-count="16">0</div>
+        <div class="stat__label">Fortune 1000 Companies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 3. WHY COLUMBUS — PARALLAX PINNED SECTION -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">3</span> Why Columbus — Pinned Parallax <span class="anno anno--comp">D6</span> <span class="anno anno--anim">Pinned + Parallax + Text Cycle</span></div>
+<section class="parallax-section" id="whyColumbus">
+  <div class="parallax-sticky" style="background:#fafafa;">
+    <!-- Background image layer (parallax) -->
+    <div class="parallax-layer" id="whyBg" style="z-index:1;">
+      <div class="img-box" style="width:55%;height:75%;margin-left:auto;margin-right:5%;"><span>City Aerial Photo</span></div>
+    </div>
+    <!-- Text content layer -->
+    <div class="parallax-layer" id="whyContent" style="z-index:2;align-items:flex-start;justify-content:flex-start;padding:80px 60px;">
+      <div style="max-width:480px;background:rgba(255,255,255,0.92);padding:40px;border-radius:12px;backdrop-filter:blur(8px);">
+        <div class="section-label">Why Columbus</div>
+        <h2 class="section-title" id="whyTitle">Built for Growth.<br>Designed for Business.</h2>
+        <p class="section-body" id="whyBody">No. 1 for Growth and Infrastructure on the Global Groundwork Index. The fastest-growing metro in the Midwest by Census data.</p>
+        <a href="#" class="card__link" style="margin-top:20px;" id="whyLink">See All Rankings &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 4. SUCCESS STORIES — ALTERNATING REVEAL -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">4</span> Success Stories <span class="anno anno--comp">D6 + D10</span> <span class="anno anno--anim">Alternating Slide-in</span></div>
+<section class="section-pad" style="background:#fff;">
+  <div class="container">
+    <div class="section-label reveal">Success Stories</div>
+    <h2 class="section-title reveal" style="margin-bottom:60px;">Companies Choosing<br>Columbus</h2>
+
+    <!-- Story 1 — image left -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:80px;align-items:center;">
+      <div class="img-box reveal-left" style="min-height:350px;"><span>Intel Facility</span></div>
+      <div class="reveal-right">
+        <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Semiconductors</div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:12px;">Intel Invests $20B<br>in New Albany</h3>
+        <p style="font-size:14px;color:#666;line-height:1.7;margin-bottom:16px;">The largest single private-sector investment in Ohio history, creating 3,000+ direct jobs and anchoring the emerging silicon corridor.</p>
+        <a href="#" class="card__link">Read the Full Story &rarr;</a>
+      </div>
+    </div>
+
+    <!-- Story 2 — image right -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:80px;align-items:center;">
+      <div class="reveal-left">
+        <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Defense &amp; Aerospace</div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:12px;">Anduril Opens<br>Arsenal-1 Facility</h3>
+        <p style="font-size:14px;color:#666;line-height:1.7;margin-bottom:16px;">Advanced defense manufacturing with autonomous systems production at scale in the Columbus Region.</p>
+        <a href="#" class="card__link">Read the Full Story &rarr;</a>
+      </div>
+      <div class="img-box reveal-right" style="min-height:350px;"><span>Anduril Arsenal</span></div>
+    </div>
+
+    <!-- Story 3 — image left -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+      <div class="img-box reveal-left" style="min-height:350px;"><span>STRAUSS HQ</span></div>
+      <div class="reveal-right">
+        <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px;">Food &amp; Beverage</div>
+        <h3 style="font-size:26px;font-weight:800;margin-bottom:12px;">STRAUSS Selects Columbus<br>for U.S. Headquarters</h3>
+        <p style="font-size:14px;color:#666;line-height:1.7;margin-bottom:16px;">Global food company chooses the Columbus Region for its North American operations hub.</p>
+        <a href="#" class="card__link">Read the Full Story &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 5. INDUSTRIES — PINNED SCROLL WITH CONTENT CYCLING -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">5</span> Industries — Pinned Accordion <span class="anno anno--comp">D8</span> <span class="anno anno--anim">Pinned Scroll + Image Crossfade</span></div>
+<section class="industries-pin" id="industriesSection">
+  <div class="industries-sticky">
+    <div class="industries-image">
+      <div class="img-box" id="indImg1" style="opacity:1;"><span>Semiconductors Photo</span></div>
+      <div class="img-box" id="indImg2" style="opacity:0;"><span>Automotive Photo</span></div>
+      <div class="img-box" id="indImg3" style="opacity:0;"><span>Finance Photo</span></div>
+      <div class="img-box" id="indImg4" style="opacity:0;"><span>Life Sciences Photo</span></div>
+    </div>
+    <div class="industries-content">
+      <div class="section-label" style="color:rgba(255,255,255,0.4);">Economy &amp; Industries</div>
+      <h2 style="font-size:32px;font-weight:800;margin-bottom:8px;">9 Key Industries</h2>
+      <p style="font-size:12px;opacity:0.5;margin-bottom:24px;">A diversified economy driving innovation.</p>
+      <div class="ind-item active" data-img="1">Semiconductors <div class="ind-desc">Intel's $20B New Albany facility anchors Ohio's silicon corridor.</div></div>
+      <div class="ind-item" data-img="2">Automotive &amp; Mobility <div class="ind-desc">650,000 vehicles produced annually. Honda R&D anchor.</div></div>
+      <div class="ind-item" data-img="3">Finance &amp; Fintech <div class="ind-desc">5 of the top 20 largest US banks by deposits call Columbus home.</div></div>
+      <div class="ind-item" data-img="4">Life Sciences <div class="ind-desc">OSU Wexner Medical, Battelle, Nationwide Children's.</div></div>
+      <div class="ind-item">Food &amp; Beverage</div>
+      <div class="ind-item">Data Centers <span class="anno anno--new" style="margin-left:8px;">New</span></div>
+      <div class="ind-item">Defense &amp; Aerospace <span class="anno anno--new" style="margin-left:8px;">New</span></div>
+      <div class="ind-item">Logistics &amp; E-Commerce</div>
+      <div class="ind-item">Manufacturing</div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 6. DOING BUSINESS — STAGGERED CARD GRID -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">6</span> Doing Business <span class="anno anno--comp">D11</span> <span class="anno anno--anim">Stagger Cards</span></div>
+<section class="section-pad" style="background:#fff;">
+  <div class="container">
+    <div class="section-label reveal">Doing Business</div>
+    <h2 class="section-title reveal" style="margin-bottom:48px;">Everything You Need<br>to Get Started</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;">
+      <div class="card reveal" style="border-top:3px solid #999;">
+        <div class="card__body">
+          <div class="card__tag">Site Selection <span class="anno anno--new" style="margin-left:4px;">New</span></div>
+          <div class="card__title">Site Selection Services</div>
+          <div class="card__text">Our team guides companies through every step of the process.</div>
+          <a href="#" class="card__link">Start Your Search &rarr;</a>
+        </div>
+      </div>
+      <div class="card reveal" style="border-top:3px solid #bbb;">
+        <div class="card__body">
+          <div class="card__tag">Cost</div>
+          <div class="card__title">Cost of Business</div>
+          <div class="card__text">Operating costs 10% lower than the national average.</div>
+          <a href="#" class="card__link">Compare Costs &rarr;</a>
+        </div>
+      </div>
+      <div class="card reveal" style="border-top:3px solid #bbb;">
+        <div class="card__body">
+          <div class="card__tag">Incentives</div>
+          <div class="card__title">Incentives &amp; Programs</div>
+          <div class="card__text">Tax credits, enterprise zones, and workforce grants.</div>
+          <a href="#" class="card__link">Explore Incentives &rarr;</a>
+        </div>
+      </div>
+      <div class="card reveal" style="border-top:3px solid #bbb;">
+        <div class="card__body">
+          <div class="card__tag">Real Estate</div>
+          <div class="card__title">Available Properties</div>
+          <div class="card__text">Industrial sites, office space, and development-ready land.</div>
+          <a href="#" class="card__link">View Properties &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 7. TALENT — SCALE REVEAL WITH STATS -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">7</span> Talent Snapshot <span class="anno anno--comp">D6 + D7</span> <span class="anno anno--anim">Scale Reveal + Parallax</span></div>
+<section style="position:relative;overflow:hidden;">
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:500px;">
+    <div style="padding:80px 48px;display:flex;flex-direction:column;justify-content:center;">
+      <div class="section-label reveal">Talent &amp; Workforce</div>
+      <h2 class="section-title reveal">A Pipeline of<br>Future-Ready Talent</h2>
+      <p class="section-body reveal" style="margin-bottom:32px;">Home to 40+ colleges and universities producing 130,000+ graduates annually.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;">
+        <div class="reveal" style="background:#f0f0f0;padding:20px;border-radius:8px;text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#444;">40+</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;">Colleges</div>
+        </div>
+        <div class="reveal" style="background:#f0f0f0;padding:20px;border-radius:8px;text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#444;">130K</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;">Annual Grads</div>
+        </div>
+        <div class="reveal" style="background:#f0f0f0;padding:20px;border-radius:8px;text-align:center;">
+          <div style="font-size:32px;font-weight:900;color:#444;">Top 10</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#888;">Young Pros</div>
+        </div>
+      </div>
+      <a href="#" class="card__link reveal">Explore Talent &rarr;</a>
+    </div>
+    <div class="img-box reveal-scale" style="min-height:500px;border-radius:0;"><span>University / Campus Photo</span></div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 8. NEWS — FADE-UP CARDS -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">8</span> News &amp; Insights <span class="anno anno--comp">D13</span> <span class="anno anno--anim">Cards Fade-Up Stagger</span></div>
+<section class="section-pad" style="background:#fafafa;">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;">
+      <div>
+        <div class="section-label reveal">News &amp; Insights</div>
+        <h2 class="section-title reveal">Latest from the Region</h2>
+      </div>
+      <a href="#" class="card__link reveal">View All News &rarr;</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+      <div class="card reveal">
+        <div class="img-box" style="height:200px;border-radius:10px 10px 0 0;"><span>News Photo</span></div>
+        <div class="card__body">
+          <div class="card__tag">April 10, 2026 &middot; Press Release</div>
+          <div class="card__title">Wexner Medical Center Opens University Hospital Tower</div>
+          <div class="card__text">The new 820,000 sq. ft. tower represents a major investment in Columbus healthcare.</div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="img-box" style="height:200px;border-radius:10px 10px 0 0;"><span>News Photo</span></div>
+        <div class="card__body">
+          <div class="card__tag">April 8, 2026 &middot; News</div>
+          <div class="card__title">United Airlines Adds Daily Nonstop to Los Angeles</div>
+          <div class="card__text">New connectivity strengthens Columbus as a business travel hub.</div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <div class="img-box" style="height:200px;border-radius:10px 10px 0 0;"><span>News Photo</span></div>
+        <div class="card__body">
+          <div class="card__tag">March 28, 2026 &middot; Blog</div>
+          <div class="card__title">Columbus Named No. 1 for Growth &amp; Infrastructure</div>
+          <div class="card__text">The Global Groundwork Index ranks the Region first overall.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 9. CONTACT CTA -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">9</span> Contact CTA <span class="anno anno--comp">D9</span> <span class="anno anno--anim">Background Parallax</span></div>
+<section class="cta-section" style="padding:100px 0;">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+    <div>
+      <h2 class="section-title reveal">Ready to Grow in the<br>Columbus Region?</h2>
+      <p class="section-body reveal" style="margin-bottom:28px;">Our economic development team is ready to help your business find its place.</p>
+      <div class="reveal" style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="#" class="hero__btn" style="background:#444;color:#fff;font-size:11px;padding:12px 28px;">Let's Talk</a>
+        <a href="#" class="hero__btn" style="background:transparent;color:#444;border:2px solid #999;font-size:11px;padding:12px 28px;">Request Info</a>
+      </div>
+      <div class="reveal" style="margin-top:20px;font-size:12px;color:#999;">150 S. Front St., Suite 200, Columbus, OH 43215 &middot; 614-225-0500</div>
+    </div>
+    <div class="img-box reveal-scale" style="min-height:300px;"><span>Columbus Skyline</span></div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- 10. FOOTER -->
+<!-- ============================================================ -->
+<div class="section-bar"><span class="snum">10</span> Footer <span class="anno anno--comp">D2</span></div>
+<footer class="footer">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr;gap:24px;font-size:11px;">
+      <div>
+        <div style="font-size:18px;font-weight:900;margin-bottom:16px;">COLUMBUS <span style="opacity:0.3;">&#x2726;</span> REGION</div>
+        <div style="opacity:0.5;line-height:1.8;">150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500</div>
+        <div style="display:flex;gap:8px;margin-top:16px;">
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:10px;">in</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:10px;">X</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:10px;">YT</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:10px;">IG</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:10px;opacity:0.4;">Why Columbus</div>
+        <div style="opacity:0.6;line-height:2.4;">Rankings<br>Success Stories<br>11-County Region<br>International</div>
+      </div>
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:10px;opacity:0.4;">Economy</div>
+        <div style="opacity:0.6;line-height:2.4;">Industries<br>Top Employers<br>Expansions<br>R&amp;D</div>
+      </div>
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:10px;opacity:0.4;">Doing Business</div>
+        <div style="opacity:0.6;line-height:2.4;">Site Selection<br>Cost<br>Incentives<br>Real Estate</div>
+      </div>
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:10px;">Newsletter</div>
+        <div style="opacity:0.5;margin-bottom:10px;line-height:1.6;">The latest news and resources.</div>
+        <div style="display:flex;gap:4px;">
+          <input type="email" placeholder="Email" style="flex:1;height:36px;border:1px solid rgba(255,255,255,0.2);background:transparent;color:#fff;padding:0 10px;font-size:11px;border-radius:4px;">
+          <button style="background:#666;color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;border-radius:4px;cursor:pointer;">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:40px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);display:flex;justify-content:space-between;font-size:9px;opacity:0.3;">
+      <span>&copy; 2026 The Columbus Region. All Rights Reserved.</span>
+      <div style="display:flex;gap:16px;"><a href="#">Privacy</a> <a href="#">Accessibility</a> <a href="#">Sitemap</a></div>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ===== TOGGLE PANEL ===== -->
+<div class="toggle-panel" id="togglePanel">
+  <div class="toggle-panel__header" onclick="document.getElementById('togglePanel').classList.toggle('collapsed')">
+    <span>Wireframe Controls</span>
+    <span style="font-size:14px;">&#9776;</span>
+  </div>
+  <div class="toggle-panel__body">
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Annotations</span>
+      <div class="tgl on" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-annos')"></div>
+    </div>
+    <div class="toggle-panel__row">
+      <span class="toggle-panel__label">Section Bars</span>
+      <div class="tgl on" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-bars')"></div>
+    </div>
+    <div style="margin-top:8px;text-align:center;">
+      <a href="#top" style="font-size:9px;color:#888;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">&uarr; Back to Top</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== GSAP ANIMATIONS ===== -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// --- NAV: Transparent to solid ---
+ScrollTrigger.create({
+  trigger: '#hero',
+  start: 'bottom 80px',
+  onEnter: () => document.getElementById('mainNav').classList.add('scrolled'),
+  onLeaveBack: () => document.getElementById('mainNav').classList.remove('scrolled'),
+});
+
+// --- HERO: Staggered entrance + parallax out ---
+const heroTl = gsap.timeline();
+heroTl
+  .from('#heroEyebrow', { opacity: 0, y: 30, duration: 0.8, delay: 0.3 })
+  .from('#heroTitle', { opacity: 0, y: 40, duration: 0.9 }, '-=0.4')
+  .from('#heroSub', { opacity: 0, y: 30, duration: 0.7 }, '-=0.4')
+  .from('#heroBtn', { opacity: 0, y: 20, duration: 0.6 }, '-=0.3');
+
+gsap.to('.hero__content', {
+  y: -150, opacity: 0,
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+});
+gsap.to('.hero__bg', {
+  y: 100,
+  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: 1 }
+});
+
+// --- STATS: Counter animation ---
+document.querySelectorAll('.stat__number').forEach(el => {
+  const target = parseFloat(el.dataset.count);
+  const prefix = el.dataset.prefix || '';
+  const suffix = el.dataset.suffix || '';
+  const isDecimal = target % 1 !== 0;
+
+  ScrollTrigger.create({
+    trigger: el,
+    start: 'top 85%',
+    once: true,
+    onEnter: () => {
+      gsap.to({ val: 0 }, {
+        val: target, duration: 1.5, ease: 'power2.out',
+        onUpdate: function() {
+          const v = this.targets()[0].val;
+          el.textContent = prefix + (isDecimal ? v.toFixed(1) : Math.round(v)) + suffix;
+        }
+      });
+    }
+  });
+});
+
+// --- GENERIC REVEALS: fade-up, slide-left, slide-right, scale ---
+gsap.utils.toArray('.reveal').forEach((el, i) => {
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+    delay: (i % 4) * 0.1
+  });
+});
+
+gsap.utils.toArray('.reveal-left').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+  });
+});
+
+gsap.utils.toArray('.reveal-right').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, x: 0, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+  });
+});
+
+gsap.utils.toArray('.reveal-scale').forEach(el => {
+  gsap.to(el, {
+    opacity: 1, scale: 1, duration: 1, ease: 'power2.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', once: true }
+  });
+});
+
+// --- WHY COLUMBUS: Pinned parallax with text cycling ---
+const whyTexts = [
+  { title: 'Built for Growth.<br>Designed for Business.', body: 'No. 1 for Growth and Infrastructure on the Global Groundwork Index. The fastest-growing metro in the Midwest.', link: 'See All Rankings &rarr;' },
+  { title: 'Proven by Results.', body: 'Intel, Anduril, STRAUSS, Amgen, Sofidel. The world\'s leading companies are choosing the Columbus Region for expansion.', link: 'Read Success Stories &rarr;' },
+  { title: '11 Counties.<br>One Region.', body: 'A diverse, interconnected region with access to 43% of the U.S. population within a 10-hour drive.', link: 'Explore the Counties &rarr;' },
+];
+
+let whyIndex = 0;
+ScrollTrigger.create({
+  trigger: '#whyColumbus',
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: (self) => {
+    const newIndex = Math.min(Math.floor(self.progress * whyTexts.length), whyTexts.length - 1);
+    if (newIndex !== whyIndex) {
+      whyIndex = newIndex;
+      gsap.to('#whyTitle', { opacity: 0, y: -20, duration: 0.25, onComplete: () => {
+        document.getElementById('whyTitle').innerHTML = whyTexts[whyIndex].title;
+        gsap.to('#whyTitle', { opacity: 1, y: 0, duration: 0.4 });
+      }});
+      gsap.to('#whyBody', { opacity: 0, duration: 0.2, onComplete: () => {
+        document.getElementById('whyBody').textContent = whyTexts[whyIndex].body;
+        gsap.to('#whyBody', { opacity: 1, duration: 0.3, delay: 0.1 });
+      }});
+      gsap.to('#whyLink', { opacity: 0, duration: 0.15, onComplete: () => {
+        document.getElementById('whyLink').innerHTML = whyTexts[whyIndex].link;
+        gsap.to('#whyLink', { opacity: 1, duration: 0.3, delay: 0.15 });
+      }});
+    }
+  }
+});
+
+// Parallax on the background image in Why section
+gsap.to('#whyBg', {
+  y: -80,
+  scrollTrigger: { trigger: '#whyColumbus', start: 'top top', end: 'bottom bottom', scrub: 1 }
+});
+
+// --- INDUSTRIES: Pinned scroll cycling ---
+const indItems = document.querySelectorAll('.ind-item');
+const indImgs = [document.getElementById('indImg1'), document.getElementById('indImg2'), document.getElementById('indImg3'), document.getElementById('indImg4')];
+
+ScrollTrigger.create({
+  trigger: '#industriesSection',
+  start: 'top top',
+  end: 'bottom bottom',
+  onUpdate: (self) => {
+    const idx = Math.min(Math.floor(self.progress * indItems.length), indItems.length - 1);
+    indItems.forEach((item, i) => item.classList.toggle('active', i === idx));
+    // Crossfade images for first 4
+    const imgIdx = Math.min(idx, 3);
+    indImgs.forEach((img, i) => { if(img) img.style.opacity = i === imgIdx ? 1 : 0; });
+  }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+
+</body>
+</html>
