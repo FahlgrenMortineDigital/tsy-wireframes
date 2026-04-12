@@ -139,10 +139,60 @@
     body.hide-new-tags .annotation--new { display: none !important; }
     body.hide-version-bar .version-bar { display: none !important; }
 
+    /* ===== MOBILE MENU ===== */
+    .hamburger {
+      display: none; width: 28px; height: 20px; flex-direction: column;
+      justify-content: space-between; cursor: pointer; z-index: 60;
+    }
+    .hamburger span {
+      display: block; width: 100%; height: 2px; background: #333;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    .mobile-drawer {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: #fff; z-index: 55; padding: 80px 24px 24px;
+      overflow-y: auto; transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .mobile-drawer.open { transform: translateX(0); }
+
+    .mobile-nav-item {
+      border-bottom: 1px solid #eee; font-size: 16px; font-weight: 700; color: #444;
+    }
+    .mobile-nav-item__header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 0; cursor: pointer;
+    }
+    .mobile-nav-item__arrow {
+      font-size: 10px; color: #999; transition: transform 0.3s;
+    }
+    .mobile-nav-item.open .mobile-nav-item__arrow { transform: rotate(180deg); }
+    .mobile-nav-item__sub {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease;
+    }
+    .mobile-nav-item.open .mobile-nav-item__sub { max-height: 400px; }
+    .mobile-nav-item__sub a {
+      display: block; padding: 10px 0 10px 16px; font-size: 13px;
+      font-weight: 500; color: #777; text-decoration: none; border-top: 1px solid #f5f5f5;
+    }
+    .mobile-nav-item__sub a:hover { color: #333; }
+    .mobile-drawer__cta {
+      display: block; text-align: center; margin-top: 24px; padding: 14px;
+      background: #555; color: #fff; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+      border-radius: 6px;
+    }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       .desktop-grid { grid-template-columns: 1fr !important; }
       .hide-mobile { display: none !important; }
+      .hamburger { display: flex; }
+      .mobile-drawer { display: block; }
     }
 
     @media print {
@@ -210,15 +260,89 @@
       <!-- Search + Mobile toggle -->
       <div style="display:flex;align-items:center;gap:12px;">
         <span style="font-size:16px;color:#999;cursor:pointer;">&#x1F50D;</span>
-        <div class="hide-mobile" style="display:none;width:24px;height:16px;flex-direction:column;justify-content:space-between;cursor:pointer;">
-          <span style="display:block;width:100%;height:2px;background:#333;"></span>
-          <span style="display:block;width:100%;height:2px;background:#333;"></span>
-          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+        <div class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
         </div>
       </div>
     </div>
   </div>
 </header>
+
+<!-- ===== MOBILE DRAWER ===== -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">Why Columbus <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">Why Columbus Overview</a>
+      <a href="#">Rankings &amp; Recognition</a>
+      <a href="#">Success Stories</a>
+      <a href="#">The 11-County Region</a>
+      <a href="#">International Reach</a>
+      <a href="#">Why Partner With Us</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">Economy &amp; Industries <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">Economy Overview</a>
+      <a href="#">Semiconductors</a>
+      <a href="#">Automotive &amp; Mobility</a>
+      <a href="#">Finance &amp; Fintech</a>
+      <a href="#">Life Sciences</a>
+      <a href="#">Food &amp; Beverage</a>
+      <a href="#">Data Centers</a>
+      <a href="#">Defense &amp; Aerospace</a>
+      <a href="#">Logistics &amp; E-Commerce</a>
+      <a href="#">Manufacturing</a>
+      <a href="#">Top Employers</a>
+      <a href="#">Company Expansions</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">Doing Business <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">Doing Business Overview</a>
+      <a href="#">Site Selection Services</a>
+      <a href="#">Cost of Doing Business</a>
+      <a href="#">Incentives &amp; Programs</a>
+      <a href="#">Available Real Estate</a>
+      <a href="#">Infrastructure &amp; Logistics</a>
+      <a href="#">Energy &amp; Sustainability</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">Talent &amp; Workforce <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">Talent Overview</a>
+      <a href="#">Education &amp; Universities</a>
+      <a href="#">Workforce Development</a>
+      <a href="#">Living in Columbus</a>
+      <a href="#">Diversity &amp; Inclusion</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">About <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">About Us</a>
+      <a href="#">Columbus Partnership</a>
+      <a href="#">One Columbus</a>
+      <a href="#">Smart Columbus</a>
+      <a href="#">Meet the Team</a>
+      <a href="#">Boards</a>
+      <a href="#">Careers</a>
+    </div>
+  </div>
+  <div class="mobile-nav-item" onclick="toggleAccordion(this)">
+    <div class="mobile-nav-item__header">News &amp; Insights <span class="mobile-nav-item__arrow">&#9660;</span></div>
+    <div class="mobile-nav-item__sub">
+      <a href="#">News</a>
+      <a href="#">Press Releases</a>
+      <a href="#">Blog</a>
+      <a href="#">ED 411</a>
+    </div>
+  </div>
+  <a href="#" class="mobile-drawer__cta">Contact Us</a>
+</div>
 
 
 <!-- ============================================================ -->
@@ -700,6 +824,22 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+  document.getElementById('hamburger').classList.toggle('open');
+  document.getElementById('mobileDrawer').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileDrawer').classList.contains('open') ? 'hidden' : '';
+}
+
+// Accordion toggle for mobile nav items
+function toggleAccordion(el) {
+  // Close others
+  document.querySelectorAll('.mobile-nav-item').forEach(item => {
+    if (item !== el) item.classList.remove('open');
+  });
+  el.classList.toggle('open');
+}
 
 // Toggle individual layers
 function toggleLayer(el) {
