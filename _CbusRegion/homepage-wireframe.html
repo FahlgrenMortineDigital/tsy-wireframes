@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Columbus Region — Homepage Wireframe v1</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #333; background: #fff; }
+    :root {
+      --red: #B22222; --teal: #3D5A5A; --dark: #2C3E3E; --light-blue: #E8F4F8;
+      --max-width: 1200px; --accent-blue: #1799D6;
+    }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+    /* ===== WIREFRAME ANNOTATIONS ===== */
+    .annotation {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+      padding: 3px 10px; border-radius: 4px; position: absolute; z-index: 10;
+    }
+    .annotation--anim { background: #7c3aed; color: #fff; }
+    .annotation--comp { background: rgba(0,0,0,0.6); color: #fff; }
+    .annotation--new { background: #dc2626; color: #fff; }
+    .section-label {
+      font-size: 9px; font-weight: 700; color: #999; text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 4px;
+    }
+    .section-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 24px; height: 24px; background: var(--red); color: #fff;
+      font-size: 10px; font-weight: 800; border-radius: 50%; margin-right: 6px; flex-shrink: 0;
+    }
+    .section-header-bar {
+      display: flex; align-items: center; padding: 8px 24px;
+      background: #f8f8f8; border-bottom: 1px solid #eee; font-size: 11px; color: #666;
+    }
+    .section-header-bar .comp-tag {
+      margin-left: auto; font-size: 9px; background: #e0e7ff; color: #3b4fc4;
+      padding: 2px 8px; border-radius: 10px; font-weight: 600;
+    }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc; position: relative;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc; width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+    .img-placeholder span { position: relative; z-index: 1; font-size: 10px; color: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.85); padding: 4px 10px; border-radius: 4px; }
+
+    /* ===== VIDEO PLACEHOLDER ===== */
+    .video-placeholder {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      position: relative; display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .video-placeholder::after {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+    }
+    .play-icon {
+      width: 60px; height: 60px; border: 3px solid rgba(255,255,255,0.5);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .play-icon::after { content: ''; border-left: 18px solid rgba(255,255,255,0.5); border-top: 11px solid transparent; border-bottom: 11px solid transparent; margin-left: 4px; }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-block; padding: 12px 28px; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; text-decoration: none; cursor: pointer; border: none;
+    }
+    .btn--primary { background: #fff; color: var(--dark); border-radius: 999px; }
+    .btn--teal { background: var(--teal); color: #fff; border-radius: 999px; }
+    .btn--outline { background: transparent; color: var(--teal); border: 2px solid var(--teal); border-radius: 999px; }
+    .arrow-link { font-size: 12px; font-weight: 700; color: var(--red); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ===== BACK TO TOP ===== */
+    .back-to-top {
+      position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px;
+      background: var(--red); color: #fff; border: none; border-radius: 50%;
+      font-size: 16px; cursor: pointer; z-index: 100; display: flex;
+      align-items: center; justify-content: center; text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* ===== VERSION TAG ===== */
+    .version-bar {
+      background: #1a1a1a; color: #999; font-size: 10px; padding: 8px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .version-bar a { color: var(--accent-blue); text-decoration: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .desktop-grid { grid-template-columns: 1fr !important; }
+      .hide-mobile { display: none !important; }
+    }
+
+    @media print {
+      .annotation { border: 1px solid #999; background: #f0f0f0 !important; color: #333 !important; }
+      .video-placeholder { background: #ddd !important; }
+      .back-to-top, .version-bar { display: none; }
+    }
+  </style>
+</head>
+<body id="top">
+
+<!-- ===== VERSION BAR ===== -->
+<div class="version-bar">
+  <span>WIREFRAME v1 &middot; Columbus Region Homepage Redesign &middot; April 2026</span>
+  <span><a href="project-components.html">Component Library</a> &middot; <a href="ColumbusRegion-Component-Assessment.docx">Assessment Doc</a></span>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 1: UTILITY BAR -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s1">
+  <span class="section-num">1</span> Utility Bar
+  <span class="comp-tag">D3</span>
+</div>
+<div style="background:#f8f9fa;border-bottom:1px solid #eee;">
+  <div class="container">
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:20px;padding:6px 0;font-size:11px;">
+      <a href="#" style="color:#555;text-decoration:none;">One Columbus</a>
+      <a href="#" style="color:#555;text-decoration:none;">Columbus Partnership</a>
+      <a href="#" style="color:#555;text-decoration:none;">Smart Columbus</a>
+      <a href="#" style="color:white;text-decoration:none;background:var(--teal);padding:7px 18px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;border-radius:4px;">Contact Us</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 2: HEADER + NAV -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s2">
+  <span class="section-num">2</span> Header + Navigation (Sticky)
+  <span class="comp-tag">D1</span>
+  <span class="annotation annotation--anim" style="position:relative;margin-left:8px;">Shrink on scroll</span>
+</div>
+<header style="background:#fff;border-bottom:2px solid #eee;position:sticky;top:0;z-index:50;">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+      <!-- Logo -->
+      <div style="display:flex;align-items:center;gap:4px;">
+        <span style="font-size:8px;color:#999;text-transform:uppercase;line-height:1;">THE</span>
+        <span style="font-size:22px;font-weight:900;color:#333;letter-spacing:-0.5px;">COLUMBUS</span>
+        <span style="font-size:22px;font-weight:900;color:var(--red);margin-top:-8px;">&#x2726;</span>
+        <span style="font-size:10px;color:#999;margin-left:2px;">REGION</span>
+      </div>
+      <!-- Nav -->
+      <nav style="display:flex;gap:0;" class="hide-mobile">
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Why Columbus</a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Economy <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Doing Business <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">Talent <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">About <span style="font-size:7px;">&#9660;</span></a>
+        <a href="#" style="padding:8px 14px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;">News <span style="font-size:7px;">&#9660;</span></a>
+      </nav>
+      <!-- Search + Mobile toggle -->
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:16px;color:#999;cursor:pointer;">&#x1F50D;</span>
+        <div class="hide-mobile" style="display:none;width:24px;height:16px;flex-direction:column;justify-content:space-between;cursor:pointer;">
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 3: HERO — VIDEO + VALUE PROP -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s3">
+  <span class="section-num">3</span> Hero &mdash; Video Background + Value Proposition
+  <span class="comp-tag">D4 Enhanced</span>
+</div>
+<section style="position:relative;">
+  <span class="annotation annotation--anim" style="top:16px;left:16px;">Video autoplay + text fade-in + parallax</span>
+  <div class="video-placeholder" style="min-height:600px;">
+    <div style="position:relative;z-index:2;text-align:center;color:#fff;max-width:700px;padding:0 24px;">
+      <div class="play-icon" style="margin:0 auto 24px;"></div>
+      <p style="font-size:11px;text-transform:uppercase;letter-spacing:3px;opacity:0.7;margin-bottom:12px;">The Columbus Region</p>
+      <h1 style="font-size:48px;font-weight:900;line-height:1.05;margin-bottom:20px;">The Fastest-Growing<br>Metro in the Midwest</h1>
+      <p style="font-size:16px;opacity:0.8;margin-bottom:32px;line-height:1.6;">Where Fortune 1000 companies, world-class universities, and a thriving talent ecosystem converge.</p>
+      <a href="#" class="btn btn--primary">Explore the Region</a>
+    </div>
+  </div>
+  <div style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to bottom, transparent, #fff);z-index:3;"></div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 4: PROOF POINTS BAR -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s4">
+  <span class="section-num">4</span> Proof Points Bar (Stats)
+  <span class="comp-tag">D7</span>
+</div>
+<section style="position:relative;">
+  <span class="annotation annotation--anim" style="top:12px;right:16px;">Counter animation on scroll-into-view</span>
+  <div style="background:var(--red);padding:40px 0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;color:#fff;" class="desktop-grid">
+        <div>
+          <div style="font-size:44px;font-weight:900;line-height:1;">2.3M</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:0.8;margin-top:6px;">Talented People</div>
+        </div>
+        <div>
+          <div style="font-size:44px;font-weight:900;line-height:1;">No. 1</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:0.8;margin-top:6px;">Midwest GDP Growth</div>
+        </div>
+        <div>
+          <div style="font-size:44px;font-weight:900;line-height:1;">$10B</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:0.8;margin-top:6px;">Capital Investment</div>
+        </div>
+        <div>
+          <div style="font-size:44px;font-weight:900;line-height:1;">16</div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:1.5px;opacity:0.8;margin-top:6px;">Fortune 1000 Companies</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 5: WHY COLUMBUS (CONVICTION) -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s5">
+  <span class="section-num">5</span> Why Columbus &mdash; Conviction Section
+  <span class="comp-tag">D6</span>
+</div>
+<section style="padding:80px 0;position:relative;">
+  <span class="annotation annotation--anim" style="top:16px;right:16px;">Image parallax + text slide-in</span>
+  <div class="container">
+    <div class="section-label">Why Columbus</div>
+    <h2 style="font-size:32px;font-weight:800;margin-bottom:48px;max-width:500px;">Built for Growth.<br>Designed for Business.</h2>
+
+    <!-- Block 1: Rankings -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:64px;align-items:center;" class="desktop-grid">
+      <div class="img-placeholder" style="min-height:300px;border-radius:8px;">
+        <span>Rankings Photo</span>
+      </div>
+      <div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:12px;">Rankings &amp; Recognition</h3>
+        <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;">No. 1 for Growth &amp; Infrastructure on the Global Groundwork Index. Fastest-growing Midwest metro by Census Bureau data. Named a top-10 city for millennials and young professionals.</p>
+        <a href="#" class="arrow-link">See All Rankings &rarr;</a>
+        <span class="annotation annotation--new" style="position:relative;margin-left:12px;">New Page</span>
+      </div>
+    </div>
+
+    <!-- Block 2: Success Stories -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:64px;align-items:center;" class="desktop-grid">
+      <div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:12px;">Success Stories</h3>
+        <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;">Intel&rsquo;s $20B semiconductor facility. Anduril&rsquo;s Arsenal-1 defense manufacturing hub. STRAUSS&rsquo; U.S. headquarters. Companies are choosing Columbus for growth.</p>
+        <a href="#" class="arrow-link">Read Success Stories &rarr;</a>
+      </div>
+      <div class="img-placeholder" style="min-height:300px;border-radius:8px;">
+        <span>Success Stories Photo</span>
+      </div>
+    </div>
+
+    <!-- Block 3: 11-County Region -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;" class="desktop-grid">
+      <div style="background:#f0f0f0;min-height:300px;border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative;">
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:25%;left:35%;">DELAWARE</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:50%;left:38%;">FRANKLIN</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:70%;left:30%;">PICKAWAY</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:35%;left:12%;">UNION</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:35%;right:15%;">LICKING</div>
+        <div style="font-size:9px;color:var(--red);font-weight:700;position:absolute;top:15%;right:18%;">KNOX</div>
+        <span style="position:relative;z-index:1;font-size:8px;color:#999;background:rgba(255,255,255,0.8);padding:4px 8px;border-radius:3px;margin-top:220px;">Interactive SVG Map</span>
+      </div>
+      <div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:12px;">The 11-County Region</h3>
+        <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;">A diverse, interconnected region spanning 11 counties with access to 43% of the U.S. population within a 10-hour drive.</p>
+        <a href="#" class="arrow-link">Explore the Counties &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 6: INDUSTRIES SHOWCASE -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s6">
+  <span class="section-num">6</span> Industries Showcase (Accordion &mdash; Dark)
+  <span class="comp-tag">D8</span>
+</div>
+<section style="position:relative;">
+  <span class="annotation annotation--anim" style="top:12px;right:16px;z-index:10;">Image crossfade on accordion open</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:500px;" class="desktop-grid">
+    <!-- Image side -->
+    <div class="img-placeholder" style="min-height:500px;background:#c0c8c0;">
+      <span>Industry Hero Photo (changes per accordion)</span>
+    </div>
+    <!-- Accordion side -->
+    <div style="background:var(--dark);padding:40px 32px;color:#fff;">
+      <div class="section-label" style="color:rgba(255,255,255,0.5);">Economy &amp; Industries</div>
+      <h2 style="font-size:28px;font-weight:800;margin-bottom:8px;">9 Key Industries</h2>
+      <p style="font-size:12px;opacity:0.7;margin-bottom:24px;">A diversified economy driving innovation across sectors.</p>
+
+      <!-- Open item -->
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;">
+        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:700;">Semiconductors <span style="font-size:9px;opacity:0.5;">&#9650;</span></div>
+        <p style="font-size:11px;opacity:0.7;margin-top:8px;line-height:1.6;">Intel&rsquo;s $20B New Albany facility anchors Ohio&rsquo;s emerging silicon corridor. 81 keyword gap opportunities.</p>
+        <a href="#" style="color:#fff;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;text-decoration:none;margin-top:8px;display:inline-block;">Learn More &rarr;</a>
+      </div>
+
+      <!-- Collapsed items -->
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Automotive &amp; Mobility <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Finance &amp; Fintech <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Life Sciences <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Food &amp; Beverage <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Data Centers <span style="font-size:9px;opacity:0.5;display:flex;align-items:center;gap:6px;">&#9660; <span class="annotation annotation--new" style="position:relative;">New</span></span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Defense &amp; Aerospace <span style="font-size:9px;opacity:0.5;display:flex;align-items:center;gap:6px;">&#9660; <span class="annotation annotation--new" style="position:relative;">New</span></span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Logistics &amp; E-Commerce <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+      <div style="border-top:1px solid rgba(255,255,255,0.15);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Manufacturing <span style="font-size:9px;opacity:0.5;">&#9660;</span></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 7: DOING BUSINESS QUICK LINKS -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s7">
+  <span class="section-num">7</span> Doing Business &mdash; Quick Links
+  <span class="comp-tag">D11</span>
+</div>
+<section style="padding:80px 0;position:relative;">
+  <span class="annotation annotation--anim" style="top:16px;right:16px;">Cards stagger-animate on scroll</span>
+  <div class="container">
+    <div class="section-label">Doing Business</div>
+    <h2 style="font-size:28px;font-weight:800;margin-bottom:32px;">Everything You Need to Get Started</h2>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;" class="desktop-grid">
+      <div style="padding-top:16px;border-top:3px solid var(--red);">
+        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Site Selection Services</h4>
+        <span class="annotation annotation--new" style="position:relative;margin-bottom:8px;display:inline-block;">New &mdash; Critical</span>
+        <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Our team guides companies through every step of the site selection process.</p>
+        <a href="#" class="arrow-link">Start Your Search &rarr;</a>
+      </div>
+      <div style="padding-top:16px;border-top:3px solid var(--red);">
+        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Cost of Business</h4>
+        <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Operating costs 10% lower than the national average across key categories.</p>
+        <a href="#" class="arrow-link">Compare Costs &rarr;</a>
+      </div>
+      <div style="padding-top:16px;border-top:3px solid var(--red);">
+        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Incentives &amp; Programs</h4>
+        <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Tax credits, enterprise zones, and workforce training grants for growing businesses.</p>
+        <a href="#" class="arrow-link">Explore Incentives &rarr;</a>
+      </div>
+      <div style="padding-top:16px;border-top:3px solid var(--red);">
+        <h4 style="font-size:15px;font-weight:700;color:var(--red);margin-bottom:8px;">Available Real Estate</h4>
+        <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Industrial sites, office space, and development-ready land across 11 counties.</p>
+        <a href="#" class="arrow-link">View Properties &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 8: SUCCESS STORIES CAROUSEL -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s8">
+  <span class="section-num">8</span> Success Stories Carousel
+  <span class="comp-tag">D13 + D10</span>
+</div>
+<section style="background:#f8f9fa;padding:80px 0;position:relative;overflow:hidden;">
+  <span class="annotation annotation--anim" style="top:16px;right:16px;">Horizontal scroll carousel with drag</span>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;">
+      <div>
+        <div class="section-label">Success Stories</div>
+        <h2 style="font-size:28px;font-weight:800;">Companies Choosing Columbus</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span style="width:36px;height:36px;border:2px solid #ccc;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:#999;cursor:pointer;">&larr;</span>
+        <span style="width:36px;height:36px;border:2px solid var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--red);cursor:pointer;">&rarr;</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="desktop-grid">
+      <!-- Card 1 -->
+      <div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <div class="img-placeholder" style="height:180px;"><span>Intel Facility</span></div>
+        <div style="padding:20px;">
+          <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Semiconductors</div>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">Intel Invests $20B in New Albany</h4>
+          <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">The largest single private-sector investment in Ohio history, creating 3,000+ direct jobs.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Read Story &rarr;</a>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <div class="img-placeholder" style="height:180px;"><span>Anduril Arsenal</span></div>
+        <div style="padding:20px;">
+          <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Defense &amp; Aerospace</div>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">Anduril Opens Arsenal-1 Facility</h4>
+          <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Advanced defense manufacturing with autonomous systems production at scale.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Read Story &rarr;</a>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <div class="img-placeholder" style="height:180px;"><span>STRAUSS HQ</span></div>
+        <div style="padding:20px;">
+          <div style="font-size:9px;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">Food &amp; Beverage</div>
+          <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">STRAUSS Selects Columbus for U.S. HQ</h4>
+          <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:12px;">Global food company chooses the Columbus Region for its North American headquarters.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Read Story &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 9: TALENT SNAPSHOT -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s9">
+  <span class="section-num">9</span> Talent &amp; Workforce Snapshot
+  <span class="comp-tag">D6 + D7</span>
+</div>
+<section style="position:relative;">
+  <span class="annotation annotation--anim" style="top:12px;right:16px;z-index:10;">Parallax background image</span>
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:400px;" class="desktop-grid">
+    <!-- Content side -->
+    <div style="padding:60px 40px;display:flex;flex-direction:column;justify-content:center;">
+      <div class="section-label">Talent &amp; Workforce</div>
+      <h2 style="font-size:28px;font-weight:800;margin-bottom:16px;">A Pipeline of Future-Ready Talent</h2>
+      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;">Home to 40+ colleges and universities producing 130,000+ graduates annually. The Columbus Region ranks as a top-10 metro for young professional concentration.</p>
+      <!-- Inline stats -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;">
+        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:var(--teal);">40+</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Colleges</div>
+        </div>
+        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:var(--teal);">130K</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Annual Grads</div>
+        </div>
+        <div style="background:var(--light-blue);padding:16px;border-radius:6px;text-align:center;">
+          <div style="font-size:28px;font-weight:900;color:var(--teal);">Top 10</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#555;">Young Pros</div>
+        </div>
+      </div>
+      <a href="#" class="arrow-link">Explore Talent &amp; Workforce &rarr;</a>
+    </div>
+    <!-- Image side -->
+    <div class="img-placeholder" style="min-height:400px;">
+      <span>University / Young Professionals Photo</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 10: NEWS & INSIGHTS -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s10">
+  <span class="section-num">10</span> News &amp; Insights
+  <span class="comp-tag">D13</span>
+</div>
+<section style="padding:80px 0;position:relative;">
+  <span class="annotation annotation--anim" style="top:16px;right:16px;">Cards fade-up on scroll</span>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;">
+      <div>
+        <div class="section-label">News &amp; Insights</div>
+        <h2 style="font-size:28px;font-weight:800;">Latest from the Region</h2>
+      </div>
+      <a href="#" class="arrow-link">View All News &rarr;</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="desktop-grid">
+      <div>
+        <div class="img-placeholder" style="height:200px;border-radius:8px 8px 0 0;"><span>News Photo</span></div>
+        <div style="padding:16px 0;">
+          <div style="font-size:9px;color:#888;margin-bottom:4px;">April 10, 2026 &middot; Press Release</div>
+          <h4 style="font-size:15px;font-weight:700;line-height:1.3;margin-bottom:8px;">Ohio State&rsquo;s Wexner Medical Center Opens University Hospital Tower</h4>
+          <p style="font-size:12px;color:#555;line-height:1.5;">The new 820,000 sq. ft. tower represents the latest investment in Columbus&rsquo;s growing healthcare ecosystem.</p>
+        </div>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:200px;border-radius:8px 8px 0 0;"><span>News Photo</span></div>
+        <div style="padding:16px 0;">
+          <div style="font-size:9px;color:#888;margin-bottom:4px;">April 8, 2026 &middot; News</div>
+          <h4 style="font-size:15px;font-weight:700;line-height:1.3;margin-bottom:8px;">United Airlines Announces Daily Nonstop Flights to Los Angeles</h4>
+          <p style="font-size:12px;color:#555;line-height:1.5;">New direct connectivity strengthens Columbus&rsquo;s position as a business travel hub.</p>
+        </div>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:200px;border-radius:8px 8px 0 0;"><span>News Photo</span></div>
+        <div style="padding:16px 0;">
+          <div style="font-size:9px;color:#888;margin-bottom:4px;">March 28, 2026 &middot; Blog</div>
+          <h4 style="font-size:15px;font-weight:700;line-height:1.3;margin-bottom:8px;">Columbus Named No. 1 for Growth &amp; Infrastructure</h4>
+          <p style="font-size:12px;color:#555;line-height:1.5;">The Global Groundwork Index ranks the Columbus Region first overall for economic growth potential.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 11: CONTACT CTA -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s11">
+  <span class="section-num">11</span> Contact CTA
+  <span class="comp-tag">D9</span>
+</div>
+<section style="position:relative;">
+  <span class="annotation annotation--anim" style="top:12px;right:16px;z-index:10;">Background parallax</span>
+  <div style="background:var(--light-blue);padding:80px 0;">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;" class="desktop-grid">
+        <div>
+          <h2 style="font-size:32px;font-weight:800;margin-bottom:12px;">Ready to Grow in the Columbus Region?</h2>
+          <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;">Our economic development team is ready to help your business find its place. From site selection to workforce connections, we make it happen.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="#" class="btn btn--teal">Let&rsquo;s Talk</a>
+            <a href="#" class="btn btn--outline">Request Information</a>
+          </div>
+          <div style="margin-top:20px;font-size:12px;color:#888;">
+            150 S. Front St., Suite 200, Columbus, OH 43215 &middot; 614-225-0500
+          </div>
+        </div>
+        <div class="img-placeholder" style="min-height:280px;border-radius:8px;">
+          <span>Columbus Skyline</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================ -->
+<!-- SECTION 12: FOOTER -->
+<!-- ============================================================ -->
+<div class="section-header-bar" id="s12">
+  <span class="section-num">12</span> Footer
+  <span class="comp-tag">D2</span>
+</div>
+<footer style="background:var(--dark);padding:48px 0 24px;color:#fff;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1.5fr;gap:24px;font-size:11px;" class="desktop-grid">
+      <!-- Col 1: Brand -->
+      <div>
+        <div style="font-size:18px;font-weight:900;margin-bottom:12px;">COLUMBUS <span style="color:var(--red);">&#x2726;</span> REGION</div>
+        <div style="opacity:0.6;line-height:1.7;margin-bottom:12px;">150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500</div>
+        <div style="display:flex;gap:8px;">
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">in</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">X</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">YT</span>
+          <span style="width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:12px;">IG</span>
+        </div>
+      </div>
+      <!-- Col 2 -->
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:10px;opacity:0.5;">Why Columbus</div>
+        <div style="opacity:0.7;line-height:2.2;">Rankings<br>Success Stories<br>11-County Region<br>International</div>
+      </div>
+      <!-- Col 3 -->
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:10px;opacity:0.5;">Economy</div>
+        <div style="opacity:0.7;line-height:2.2;">Industries<br>Top Employers<br>Company Expansions<br>R&amp;D</div>
+      </div>
+      <!-- Col 4 -->
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:10px;opacity:0.5;">Doing Business</div>
+        <div style="opacity:0.7;line-height:2.2;">Site Selection<br>Cost<br>Incentives<br>Real Estate</div>
+      </div>
+      <!-- Col 5: Newsletter -->
+      <div>
+        <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:10px;">Subscribe to Columbus Region News</div>
+        <div style="opacity:0.6;margin-bottom:10px;line-height:1.5;">The latest news, articles, and resources sent to your inbox.</div>
+        <div style="display:flex;gap:4px;">
+          <input type="email" placeholder="Email" style="flex:1;height:36px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;padding:0 10px;font-size:11px;border-radius:4px;">
+          <button style="background:var(--red);color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;border-radius:4px;">SIGN UP</button>
+        </div>
+        <div style="margin-top:16px;display:flex;align-items:center;gap:8px;">
+          <div style="width:60px;height:24px;background:rgba(255,255,255,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:8px;opacity:0.5;">JobsOhio</div>
+          <span style="font-size:9px;opacity:0.5;">Network Partner</span>
+        </div>
+      </div>
+    </div>
+    <!-- Sub-footer -->
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:32px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.1);font-size:9px;opacity:0.4;">
+      <span>&copy; 2026 The Columbus Region. All Rights Reserved.</span>
+      <div style="display:flex;gap:16px;">
+        <a href="#" style="color:#fff;text-decoration:none;">Privacy Policy</a>
+        <a href="#" style="color:#fff;text-decoration:none;">Accessibility</a>
+        <a href="#" style="color:#fff;text-decoration:none;">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== BACK TO TOP ===== -->
+<a href="#top" class="back-to-top">&uarr;</a>
+
+<!-- ===== SMOOTH SCROLL ===== -->
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
