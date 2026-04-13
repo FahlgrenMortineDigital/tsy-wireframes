@@ -103,20 +103,20 @@
     }
 
     /* ===== PINNED PARALLAX ===== */
-    .parallax-section { height: 300vh; position: relative; }
+    .parallax-section { position: relative; }
     .parallax-sticky {
-      position: sticky; top: 0; height: 100vh; display: flex; align-items: center;
-      justify-content: center; overflow: hidden;
+      display: flex; align-items: center;
+      justify-content: center; overflow: hidden; min-height: 500px; padding: 60px 0;
     }
     .parallax-layer {
       position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
     }
 
     /* ===== INDUSTRIES PINNED ===== */
-    .industries-pin { height: 400vh; }
+    .industries-pin { }
     .industries-sticky {
-      position: sticky; top: 0; height: 100vh; display: grid;
-      grid-template-columns: 1fr 1fr; overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr; overflow: hidden; min-height: 600px;
     }
     .industries-image { background: #d0d0d0; position: relative; overflow: hidden; }
     .industries-image .img-box { position: absolute; inset: 0; border-radius: 0; }
@@ -152,7 +152,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-size: 11px; width: 200px;
     }
     .toggle-panel__header {
-      background: #333; color: #fff; padding: 10px 14px; font-size: 9px;
+      background: #5ba8c8; color: #fff; padding: 10px 14px; font-size: 9px;
       font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
       display: flex; justify-content: space-between; align-items: center;
       cursor: pointer; border-radius: 10px 10px 0 0;
@@ -189,7 +189,7 @@
     }
   </style>
 </head>
-<body id="top">
+<body id="top" class="hide-annos hide-bars">
 
 <!-- ===== NAVIGATION ===== -->
 <nav class="nav" id="mainNav">
@@ -540,7 +540,7 @@
 
 
 <!-- ===== TOGGLE PANEL ===== -->
-<div class="toggle-panel" id="togglePanel">
+<div class="toggle-panel collapsed" id="togglePanel">
   <div class="toggle-panel__header" onclick="document.getElementById('togglePanel').classList.toggle('collapsed')">
     <span>Wireframe Controls</span>
     <span style="font-size:14px;">&#9776;</span>
@@ -548,11 +548,11 @@
   <div class="toggle-panel__body">
     <div class="toggle-panel__row">
       <span class="toggle-panel__label">Annotations</span>
-      <div class="tgl on" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-annos')"></div>
+      <div class="tgl" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-annos')"></div>
     </div>
     <div class="toggle-panel__row">
       <span class="toggle-panel__label">Section Bars</span>
-      <div class="tgl on" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-bars')"></div>
+      <div class="tgl" onclick="this.classList.toggle('on');document.body.classList.toggle('hide-bars')"></div>
     </div>
     <div style="margin-top:8px;text-align:center;">
       <a href="#top" style="font-size:9px;color:#888;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">&uarr; Back to Top</a>
@@ -643,59 +643,31 @@ gsap.utils.toArray('.reveal-scale').forEach(el => {
   });
 });
 
-// --- WHY COLUMBUS: Pinned parallax with text cycling ---
-const whyTexts = [
-  { title: 'Built for Growth.<br>Designed for Business.', body: 'No. 1 for Growth and Infrastructure on the Global Groundwork Index. The fastest-growing metro in the Midwest.', link: 'See All Rankings &rarr;' },
-  { title: 'Proven by Results.', body: 'Intel, Anduril, STRAUSS, Amgen, Sofidel. The world\'s leading companies are choosing the Columbus Region for expansion.', link: 'Read Success Stories &rarr;' },
-  { title: '11 Counties.<br>One Region.', body: 'A diverse, interconnected region with access to 43% of the U.S. population within a 10-hour drive.', link: 'Explore the Counties &rarr;' },
-];
-
-let whyIndex = 0;
-ScrollTrigger.create({
-  trigger: '#whyColumbus',
-  start: 'top top',
-  end: 'bottom bottom',
-  onUpdate: (self) => {
-    const newIndex = Math.min(Math.floor(self.progress * whyTexts.length), whyTexts.length - 1);
-    if (newIndex !== whyIndex) {
-      whyIndex = newIndex;
-      gsap.to('#whyTitle', { opacity: 0, y: -20, duration: 0.25, onComplete: () => {
-        document.getElementById('whyTitle').innerHTML = whyTexts[whyIndex].title;
-        gsap.to('#whyTitle', { opacity: 1, y: 0, duration: 0.4 });
-      }});
-      gsap.to('#whyBody', { opacity: 0, duration: 0.2, onComplete: () => {
-        document.getElementById('whyBody').textContent = whyTexts[whyIndex].body;
-        gsap.to('#whyBody', { opacity: 1, duration: 0.3, delay: 0.1 });
-      }});
-      gsap.to('#whyLink', { opacity: 0, duration: 0.15, onComplete: () => {
-        document.getElementById('whyLink').innerHTML = whyTexts[whyIndex].link;
-        gsap.to('#whyLink', { opacity: 1, duration: 0.3, delay: 0.15 });
-      }});
-    }
-  }
-});
-
-// Parallax on the background image in Why section
+// --- WHY COLUMBUS: Parallax on background image ---
 gsap.to('#whyBg', {
-  y: -80,
-  scrollTrigger: { trigger: '#whyColumbus', start: 'top top', end: 'bottom bottom', scrub: 1 }
+  y: -60,
+  scrollTrigger: { trigger: '#whyColumbus', start: 'top bottom', end: 'bottom top', scrub: 1 }
 });
 
-// --- INDUSTRIES: Pinned scroll cycling ---
+// --- INDUSTRIES: Click-driven accordion with image crossfade ---
 const indItems = document.querySelectorAll('.ind-item');
 const indImgs = [document.getElementById('indImg1'), document.getElementById('indImg2'), document.getElementById('indImg3'), document.getElementById('indImg4')];
 
-ScrollTrigger.create({
-  trigger: '#industriesSection',
-  start: 'top top',
-  end: 'bottom bottom',
-  onUpdate: (self) => {
-    const idx = Math.min(Math.floor(self.progress * indItems.length), indItems.length - 1);
-    indItems.forEach((item, i) => item.classList.toggle('active', i === idx));
-    // Crossfade images for first 4
-    const imgIdx = Math.min(idx, 3);
-    indImgs.forEach((img, i) => { if(img) img.style.opacity = i === imgIdx ? 1 : 0; });
-  }
+indItems.forEach((item, i) => {
+  item.addEventListener('click', () => {
+    indItems.forEach(it => it.classList.remove('active'));
+    item.classList.add('active');
+    const imgIdx = Math.min(i, 3);
+    indImgs.forEach((img, j) => {
+      if (img) gsap.to(img, { opacity: j === imgIdx ? 1 : 0, duration: 0.5 });
+    });
+  });
+});
+
+// Reveal the industries section on scroll
+gsap.from('.industries-content', {
+  opacity: 0, x: 40, duration: 0.8,
+  scrollTrigger: { trigger: '#industriesSection', start: 'top 80%', once: true }
 });
 
 // Smooth scroll for anchor links
