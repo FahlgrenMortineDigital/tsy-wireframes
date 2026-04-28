@@ -89,19 +89,27 @@
     { passive: false }
   );
 
-  // --- Right-click drag to pan ---
+  // --- Drag to pan: right-click, middle-click, or Ctrl/Cmd + left-click ---
   let dragging = false;
+  let dragButton = null;
   let dragStartX = 0;
   let dragStartY = 0;
   let dragStartTx = 0;
   let dragStartTy = 0;
 
+  function isDragGesture(e) {
+    if (e.button === 2 || e.button === 1) return true;
+    if (e.button === 0 && (e.ctrlKey || e.metaKey)) return true;
+    return false;
+  }
+
   viewportFrame.addEventListener("contextmenu", (e) => e.preventDefault());
 
   viewportFrame.addEventListener("mousedown", (e) => {
-    if (e.button !== 2) return;
+    if (!isDragGesture(e)) return;
     e.preventDefault();
     dragging = true;
+    dragButton = e.button;
     dragStartX = e.clientX;
     dragStartY = e.clientY;
     dragStartTx = tx;
@@ -118,8 +126,9 @@
 
   window.addEventListener("mouseup", (e) => {
     if (!dragging) return;
-    if (e.button !== 2) return;
+    if (e.button !== dragButton) return;
     dragging = false;
+    dragButton = null;
     viewportFrame.classList.remove("is-dragging");
   });
 
