@@ -130,30 +130,34 @@
         </header>
         <div class="panel-content">
           <div class="dropdowns">
-            <label class="dd-row">
-              <select class="dd-select" id="therapeutic-area">
-                <option value="" disabled selected>Select a Therapeutic Area</option>
-                <option>Aesthetics &mdash; Neurotoxin</option>
-                <option>Aesthetics &mdash; Dermal Filler</option>
-                <option>Aesthetics &mdash; Skin Quality</option>
-                <option>Dermatology &mdash; Pigmentation</option>
-              </select>
-              <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M6 8l4 4 4-4" />
-              </svg>
-            </label>
-            <label class="dd-row">
-              <select class="dd-select" id="product">
-                <option value="" disabled selected>Select Products</option>
-                <option>Toxin formulation A</option>
-                <option>Toxin formulation B</option>
-                <option>Filler XC</option>
-                <option>Filler VC</option>
-              </select>
-              <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M6 8l4 4 4-4" />
-              </svg>
-            </label>
+            <div class="dd-wrap" data-name="therapeutic-area">
+              <button type="button" class="dd-row">
+                <span class="dd-label">Select a Therapeutic Area</span>
+                <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 8l4 4 4-4" />
+                </svg>
+              </button>
+              <ul class="dd-menu" role="listbox">
+                <li class="dd-option" role="option">Aesthetics &mdash; Neurotoxin</li>
+                <li class="dd-option" role="option">Aesthetics &mdash; Dermal Filler</li>
+                <li class="dd-option" role="option">Aesthetics &mdash; Skin Quality</li>
+                <li class="dd-option" role="option">Dermatology &mdash; Pigmentation</li>
+              </ul>
+            </div>
+            <div class="dd-wrap" data-name="product">
+              <button type="button" class="dd-row">
+                <span class="dd-label">Select Products</span>
+                <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 8l4 4 4-4" />
+                </svg>
+              </button>
+              <ul class="dd-menu" role="listbox">
+                <li class="dd-option" role="option">Toxin formulation A</li>
+                <li class="dd-option" role="option">Toxin formulation B</li>
+                <li class="dd-option" role="option">Filler XC</li>
+                <li class="dd-option" role="option">Filler VC</li>
+              </ul>
+            </div>
           </div>
           <button class="btn-secondary">
             <span>Save Configuration for a New Study</span>

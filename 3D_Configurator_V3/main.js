@@ -399,12 +399,47 @@
     makeDraggable(p);
   });
 
-  // ---------- Select dropdowns: opacity full when a real value is picked ----------
-  document.querySelectorAll(".dd-select").forEach((sel) => {
-    const sync = () => sel.classList.toggle("has-selection", !!sel.value);
-    sync();
-    sel.addEventListener("change", sync);
-  });
+  // ---------- Custom dropdowns ----------
+  function setupDropdowns() {
+    const wraps = document.querySelectorAll(".dd-wrap");
+
+    function closeAll(except) {
+      wraps.forEach((w) => {
+        if (w === except) return;
+        w.querySelector(".dd-row").classList.remove("is-open");
+        w.querySelector(".dd-menu").classList.remove("is-open");
+      });
+    }
+
+    wraps.forEach((wrap) => {
+      const row = wrap.querySelector(".dd-row");
+      const menu = wrap.querySelector(".dd-menu");
+      const label = wrap.querySelector(".dd-label");
+      const options = wrap.querySelectorAll(".dd-option");
+
+      row.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willOpen = !row.classList.contains("is-open");
+        closeAll(wrap);
+        row.classList.toggle("is-open", willOpen);
+        menu.classList.toggle("is-open", willOpen);
+      });
+
+      options.forEach((opt) => {
+        opt.addEventListener("click", (e) => {
+          e.stopPropagation();
+          options.forEach((o) => o.classList.toggle("is-selected", o === opt));
+          label.textContent = opt.textContent;
+          row.classList.add("has-selection");
+          row.classList.remove("is-open");
+          menu.classList.remove("is-open");
+        });
+      });
+    });
+
+    document.addEventListener("click", () => closeAll(null));
+  }
+  setupDropdowns();
 
   applyTransform();
 })();
