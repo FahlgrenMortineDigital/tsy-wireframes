@@ -3,12 +3,15 @@
   --header-bg: #f2f3f6;
   --line: #cdd2db;
   --ink: #20345b;
+  --ink-deep: #071d49;
   --ink-muted: #516180;
   --ink-hint: #333;
   --pill-active: #f2f3f6;
   --toggle-track: #e6e8ed;
   --btn-bg: #fcfcfc;
   --btn-border: rgba(207, 207, 207, 0.2);
+  --panel-border: rgba(230, 230, 230, 0.2);
+  --layer-bg: #f2f3f6;
   --shadow-btn: 0 1px 4px rgba(0, 0, 0, 0.1), 0 2px 1px rgba(0, 0, 0, 0.13);
   --shadow-inset:
     inset 0 -1px 1px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff;
@@ -126,14 +129,21 @@ img {
   gap: 0;
   height: calc(100vh - var(--topbar-h) - var(--crumbs-h));
   overflow: hidden;
+  transition: grid-template-columns 480ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stage.is-head-view {
+  grid-template-columns: 343px 1fr 468px;
 }
 
 /* ---------- Tools panel ---------- */
 .tools {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
   padding: 24px 0 24px 40px;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .toggle {
@@ -214,6 +224,232 @@ img {
   display: block;
 }
 
+/* ---------- Panels (Layers + Study) ---------- */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px 5px 10px;
+}
+
+.panel-title {
+  font-family: var(--font);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.panel-chevron {
+  width: 20px;
+  height: 20px;
+  color: var(--ink);
+}
+
+.layers-panel,
+.study-panel {
+  background: var(--bg);
+  border: 0.5px solid var(--panel-border);
+  border-radius: 23px;
+  padding: 20px 10px;
+  box-shadow: var(--shadow-btn), var(--shadow-inset);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.layers-panel {
+  width: 303px;
+}
+
+.layers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 10px;
+}
+
+.layer-item {
+  background: var(--layer-bg);
+  border: 0.5px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.layer-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.layer-name {
+  flex: 1;
+  font-weight: 300;
+  color: var(--ink-hint);
+}
+
+.layer-value {
+  font-weight: 700;
+  color: var(--ink-deep);
+  opacity: 0.6;
+}
+
+.slider {
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.slider-track {
+  flex: 1;
+  height: 6px;
+  background: var(--toggle-track);
+  border-radius: 300px;
+  box-shadow: var(--shadow-pill-active);
+  position: relative;
+}
+
+.slider-thumb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg);
+  box-shadow: var(--shadow-btn), var(--shadow-inset);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ---------- Study panel ---------- */
+.study-panel {
+  width: 448px;
+  margin: 24px 40px 24px 0;
+  height: max-content;
+  align-self: start;
+}
+
+.dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 10px;
+}
+
+.dd-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  height: 40px;
+  border-bottom: 0.5px solid var(--line);
+  width: 100%;
+  color: var(--ink);
+}
+
+.dd-row span {
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.dd-row svg {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+}
+
+.dd-row:hover {
+  background: rgba(32, 52, 91, 0.02);
+}
+
+.panel-divider {
+  border: none;
+  border-top: 0.5px solid var(--line);
+  margin: 0 10px;
+  width: calc(100% - 20px);
+}
+
+/* ---------- Buttons (Export / Save / Choose) ---------- */
+.btn-secondary,
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 8px 20px;
+  border-radius: 300px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: var(--font);
+  margin: 0 10px;
+  width: calc(100% - 20px);
+  transition: transform 100ms ease, box-shadow 140ms ease,
+    background-color 120ms ease, color 120ms ease;
+}
+
+.btn-secondary {
+  background: var(--btn-bg);
+  color: var(--ink);
+  box-shadow: var(--shadow-btn), var(--shadow-inset);
+}
+
+.btn-secondary svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-secondary:hover {
+  transform: translateY(1px);
+  background: #f4f5f8;
+}
+
+.btn-secondary:active {
+  background: var(--ink);
+  color: #ffffff;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg);
+  box-shadow: var(--shadow-btn), var(--shadow-inset);
+}
+
+.btn-primary svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-primary:hover {
+  transform: translateY(1px);
+  background: #18294b;
+}
+
+.btn-primary:active {
+  background: #0f1e3c;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* ---------- Head-only panel reveal ---------- */
+.head-only {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 380ms ease, transform 380ms ease;
+}
+
+.head-only.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
 /* ---------- Viewport / figure ---------- */
 .viewport {
   display: flex;
@@ -256,6 +492,11 @@ img {
   pointer-events: auto;
 }
 
+.figure-img.is-animating {
+  transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1),
+    opacity 420ms ease;
+}
+
 .hint {
   flex: 0 0 auto;
   margin: 0;
@@ -269,9 +510,12 @@ img {
 }
 
 /* ---------- Tighten layout on narrower screens ---------- */
-@media (max-width: 1100px) {
+@media (max-width: 1280px) {
   .stage {
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 220px 1fr;
+  }
+  .stage.is-head-view {
+    grid-template-columns: 320px 1fr 420px;
   }
   .tools {
     padding-left: 24px;
@@ -280,5 +524,9 @@ img {
   .topbar {
     padding-left: 24px;
     padding-right: 24px;
+  }
+  .study-panel {
+    margin-right: 24px;
+    width: 100%;
   }
 }

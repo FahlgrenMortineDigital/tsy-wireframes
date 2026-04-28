@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -46,7 +46,7 @@
       </ol>
     </nav>
 
-    <main class="stage">
+    <main class="stage" id="stage">
       <aside class="tools">
         <div class="toggle" role="group" aria-label="Body sex">
           <button class="toggle-opt is-active" data-sex="male">Male</button>
@@ -74,6 +74,22 @@
             </svg>
           </button>
         </div>
+
+        <section class="panel layers-panel head-only" id="layers-panel" aria-label="Layers">
+          <header class="panel-header">
+            <span class="panel-title">Layers</span>
+            <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 12l4-4 4 4" />
+            </svg>
+          </header>
+          <div class="layers-list" id="layers-list"></div>
+          <button class="btn-secondary" id="export-png-btn">
+            <span>Export PNG</span>
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
+            </svg>
+          </button>
+        </section>
       </aside>
 
       <div class="viewport">
@@ -93,8 +109,44 @@
             draggable="false"
           />
         </div>
-        <p class="hint">Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom</p>
+        <p class="hint" id="hint-text">Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom</p>
       </div>
+
+      <aside class="study-panel head-only" id="study-panel" aria-label="Study Context">
+        <header class="panel-header">
+          <span class="panel-title">Study Content</span>
+          <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M6 12l4-4 4 4" />
+          </svg>
+        </header>
+        <div class="dropdowns">
+          <button class="dd-row">
+            <span>Select a Therapeutic Area</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 8l4 4 4-4" />
+            </svg>
+          </button>
+          <button class="dd-row">
+            <span>Select Products</span>
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 8l4 4 4-4" />
+            </svg>
+          </button>
+        </div>
+        <button class="btn-secondary">
+          <span>Save Configuration for a New Study</span>
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
+          </svg>
+        </button>
+        <hr class="panel-divider" />
+        <button class="btn-primary">
+          <span>Choose an Area of Interest</span>
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 7h8M8 4l3 3-3 3" />
+          </svg>
+        </button>
+      </aside>
     </main>
 
     <script src="main.js"></script>
