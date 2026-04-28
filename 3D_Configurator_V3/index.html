@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D Configurator — Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left"></div>
+      <div class="topbar-right">
+        <button class="round-btn" aria-label="Account">
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path
+              fill-rule="evenodd"
+              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Progression">
+      <ol>
+        <li>
+          <button class="crumb is-active" data-step="body">Body</button>
+        </li>
+        <li class="crumb-sep" aria-hidden="true"></li>
+        <li><button class="crumb" data-step="head">Head &amp; Face</button></li>
+        <li class="crumb-sep" aria-hidden="true"></li>
+        <li><button class="crumb" data-step="areas">Areas</button></li>
+        <li class="crumb-sep" aria-hidden="true"></li>
+        <li>
+          <button class="crumb" data-step="captures">Browse Captures</button>
+        </li>
+        <li class="crumb-sep" aria-hidden="true"></li>
+        <li><button class="crumb" data-step="subject">Subject</button></li>
+      </ol>
+    </nav>
+
+    <main class="stage">
+      <aside class="tools">
+        <div class="toggle" role="group" aria-label="Body sex">
+          <button class="toggle-opt is-active" data-sex="male">Male</button>
+          <button class="toggle-opt" data-sex="female">Female</button>
+        </div>
+
+        <div class="tool-row">
+          <button class="round-btn" id="reset-btn" aria-label="Reset view">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9V4M3 9h5" />
+              <path d="M3 9c1.5-3 4.5-5 8-5a7 7 0 11-7 7" />
+            </svg>
+          </button>
+          <span class="tool-sep" aria-hidden="true"></span>
+          <button class="round-btn" id="zoom-in-btn" aria-label="Zoom in">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="9" r="5.5" />
+              <path d="M13 13l4 4M6.5 9h5M9 6.5v5" />
+            </svg>
+          </button>
+          <button class="round-btn" id="zoom-out-btn" aria-label="Zoom out">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="9" cy="9" r="5.5" />
+              <path d="M13 13l4 4M6.5 9h5" />
+            </svg>
+          </button>
+        </div>
+      </aside>
+
+      <div class="viewport">
+        <div class="figure-wrap" id="figure-wrap">
+          <img
+            id="figure-img"
+            class="figure-img"
+            src="assets/body-male.png"
+            alt="Male body figure"
+            draggable="false"
+          />
+        </div>
+        <p class="hint">Click head or body to select an area</p>
+      </div>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
