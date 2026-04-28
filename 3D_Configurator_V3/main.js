@@ -399,5 +399,12 @@
     makeDraggable(p);
   });
 
+  // ---------- Select dropdowns: opacity full when a real value is picked ----------
+  document.querySelectorAll(".dd-select").forEach((sel) => {
+    const sync = () => sel.classList.toggle("has-selection", !!sel.value);
+    sync();
+    sel.addEventListener("change", sync);
+  });
+
   applyTransform();
 })();

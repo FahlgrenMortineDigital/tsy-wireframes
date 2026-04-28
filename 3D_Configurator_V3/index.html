@@ -130,18 +130,30 @@
         </header>
         <div class="panel-content">
           <div class="dropdowns">
-            <button class="dd-row">
-              <span>Select a Therapeutic Area</span>
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <label class="dd-row">
+              <select class="dd-select" id="therapeutic-area">
+                <option value="" disabled selected>Select a Therapeutic Area</option>
+                <option>Aesthetics &mdash; Neurotoxin</option>
+                <option>Aesthetics &mdash; Dermal Filler</option>
+                <option>Aesthetics &mdash; Skin Quality</option>
+                <option>Dermatology &mdash; Pigmentation</option>
+              </select>
+              <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 8l4 4 4-4" />
               </svg>
-            </button>
-            <button class="dd-row">
-              <span>Select Products</span>
-              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            </label>
+            <label class="dd-row">
+              <select class="dd-select" id="product">
+                <option value="" disabled selected>Select Products</option>
+                <option>Toxin formulation A</option>
+                <option>Toxin formulation B</option>
+                <option>Filler XC</option>
+                <option>Filler VC</option>
+              </select>
+              <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M6 8l4 4 4-4" />
               </svg>
-            </button>
+            </label>
           </div>
           <button class="btn-secondary">
             <span>Save Configuration for a New Study</span>
