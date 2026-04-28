@@ -14,6 +14,9 @@
     inset 0 -1px 1px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff;
   --shadow-pill-active: inset 0 1px 1px rgba(0, 0, 0, 0.13);
   --font: "Roboto", system-ui, -apple-system, Segoe UI, sans-serif;
+
+  --topbar-h: 84px;
+  --crumbs-h: 50px;
 }
 
 * {
@@ -29,7 +32,8 @@ body {
   font-family: var(--font);
   font-size: 14px;
   line-height: 1.2;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
 }
 
 button {
@@ -48,7 +52,7 @@ img {
 
 /* ---------- Top bar ---------- */
 .topbar {
-  height: 84px;
+  height: var(--topbar-h);
   background: var(--header-bg);
   display: flex;
   align-items: center;
@@ -58,7 +62,6 @@ img {
 }
 
 .topbar-left {
-  /* unbranded — placeholder for future logo/title slot */
   min-height: 44px;
 }
 
@@ -72,6 +75,7 @@ img {
   background: var(--bg);
   border-bottom: 0.5px solid var(--line);
   padding: 8px 40px;
+  height: var(--crumbs-h);
 }
 
 .breadcrumbs ol {
@@ -117,10 +121,11 @@ img {
 .stage {
   display: grid;
   grid-template-columns: 240px 1fr;
-  align-items: start;
-  padding: 24px 40px 40px;
-  gap: 24px;
-  min-height: calc(100vh - 84px - 50px);
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+  height: calc(100vh - var(--topbar-h) - var(--crumbs-h));
+  overflow: hidden;
 }
 
 /* ---------- Tools panel ---------- */
@@ -128,7 +133,7 @@ img {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding-top: 16px;
+  padding: 24px 0 24px 40px;
 }
 
 .toggle {
@@ -208,29 +213,35 @@ img {
 .viewport {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   position: relative;
+  overflow: hidden;
   min-height: 0;
 }
 
-.figure-wrap {
-  width: 355px;
-  height: 849px;
+.viewport-frame {
+  flex: 1 1 auto;
   position: relative;
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.viewport-frame.is-dragging {
+  cursor: grabbing;
 }
 
 .figure-img {
-  max-width: 100%;
-  max-height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  max-width: none;
   object-fit: contain;
+  transform: translate(-50%, -50%) scale(1);
   transform-origin: center center;
-  transition: transform 200ms ease, opacity 160ms ease;
+  transition: opacity 160ms ease;
   cursor: pointer;
+  will-change: transform;
 }
 
 .figure-img.is-swapping {
@@ -238,19 +249,24 @@ img {
 }
 
 .hint {
-  margin: 16px 0 0;
-  font-size: 18px;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 12px 16px 20px;
+  font-size: 16px;
   color: var(--ink-hint);
   opacity: 0.6;
   text-align: center;
   font-weight: 400;
+  pointer-events: none;
 }
 
 /* ---------- Tighten layout on narrower screens ---------- */
 @media (max-width: 1100px) {
   .stage {
     grid-template-columns: 200px 1fr;
-    padding: 24px 24px 40px;
+  }
+  .tools {
+    padding-left: 24px;
   }
   .breadcrumbs,
   .topbar {
