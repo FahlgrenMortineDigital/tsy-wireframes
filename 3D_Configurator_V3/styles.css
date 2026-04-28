@@ -244,13 +244,16 @@ img {
   object-fit: contain;
   transform: translate(-50%, -50%) scale(1);
   transform-origin: center center;
-  transition: opacity 160ms ease;
+  opacity: 0;
+  transition: opacity 420ms ease;
   cursor: pointer;
-  will-change: transform;
+  pointer-events: none;
+  will-change: transform, opacity;
 }
 
-.figure-img.is-swapping {
-  opacity: 0;
+.figure-img.is-current {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .hint {

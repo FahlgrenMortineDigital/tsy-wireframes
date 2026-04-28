@@ -1,5 +1,5 @@
 (function () {
-  const figureImg = document.getElementById("figure-img");
+  const figureImgs = document.querySelectorAll(".figure-img");
   const viewportFrame = document.getElementById("viewport-frame");
   const toggleBtns = document.querySelectorAll(".toggle-opt");
   const crumbBtns = document.querySelectorAll(".crumb");
@@ -16,15 +16,13 @@
   let zoom = DEFAULT_ZOOM;
   let tx = 0;
   let ty = 0;
-
-  const figureSrc = {
-    male: "assets/body-male.png",
-    female: "assets/body-female.png",
-  };
+  let currentSex = "male";
 
   function applyTransform() {
-    figureImg.style.transform =
-      `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${zoom})`;
+    const t = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${zoom})`;
+    figureImgs.forEach((img) => {
+      img.style.transform = t;
+    });
   }
 
   function setZoom(next) {
@@ -40,24 +38,17 @@
   }
 
   function setSex(sex) {
-    if (!figureSrc[sex]) return;
-    if (figureImg.dataset.sex === sex) return;
+    if (sex !== "male" && sex !== "female") return;
+    if (sex === currentSex) return;
+    currentSex = sex;
 
     toggleBtns.forEach((btn) => {
       btn.classList.toggle("is-active", btn.dataset.sex === sex);
     });
 
-    figureImg.classList.add("is-swapping");
-    setTimeout(() => {
-      figureImg.src = figureSrc[sex];
-      figureImg.alt = sex === "male" ? "Male body figure" : "Female body figure";
-      figureImg.dataset.sex = sex;
-      figureImg.addEventListener(
-        "load",
-        () => figureImg.classList.remove("is-swapping"),
-        { once: true }
-      );
-    }, 160);
+    figureImgs.forEach((img) => {
+      img.classList.toggle("is-current", img.dataset.sex === sex);
+    });
   }
 
   // --- Controls ---
@@ -132,7 +123,6 @@
     viewportFrame.classList.remove("is-dragging");
   });
 
-  // Stop drag if pointer leaves the window mid-drag
   window.addEventListener("blur", () => {
     if (dragging) {
       dragging = false;
@@ -140,6 +130,5 @@
     }
   });
 
-  figureImg.dataset.sex = "male";
   applyTransform();
 })();
