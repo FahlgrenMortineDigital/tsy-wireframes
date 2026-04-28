@@ -95,13 +95,19 @@
           </button>
         </div>
 
-        <section class="panel layers-panel head-only" id="layers-panel" aria-label="Layers">
-          <header class="panel-header">
-            <span class="panel-title">Layers</span>
+      </div>
+
+      <!-- Floating Layers panel (head view only, draggable + collapsible) -->
+      <section class="panel layers-panel head-only" id="layers-panel" aria-label="Layers">
+        <header class="panel-header" data-drag-handle>
+          <span class="panel-title">Layers</span>
+          <button class="panel-collapse-btn" aria-label="Collapse panel">
             <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M6 12l4-4 4 4" />
             </svg>
-          </header>
+          </button>
+        </header>
+        <div class="panel-content">
           <div class="layers-list" id="layers-list"></div>
           <button class="btn-secondary" id="export-png-btn">
             <span>Export PNG</span>
@@ -109,44 +115,48 @@
               <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
             </svg>
           </button>
-        </section>
-      </div>
+        </div>
+      </section>
 
-      <!-- Floating right overlay: Study Content (head view only) -->
-      <aside class="study-panel head-only" id="study-panel" aria-label="Study Context">
-        <header class="panel-header">
+      <!-- Floating Study Content panel (head view only, draggable + collapsible) -->
+      <aside class="panel study-panel head-only" id="study-panel" aria-label="Study Context">
+        <header class="panel-header" data-drag-handle>
           <span class="panel-title">Study Content</span>
-          <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M6 12l4-4 4 4" />
-          </svg>
-        </header>
-        <div class="dropdowns">
-          <button class="dd-row">
-            <span>Select a Therapeutic Area</span>
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 8l4 4 4-4" />
+          <button class="panel-collapse-btn" aria-label="Collapse panel">
+            <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 12l4-4 4 4" />
             </svg>
           </button>
-          <button class="dd-row">
-            <span>Select Products</span>
-            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M6 8l4 4 4-4" />
+        </header>
+        <div class="panel-content">
+          <div class="dropdowns">
+            <button class="dd-row">
+              <span>Select a Therapeutic Area</span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 8l4 4 4-4" />
+              </svg>
+            </button>
+            <button class="dd-row">
+              <span>Select Products</span>
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 8l4 4 4-4" />
+              </svg>
+            </button>
+          </div>
+          <button class="btn-secondary">
+            <span>Save Configuration for a New Study</span>
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
+            </svg>
+          </button>
+          <hr class="panel-divider" />
+          <button class="btn-primary">
+            <span>Choose an Area of Interest</span>
+            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 7h8M8 4l3 3-3 3" />
             </svg>
           </button>
         </div>
-        <button class="btn-secondary">
-          <span>Save Configuration for a New Study</span>
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
-          </svg>
-        </button>
-        <hr class="panel-divider" />
-        <button class="btn-primary">
-          <span>Choose an Area of Interest</span>
-          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M3 7h8M8 4l3 3-3 3" />
-          </svg>
-        </button>
       </aside>
     </main>
 

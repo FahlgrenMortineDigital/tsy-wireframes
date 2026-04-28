@@ -318,8 +318,7 @@ img {
   color: var(--ink);
 }
 
-.layers-panel,
-.study-panel {
+.panel {
   background: var(--bg);
   border: 0.5px solid var(--panel-border);
   border-radius: 23px;
@@ -330,7 +329,60 @@ img {
   gap: 20px;
 }
 
+.panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.panel.is-collapsed > .panel-content {
+  display: none;
+}
+
+.panel.is-collapsed {
+  gap: 0;
+  padding-bottom: 12px;
+}
+
+.panel.is-collapsed .panel-chevron {
+  transform: rotate(180deg);
+}
+
+.panel-chevron {
+  transition: transform 220ms ease;
+}
+
+.panel-header[data-drag-handle] {
+  cursor: grab;
+  user-select: none;
+}
+
+.panel-header.is-grabbing {
+  cursor: grabbing;
+}
+
+.panel-collapse-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ink);
+  transition: background-color 120ms ease;
+}
+
+.panel-collapse-btn:hover {
+  background: rgba(32, 52, 91, 0.06);
+}
+
 .layers-panel {
+  position: absolute;
+  top: 168px;
+  left: 24px;
+  z-index: 10;
   width: 323px;
 }
 
@@ -404,6 +456,13 @@ img {
   right: 24px;
   z-index: 10;
   width: 448px;
+}
+
+@media (max-width: 1280px) {
+  .layers-panel {
+    top: 152px;
+    left: 16px;
+  }
 }
 
 .dropdowns {

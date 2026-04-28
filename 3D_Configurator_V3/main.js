@@ -329,5 +329,75 @@
     }
   });
 
+  // ---------- Collapsible panels ----------
+  function setupCollapsible(panel) {
+    const btn = panel.querySelector(".panel-collapse-btn");
+    if (!btn) return;
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      panel.classList.toggle("is-collapsed");
+    });
+  }
+
+  // ---------- Draggable panels (drag by header) ----------
+  function makeDraggable(panel) {
+    const handle = panel.querySelector("[data-drag-handle]");
+    if (!handle) return;
+
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startLeft = 0;
+    let startTop = 0;
+
+    handle.addEventListener("mousedown", (e) => {
+      if (e.button !== 0) return;
+      // Don't start a drag from the chevron button
+      if (e.target.closest(".panel-collapse-btn")) return;
+      e.preventDefault();
+
+      // Convert any right-anchored position to absolute left so dragging works
+      const offsetParent = panel.offsetParent || stage;
+      const parentRect = offsetParent.getBoundingClientRect();
+      const rect = panel.getBoundingClientRect();
+      panel.style.left = rect.left - parentRect.left + "px";
+      panel.style.right = "auto";
+      panel.style.top = rect.top - parentRect.top + "px";
+
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      startLeft = parseFloat(panel.style.left);
+      startTop = parseFloat(panel.style.top);
+      handle.classList.add("is-grabbing");
+      document.body.style.userSelect = "none";
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!dragging) return;
+      const offsetParent = panel.offsetParent || stage;
+      const parentRect = offsetParent.getBoundingClientRect();
+      const panelRect = panel.getBoundingClientRect();
+      const newLeft = startLeft + (e.clientX - startX);
+      const newTop = startTop + (e.clientY - startY);
+      const maxLeft = parentRect.width - panelRect.width;
+      const maxTop = parentRect.height - panelRect.height;
+      panel.style.left = Math.max(0, Math.min(maxLeft, newLeft)) + "px";
+      panel.style.top = Math.max(0, Math.min(maxTop, newTop)) + "px";
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!dragging) return;
+      dragging = false;
+      handle.classList.remove("is-grabbing");
+      document.body.style.userSelect = "";
+    });
+  }
+
+  [layersPanel, studyPanel].forEach((p) => {
+    setupCollapsible(p);
+    makeDraggable(p);
+  });
+
   applyTransform();
 })();
