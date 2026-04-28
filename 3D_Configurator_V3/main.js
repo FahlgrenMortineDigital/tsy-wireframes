@@ -402,7 +402,7 @@
   // ---------- Custom dropdowns + account menu (with open/close stagger) ----------
   const accountBtn = document.getElementById("account-btn");
   const accountMenu = document.getElementById("account-menu");
-  const CLOSE_TOTAL_MS = 460;
+  const CLOSE_TOTAL_MS = 580;
 
   function indexMenuItems(menu) {
     const items = menu.querySelectorAll(".dd-option, .account-item");

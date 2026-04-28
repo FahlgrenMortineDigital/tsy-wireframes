@@ -111,8 +111,8 @@ img {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px) scaleY(0.94);
-  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 140ms,
-    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 140ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 280ms,
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 280ms;
 }
 
 .account-item {
@@ -628,8 +628,8 @@ img {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-8px) scaleY(0.94);
-  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 140ms,
-    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 140ms;
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 280ms,
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 280ms;
 }
 
 .dd-option {
@@ -666,14 +666,14 @@ img {
 
 .dd-menu.is-open .dd-option,
 .account-menu.is-open .account-item {
-  animation: dropdownItemIn 220ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-delay: calc(80ms + var(--item-index, 0) * 50ms);
+  animation: dropdownItemIn 180ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(240ms + var(--item-index, 0) * 90ms);
 }
 
 .dd-menu.is-closing .dd-option,
 .account-menu.is-closing .account-item {
-  animation: dropdownItemOut 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  animation-delay: calc(var(--item-index-rev, 0) * 35ms);
+  animation: dropdownItemOut 130ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--item-index-rev, 0) * 60ms);
 }
 
 .panel-divider {
