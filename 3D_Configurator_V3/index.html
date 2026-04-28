@@ -106,80 +106,84 @@
       </div>
 
       <!-- Floating Layers panel (head view only, draggable + collapsible) -->
-      <section class="panel layers-panel head-only" id="layers-panel" aria-label="Layers">
+      <section class="panel layers-panel head-only is-collapsed" id="layers-panel" aria-label="Layers">
         <header class="panel-header" data-drag-handle>
           <span class="panel-title">Layers</span>
-          <button class="panel-collapse-btn" aria-label="Collapse panel">
+          <button class="panel-collapse-btn" aria-label="Toggle panel">
             <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M6 12l4-4 4 4" />
             </svg>
           </button>
         </header>
-        <div class="panel-content">
-          <div class="layers-list" id="layers-list"></div>
-          <button class="btn-secondary" id="export-png-btn">
-            <span>Export PNG</span>
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
-            </svg>
-          </button>
+        <div class="panel-content-wrap">
+          <div class="panel-content">
+            <div class="layers-list" id="layers-list"></div>
+            <button class="btn-secondary panel-anim-item" id="export-png-btn">
+              <span>Export PNG</span>
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
+              </svg>
+            </button>
+          </div>
         </div>
       </section>
 
       <!-- Floating Study Content panel (head view only, draggable + collapsible) -->
-      <aside class="panel study-panel head-only" id="study-panel" aria-label="Study Context">
+      <aside class="panel study-panel head-only is-collapsed" id="study-panel" aria-label="Study Context">
         <header class="panel-header" data-drag-handle>
           <span class="panel-title">Study Content</span>
-          <button class="panel-collapse-btn" aria-label="Collapse panel">
+          <button class="panel-collapse-btn" aria-label="Toggle panel">
             <svg class="panel-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M6 12l4-4 4 4" />
             </svg>
           </button>
         </header>
-        <div class="panel-content">
-          <div class="dropdowns">
-            <div class="dd-wrap" data-name="therapeutic-area">
-              <button type="button" class="dd-row">
-                <span class="dd-label">Select a Therapeutic Area</span>
-                <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M6 8l4 4 4-4" />
-                </svg>
-              </button>
-              <ul class="dd-menu" role="listbox">
-                <li class="dd-option" role="option">Aesthetics &mdash; Neurotoxin</li>
-                <li class="dd-option" role="option">Aesthetics &mdash; Dermal Filler</li>
-                <li class="dd-option" role="option">Aesthetics &mdash; Skin Quality</li>
-                <li class="dd-option" role="option">Dermatology &mdash; Pigmentation</li>
-              </ul>
+        <div class="panel-content-wrap">
+          <div class="panel-content">
+            <div class="dropdowns">
+              <div class="dd-wrap panel-anim-item" data-name="therapeutic-area">
+                <button type="button" class="dd-row">
+                  <span class="dd-label">Select a Therapeutic Area</span>
+                  <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 8l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="dd-menu" role="listbox">
+                  <li class="dd-option" role="option">Aesthetics &mdash; Neurotoxin</li>
+                  <li class="dd-option" role="option">Aesthetics &mdash; Dermal Filler</li>
+                  <li class="dd-option" role="option">Aesthetics &mdash; Skin Quality</li>
+                  <li class="dd-option" role="option">Dermatology &mdash; Pigmentation</li>
+                </ul>
+              </div>
+              <div class="dd-wrap panel-anim-item" data-name="product">
+                <button type="button" class="dd-row">
+                  <span class="dd-label">Select Products</span>
+                  <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 8l4 4 4-4" />
+                  </svg>
+                </button>
+                <ul class="dd-menu" role="listbox">
+                  <li class="dd-option" role="option">Toxin formulation A</li>
+                  <li class="dd-option" role="option">Toxin formulation B</li>
+                  <li class="dd-option" role="option">Filler XC</li>
+                  <li class="dd-option" role="option">Filler VC</li>
+                </ul>
+              </div>
             </div>
-            <div class="dd-wrap" data-name="product">
-              <button type="button" class="dd-row">
-                <span class="dd-label">Select Products</span>
-                <svg class="dd-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M6 8l4 4 4-4" />
-                </svg>
-              </button>
-              <ul class="dd-menu" role="listbox">
-                <li class="dd-option" role="option">Toxin formulation A</li>
-                <li class="dd-option" role="option">Toxin formulation B</li>
-                <li class="dd-option" role="option">Filler XC</li>
-                <li class="dd-option" role="option">Filler VC</li>
-              </ul>
-            </div>
+            <button class="btn-secondary panel-anim-item">
+              <span>Save Configuration for a New Study</span>
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
+              </svg>
+            </button>
+            <hr class="panel-divider panel-anim-item" />
+            <button class="btn-primary panel-anim-item">
+              <span>Choose an Area of Interest</span>
+              <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 7h8M8 4l3 3-3 3" />
+              </svg>
+            </button>
           </div>
-          <button class="btn-secondary">
-            <span>Save Configuration for a New Study</span>
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M7 2v8M3.5 7l3.5 3.5L10.5 7M2 12h10" />
-            </svg>
-          </button>
-          <hr class="panel-divider" />
-          <button class="btn-primary">
-            <span>Choose an Area of Interest</span>
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M3 7h8M8 4l3 3-3 3" />
-            </svg>
-          </button>
         </div>
       </aside>
     </main>

@@ -48,7 +48,7 @@
   function buildLayers() {
     layersList.innerHTML = LAYER_DEFS.map(
       ({ key, label }) => `
-      <div class="layer-item" data-slider="${key}">
+      <div class="layer-item panel-anim-item" data-slider="${key}">
         <div class="layer-label">
           <span class="layer-name">${label}</span>
           <span class="layer-value">100</span>
@@ -62,6 +62,18 @@
     ).join("");
   }
   buildLayers();
+
+  // Set --panel-item-index / --panel-item-index-rev on every panel-anim-item
+  function indexPanelAnimItems() {
+    document.querySelectorAll(".panel").forEach((panel) => {
+      const items = panel.querySelectorAll(".panel-anim-item");
+      items.forEach((item, i) => {
+        item.style.setProperty("--panel-item-index", i);
+        item.style.setProperty("--panel-item-index-rev", items.length - 1 - i);
+      });
+    });
+  }
+  indexPanelAnimItems();
 
   function applyLayerOpacity(key) {
     const def = LAYER_DEFS.find((d) => d.key === key);
