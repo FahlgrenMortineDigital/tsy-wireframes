@@ -574,6 +574,13 @@ img {
   position: relative;
 }
 
+/* When a dropdown is open or closing, lift its wrap above sibling
+   panel items so the open menu isn't covered by elements after it. */
+.dd-wrap:has(.dd-row.is-open),
+.dd-wrap:has(.dd-menu.is-closing) {
+  z-index: 50;
+}
+
 .dd-row {
   display: flex;
   align-items: center;
