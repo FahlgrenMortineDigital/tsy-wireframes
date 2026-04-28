@@ -399,11 +399,20 @@
     makeDraggable(p);
   });
 
-  // ---------- Custom dropdowns ----------
+  // ---------- Custom dropdowns + account menu ----------
+  const accountBtn = document.getElementById("account-btn");
+  const accountMenu = document.getElementById("account-menu");
+
+  function closeAccountMenu() {
+    if (!accountMenu) return;
+    accountMenu.classList.remove("is-open");
+    accountBtn.setAttribute("aria-expanded", "false");
+  }
+
   function setupDropdowns() {
     const wraps = document.querySelectorAll(".dd-wrap");
 
-    function closeAll(except) {
+    function closeAllPanelDropdowns(except) {
       wraps.forEach((w) => {
         if (w === except) return;
         w.querySelector(".dd-row").classList.remove("is-open");
@@ -420,7 +429,8 @@
       row.addEventListener("click", (e) => {
         e.stopPropagation();
         const willOpen = !row.classList.contains("is-open");
-        closeAll(wrap);
+        closeAllPanelDropdowns(wrap);
+        closeAccountMenu();
         row.classList.toggle("is-open", willOpen);
         menu.classList.toggle("is-open", willOpen);
       });
@@ -437,7 +447,35 @@
       });
     });
 
-    document.addEventListener("click", () => closeAll(null));
+    if (accountBtn && accountMenu) {
+      accountBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const willOpen = !accountMenu.classList.contains("is-open");
+        closeAllPanelDropdowns(null);
+        accountMenu.classList.toggle("is-open", willOpen);
+        accountBtn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      });
+
+      accountMenu.querySelectorAll(".account-item").forEach((item) => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation();
+          // Action stub — close the menu after selecting.
+          closeAccountMenu();
+        });
+      });
+    }
+
+    document.addEventListener("click", () => {
+      closeAllPanelDropdowns(null);
+      closeAccountMenu();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeAllPanelDropdowns(null);
+        closeAccountMenu();
+      }
+    });
   }
   setupDropdowns();
 

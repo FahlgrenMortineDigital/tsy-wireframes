@@ -75,6 +75,59 @@ img {
   align-items: center;
 }
 
+/* ---------- Account menu ---------- */
+.account-wrap {
+  position: relative;
+}
+
+.account-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 240px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--bg);
+  border: 0.5px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-btn), var(--shadow-inset), var(--shadow-float);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.account-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.account-item {
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 100ms ease;
+  outline: none;
+}
+
+.account-item:hover,
+.account-item:focus-visible {
+  background: rgba(32, 52, 91, 0.06);
+}
+
+.account-sep {
+  height: 0;
+  margin: 6px 4px;
+  border-top: 0.5px solid var(--line);
+  list-style: none;
+}
+
 /* ---------- Breadcrumbs ---------- */
 .breadcrumbs {
   background: var(--bg);
