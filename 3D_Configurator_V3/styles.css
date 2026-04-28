@@ -95,14 +95,24 @@ img {
   z-index: 200;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-4px);
-  transition: opacity 160ms ease, transform 160ms ease;
+  transform-origin: top right;
+  transform: translateY(-8px) scaleY(0.94);
+  transition: opacity 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .account-menu.is-open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateY(0) scaleY(1);
+}
+
+.account-menu.is-closing {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scaleY(0.94);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 140ms,
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 140ms;
 }
 
 .account-item {
@@ -112,8 +122,10 @@ img {
   color: var(--ink);
   cursor: pointer;
   border-radius: 6px;
-  transition: background-color 100ms ease;
   outline: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  will-change: opacity, transform;
 }
 
 .account-item:hover,
@@ -600,14 +612,24 @@ img {
   overflow-y: auto;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-4px);
-  transition: opacity 160ms ease, transform 160ms ease;
+  transform-origin: top center;
+  transform: translateY(-8px) scaleY(0.94);
+  transition: opacity 220ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 260ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dd-menu.is-open {
   opacity: 1;
   pointer-events: auto;
-  transform: translateY(0);
+  transform: translateY(0) scaleY(1);
+}
+
+.dd-menu.is-closing {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px) scaleY(0.94);
+  transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1) 140ms,
+    transform 240ms cubic-bezier(0.4, 0, 0.2, 1) 140ms;
 }
 
 .dd-option {
@@ -617,7 +639,9 @@ img {
   color: var(--ink);
   cursor: pointer;
   border-radius: 6px;
-  transition: background-color 100ms ease;
+  opacity: 0;
+  transform: translateY(-4px);
+  will-change: opacity, transform;
 }
 
 .dd-option:hover {
@@ -627,6 +651,29 @@ img {
 .dd-option.is-selected {
   background: var(--pill-active);
   box-shadow: var(--shadow-pill-active);
+}
+
+/* ---------- Staggered item reveal ---------- */
+@keyframes dropdownItemIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropdownItemOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-4px); }
+}
+
+.dd-menu.is-open .dd-option,
+.account-menu.is-open .account-item {
+  animation: dropdownItemIn 220ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(80ms + var(--item-index, 0) * 50ms);
+}
+
+.dd-menu.is-closing .dd-option,
+.account-menu.is-closing .account-item {
+  animation: dropdownItemOut 150ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  animation-delay: calc(var(--item-index-rev, 0) * 35ms);
 }
 
 .panel-divider {

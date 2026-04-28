@@ -399,14 +399,56 @@
     makeDraggable(p);
   });
 
-  // ---------- Custom dropdowns + account menu ----------
+  // ---------- Custom dropdowns + account menu (with open/close stagger) ----------
   const accountBtn = document.getElementById("account-btn");
   const accountMenu = document.getElementById("account-menu");
+  const CLOSE_TOTAL_MS = 460;
+
+  function indexMenuItems(menu) {
+    const items = menu.querySelectorAll(".dd-option, .account-item");
+    items.forEach((item, i) => {
+      item.style.setProperty("--item-index", i);
+      item.style.setProperty("--item-index-rev", items.length - 1 - i);
+    });
+  }
+
+  function openMenu(menu, trigger) {
+    if (!menu) return;
+    if (menu._closeTimer) {
+      clearTimeout(menu._closeTimer);
+      menu._closeTimer = null;
+    }
+    menu.classList.remove("is-closing");
+    menu.classList.add("is-open");
+    if (trigger) {
+      trigger.classList.add("is-open");
+      if (trigger.id === "account-btn") {
+        trigger.setAttribute("aria-expanded", "true");
+      }
+    }
+  }
+
+  function closeMenu(menu, trigger) {
+    if (!menu) return;
+    if (!menu.classList.contains("is-open")) return;
+    menu.classList.remove("is-open");
+    menu.classList.add("is-closing");
+    if (trigger) {
+      trigger.classList.remove("is-open");
+      if (trigger.id === "account-btn") {
+        trigger.setAttribute("aria-expanded", "false");
+      }
+    }
+    if (menu._closeTimer) clearTimeout(menu._closeTimer);
+    menu._closeTimer = setTimeout(() => {
+      menu.classList.remove("is-closing");
+      menu._closeTimer = null;
+    }, CLOSE_TOTAL_MS);
+  }
 
   function closeAccountMenu() {
     if (!accountMenu) return;
-    accountMenu.classList.remove("is-open");
-    accountBtn.setAttribute("aria-expanded", "false");
+    closeMenu(accountMenu, accountBtn);
   }
 
   function setupDropdowns() {
@@ -415,8 +457,9 @@
     function closeAllPanelDropdowns(except) {
       wraps.forEach((w) => {
         if (w === except) return;
-        w.querySelector(".dd-row").classList.remove("is-open");
-        w.querySelector(".dd-menu").classList.remove("is-open");
+        const row = w.querySelector(".dd-row");
+        const menu = w.querySelector(".dd-menu");
+        closeMenu(menu, row);
       });
     }
 
@@ -426,13 +469,18 @@
       const label = wrap.querySelector(".dd-label");
       const options = wrap.querySelectorAll(".dd-option");
 
+      indexMenuItems(menu);
+
       row.addEventListener("click", (e) => {
         e.stopPropagation();
-        const willOpen = !row.classList.contains("is-open");
+        const isOpen = menu.classList.contains("is-open");
         closeAllPanelDropdowns(wrap);
         closeAccountMenu();
-        row.classList.toggle("is-open", willOpen);
-        menu.classList.toggle("is-open", willOpen);
+        if (isOpen) {
+          closeMenu(menu, row);
+        } else {
+          openMenu(menu, row);
+        }
       });
 
       options.forEach((opt) => {
@@ -441,25 +489,28 @@
           options.forEach((o) => o.classList.toggle("is-selected", o === opt));
           label.textContent = opt.textContent;
           row.classList.add("has-selection");
-          row.classList.remove("is-open");
-          menu.classList.remove("is-open");
+          closeMenu(menu, row);
         });
       });
     });
 
     if (accountBtn && accountMenu) {
+      indexMenuItems(accountMenu);
+
       accountBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        const willOpen = !accountMenu.classList.contains("is-open");
+        const isOpen = accountMenu.classList.contains("is-open");
         closeAllPanelDropdowns(null);
-        accountMenu.classList.toggle("is-open", willOpen);
-        accountBtn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+        if (isOpen) {
+          closeMenu(accountMenu, accountBtn);
+        } else {
+          openMenu(accountMenu, accountBtn);
+        }
       });
 
       accountMenu.querySelectorAll(".account-item").forEach((item) => {
         item.addEventListener("click", (e) => {
           e.stopPropagation();
-          // Action stub — close the menu after selecting.
           closeAccountMenu();
         });
       });
