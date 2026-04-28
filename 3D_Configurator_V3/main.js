@@ -1,6 +1,6 @@
 (function () {
   const stage = document.getElementById("stage");
-  const figureImgs = document.querySelectorAll(".figure-img");
+  const stacks = document.querySelectorAll(".figure-stack");
   const viewportFrame = document.getElementById("viewport-frame");
   const toggleBtns = document.querySelectorAll(".toggle-opt");
   const crumbBtns = document.querySelectorAll(".crumb");
@@ -18,11 +18,10 @@
   const ZOOM_MAX = 8;
   const DEFAULT_ZOOM = 1;
 
-  // Head-view target. Body image fills the PNG nearly edge-to-edge —
-  // the head center sits at ~7% of image height. To bring the head to
-  // viewport center: ty = HEAD_ZOOM * H * (0.5 - HEAD_HEAD_Y).
+  // Head focal point: head center sits at ~10% of layer image height,
+  // ty = HEAD_ZOOM * H * (0.5 - HEAD_HEAD_Y)
   const HEAD_ZOOM = 4.5;
-  const HEAD_HEAD_Y = 0.07;
+  const HEAD_HEAD_Y = 0.10;
   const HEAD_TRANSITION_MS = 900;
 
   let zoom = DEFAULT_ZOOM;
@@ -31,21 +30,27 @@
   let currentSex = "male";
   let currentView = "body"; // "body" | "head"
 
-  // --- Layers data ---
-  const LAYERS = [
-    "Integumentary System (Tissue)",
-    "Skeletal System",
-    "Muscular System",
-    "Cardiovascular System",
-    "Nervous System",
+  // ---------- Layers (sliders) ----------
+  // Each slider key maps to either a real layer image, or null for a
+  // decorative slider that has no visual effect (Cardiovascular shares
+  // anatomy with the skeletal layer).
+  const LAYER_DEFS = [
+    { key: "integumentary", label: "Integumentary System (Tissue)", layer: "skin" },
+    { key: "skeletal",      label: "Skeletal System",                layer: "skeletal" },
+    { key: "muscular",      label: "Muscular System",                layer: "muscular" },
+    { key: "cardiovascular",label: "Cardiovascular System",          layer: null },
+    { key: "nervous",       label: "Nervous System",                 layer: "nervous" },
   ];
 
+  const layerValues = {};
+  LAYER_DEFS.forEach((d) => (layerValues[d.key] = 100));
+
   function buildLayers() {
-    layersList.innerHTML = LAYERS.map(
-      (name) => `
-      <div class="layer-item">
+    layersList.innerHTML = LAYER_DEFS.map(
+      ({ key, label }) => `
+      <div class="layer-item" data-slider="${key}">
         <div class="layer-label">
-          <span class="layer-name">${name}</span>
+          <span class="layer-name">${label}</span>
           <span class="layer-value">100</span>
         </div>
         <div class="slider">
@@ -58,11 +63,71 @@
   }
   buildLayers();
 
-  // --- Transforms ---
+  function applyLayerOpacity(key) {
+    const def = LAYER_DEFS.find((d) => d.key === key);
+    if (!def || !def.layer) return;
+    const opacity = layerValues[key] / 100;
+    document
+      .querySelectorAll(`.figure-layer[data-layer="${def.layer}"]`)
+      .forEach((el) => {
+        el.style.opacity = opacity;
+      });
+  }
+
+  function setSliderValue(key, value) {
+    value = Math.max(0, Math.min(100, value));
+    layerValues[key] = value;
+    const item = document.querySelector(`.layer-item[data-slider="${key}"]`);
+    if (item) {
+      item.querySelector(".layer-value").textContent = Math.round(value);
+      item.querySelector(".slider-thumb").style.left = value + "%";
+    }
+    applyLayerOpacity(key);
+  }
+
+  // ---------- Slider drag interactions ----------
+  function setupSliders() {
+    document.querySelectorAll(".layer-item").forEach((item) => {
+      const key = item.dataset.slider;
+      const slider = item.querySelector(".slider");
+      const track = item.querySelector(".slider-track");
+      let dragging = false;
+
+      const updateFromEvent = (e) => {
+        const rect = track.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const value = (x / rect.width) * 100;
+        setSliderValue(key, value);
+      };
+
+      slider.addEventListener("mousedown", (e) => {
+        if (e.button !== 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        dragging = true;
+        updateFromEvent(e);
+      });
+
+      window.addEventListener("mousemove", (e) => {
+        if (!dragging) return;
+        updateFromEvent(e);
+      });
+
+      window.addEventListener("mouseup", () => {
+        dragging = false;
+      });
+    });
+  }
+  setupSliders();
+
+  // Apply initial opacities
+  LAYER_DEFS.forEach((d) => applyLayerOpacity(d.key));
+
+  // ---------- Transforms ----------
   function applyTransform() {
     const t = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${zoom})`;
-    figureImgs.forEach((img) => {
-      img.style.transform = t;
+    stacks.forEach((s) => {
+      s.style.transform = t;
     });
   }
 
@@ -87,8 +152,8 @@
       btn.classList.toggle("is-active", btn.dataset.sex === sex);
     });
 
-    figureImgs.forEach((img) => {
-      img.classList.toggle("is-current", img.dataset.sex === sex);
+    stacks.forEach((s) => {
+      s.classList.toggle("is-current", s.dataset.sex === sex);
     });
   }
 
@@ -98,7 +163,7 @@
     );
   }
 
-  // --- View transitions ---
+  // ---------- View transitions ----------
   function enterHeadView() {
     if (currentView === "head") return;
     currentView = "head";
@@ -106,14 +171,14 @@
     setActiveCrumb("head");
 
     const H = viewportFrame.clientHeight;
-    figureImgs.forEach((img) => img.classList.add("is-animating"));
+    stacks.forEach((s) => s.classList.add("is-animating"));
     zoom = HEAD_ZOOM;
     tx = 0;
     ty = HEAD_ZOOM * H * (0.5 - HEAD_HEAD_Y);
     applyTransform();
 
     setTimeout(() => {
-      figureImgs.forEach((img) => img.classList.remove("is-animating"));
+      stacks.forEach((s) => s.classList.remove("is-animating"));
       stage.classList.add("is-head-view");
       requestAnimationFrame(() => {
         layersPanel.classList.add("is-visible");
@@ -133,10 +198,10 @@
 
     setTimeout(() => {
       stage.classList.remove("is-head-view");
-      figureImgs.forEach((img) => img.classList.add("is-animating"));
+      stacks.forEach((s) => s.classList.add("is-animating"));
       resetView();
       setTimeout(() => {
-        figureImgs.forEach((img) => img.classList.remove("is-animating"));
+        stacks.forEach((s) => s.classList.remove("is-animating"));
       }, HEAD_TRANSITION_MS);
     }, 200);
 
@@ -144,7 +209,7 @@
       "Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom";
   }
 
-  // --- Controls ---
+  // ---------- Controls ----------
   toggleBtns.forEach((btn) => {
     btn.addEventListener("click", () => setSex(btn.dataset.sex));
   });
@@ -172,10 +237,11 @@
     } else {
       resetView();
       setSex("male");
+      LAYER_DEFS.forEach((d) => setSliderValue(d.key, 100));
     }
   });
 
-  // --- Wheel zoom ---
+  // ---------- Wheel zoom ----------
   viewportFrame.addEventListener(
     "wheel",
     (e) => {
@@ -186,7 +252,7 @@
     { passive: false }
   );
 
-  // --- Drag to pan: right-click, middle-click, or Ctrl/Cmd + left-click ---
+  // ---------- Drag to pan ----------
   let dragging = false;
   let didDrag = false;
   let dragButton = null;
@@ -241,7 +307,7 @@
     }
   });
 
-  // --- Click on head area enters head view ---
+  // ---------- Click on head area enters head view ----------
   viewportFrame.addEventListener("click", (e) => {
     if (e.button !== 0) return;
     if (e.ctrlKey || e.metaKey) return;
@@ -250,10 +316,14 @@
       return;
     }
     if (currentView !== "body") return;
-    if (!e.target.classList.contains("figure-img")) return;
 
-    const rect = e.target.getBoundingClientRect();
-    const yFrac = (e.clientY - rect.top) / rect.height;
+    const stack = document.querySelector(".figure-stack.is-current");
+    if (!stack) return;
+    const rect = stack.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    if (x < 0 || x > rect.width || y < 0 || y > rect.height) return;
+    const yFrac = y / rect.height;
     if (yFrac >= 0.02 && yFrac <= 0.2) {
       enterHeadView();
     }

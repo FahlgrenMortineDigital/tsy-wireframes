@@ -50,20 +50,18 @@
       <!-- Full-bleed body viewport (always behind the panels) -->
       <div class="viewport">
         <div class="viewport-frame" id="viewport-frame">
-          <img
-            class="figure-img is-current"
-            data-sex="male"
-            src="assets/body-male.png"
-            alt="Male body figure"
-            draggable="false"
-          />
-          <img
-            class="figure-img"
-            data-sex="female"
-            src="assets/body-female.png"
-            alt="Female body figure"
-            draggable="false"
-          />
+          <div class="figure-stack is-current" data-sex="male" id="stack-male">
+            <img class="figure-layer" data-layer="nervous"  src="assets/male-nervous.png"  alt="" draggable="false" />
+            <img class="figure-layer" data-layer="skeletal" src="assets/male-skeletal.png" alt="" draggable="false" />
+            <img class="figure-layer" data-layer="muscular" src="assets/male-muscular.png" alt="" draggable="false" />
+            <img class="figure-layer" data-layer="skin"     src="assets/male-skin.png"     alt="Male body" draggable="false" />
+          </div>
+          <div class="figure-stack" data-sex="female" id="stack-female">
+            <img class="figure-layer" data-layer="nervous"  src="assets/female-nervous.png"  alt="" draggable="false" />
+            <img class="figure-layer" data-layer="skeletal" src="assets/female-skeletal.png" alt="" draggable="false" />
+            <img class="figure-layer" data-layer="muscular" src="assets/female-muscular.png" alt="" draggable="false" />
+            <img class="figure-layer" data-layer="skin"     src="assets/female-skin.png"     alt="Female body" draggable="false" />
+          </div>
         </div>
         <p class="hint" id="hint-text">Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom</p>
       </div>
