@@ -63,13 +63,34 @@
   }
   buildLayers();
 
-  // Set --panel-item-index / --panel-item-index-rev on every panel-anim-item
+  // Set --panel-item-index / --panel-item-index-rev on every panel-anim-item.
+  // Dividers don't get their own slot — they inherit the index of the
+  // preceding panel-anim-item so they fade in together with it (no
+  // standalone stagger step that would feel like a layout shift).
   function indexPanelAnimItems() {
     document.querySelectorAll(".panel").forEach((panel) => {
       const items = panel.querySelectorAll(".panel-anim-item");
-      items.forEach((item, i) => {
-        item.style.setProperty("--panel-item-index", i);
-        item.style.setProperty("--panel-item-index-rev", items.length - 1 - i);
+      let nonDividerCount = 0;
+      items.forEach((item) => {
+        if (!item.classList.contains("panel-divider")) {
+          item.dataset._idx = String(nonDividerCount++);
+        }
+      });
+      let lastIdx = 0;
+      items.forEach((item) => {
+        let idx;
+        if (item.classList.contains("panel-divider")) {
+          idx = lastIdx;
+        } else {
+          idx = parseInt(item.dataset._idx, 10);
+          lastIdx = idx;
+          delete item.dataset._idx;
+        }
+        item.style.setProperty("--panel-item-index", idx);
+        item.style.setProperty(
+          "--panel-item-index-rev",
+          nonDividerCount - 1 - idx
+        );
       });
     });
   }
