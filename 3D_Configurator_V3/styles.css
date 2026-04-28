@@ -16,6 +16,8 @@
   --shadow-inset:
     inset 0 -1px 1px rgba(0, 0, 0, 0.05), inset 0 1px 1px #ffffff;
   --shadow-pill-active: inset 0 1px 1px rgba(0, 0, 0, 0.13);
+  --shadow-float: 0 2px 8px rgba(0, 0, 0, 0.08),
+    0 1px 4px rgba(0, 0, 0, 0.1);
   --font: "Roboto", system-ui, -apple-system, Segoe UI, sans-serif;
 
   --topbar-h: 84px;
@@ -122,37 +124,97 @@ img {
 
 /* ---------- Stage ---------- */
 .stage {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  align-items: stretch;
-  padding: 0;
-  gap: 0;
-  height: calc(100vh - var(--topbar-h) - var(--crumbs-h));
+  position: relative;
   overflow: hidden;
-  transition: grid-template-columns 480ms cubic-bezier(0.4, 0, 0.2, 1);
+  height: calc(100vh - var(--topbar-h) - var(--crumbs-h));
 }
 
-.stage.is-head-view {
-  grid-template-columns: 343px 1fr 468px;
-}
-
-/* ---------- Tools panel ---------- */
-.tools {
+/* ---------- Viewport (full-bleed image) ---------- */
+.viewport {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 24px 0 24px 40px;
-  overflow-y: auto;
+}
+
+.viewport-frame {
+  flex: 1 1 auto;
+  position: relative;
+  overflow: hidden;
   min-height: 0;
 }
 
+.viewport-frame.is-dragging {
+  cursor: grabbing;
+}
+
+.figure-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  object-fit: contain;
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center center;
+  opacity: 0;
+  transition: opacity 420ms ease;
+  cursor: pointer;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.figure-img.is-current {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.figure-img.is-animating {
+  transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1),
+    opacity 420ms ease;
+}
+
+.hint {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 12px 16px 24px;
+  font-size: 16px;
+  color: var(--ink-hint);
+  opacity: 0.6;
+  text-align: center;
+  font-weight: 400;
+  pointer-events: none;
+  position: relative;
+  z-index: 5;
+}
+
+/* ---------- Floating overlays ---------- */
+.overlay-left {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  pointer-events: none;
+  max-height: calc(100% - 48px);
+}
+
+.overlay-left > * {
+  pointer-events: auto;
+}
+
+/* ---------- Toggle ---------- */
 .toggle {
   display: inline-flex;
   align-items: center;
   background: var(--toggle-track);
   padding: 4px;
   border-radius: 300px;
-  box-shadow: var(--shadow-pill-active);
+  box-shadow: var(--shadow-pill-active), var(--shadow-float);
   width: max-content;
 }
 
@@ -253,14 +315,14 @@ img {
   border: 0.5px solid var(--panel-border);
   border-radius: 23px;
   padding: 20px 10px;
-  box-shadow: var(--shadow-btn), var(--shadow-inset);
+  box-shadow: var(--shadow-btn), var(--shadow-inset), var(--shadow-float);
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
 .layers-panel {
-  width: 303px;
+  width: 323px;
 }
 
 .layers-list {
@@ -328,10 +390,11 @@ img {
 
 /* ---------- Study panel ---------- */
 .study-panel {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 10;
   width: 448px;
-  margin: 24px 40px 24px 0;
-  height: max-content;
-  align-self: start;
 }
 
 .dropdowns {
@@ -450,83 +513,24 @@ img {
   transform: translateY(0);
 }
 
-/* ---------- Viewport / figure ---------- */
-.viewport {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  min-height: 0;
-}
-
-.viewport-frame {
-  flex: 1 1 auto;
-  position: relative;
-  overflow: hidden;
-  min-height: 0;
-}
-
-.viewport-frame.is-dragging {
-  cursor: grabbing;
-}
-
-.figure-img {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  height: 100%;
-  width: auto;
-  max-width: none;
-  object-fit: contain;
-  transform: translate(-50%, -50%) scale(1);
-  transform-origin: center center;
-  opacity: 0;
-  transition: opacity 420ms ease;
-  cursor: pointer;
-  pointer-events: none;
-  will-change: transform, opacity;
-}
-
-.figure-img.is-current {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.figure-img.is-animating {
-  transition: transform 900ms cubic-bezier(0.45, 0, 0.2, 1),
-    opacity 420ms ease;
-}
-
-.hint {
-  flex: 0 0 auto;
-  margin: 0;
-  padding: 12px 16px 20px;
-  font-size: 16px;
-  color: var(--ink-hint);
-  opacity: 0.6;
-  text-align: center;
-  font-weight: 400;
-  pointer-events: none;
-}
-
-/* ---------- Tighten layout on narrower screens ---------- */
+/* ---------- Tighter spacing on narrower screens ---------- */
 @media (max-width: 1280px) {
-  .stage {
-    grid-template-columns: 220px 1fr;
-  }
-  .stage.is-head-view {
-    grid-template-columns: 320px 1fr 420px;
-  }
-  .tools {
-    padding-left: 24px;
-  }
   .breadcrumbs,
   .topbar {
     padding-left: 24px;
     padding-right: 24px;
   }
+  .overlay-left {
+    top: 16px;
+    left: 16px;
+    gap: 16px;
+  }
   .study-panel {
-    margin-right: 24px;
-    width: 100%;
+    top: 16px;
+    right: 16px;
+    width: 400px;
+  }
+  .layers-panel {
+    width: 280px;
   }
 }

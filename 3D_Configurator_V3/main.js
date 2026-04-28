@@ -18,12 +18,11 @@
   const ZOOM_MAX = 8;
   const DEFAULT_ZOOM = 1;
 
-  // Head-view target (derived from Figma frame 27400:14982: image scaled
-  // to 5.6x viewport height, vertical center at ~11% of full image height,
-  // so the image is pushed down by roughly 2.18 viewport heights to bring
-  // the head into view.)
-  const HEAD_ZOOM = 5.5;
-  const HEAD_TY_FACTOR = 2.05;
+  // Head-view target. Body image fills the PNG nearly edge-to-edge —
+  // the head center sits at ~7% of image height. To bring the head to
+  // viewport center: ty = HEAD_ZOOM * H * (0.5 - HEAD_HEAD_Y).
+  const HEAD_ZOOM = 4.5;
+  const HEAD_HEAD_Y = 0.07;
   const HEAD_TRANSITION_MS = 900;
 
   let zoom = DEFAULT_ZOOM;
@@ -110,7 +109,7 @@
     figureImgs.forEach((img) => img.classList.add("is-animating"));
     zoom = HEAD_ZOOM;
     tx = 0;
-    ty = H * HEAD_TY_FACTOR;
+    ty = HEAD_ZOOM * H * (0.5 - HEAD_HEAD_Y);
     applyTransform();
 
     setTimeout(() => {

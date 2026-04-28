@@ -47,7 +47,29 @@
     </nav>
 
     <main class="stage" id="stage">
-      <aside class="tools">
+      <!-- Full-bleed body viewport (always behind the panels) -->
+      <div class="viewport">
+        <div class="viewport-frame" id="viewport-frame">
+          <img
+            class="figure-img is-current"
+            data-sex="male"
+            src="assets/body-male.png"
+            alt="Male body figure"
+            draggable="false"
+          />
+          <img
+            class="figure-img"
+            data-sex="female"
+            src="assets/body-female.png"
+            alt="Female body figure"
+            draggable="false"
+          />
+        </div>
+        <p class="hint" id="hint-text">Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom</p>
+      </div>
+
+      <!-- Floating left overlay: tools + layers (layers shown only in head view) -->
+      <div class="overlay-left">
         <div class="toggle" role="group" aria-label="Body sex">
           <button class="toggle-opt is-active" data-sex="male">Male</button>
           <button class="toggle-opt" data-sex="female">Female</button>
@@ -90,28 +112,9 @@
             </svg>
           </button>
         </section>
-      </aside>
-
-      <div class="viewport">
-        <div class="viewport-frame" id="viewport-frame">
-          <img
-            class="figure-img is-current"
-            data-sex="male"
-            src="assets/body-male.png"
-            alt="Male body figure"
-            draggable="false"
-          />
-          <img
-            class="figure-img"
-            data-sex="female"
-            src="assets/body-female.png"
-            alt="Female body figure"
-            draggable="false"
-          />
-        </div>
-        <p class="hint" id="hint-text">Click head or body to select an area · ⌃-click or right-click to drag · scroll to zoom</p>
       </div>
 
+      <!-- Floating right overlay: Study Content (head view only) -->
       <aside class="study-panel head-only" id="study-panel" aria-label="Study Context">
         <header class="panel-header">
           <span class="panel-title">Study Content</span>
