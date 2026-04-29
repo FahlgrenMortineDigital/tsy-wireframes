@@ -128,7 +128,8 @@
     line-height:1.5;
   }
   input:focus,textarea:focus{border-color:var(--red)}
-  input::placeholder,textarea::placeholder{color:#aaa}
+  input:focus-visible,textarea:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+  input::placeholder,textarea::placeholder{color:#737373}
 
   /* Submit button — Shipyard style: pill, bold, with arrow */
   .submit-row{margin-top:16px}
@@ -147,6 +148,7 @@
     transition:background .15s, transform .05s;
   }
   button[type="submit"]:hover:not(:disabled){background:var(--red)}
+  button[type="submit"]:focus-visible{outline:3px solid var(--red);outline-offset:3px}
   button[type="submit"]:active:not(:disabled){transform:translateY(1px)}
   button[type="submit"]:disabled{opacity:.6;cursor:not-allowed}
   button[type="submit"] .arrow{
@@ -239,8 +241,8 @@
       </div>
 
       <div class="field">
-        <label for="name">Name <span class="opt">— optional, leave blank to stay anonymous</span></label>
-        <input type="text" id="name" name="name" autocomplete="name" maxlength="80" placeholder="">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" maxlength="80" placeholder="Optional — leave blank to stay anonymous">
       </div>
 
       <div class="submit-row">
