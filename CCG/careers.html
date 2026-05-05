@@ -448,6 +448,18 @@
       font-weight: 600;
       color: var(--black);
     }
+    .job__posted {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--grey-500);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+    .job__posted::before {
+      content: '' !important;
+      display: none !important;
+    }
     .job__desc {
       font-size: 13px;
       line-height: 1.55;
@@ -917,6 +929,7 @@
             <span class="job__meta-item job__company">Creative Pultrusions</span>
             <span class="job__meta-item">Alum Bank, PA</span>
             <span class="job__meta-item">Full-time · 1st &amp; 2nd shift</span>
+            <span class="job__meta-item job__posted">Posted 5/5/26</span>
           </div>
           <p class="job__desc">Operate pultrusion equipment to produce fiberglass-reinforced structural shapes; monitor process variables, perform line changeovers, and maintain quality standards across continuous runs.</p>
           <div class="job__divider"></div>
@@ -944,6 +957,7 @@
             <span class="job__meta-item job__company">Bedford Reinforced Plastics</span>
             <span class="job__meta-item">Bedford, PA</span>
             <span class="job__meta-item">Full-time · 2nd shift</span>
+            <span class="job__meta-item job__posted">Posted 5/2/26</span>
           </div>
           <p class="job__desc">Diagnose and repair production equipment including hydraulic, pneumatic, electrical, and mechanical systems; perform preventive maintenance to support continuous pultrusion operations.</p>
           <div class="job__divider"></div>
@@ -971,6 +985,7 @@
             <span class="job__meta-item job__company">Creative Pultrusions</span>
             <span class="job__meta-item">Alum Bank, PA</span>
             <span class="job__meta-item">Full-time · Day shift</span>
+            <span class="job__meta-item job__posted">Posted 4/28/26</span>
           </div>
           <p class="job__desc">Cut, drill, and assemble pultruded structural shapes per engineering drawings; operate saws, routers, and CNC equipment to fabricate finished bridge, railing, and structural assemblies.</p>
           <div class="job__divider"></div>
@@ -998,6 +1013,7 @@
             <span class="job__meta-item job__company">Kenway Corporation</span>
             <span class="job__meta-item">Augusta, ME</span>
             <span class="job__meta-item">Full-time · Day shift</span>
+            <span class="job__meta-item job__posted">Posted 4/22/26</span>
           </div>
           <p class="job__desc">Hand and spray laminate FRP composites for custom industrial tanks, scrubbers, and structural projects; follow ply schedules and resin specifications to meet engineering requirements.</p>
           <div class="job__divider"></div>
@@ -1025,6 +1041,7 @@
             <span class="job__meta-item job__company">Kenway Corporation</span>
             <span class="job__meta-item">Augusta, ME</span>
             <span class="job__meta-item">Full-time · Salaried</span>
+            <span class="job__meta-item job__posted">Posted 4/15/26</span>
           </div>
           <p class="job__desc">Manage custom composite fabrication projects from quote through delivery; coordinate with engineering, production, and clients to deliver on scope, schedule, and budget.</p>
           <div class="job__divider"></div>
@@ -1052,6 +1069,7 @@
             <span class="job__meta-item job__company">Composite Advantage</span>
             <span class="job__meta-item">Dayton, OH</span>
             <span class="job__meta-item">Full-time · 1st shift</span>
+            <span class="job__meta-item job__posted">Posted 4/8/26</span>
           </div>
           <p class="job__desc">Support production of FRP bridge decks and trail bridge panels; assist with mold prep, lay-up, finishing, and quality inspection across the full manufacturing cycle.</p>
           <div class="job__divider"></div>
@@ -1079,6 +1097,7 @@
             <span class="job__meta-item job__company">Tower Industries</span>
             <span class="job__meta-item">Massillon, OH</span>
             <span class="job__meta-item">Full-time · 2nd shift</span>
+            <span class="job__meta-item job__posted">Posted 3/30/26</span>
           </div>
           <p class="job__desc">Maintain and repair solid surface manufacturing equipment, mixers, and material handling systems; respond to production breakdowns and execute scheduled preventive maintenance.</p>
           <div class="job__divider"></div>
@@ -1106,6 +1125,7 @@
             <span class="job__meta-item job__company">Trident Shop</span>
             <span class="job__meta-item">Houston, TX</span>
             <span class="job__meta-item">Full-time · Day shift</span>
+            <span class="job__meta-item job__posted">Posted 3/18/26</span>
           </div>
           <p class="job__desc">General shop labor supporting fabrication of composite components; assist with material handling, finishing operations, shop cleanup, and equipment setup as directed by the shop foreman.</p>
           <div class="job__divider"></div>
@@ -1401,21 +1421,21 @@
       'body.hide-annotations .typo-fix { background: transparent; border-bottom: none; padding: 0; }' +
       'body.hide-annotations .typo-fix::after { display: none; }' +
       '.ann-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 9999;' +
-      '  display: flex; align-items: center; gap: 10px; background: #fff;' +
-      '  border: 1px solid #cccccc; border-radius: 6px; padding: 8px 14px;' +
-      '  box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer;' +
+      '  display: flex; align-items: center; gap: 10px; background: #e8ecf4;' +
+      '  border: 1px solid #5060a0; border-radius: 6px; padding: 8px 14px;' +
+      '  box-shadow: 0 2px 8px rgba(80,96,160,0.18); cursor: pointer;' +
       '  font-family: "Inter", Arial, sans-serif; font-size: 12px;' +
-      '  font-weight: 600; color: #555; user-select: none;' +
+      '  font-weight: 600; color: #3d4a7a; user-select: none;' +
       '  letter-spacing: 0.5px; transition: box-shadow 0.15s; }' +
-      '.ann-toggle:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.18); }' +
+      '.ann-toggle:hover { box-shadow: 0 3px 12px rgba(80,96,160,0.28); }' +
       '.ann-toggle__switch { width: 34px; height: 18px; border-radius: 9px;' +
-      '  background: #cccccc; position: relative; transition: background 0.2s; flex-shrink: 0; }' +
+      '  background: #b8c2dc; position: relative; transition: background 0.2s; flex-shrink: 0; }' +
       '.ann-toggle__switch.is-on { background: #5060a0; }' +
       '.ann-toggle__knob { width: 14px; height: 14px; border-radius: 50%;' +
       '  background: #fff; position: absolute; top: 2px; left: 2px;' +
       '  transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }' +
       '.ann-toggle__switch.is-on .ann-toggle__knob { left: 18px; }' +
-      '.ann-toggle__label { color: #333; }';
+      '.ann-toggle__label { color: #5060a0; }';
     document.head.appendChild(style);
 
     if (!visible) document.body.classList.add('hide-annotations');
