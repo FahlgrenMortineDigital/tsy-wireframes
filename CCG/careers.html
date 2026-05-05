@@ -1386,6 +1386,69 @@
     <small>(out of scope — retained from current site)</small>
   </div>
 
+  <!-- =========================================================
+       ANNOTATIONS TOGGLE — bottom-right floating switch
+       ========================================================= -->
+  <script>
+  (function () {
+    var STORAGE_KEY = 'ccg-annotations-visible';
+    var visible = localStorage.getItem(STORAGE_KEY) !== 'false';
+
+    var style = document.createElement('style');
+    style.textContent =
+      'body.hide-annotations .note { display: none !important; }' +
+      'body.hide-annotations .legend { display: none !important; }' +
+      'body.hide-annotations .typo-fix { background: transparent; border-bottom: none; padding: 0; }' +
+      'body.hide-annotations .typo-fix::after { display: none; }' +
+      '.ann-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 9999;' +
+      '  display: flex; align-items: center; gap: 10px; background: #fff;' +
+      '  border: 1px solid #cccccc; border-radius: 6px; padding: 8px 14px;' +
+      '  box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer;' +
+      '  font-family: "Inter", Arial, sans-serif; font-size: 12px;' +
+      '  font-weight: 600; color: #555; user-select: none;' +
+      '  letter-spacing: 0.5px; transition: box-shadow 0.15s; }' +
+      '.ann-toggle:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.18); }' +
+      '.ann-toggle__switch { width: 34px; height: 18px; border-radius: 9px;' +
+      '  background: #cccccc; position: relative; transition: background 0.2s; flex-shrink: 0; }' +
+      '.ann-toggle__switch.is-on { background: #5060a0; }' +
+      '.ann-toggle__knob { width: 14px; height: 14px; border-radius: 50%;' +
+      '  background: #fff; position: absolute; top: 2px; left: 2px;' +
+      '  transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }' +
+      '.ann-toggle__switch.is-on .ann-toggle__knob { left: 18px; }' +
+      '.ann-toggle__label { color: #333; }';
+    document.head.appendChild(style);
+
+    if (!visible) document.body.classList.add('hide-annotations');
+
+    var btn = document.createElement('div');
+    btn.className = 'ann-toggle';
+    btn.setAttribute('role', 'button');
+    btn.setAttribute('tabindex', '0');
+    btn.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    btn.setAttribute('aria-label', 'Toggle annotations');
+    btn.innerHTML =
+      '<div class="ann-toggle__switch' + (visible ? ' is-on' : '') + '">' +
+      '  <div class="ann-toggle__knob"></div>' +
+      '</div>' +
+      '<span class="ann-toggle__label">Annotations</span>';
+
+    function flip() {
+      visible = !visible;
+      localStorage.setItem(STORAGE_KEY, visible);
+      document.body.classList.toggle('hide-annotations', !visible);
+      btn.querySelector('.ann-toggle__switch').classList.toggle('is-on', visible);
+      btn.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', flip);
+    btn.addEventListener('keydown', function (e) {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flip(); }
+    });
+
+    document.body.appendChild(btn);
+  })();
+  </script>
+
   <script>
     // ===== Filter chip behavior =====
     (function() {
