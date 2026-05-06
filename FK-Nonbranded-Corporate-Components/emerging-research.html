@@ -1,0 +1,2754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What's New &amp; Emerging Research — FK Non Branded Nutrition (Corporate Components)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+
+    /* ============================================================
+       FK CORPORATE LIBRARY — WIREFRAME TOKENS
+       Component structure & behavior derived from
+       Fresenius Kabi LIB (Original) + fresenius-kabi.com/us.
+       Visual is wireframe-only: grey / black / white.
+       ============================================================ */
+    :root {
+      /* Wireframe palette */
+      --w-black: #000000;
+      --w-ink: #1a1a1a;
+      --w-text: #333333;
+      --w-mid: #666666;
+      --w-soft: #999999;
+      --w-line: #cccccc;
+      --w-faint: #dddddd;
+      --w-bg: #f4f4f4;
+      --w-bg-alt: #fafafa;
+      --w-white: #ffffff;
+      --w-placeholder: #e8e8e8;
+      --w-placeholder-line: #c4c4c4;
+
+      /* Typography — Albert Sans, anchored to FK Figma library (Desktop scale)
+         H1/Hero stage: 96/100 display
+         H2: 64/72  H3: 44/56  H4: 32/40  H5: 24/32  H6: 20/32
+         Body (Desktop): 20/32 (regular) — used for body-lg
+         Body (md): 16/26  Body (sm): 14/22  Meta: 12/18
+         Label: 16/20 (used for form labels, captions) */
+      --fs-display: 96px;  --lh-display: 100px;
+      --fs-h1: 64px;       --lh-h1: 72px;
+      --fs-h2: 64px;       --lh-h2: 72px;
+      --fs-h3: 44px;       --lh-h3: 56px;
+      --fs-h4: 32px;       --lh-h4: 40px;
+      --fs-h5: 24px;       --lh-h5: 32px;
+      --fs-h6: 20px;       --lh-h6: 32px;
+      --fs-body-lg: 20px;  --lh-body-lg: 32px;
+      --fs-body: 16px;     --lh-body: 26px;
+      --fs-body-sm: 14px;  --lh-body-sm: 22px;
+      --fs-label: 16px;    --lh-label: 20px;
+      --fs-meta: 12px;     --lh-meta: 18px;
+
+      /* Spacing scale */
+      --sp-3xs: 4px;  --sp-2xs: 8px;  --sp-xs: 12px;
+      --sp-sm: 16px;  --sp-md: 24px;  --sp-lg: 32px;
+      --sp-xl: 48px;  --sp-2xl: 64px; --sp-3xl: 96px;
+
+      /* Layout */
+      --container-max: 1280px;
+      --container-pad: 32px;
+
+      /* Radii */
+      --radius-pill: 9999px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Albert Sans', system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--w-text);
+      background: var(--w-white);
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'ss02';
+    }
+    img, svg { display: block; max-width: 100%; }
+    a { color: var(--w-text); text-decoration: none; transition: color .15s; }
+    a:hover { color: var(--w-black); }
+    button { font-family: inherit; }
+    ul, ol { list-style: none; }
+
+    .container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+
+    /* ============================================================
+       WIREFRAME IMAGE PLACEHOLDER
+       Light grey rounded box with diagonal X cross.
+       ============================================================ */
+    .wire-image {
+      position: relative;
+      background: var(--w-placeholder);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .wire-image::before,
+    .wire-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .wire-image::before {
+      background:
+        linear-gradient(to top right,
+          transparent calc(50% - 0.5px),
+          var(--w-placeholder-line) calc(50% - 0.5px),
+          var(--w-placeholder-line) calc(50% + 0.5px),
+          transparent calc(50% + 0.5px));
+    }
+    .wire-image::after {
+      background:
+        linear-gradient(to top left,
+          transparent calc(50% - 0.5px),
+          var(--w-placeholder-line) calc(50% - 0.5px),
+          var(--w-placeholder-line) calc(50% + 0.5px),
+          transparent calc(50% + 0.5px));
+    }
+    .wire-image > * { position: relative; z-index: 1; }
+
+    /* ============================================================
+       FPO CONTENT NOTICE — yellow alert box
+       Sits below the header to flag placeholder copy on landing pages.
+       ============================================================ */
+    .fpo-notice {
+      background: #fef5d6;
+      border: 1px solid #e8d690;
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      margin: 24px auto;
+      max-width: var(--container-max);
+      color: #6b5300;
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+    }
+    .fpo-notice__container {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+    .fpo-notice strong { color: #4a3a00; font-weight: 700; }
+
+    /* ============================================================
+       BREADCRUMB (Figma 1665:10787)
+       Plain text links separated by " / ". Active level in --w-black,
+       inactive in --w-mid. Used on tertiary pages.
+       ============================================================ */
+    .breadcrumb {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: var(--sp-md) var(--container-pad) 0;
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--w-mid);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+    .breadcrumb a {
+      color: var(--w-mid);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .breadcrumb a:hover { color: var(--w-black); }
+    .breadcrumb__sep { color: var(--w-soft); margin: 0 2px; }
+    .breadcrumb__current { color: var(--w-black); font-weight: 600; }
+
+    /* ============================================================
+       ANCHOR NAVIGATION (Figma 12760:15365)
+       Sticky horizontal bar with "On this page" label + section links.
+       Active link gets a bottom rule.
+       ============================================================ */
+    .anchor-nav {
+      position: sticky; top: 126px;
+      z-index: 50;
+      background: var(--w-bg);
+      border-top: 1px solid var(--w-line);
+      border-bottom: 1px solid var(--w-line);
+    }
+    .anchor-nav__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-lg);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .anchor-nav__label {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      font-weight: 600;
+      color: var(--w-mid);
+      flex-shrink: 0;
+      padding: 14px 0;
+    }
+    .anchor-nav__links {
+      display: flex;
+      gap: var(--sp-md);
+      align-items: stretch;
+    }
+    .anchor-nav__link {
+      display: inline-flex;
+      align-items: center;
+      padding: 14px 0;
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      font-weight: 600;
+      color: var(--w-text);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color .15s, border-color .15s;
+    }
+    .anchor-nav__link:hover { color: var(--w-black); }
+    .anchor-nav__link.is-active {
+      color: var(--w-black);
+      border-bottom-color: var(--w-black);
+    }
+
+    /* ============================================================
+       CONTINUE LINK BLOCK (Figma 6072:10680)
+       Full-width 104px-high bar, right-aligned label + arrow.
+       Sits between content and footer to forward to the next page.
+       ============================================================ */
+    .continue-link {
+      background: var(--w-text);
+      color: var(--w-white);
+      padding: 0 var(--container-pad);
+    }
+    .continue-link__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      min-height: 104px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .continue-link a {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      color: var(--w-white);
+      font-size: var(--fs-h5);
+      line-height: var(--lh-h5);
+      font-weight: 600;
+      text-decoration: none;
+      padding: 24px 0;
+      transition: gap .15s;
+    }
+    .continue-link a:hover { gap: 24px; color: var(--w-white); }
+    .continue-link svg { width: 24px; height: 24px; flex-shrink: 0; }
+
+    /* Page Stage: tighter than the home Stage â single column-ish, no
+       deep media block, smaller bottom padding. Used on tertiary pages. */
+    .stage--page { padding-top: var(--sp-2xl); padding-bottom: var(--sp-xl); }
+    .stage--page .stage__inner { min-height: 480px; }
+    .stage--page .stage__headline { font-size: var(--fs-h1); line-height: var(--lh-h1); }
+
+    /* ============================================================
+       LIB COMPONENT CALLOUT — pale blue pill with blue text
+       Identifies the Figma library component in use.
+       Toggleable via the floating switch (bottom-right).
+       ============================================================ */
+    .lib-label {
+      display: inline-block;
+      background: #e8ecf4;
+      color: #5060a0;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      margin-bottom: var(--sp-sm);
+      line-height: 1.4;
+      text-decoration: none;
+    }
+    .lib-label:hover { background: #5060a0; color: #ffffff; }
+
+    /* ============================================================
+       LOGO PLACEHOLDER — wireframe stand-in for the FK logo
+       ============================================================ */
+    .logo-placeholder {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 80px; height: 40px;
+      border: 1px dashed var(--w-line);
+      background: var(--w-bg);
+      color: var(--w-mid);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: lowercase;
+      letter-spacing: 1px;
+      border-radius: var(--radius-sm);
+    }
+    .header-logo-img { height: 36px; width: auto; display: block; }
+    .mobile-menu__top .header-logo-img { height: 32px; }
+
+    /* ============================================================
+       HEADER (Figma: Header — 112:1492)
+       Two-bar layout: meta nav row + main nav row
+       Behavior matches fresenius-kabi.com/us
+       ============================================================ */
+    .header { background: var(--w-white); border-bottom: 1px solid var(--w-line); position: sticky; top: 0; z-index: 100; }
+    .header { transition: transform 0.3s ease; }
+    .header.header--hidden { transform: translateY(-100%); }
+    .header__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+      position: relative;
+    }
+    .header__top {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      padding-top: 18px;
+    }
+    .header__logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
+    }
+    .header__logo-mark { display: flex; flex-direction: column; }
+    .header__logo-bars {
+      width: 26px; height: 30px;
+      display: flex; gap: 3px;
+    }
+    .header__logo-bars span {
+      flex: 1; background: var(--w-text);
+      transform: skewX(-12deg);
+    }
+    .header__logo-text {
+      font-weight: 700; color: var(--w-text);
+      font-size: 14px; line-height: 16px;
+      letter-spacing: 1px;
+    }
+    .header__logo-tag {
+      font-weight: 400; color: var(--w-mid);
+      font-size: 10px; line-height: 12px;
+      font-style: italic; letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .header__meta {
+      display: flex; align-items: center; gap: 28px;
+      font-size: var(--fs-body-sm);
+    }
+    .header__meta a {
+      color: var(--w-text); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+    }
+    .header__meta a:hover { color: var(--w-black); }
+    .header__meta-icon { width: 16px; height: 16px; opacity: 0.85; }
+
+    .header__main {
+      display: flex; justify-content: flex-end; gap: 36px;
+      padding: 16px 0 14px;
+    }
+    .header__nav-link {
+      position: relative;
+      font-size: var(--fs-body);
+      font-weight: 600;
+      color: var(--w-text);
+      text-decoration: none;
+      padding: 8px 0;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color .15s;
+    }
+    .header__nav-link::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 2px;
+      height: 2px;
+      background: var(--w-text);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform .28s ease;
+    }
+    .header__nav-link:hover::after,
+    .header__nav-link:focus-visible::after,
+    .header__nav-link.is-active::after,
+    .header__nav-link.is-mega-open::after { transform: scaleX(1); }
+    .header__nav-link:hover,
+    .header__nav-link.is-active,
+    .header__nav-link.is-mega-open { color: var(--w-black); }
+
+    .header__mobile-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      width: 40px; height: 40px;
+      align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px;
+    }
+    .header__mobile-toggle span {
+      display: block; width: 22px; height: 2px;
+      background: var(--w-text); transition: transform .2s;
+    }
+
+    /* ============================================================
+       MEGA MENU (Figma: Mega Menu Desktop — 685:5150)
+       Hover-open with descriptive intro + nested links list.
+       ============================================================ */
+    /* ============================================================
+       MEGA MENU (Figma 685:5150) — matches fresenius-kabi.com/us
+       Big section title + arrow + paragraph on the left.
+       Plain title list on the right (no per-link descriptions).
+       Chevron-trigger drill-down for parents with children.
+       Circle-outlined close button top-right.
+       ============================================================ */
+    .mega-menu {
+      position: absolute; left: 0; right: 0; top: 100%;
+      background: var(--w-white);
+      border-top: 1px solid var(--w-line);
+      border-bottom: 4px solid var(--w-text);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+      display: none;
+      padding: 56px 0 64px;
+    }
+    .mega-menu.is-open { display: block; }
+    .mega-menu__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      position: relative;
+    }
+    .mega-menu__close {
+      position: absolute;
+      top: 24px; right: var(--container-pad);
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--w-text);
+      background: transparent;
+      color: var(--w-text);
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: inherit; font-size: 22px; font-weight: 300;
+      line-height: 1;
+      transition: background .15s, color .15s;
+      z-index: 10;
+    }
+    .mega-menu__close:hover { background: var(--w-text); color: var(--w-white); }
+
+    /* View system: view-1 (top level) and view-2 (drill-down) */
+    .mega-menu__view { display: none; }
+    .mega-menu__view.is-active { display: block; }
+
+    /* Intro / left panel */
+    .mega-menu__intro { padding-right: var(--sp-md); }
+    .mega-menu__title-link {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--w-black);
+      margin-bottom: var(--sp-md);
+    }
+    .mega-menu__title-link:hover { color: var(--w-text); }
+    .mega-menu__title-link h3 {
+      font-size: 56px;
+      line-height: 1.05;
+      font-weight: 600;
+      letter-spacing: -1px;
+      margin-bottom: var(--sp-md);
+      color: inherit;
+    }
+    .mega-menu__title-arrow {
+      width: 56px; height: 24px;
+      color: inherit;
+      transition: transform .15s;
+    }
+    .mega-menu__title-link:hover .mega-menu__title-arrow { transform: translateX(6px); }
+    .mega-menu__intro p {
+      color: var(--w-mid);
+      font-size: var(--fs-body);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0;
+    }
+    .mega-menu__back {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: var(--fs-body-sm); font-weight: 600;
+      color: var(--w-mid);
+      padding: 0; margin-bottom: var(--sp-md);
+    }
+    .mega-menu__back:hover { color: var(--w-black); }
+    .mega-menu__back svg { width: 14px; height: 14px; }
+
+    /* Right panel: plain title list, no descriptions */
+    .mega-menu__list {
+      display: flex; flex-direction: column;
+      align-self: start;
+    }
+    .mega-menu__item-title {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+      font-family: inherit;
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 600;
+      color: var(--w-black);
+      text-decoration: none;
+      background: none; border: none;
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
+      transition: color .15s;
+      border-bottom: 1px solid var(--w-faint);
+    }
+    .mega-menu__item-title:last-child { border-bottom: none; }
+    .mega-menu__item-title:hover { color: var(--w-text); }
+    .mega-menu__item-title-chev {
+      width: 22px; height: 22px;
+      flex-shrink: 0;
+      color: var(--w-text);
+      transition: transform .15s;
+    }
+    .mega-menu__item-title:hover .mega-menu__item-title-chev { transform: translateX(4px); }
+
+    /* ============================================================
+       SEARCH MODAL (Figma: Search) — full-screen overlay triggered
+       by the search icon in the eyebrow nav. Big "What are you
+       looking for?" heading + large input + popular search pills,
+       with a circle-outlined close button top-right.
+       ============================================================ */
+    .search-modal {
+      position: fixed; inset: 0; z-index: 250;
+      background: var(--w-white);
+      display: flex; flex-direction: column;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s ease;
+    }
+    .search-modal.is-open { opacity: 1; pointer-events: auto; }
+    .search-modal__close {
+      position: absolute; top: 24px; right: 32px;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--w-text);
+      background: transparent; color: var(--w-text);
+      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: inherit; font-size: 22px; font-weight: 300; line-height: 1;
+      transition: background .15s, color .15s;
+    }
+    .search-modal__close:hover { background: var(--w-text); color: var(--w-white); }
+    .search-modal__inner {
+      max-width: var(--container-max);
+      margin: auto;
+      padding: 0 var(--container-pad);
+      width: 100%;
+    }
+    .search-modal__lib-label {
+      display: inline-block;
+      background: #e8ecf4; color: #5060a0;
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      padding: 3px 10px; border-radius: var(--radius-pill);
+      margin-bottom: var(--sp-md);
+      line-height: 1.4;
+    }
+    .search-modal__title {
+      font-size: 56px; line-height: 1.05;
+      font-weight: 600; letter-spacing: -1px;
+      color: var(--w-black);
+      margin-bottom: var(--sp-xl);
+    }
+    .search-modal__form {
+      display: flex; align-items: center; gap: var(--sp-sm);
+      border-bottom: 2px solid var(--w-text);
+      padding-bottom: 12px;
+      margin-bottom: var(--sp-xl);
+    }
+    .search-modal__input {
+      flex: 1;
+      border: none; outline: none; background: transparent;
+      font-family: inherit;
+      font-size: 28px; font-weight: 400; color: var(--w-black);
+      padding: 12px 0;
+    }
+    .search-modal__input::placeholder { color: var(--w-soft); }
+    .search-modal__submit {
+      background: var(--w-text); color: var(--w-white);
+      border: none; cursor: pointer;
+      width: 56px; height: 56px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background .15s;
+    }
+    .search-modal__submit:hover { background: var(--w-black); }
+    .search-modal__submit svg { width: 22px; height: 22px; }
+    .search-modal__suggestions {
+      display: flex; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .search-modal__suggestions-label {
+      font-size: var(--fs-meta);
+      color: var(--w-mid);
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+    .search-modal__suggestions a {
+      display: inline-block;
+      padding: 8px 18px;
+      border: 1px solid var(--w-line);
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-body-sm);
+      color: var(--w-text);
+      text-decoration: none;
+      transition: background .15s, color .15s, border-color .15s;
+    }
+    .search-modal__suggestions a:hover {
+      background: var(--w-text); color: var(--w-white);
+      border-color: var(--w-text);
+    }
+    @media (max-width: 768px) {
+      .search-modal__title { font-size: 36px; margin-bottom: var(--sp-lg); }
+      .search-modal__input { font-size: 20px; }
+    }
+
+    /* ============================================================
+       MOBILE MENU OVERLAY (Figma: Menu Mobile — 784:7139)
+       Full-screen drawer triggered by hamburger. Sections expand
+       inline (accordion) to reveal level-2 children.
+       ============================================================ */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--w-white);
+      transform: translateX(100%);
+      transition: transform .3s ease;
+      overflow-y: auto;
+      display: flex; flex-direction: column;
+    }
+    .mobile-menu.is-open { transform: translateX(0); }
+    .mobile-menu__top {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--w-line);
+    }
+    .mobile-menu__close {
+      width: 40px; height: 40px;
+      background: none; border: none; cursor: pointer;
+      color: var(--w-text); font-size: 24px;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .mobile-menu__sections { flex: 1; padding: 8px 0; }
+    .mobile-menu__section { border-bottom: 1px solid var(--w-faint); }
+    .mobile-menu__section-head {
+      width: 100%; background: none; border: none;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px;
+      font-family: inherit;
+      font-size: var(--fs-h5); font-weight: 600;
+      color: var(--w-black);
+      cursor: pointer;
+      text-align: left;
+    }
+    .mobile-menu__section-head .chev {
+      width: 12px; height: 12px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform .2s;
+    }
+    .mobile-menu__section.is-expanded .chev {
+      transform: rotate(225deg) translate(-2px, -2px);
+    }
+    .mobile-menu__section-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .25s ease;
+    }
+    .mobile-menu__section-body-inner {
+      padding: 0 24px 16px;
+    }
+    .mobile-menu__section-link {
+      display: block; padding: 10px 0;
+      color: var(--w-text); font-size: var(--fs-body);
+      text-decoration: none;
+      border-bottom: 1px solid var(--w-bg);
+    }
+    .mobile-menu__section-link:last-child { border-bottom: none; }
+    .mobile-menu__section-link:hover { color: var(--w-black); }
+    .mobile-menu__section-children {
+      padding: 4px 0 8px 16px;
+      border-left: 2px solid var(--w-faint);
+      margin: 4px 0 8px 4px;
+    }
+    .mobile-menu__section-children a {
+      display: block; padding: 6px 0;
+      font-size: var(--fs-body-sm); color: var(--w-mid);
+      text-decoration: none;
+    }
+    .mobile-menu__view-all {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: var(--fs-body-sm);
+      font-weight: 600;
+      color: var(--w-black);
+      padding: 8px 0 12px;
+      border-bottom: 2px solid var(--w-black);
+      margin-bottom: 8px;
+    }
+    .mobile-menu__foot {
+      padding: 24px;
+      border-top: 1px solid var(--w-line);
+      background: var(--w-bg);
+    }
+    .mobile-menu__foot-meta {
+      display: flex; flex-direction: column; gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mobile-menu__foot-meta a {
+      color: var(--w-text); font-size: var(--fs-body); font-weight: 500;
+    }
+    .mobile-menu__foot-legal {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      font-size: var(--fs-body-sm);
+    }
+    .mobile-menu__foot-legal a { color: var(--w-mid); }
+
+    /* ============================================================
+       STAGE (Figma: Stage — 1982:13446)
+       Static hero. Big brand-statement headline + "Discover how"
+       down-arrow link on the left; large image on the right.
+       Decorative grey block bottom-right behind the image.
+       NO CAROUSEL — single static layout per FK library.
+       ============================================================ */
+    .stage {
+      background: var(--w-white);
+      padding: var(--sp-2xl) 0 var(--sp-3xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .stage__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: var(--sp-2xl);
+      align-items: center;
+      position: relative;
+      min-height: 540px;
+    }
+    .stage__content { position: relative; z-index: 2; }
+    .stage__headline {
+      font-size: var(--fs-display);
+      line-height: 1.05;
+      font-weight: 600;
+      color: var(--w-black);
+      letter-spacing: -1.5px;
+      margin-bottom: var(--sp-xl);
+    }
+    .stage__discover {
+      display: inline-flex; flex-direction: column; align-items: flex-start;
+      gap: var(--sp-sm);
+      color: var(--w-text);
+      font-size: var(--fs-body-lg);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .stage__discover:hover { color: var(--w-black); }
+    .stage__discover svg {
+      width: 24px; height: 32px;
+      transition: transform .25s;
+    }
+    .stage__discover:hover svg { transform: translateY(4px); }
+
+    .stage__media {
+      position: relative;
+      aspect-ratio: 16/11;
+      width: 100%;
+    }
+    .stage__media .wire-image { position: absolute; inset: 0; }
+    .stage__media-block {
+      position: absolute;
+      right: -32px; bottom: -48px;
+      width: 60%; height: 50%;
+      background: var(--w-faint);
+      z-index: 0;
+    }
+    .stage__media-label { position: absolute; top: 16px; left: 16px; z-index: 2; }
+
+    /* ============================================================
+       BUTTONS (Figma: Button — pill, 8 24 padding, 24px radius)
+       Default: solid fill; Secondary: outline.
+       Type: Albert Sans SemiBold, 20/32 (Desktop H6).
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 8px 24px;
+      font-family: 'Albert Sans', sans-serif;
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 24px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s, transform .15s;
+      white-space: nowrap;
+      font-feature-settings: 'ss02';
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn--primary { background: var(--w-text); color: var(--w-white); border-color: var(--w-text); }
+    .btn--primary:hover { background: var(--w-black); border-color: var(--w-black); color: var(--w-white); }
+    .btn--secondary { background: transparent; color: var(--w-text); border-color: var(--w-text); }
+    .btn--secondary:hover { background: var(--w-text); color: var(--w-white); }
+    .btn--on-light { background: var(--w-white); color: var(--w-text); border-color: var(--w-line); }
+    .btn--on-light:hover { background: var(--w-text); color: var(--w-white); border-color: var(--w-text); }
+    .btn__arrow { width: 16px; height: 16px; transition: transform .15s; }
+    .btn:hover .btn__arrow { transform: translateX(3px); }
+
+    /* ============================================================
+       SECTION HEADER (Figma: Section Heading — 2002:13448)
+       ============================================================ */
+    .section { padding: var(--sp-3xl) 0; }
+    .section--alt { background: var(--w-bg); }
+    .section--shaded { background: var(--w-bg-alt); }
+    .section--tight { padding: var(--sp-2xl) 0; }
+
+    /* Section Heading (Figma: Section Heading — 2002:13448)
+       Eyebrow tag + H2 title (64/72) + body lede (20/32). */
+    .section__head { max-width: 920px; margin-bottom: var(--sp-2xl); }
+    .section__head--center { margin-left: auto; margin-right: auto; text-align: center; }
+    .section__eyebrow {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--w-mid);
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-sm);
+    }
+    .section__title {
+      font-size: var(--fs-h2);
+      line-height: var(--lh-h2);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-md);
+      letter-spacing: 0;
+    }
+    .section__lede {
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      font-weight: 400;
+      color: var(--w-text);
+      max-width: 780px;
+    }
+
+    /* ============================================================
+       TOPIC HIGHLIGHT (Figma: Topic Highlight — 3094:8397)
+       Two equal columns side-by-side, 40px gap.
+       Left: H2 headline (64/72) with 48px bottom padding,
+             body block indented 48px from left, gap 24px,
+             body copy (20/32 Regular) + pill CTA.
+       Right: 4:3 image (~740 × 555 in Figma).
+       Variants: Default/dark (light-grey BG, white CTA),
+                 Variant2/light (alt BG, outline CTA).
+       ============================================================ */
+    .topic-highlight {
+      background: var(--w-bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-xl);
+      align-items: stretch;
+      padding: var(--sp-xl);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .topic-highlight__content {
+      display: flex; flex-direction: column;
+      justify-content: center;
+    }
+    .topic-highlight__title {
+      font-size: var(--fs-h2);
+      line-height: var(--lh-h2);
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--w-text);
+      margin: 0 0 var(--sp-xl);
+      transition: color .2s ease;
+    }
+    .topic-highlight:hover .topic-highlight__title { color: var(--w-black); }
+    .topic-highlight__desc {
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      font-weight: 400;
+      color: var(--w-text);
+      max-width: 560px;
+      margin: 0 0 var(--sp-md);
+      padding-left: var(--sp-xl);
+    }
+    .topic-highlight__cta {
+      align-self: flex-start;
+      margin-left: var(--sp-xl);
+      background: var(--w-white);
+      color: var(--w-text);
+      border-color: transparent;
+    }
+    .topic-highlight__cta:hover {
+      background: var(--w-text);
+      color: var(--w-white);
+      border-color: var(--w-text);
+    }
+    .topic-highlight__media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+    }
+    .topic-highlight__media .wire-image {
+      position: absolute; inset: 0;
+      border-radius: var(--radius-sm);
+    }
+    .topic-highlight__media-label {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+    }
+
+    /* Variant: light — slightly lighter background, outline CTA */
+    .topic-highlight--light { background: var(--w-bg-alt); }
+    .topic-highlight--light .topic-highlight__cta {
+      background: transparent;
+      border-color: var(--w-text);
+    }
+
+    /* ============================================================
+       STORY ROW / IMAGE TEXT BLOCK (Figma: Image Text Block — 3194:10576)
+       Two-column composition: dominant image on one side, text on the
+       other. Headline (H3 44/56), body (20/32), optional bullet list.
+       Reverse variant flips the image to the opposite column.
+       ============================================================ */
+    .story-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-3xl);
+      align-items: center;
+    }
+    .story-row--reverse .story-row__media { order: 2; }
+    .story-row__media {
+      position: relative;
+      aspect-ratio: 4/3;
+    }
+    .story-row__media-accent {
+      position: absolute;
+      left: -16px; top: 32px; bottom: 32px;
+      width: 24px;
+      background: var(--w-faint);
+      z-index: 0;
+    }
+    .story-row__media .wire-image { position: absolute; inset: 0; }
+    .story-row__media-label {
+      position: absolute; top: 16px; left: 16px; z-index: 2;
+    }
+    .story-row__content { padding-left: 0; }
+    .story-row__eyebrow {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--w-mid);
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-sm);
+    }
+    .story-row__title {
+      font-size: var(--fs-h3);
+      line-height: var(--lh-h3);
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--w-black);
+      margin-bottom: var(--sp-md);
+    }
+    .story-row__desc {
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      font-weight: 400;
+      color: var(--w-text);
+      margin-bottom: var(--sp-lg);
+    }
+    .story-row__list {
+      list-style: none; padding: 0;
+      margin: 0 0 var(--sp-lg);
+    }
+    .story-row__list li {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--w-faint);
+      color: var(--w-text);
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .story-row__list li::before {
+      content: '→'; color: var(--w-text); font-weight: 600;
+    }
+
+    /* ============================================================
+       TEASER (Figma: Storytelling Teaser — 1479:10250 / Teaser News — 2119:17907)
+       Image-on-top card with optional pill, headline + arrow, body.
+       3-up grid: ~100px column gap (uses --sp-3xl ≈ 96px).
+       Default size: H3 (44/56) headline, 20/32 body.
+       --lg variant: identical (kept for backwards compatibility).
+       --compact variant: H5 (24/32) headline, no body, used in 4-up.
+       ============================================================ */
+    .teaser-grid { display: grid; gap: var(--sp-3xl); }
+    .teaser-grid--3 { grid-template-columns: repeat(3, 1fr); }
+    .teaser-grid--4 { grid-template-columns: repeat(4, 1fr); gap: var(--sp-xl); }
+
+    .teaser {
+      background: transparent;
+      display: flex; flex-direction: column;
+      gap: var(--sp-md);
+      transition: transform .2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .teaser:hover { transform: translateY(-4px); }
+    .teaser__media {
+      aspect-ratio: 4/3;
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      margin: 0;
+    }
+    .teaser__media .wire-image { position: absolute; inset: 0; border-radius: var(--radius-sm); }
+    .teaser__title {
+      font-size: var(--fs-h3);
+      line-height: var(--lh-h3);
+      font-weight: 600;
+      letter-spacing: 0;
+      color: var(--w-black);
+      display: flex; flex-direction: column; align-items: flex-start;
+      gap: var(--sp-sm);
+      margin: 0;
+    }
+    .teaser__title-arrow {
+      width: 24px; height: 24px;
+      flex-shrink: 0;
+      transition: transform .15s;
+      color: var(--w-text);
+    }
+    .teaser:hover .teaser__title-arrow { transform: translateX(6px); }
+    .teaser--lg .teaser__title { font-size: var(--fs-h3); line-height: var(--lh-h3); }
+    .teaser__desc {
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      color: var(--w-text);
+      margin: 0;
+      flex: 1;
+    }
+
+    /* Compact variant — used in 4-up grids (Therapeutic Areas, Tools & Resources) */
+    .teaser--compact { gap: var(--sp-sm); }
+    .teaser--compact .teaser__media { aspect-ratio: 4/3; }
+    .teaser--compact .teaser__title { font-size: var(--fs-h5); line-height: var(--lh-h5); gap: var(--sp-2xs); }
+    .teaser--compact .teaser__title-arrow { width: 20px; height: 20px; }
+    .teaser--compact .teaser__desc { font-size: var(--fs-body); line-height: var(--lh-body); font-weight: 400; }
+
+    /* ============================================================
+       ACCORDION (Figma: Accordion — 5461:10498)
+       Single column, full-width clickable rows. Closed shows + icon,
+       open shows − icon and active-color title with body block.
+       ============================================================ */
+    .accordion { display: flex; flex-direction: column; }
+    .accordion__item { border-bottom: 1px solid var(--w-line); }
+    .accordion__head {
+      width: 100%; text-align: left;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--sp-md);
+      padding: 24px 0;
+      font-family: inherit;
+      font-size: var(--fs-h5);
+      line-height: var(--lh-h5);
+      font-weight: 600;
+      color: var(--w-black);
+      transition: color .15s;
+      font-feature-settings: 'ss02';
+    }
+    .accordion__head:hover { color: var(--w-text); }
+    .accordion__item.is-open .accordion__head { color: var(--w-black); }
+    .accordion__icon {
+      width: 24px; height: 24px;
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .accordion__item.is-open .accordion__icon { transform: rotate(45deg); }
+    .accordion__body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .25s ease;
+      color: var(--w-mid);
+      font-size: var(--fs-body);
+    }
+    .accordion__body-inner { padding: 0 0 24px; max-width: 760px; }
+    .accordion__body a {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--w-text); font-weight: 600;
+      margin-top: 12px;
+      border-bottom: 1px solid var(--w-text);
+      padding-bottom: 1px;
+    }
+
+    /* ============================================================
+       FOOTER (Figma: Footer Desktop — 1787:11240)
+       Two-column upper region:
+         Left:  list of big-link "questions" (H5 24/32 SemiBold).
+         Right: social icons row, newsletter signup (label + line input
+                with arrow submit), secondary links grid (label/sublabel).
+       Lower bar (white BG): copyright + legal lorem + textlink.
+       ============================================================ */
+    .footer {
+      background: var(--w-bg);
+      padding: var(--sp-2xl) 0 0;
+      margin-top: var(--sp-3xl);
+    }
+    .footer__inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+    .footer__cols {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--sp-3xl);
+      padding-bottom: var(--sp-2xl);
+    }
+    .footer__big-links { display: flex; flex-direction: column; gap: 0; }
+    .footer__big-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      font-size: var(--fs-h5);
+      line-height: var(--lh-h5);
+      font-weight: 600;
+      color: var(--w-black);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .footer__big-link:hover { color: var(--w-text); }
+    .footer__big-link::after {
+      content: '→';
+      color: var(--w-text);
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity .15s, transform .15s;
+    }
+    .footer__big-link:hover::after { opacity: 1; transform: translateX(0); }
+
+    .footer__right { display: flex; flex-direction: column; gap: var(--sp-xl); }
+    .footer__social { display: flex; gap: var(--sp-md); }
+    .footer__social a {
+      width: 32px; height: 32px;
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--w-text);
+      background: transparent;
+      transition: color .15s;
+    }
+    .footer__social a:hover { color: var(--w-black); }
+    .footer__social svg { width: 24px; height: 24px; }
+
+    .footer__newsletter h4 {
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-2xs);
+    }
+    .footer__newsletter-form {
+      display: flex; align-items: center;
+      border-bottom: 1px solid var(--w-line);
+      transition: border-color .15s;
+    }
+    .footer__newsletter-form:focus-within { border-color: var(--w-text); }
+    .footer__newsletter-form input {
+      flex: 1;
+      border: none; background: none;
+      padding: 12px 0;
+      font-family: inherit;
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      color: var(--w-text);
+      outline: none;
+    }
+    .footer__newsletter-form input::placeholder { color: var(--w-soft); }
+    .footer__newsletter-form button {
+      background: none; border: none; cursor: pointer;
+      color: var(--w-text);
+      padding: 0 var(--sp-2xs);
+      display: inline-flex; align-items: center;
+    }
+    .footer__newsletter-form button svg { width: 24px; height: 24px; }
+
+    .footer__secondary {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--sp-md);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+    }
+    .footer__secondary a { color: var(--w-text); display: block; font-weight: 600; }
+    .footer__secondary a:hover { color: var(--w-black); }
+    .footer__secondary a span {
+      display: block;
+      font-weight: 400;
+      color: var(--w-mid);
+      margin-top: 2px;
+    }
+
+    .footer__bottom {
+      background: var(--w-white);
+      padding: var(--sp-md) 0 var(--sp-lg);
+    }
+    .footer__bottom-inner {
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+    .footer__copyright {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--w-text);
+      font-weight: 600;
+      margin-bottom: var(--sp-2xs);
+    }
+    .footer__legal {
+      color: var(--w-mid);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      max-width: 1100px;
+      margin-bottom: var(--sp-sm);
+    }
+    .footer__textlink {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--w-text);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+    .footer__textlink:hover { color: var(--w-black); }
+
+    /* ============================================================
+       RESPONSIVE — type scale ramps from Figma Desktop → Tablet → Mobile.
+       Desktop:  H2 64/72  H3 44/56  H4 32/40  H5 24/32  Body 20/32
+       Tablet:   H2 48/56  H3 36/44  H4 28/36  H5 22/30
+       Mobile:   H2 36/42  H3 28/34  H4 24/30  H5 20/28  Body 16/24
+       ============================================================ */
+    @media (max-width: 1024px) {
+      :root {
+        --fs-display: 72px;  --lh-display: 80px;
+        --fs-h1: 48px;       --lh-h1: 56px;
+        --fs-h2: 48px;       --lh-h2: 56px;
+        --fs-h3: 36px;       --lh-h3: 44px;
+        --fs-h4: 28px;       --lh-h4: 36px;
+        --fs-h5: 22px;       --lh-h5: 30px;
+        --fs-body-lg: 18px;  --lh-body-lg: 28px;
+      }
+      .header__main { gap: 28px; }
+      .footer__secondary { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      :root {
+        --container-pad: 20px;
+        --fs-display: 44px;  --lh-display: 48px;
+        --fs-h1: 36px;       --lh-h1: 42px;
+        --fs-h2: 36px;       --lh-h2: 42px;
+        --fs-h3: 28px;       --lh-h3: 34px;
+        --fs-h4: 24px;       --lh-h4: 30px;
+        --fs-h5: 20px;       --lh-h5: 28px;
+        --fs-h6: 16px;       --lh-h6: 24px;
+        --fs-body-lg: 16px;  --lh-body-lg: 24px;
+      }
+      .header__top { padding: 14px 0; }
+      .header__main { display: none; }
+      .header__meta a span { display: none; }
+      .header__mobile-toggle { display: inline-flex; }
+      .stage { padding: var(--sp-xl) 0; }
+      .stage__inner { grid-template-columns: 1fr; min-height: auto; }
+      .stage__media-block { display: none; }
+      .section { padding: var(--sp-2xl) 0; }
+      .topic-highlight { grid-template-columns: 1fr; gap: var(--sp-lg); padding: var(--sp-lg); }
+      .topic-highlight__title { margin-bottom: var(--sp-md); }
+      .topic-highlight__desc { padding-left: 0; }
+      .topic-highlight__cta { margin-left: 0; }
+      .story-row { grid-template-columns: 1fr; gap: var(--sp-lg); }
+      .story-row--reverse .story-row__media { order: 0; }
+      .teaser-grid--3, .teaser-grid--4 { grid-template-columns: 1fr 1fr; gap: var(--sp-lg); }
+      .footer { padding-top: var(--sp-xl); }
+      .footer__cols { grid-template-columns: 1fr; gap: var(--sp-xl); }
+      .footer__secondary { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .teaser-grid--3, .teaser-grid--4 { grid-template-columns: 1fr; }
+      .footer__secondary { grid-template-columns: 1fr; }
+    }
+
+
+
+    /* ============================================================
+       CONTENT BODY — substantive page content carried from legacy
+       wireframes. Renders through Figma-aligned primitives:
+       Section Heading + body, callout, feature grid, table, refs.
+       ============================================================ */
+    .content-body { padding: var(--sp-2xl) 0; }
+    .content-body__inner {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 var(--container-pad);
+    }
+    .content-block { margin-bottom: var(--sp-2xl); }
+    .content-block:last-child { margin-bottom: 0; }
+    .content-block__h2 {
+      font-size: var(--fs-h3);
+      line-height: var(--lh-h3);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-md);
+    }
+    .content-block__h3 {
+      font-size: var(--fs-h4);
+      line-height: var(--lh-h4);
+      font-weight: 600;
+      color: var(--w-black);
+      margin: var(--sp-xl) 0 var(--sp-md);
+    }
+    .content-block__lede,
+    .content-block p {
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      color: var(--w-text);
+      margin-bottom: var(--sp-md);
+    }
+    .content-block p:last-child { margin-bottom: 0; }
+
+    /* Callout — left-rule highlight box derived from Figma Quote block (5323:8339) */
+    .content-callout {
+      background: var(--w-bg);
+      border-left: 4px solid var(--w-text);
+      padding: var(--sp-lg) var(--sp-xl);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-callout__title {
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-2xs);
+    }
+    .content-callout__body {
+      font-size: var(--fs-body-lg);
+      line-height: var(--lh-body-lg);
+      color: var(--w-text);
+      margin: 0;
+    }
+
+    /* Feature grid — 2-up cards (title + body + bullets) */
+    .content-feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-lg);
+      margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-feature-card {
+      background: var(--w-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-xl);
+    }
+    .content-feature-card__title {
+      font-size: var(--fs-h5);
+      line-height: var(--lh-h5);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-sm);
+    }
+    .content-feature-card__body {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--w-text);
+      margin-bottom: var(--sp-md);
+    }
+    .content-feature-card ul {
+      list-style: disc inside;
+      font-size: var(--fs-body);
+      line-height: 1.8;
+      color: var(--w-text);
+      padding: 0;
+    }
+    @media (max-width: 768px) {
+      .content-feature-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Table — Figma 5604:10751 spec, wireframe greyscale */
+    .content-table-wrap {
+      border: 1px solid var(--w-line);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+    }
+    .content-table thead th {
+      text-align: left;
+      padding: 14px 16px;
+      background: var(--w-text);
+      color: var(--w-white);
+      font-weight: 600;
+      border-bottom: 0;
+    }
+    .content-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--w-faint);
+      color: var(--w-text);
+      vertical-align: top;
+    }
+    .content-table tbody tr:nth-child(even) td { background: var(--w-bg-alt); }
+    .content-table td:first-child { font-weight: 600; color: var(--w-black); }
+    .content-table tbody tr:last-child td { border-bottom: 0; }
+
+    /* Tool grid — 3-up cards with image placeholder + title + description */
+    .content-tool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-lg);
+      margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-tool-card {
+      background: var(--w-bg);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-md);
+    }
+    .content-tool-card__media {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin-bottom: var(--sp-md);
+    }
+    .content-tool-card__title {
+      font-size: var(--fs-h6);
+      line-height: var(--lh-h6);
+      font-weight: 600;
+      color: var(--w-black);
+      margin-bottom: var(--sp-sm);
+    }
+    .content-tool-card__body {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--w-text);
+      margin: 0;
+    }
+    @media (max-width: 1024px) { .content-tool-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px)  { .content-tool-grid { grid-template-columns: 1fr; } }
+
+    /* References */
+    .content-references {
+      border-top: 1px solid var(--w-line);
+      padding-top: var(--sp-md);
+      margin-top: var(--sp-2xl);
+    }
+    .content-references__heading {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--w-soft);
+      margin-bottom: var(--sp-md);
+    }
+    .content-references ol {
+      list-style: decimal;
+      padding-left: 24px;
+      font-size: var(--fs-body-sm);
+      line-height: 1.8;
+      color: var(--w-mid);
+    }
+    .content-references li { margin-bottom: 4px; }
+
+    /* ============================================================
+       LAYOUT VARIANTS — content body, hero, and intro variations.
+       Utility classes for layout variety across tertiary pages
+       so each page composes a unique block sequence rather than
+       the repeating h3 + grid + table + callout stack.
+       ============================================================ */
+    .content-eyebrow {
+      font-size: var(--fs-body-sm); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--w-soft); margin-bottom: var(--sp-xs);
+      display: block;
+    }
+    .content-narrow {
+      max-width: 720px; margin-left: auto; margin-right: auto;
+      text-align: center;
+    }
+    .content-narrow .content-block__h2 { margin-bottom: var(--sp-sm); }
+    .content-narrow > p { margin-left: auto; margin-right: auto; }
+
+    .content-divider {
+      border: 0; border-top: 1px solid var(--w-line);
+      margin: var(--sp-2xl) 0;
+    }
+
+    .content-stat {
+      text-align: center; padding: var(--sp-2xl) var(--sp-md);
+      border-top: 1px solid var(--w-line);
+      border-bottom: 1px solid var(--w-line);
+      margin: var(--sp-xl) 0 var(--sp-2xl);
+    }
+    .content-stat__number {
+      font-size: var(--fs-display); line-height: 1; font-weight: 700;
+      color: var(--w-black); margin-bottom: var(--sp-md);
+      letter-spacing: -0.02em;
+    }
+    .content-stat__label {
+      font-size: var(--fs-h5); line-height: var(--lh-h5); font-weight: 600;
+      color: var(--w-black); margin: 0 auto var(--sp-sm); max-width: 600px;
+    }
+    .content-stat__body {
+      font-size: var(--fs-body); line-height: var(--lh-body);
+      color: var(--w-text); max-width: 600px; margin: 0 auto;
+    }
+
+    .content-numbered {
+      list-style: none; counter-reset: cnum; padding: 0;
+      margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-numbered > li {
+      counter-increment: cnum; display: grid;
+      grid-template-columns: 56px 1fr; gap: var(--sp-lg);
+      padding: var(--sp-md) 0; border-bottom: 1px solid var(--w-faint);
+    }
+    .content-numbered > li:last-child { border-bottom: 0; }
+    .content-numbered > li::before {
+      content: counter(cnum, decimal-leading-zero);
+      font-size: var(--fs-h4); line-height: 1; font-weight: 700;
+      color: var(--w-black);
+    }
+    .content-numbered__label {
+      font-size: var(--fs-h6); font-weight: 600; color: var(--w-black);
+      margin-bottom: 4px; display: block;
+    }
+    .content-numbered__body {
+      font-size: var(--fs-body); line-height: var(--lh-body);
+      color: var(--w-text); margin: 0;
+    }
+
+    .content-image-break { margin: var(--sp-2xl) 0; }
+    .content-image-break .wire-image {
+      aspect-ratio: 16 / 6; width: 100%; border-radius: var(--radius-md);
+    }
+    .content-image-break__caption {
+      font-size: var(--fs-body-sm); line-height: var(--lh-body-sm);
+      color: var(--w-mid); text-align: center; margin-top: var(--sp-sm);
+      font-style: italic;
+    }
+
+    .content-spotlight {
+      background: var(--w-bg); text-align: center;
+      padding: var(--sp-2xl) var(--sp-xl);
+      border-radius: var(--radius-lg); margin: var(--sp-2xl) 0;
+    }
+    .content-spotlight__eyebrow {
+      font-size: var(--fs-body-sm); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--w-soft); margin-bottom: var(--sp-sm);
+    }
+    .content-spotlight__title {
+      font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600;
+      color: var(--w-black); margin: 0 auto var(--sp-md); max-width: 720px;
+    }
+    .content-spotlight__body {
+      font-size: var(--fs-body-lg); line-height: var(--lh-body-lg);
+      color: var(--w-text); margin: 0 auto; max-width: 760px;
+    }
+
+    .content-cols-2 {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); margin: var(--sp-lg) 0 var(--sp-2xl);
+    }
+    .content-cols-2 > div h4 {
+      font-size: var(--fs-h6); font-weight: 600; color: var(--w-black);
+      margin-bottom: var(--sp-sm);
+    }
+    .content-cols-2 > div p {
+      font-size: var(--fs-body); line-height: var(--lh-body);
+      color: var(--w-text); margin-bottom: var(--sp-sm);
+    }
+    .content-cols-2 > div ul {
+      list-style: disc inside; font-size: var(--fs-body);
+      line-height: 1.8; color: var(--w-text); padding: 0;
+    }
+    @media (max-width: 768px) {
+      .content-cols-2 { grid-template-columns: 1fr; gap: var(--sp-lg); }
+    }
+
+    .content-flow { margin: var(--sp-lg) 0 var(--sp-2xl); }
+    .content-flow__step {
+      display: grid; grid-template-columns: 88px 1fr;
+      gap: var(--sp-lg); padding: var(--sp-lg) 0;
+      border-bottom: 1px solid var(--w-faint);
+    }
+    .content-flow__step:last-child { border-bottom: 0; }
+    .content-flow__num {
+      font-size: 56px; line-height: 1; font-weight: 700;
+      color: var(--w-faint); letter-spacing: -0.02em;
+    }
+    .content-flow__title {
+      font-size: var(--fs-h5); line-height: var(--lh-h5);
+      font-weight: 600; color: var(--w-black);
+      margin-bottom: var(--sp-xs);
+    }
+    .content-flow__body {
+      font-size: var(--fs-body); line-height: var(--lh-body);
+      color: var(--w-text); margin: 0;
+    }
+
+    .content-pullquote {
+      text-align: center; padding: var(--sp-xl) var(--sp-md);
+      margin: var(--sp-2xl) 0;
+      border-top: 1px solid var(--w-line);
+      border-bottom: 1px solid var(--w-line);
+    }
+    .content-pullquote__text {
+      font-size: var(--fs-h4); line-height: var(--lh-h4);
+      font-weight: 500; color: var(--w-black); font-style: italic;
+      margin: 0 auto var(--sp-md); max-width: 720px;
+    }
+    .content-pullquote__cite {
+      font-size: var(--fs-body-sm); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--w-soft);
+    }
+
+    .content-tool-grid--4 { grid-template-columns: repeat(4, 1fr); }
+    @media (max-width: 1024px) { .content-tool-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Stage variants — centered (no media) and quote-style. */
+    .stage--centered .stage__inner {
+      grid-template-columns: 1fr; text-align: center; min-height: auto;
+      padding: var(--sp-2xl) var(--container-pad) var(--sp-3xl);
+    }
+    .stage--centered .stage__content { max-width: 920px; margin: 0 auto; }
+    .stage--centered .stage__eyebrow {
+      font-size: var(--fs-body-sm); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--w-soft); margin-bottom: var(--sp-md);
+      display: block;
+    }
+    .stage--centered .stage__lede {
+      font-size: var(--fs-body-lg); line-height: var(--lh-body-lg);
+      color: var(--w-text); max-width: 720px;
+      margin: var(--sp-md) auto var(--sp-xl);
+    }
+    .stage--centered .stage__discover { margin: 0 auto; align-items: center; }
+    .stage--centered .stage__media { display: none; }
+
+    .stage--quote .stage__inner {
+      grid-template-columns: 1fr; min-height: auto;
+      padding: var(--sp-3xl) var(--container-pad);
+    }
+    .stage--quote .stage__headline {
+      font-size: var(--fs-h2); line-height: var(--lh-h2);
+      font-weight: 500; max-width: 1080px; letter-spacing: -1px;
+    }
+    .stage--quote .stage__cite {
+      font-size: var(--fs-body-sm); font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--w-soft); margin-top: var(--sp-md); display: block;
+    }
+    .stage--quote .stage__media { display: none; }
+
+    /* Stat strip — inline horizontal stat columns for use as intro. */
+    .stat-strip {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-lg); padding: var(--sp-2xl) 0;
+      border-top: 1px solid var(--w-line);
+      border-bottom: 1px solid var(--w-line);
+    }
+    .stat-strip__item { text-align: center; }
+    .stat-strip__num {
+      font-size: var(--fs-h3); line-height: 1.05;
+      font-weight: 700; color: var(--w-black);
+      margin-bottom: var(--sp-xs); letter-spacing: -0.02em;
+    }
+    .stat-strip__label {
+      font-size: var(--fs-body-sm); line-height: var(--lh-body-sm);
+      color: var(--w-text); margin: 0;
+    }
+    @media (max-width: 768px) {
+      .stat-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER (Figma component: Header — 112:1492)
+       ========================================================= -->
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__top">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="project-components.html#header" class="lib-label" style="margin:0;">Header</a>
+          <a href="index.html" aria-label="Home" style="text-decoration:none;">
+            <img src="images/fk_logo.png" alt="Fresenius Kabi" class="header-logo-img">
+          </a>
+        </div>
+        <nav class="header__meta" aria-label="Utility">
+          <a href="search-results.html" aria-label="Search">
+            <svg class="header__meta-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="6"/><path d="m18 18-3.5-3.5" stroke-linecap="round"/></svg>
+            <span>Search</span>
+          </a>
+          <a href="contact.html"><span>Contact</span></a>
+          <a href="#" aria-label="Region">
+            <svg class="header__meta-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="10" cy="10" r="8"/><path d="M2 10h16M10 2c2.5 2.5 4 5.5 4 8s-1.5 5.5-4 8M10 2c-2.5 2.5-4 5.5-4 8s1.5 5.5 4 8" stroke-linecap="round"/></svg>
+            <span>Global</span>
+          </a>
+          <button class="header__mobile-toggle" aria-label="Open menu"><span></span><span></span><span></span></button>
+        </nav>
+      </div>
+      <nav class="header__main" aria-label="Main">
+        <a href="pn-fundamentals.html" class="header__nav-link" data-mega="fundamentals">PN Fundamentals</a>
+        <a href="clinical-practice.html" class="header__nav-link" data-mega="clinical">Clinical Practice</a>
+        <a href="therapeutic-areas.html" class="header__nav-link" data-mega="therapeutic">Therapeutic Areas</a>
+        <a href="evidence-guidelines.html" class="header__nav-link is-active" data-mega="evidence">Evidence &amp; Guidelines</a>
+        <a href="tools-resources.html" class="header__nav-link" data-mega="tools">Tools &amp; Resources</a>
+        <a href="about.html" class="header__nav-link" data-mega="about">About</a>
+      </nav>
+
+      <!-- =====================================================
+           MEGA MENUS (Figma Mega Menu Desktop — 685:5150)
+           Pattern matches fresenius-kabi.com/us:
+             — Big section title + arrow + paragraph on the left
+             — Plain title list on the right (no per-link descriptions)
+             — Items with children use a chevron drill-down
+             — Close button top-right
+           Sourced from fk non branded nutrition 3.0.xml sitemap.
+           ===================================================== -->
+
+      <!-- PN Fundamentals -->
+      <div class="mega-menu" id="mega-fundamentals" data-mega-panel="fundamentals">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <!-- View 1: top level -->
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="pn-fundamentals.html" class="mega-menu__title-link">
+                <h3>PN Fundamentals</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Foundational knowledge for clinicians ordering, formulating, and administering parenteral nutrition. Indications, patient selection, and the macro &amp; micronutrient requirements behind every PN prescription.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="what-is-parenteral-nutrition.html" class="mega-menu__item-title">What is Parenteral Nutrition</a>
+              <a href="when-to-initiate-pn.html" class="mega-menu__item-title">When to Initiate PN</a>
+              <button class="mega-menu__item-title" data-drill="macro-micro">
+                Macro &amp; Micro Nutrients
+                <svg class="mega-menu__item-title-chev" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4 8 7-8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a href="patient-selection-criteria.html" class="mega-menu__item-title">Patient Selection Criteria</a>
+            </div>
+          </div>
+        </div>
+        <!-- View 2: drill-down from Macro & Micro Nutrients -->
+        <div class="mega-menu__view mega-menu__view--2" data-drill-target="macro-micro">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <button class="mega-menu__back">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 8H1M7 14 1 8l6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to PN Fundamentals
+              </button>
+              <a href="macro-micro-nutrients.html" class="mega-menu__title-link">
+                <h3>Macro &amp; Micro Nutrients</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Detailed pages on micronutrient supplementation and lipid emulsion choice — the two areas where most clinician questions live.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="vitamins-minerals.html" class="mega-menu__item-title">Vitamins, Minerals &amp; Trace Elements</a>
+              <a href="lipid-types.html" class="mega-menu__item-title">Lipid Types &amp; Differences</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clinical Practice -->
+      <div class="mega-menu" id="mega-clinical" data-mega-panel="clinical">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="clinical-practice.html" class="mega-menu__title-link">
+                <h3>Clinical Practice</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Practical, point-of-care guidance — protocols, prescription writing, monitoring, complications, and pharmacy compatibility — formatted for fast use at the bedside.</p>
+            </div>
+            <div class="mega-menu__list">
+              <button class="mega-menu__item-title" data-drill="complications">
+                Complications
+                <svg class="mega-menu__item-title-chev" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4 8 7-8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a href="pn-safety-administration.html" class="mega-menu__item-title">PN Safety &amp; Administration</a>
+              <a href="pn-formulation.html" class="mega-menu__item-title">PN Formulation</a>
+              <a href="prescription-writing.html" class="mega-menu__item-title">Prescription Writing</a>
+              <a href="monitoring-protocols.html" class="mega-menu__item-title">Monitoring Protocols</a>
+              <a href="pharmacy-compatibility.html" class="mega-menu__item-title">Pharmacy Compatibility &amp; Stability</a>
+              <a href="multi-chamber-bags.html" class="mega-menu__item-title">Multi-Chamber Bags</a>
+              <a href="enteral-nutrition.html" class="mega-menu__item-title">Enteral Nutrition</a>
+            </div>
+          </div>
+        </div>
+        <!-- Drill-down: Complications -->
+        <div class="mega-menu__view mega-menu__view--2" data-drill-target="complications">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <button class="mega-menu__back">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 8H1M7 14 1 8l6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to Clinical Practice
+              </button>
+              <a href="complications.html" class="mega-menu__title-link">
+                <h3>Complications</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>The #1 content gap surfaced in stakeholder research. Each topic is a focused, protocol-driven reference for managing the named complication.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="complications.html#hypertriglyceridemia" class="mega-menu__item-title">Hypertriglyceridemia</a>
+              <a href="complications.html#glycemic-instability" class="mega-menu__item-title">Glycemic Instability</a>
+              <a href="complications.html#electrolyte-imbalances" class="mega-menu__item-title">Electrolyte Imbalances</a>
+              <a href="complications.html#refeeding-syndrome" class="mega-menu__item-title">Refeeding Syndrome</a>
+              <a href="complications.html#metabolic-conditions" class="mega-menu__item-title">Metabolic Conditions</a>
+              <a href="complications.html#essential-fatty-acid" class="mega-menu__item-title">Essential Fatty Acid Deficiency</a>
+              <a href="complications.html#allergy" class="mega-menu__item-title">Allergy Considerations</a>
+              <a href="complications.html#inflammation" class="mega-menu__item-title">Inflammation</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Therapeutic Areas -->
+      <div class="mega-menu" id="mega-therapeutic" data-mega-panel="therapeutic">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="therapeutic-areas.html" class="mega-menu__title-link">
+                <h3>Therapeutic Areas</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Condition-specific PN protocols organized by patient population — oncology, critical care, intestinal failure, pediatrics, and the home setting.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="oncology.html" class="mega-menu__item-title">Oncology</a>
+              <a href="critical-care.html" class="mega-menu__item-title">Critical Care</a>
+              <a href="malnutrition.html" class="mega-menu__item-title">Malnutrition</a>
+              <button class="mega-menu__item-title" data-drill="intestinal-failure">
+                Intestinal Failure
+                <svg class="mega-menu__item-title-chev" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4 8 7-8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <a href="pancreatitis.html" class="mega-menu__item-title">Pancreatitis</a>
+              <a href="pediatrics-neonatal.html" class="mega-menu__item-title">Pediatrics &amp; Neonatal</a>
+              <a href="home-ambulatory-pn.html" class="mega-menu__item-title">Home &amp; Ambulatory PN</a>
+            </div>
+          </div>
+        </div>
+        <!-- Drill-down: Intestinal Failure -->
+        <div class="mega-menu__view mega-menu__view--2" data-drill-target="intestinal-failure">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <button class="mega-menu__back">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 8H1M7 14 1 8l6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to Therapeutic Areas
+              </button>
+              <a href="intestinal-failure.html" class="mega-menu__title-link">
+                <h3>Intestinal Failure</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Three condition-specific tracks underneath the Intestinal Failure umbrella, each with its own protocol set.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="intestinal-failure.html#short-bowel-syndrome" class="mega-menu__item-title">Short Bowel Syndrome</a>
+              <a href="intestinal-failure.html#ifald" class="mega-menu__item-title">IFALD (Liver Disease)</a>
+              <a href="intestinal-failure.html#fistulas-obstructions" class="mega-menu__item-title">Fistulas &amp; Obstructions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evidence & Guidelines -->
+      <div class="mega-menu" id="mega-evidence" data-mega-panel="evidence">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="evidence-guidelines.html" class="mega-menu__title-link">
+                <h3>Evidence &amp; Guidelines</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Condensed guideline summaries, landmark trial recaps, and curated emerging research — designed to complement ASPEN and other professional bodies.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="emerging-research.html" class="mega-menu__item-title">What's New &amp; Emerging Research</a>
+              <a href="clinical-studies.html" class="mega-menu__item-title">Clinical Studies</a>
+              <a href="aspen-protocols.html" class="mega-menu__item-title">ASPEN-Aligned Protocols</a>
+              <a href="best-practices.html" class="mega-menu__item-title">Best Practice Recommendations</a>
+              <a href="expert-contributors.html" class="mega-menu__item-title">Expert Contributors</a>
+              <a href="external-resources.html" class="mega-menu__item-title">External Resources</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & Resources -->
+      <div class="mega-menu" id="mega-tools" data-mega-panel="tools">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="tools-resources.html" class="mega-menu__title-link">
+                <h3>Tools &amp; Resources</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>Calculators, quick-reference downloads, video content, and patient-facing resources for point-of-care use.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="quick-reference-guides.html" class="mega-menu__item-title">Quick Reference Guides</a>
+              <a href="videos-webinars.html" class="mega-menu__item-title">Videos &amp; Webinars</a>
+              <a href="downloadable-tools.html" class="mega-menu__item-title">Downloadable Tools &amp; Calculators</a>
+              <a href="infographics.html" class="mega-menu__item-title">Infographics</a>
+              <a href="patient-caregiver-resources.html" class="mega-menu__item-title">Patient &amp; Caregiver Resources</a>
+              <button class="mega-menu__item-title" data-drill="ce-pd">
+                CE &amp; Professional Development
+                <svg class="mega-menu__item-title-chev" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 4 8 7-8 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Drill-down: CE & Professional Development -->
+        <div class="mega-menu__view mega-menu__view--2" data-drill-target="ce-pd">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <button class="mega-menu__back">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 8H1M7 14 1 8l6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Back to Tools &amp; Resources
+              </button>
+              <a href="ce-professional-development.html" class="mega-menu__title-link">
+                <h3>CE &amp; Professional Development</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>The CE-eligible learning library, including the MSL takeaways stream packaged for credit.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="ce-professional-development.html#ce-takeaways" class="mega-menu__item-title">CE Takeaways (MSL)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="mega-menu" id="mega-about" data-mega-panel="about">
+        <button class="mega-menu__close" aria-label="Close menu">×</button>
+        <div class="mega-menu__view mega-menu__view--1 is-active">
+          <div class="mega-menu__inner">
+            <div class="mega-menu__intro">
+              <a href="project-components.html#mega-menu" class="lib-label">Mega Menu Desktop</a>
+              <a href="about.html" class="mega-menu__title-link">
+                <h3>About</h3>
+                <svg class="mega-menu__title-arrow" viewBox="0 0 56 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12h52M44 3l9 9-9 9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p>About this resource, our editorial standards, and how to reach the team behind the content.</p>
+            </div>
+            <div class="mega-menu__list">
+              <a href="about-this-resource.html" class="mega-menu__item-title">About This Resource</a>
+              <a href="contact.html" class="mega-menu__item-title">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- =========================================================
+       SEARCH MODAL (Figma component: Search)
+       Full-screen overlay triggered by the eyebrow Search link.
+       ========================================================= -->
+  <div class="search-modal" id="search-modal" aria-hidden="true" role="dialog" aria-label="Search">
+    <button class="search-modal__close" id="search-modal-close" aria-label="Close search">×</button>
+    <div class="search-modal__inner">
+      <a href="project-components.html#search" class="search-modal__lib-label">Search Modal</a>
+      <h2 class="search-modal__title">What are you looking for?</h2>
+      <form class="search-modal__form" action="search-results.html" method="get" role="search">
+        <input type="search" name="q" id="search-modal-input" class="search-modal__input" placeholder="Search the resource library…" aria-label="Search">
+        <button type="submit" class="search-modal__submit" aria-label="Search">
+          <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="9" r="7"/><path d="m20 20-5-5" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+      <div class="search-modal__suggestions">
+        <span class="search-modal__suggestions-label">Popular</span>
+        <a href="search-results.html?q=hypertriglyceridemia">hypertriglyceridemia</a>
+        <a href="search-results.html?q=PN+dosing">PN dosing</a>
+        <a href="search-results.html?q=ASPEN+protocols">ASPEN protocols</a>
+        <a href="search-results.html?q=refeeding+syndrome">refeeding syndrome</a>
+        <a href="search-results.html?q=lipid+emulsions">lipid emulsions</a>
+        <a href="search-results.html?q=home+PN">home PN</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MOBILE MENU OVERLAY (Figma component: Menu Mobile — 784:7139)
+       Full-screen drawer. Each section expands inline to reveal
+       its level-2 children, with deeper level-3 children indented.
+       ========================================================= -->
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <div class="mobile-menu__top">
+      <img src="images/fk_logo.png" alt="Fresenius Kabi" class="header-logo-img">
+      <button class="mobile-menu__close" id="mobile-menu-close" aria-label="Close menu">×</button>
+    </div>
+    <div class="mobile-menu__sections">
+
+      <!-- PN Fundamentals -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">PN Fundamentals <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="pn-fundamentals.html" class="mobile-menu__view-all">View all of PN Fundamentals <span aria-hidden="true">→</span></a>
+            <a href="what-is-parenteral-nutrition.html" class="mobile-menu__section-link">What is Parenteral Nutrition</a>
+            <a href="when-to-initiate-pn.html" class="mobile-menu__section-link">When to Initiate PN</a>
+            <a href="macro-micro-nutrients.html" class="mobile-menu__section-link">Macro &amp; Micro Nutrients</a>
+            <div class="mobile-menu__section-children">
+              <a href="vitamins-minerals.html">Vitamins, Minerals &amp; Trace Elements</a>
+              <a href="lipid-types.html">Lipid Types &amp; Differences</a>
+            </div>
+            <a href="patient-selection-criteria.html" class="mobile-menu__section-link">Patient Selection Criteria</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clinical Practice -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">Clinical Practice <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="clinical-practice.html" class="mobile-menu__view-all">View all of Clinical Practice <span aria-hidden="true">→</span></a>
+            <a href="complications.html" class="mobile-menu__section-link">Complications</a>
+            <div class="mobile-menu__section-children">
+              <a href="complications.html#hypertriglyceridemia">Hypertriglyceridemia</a>
+              <a href="complications.html#glycemic-instability">Glycemic Instability</a>
+              <a href="complications.html#electrolyte-imbalances">Electrolyte Imbalances</a>
+              <a href="complications.html#refeeding-syndrome">Refeeding Syndrome</a>
+              <a href="complications.html#metabolic-conditions">Metabolic Conditions</a>
+              <a href="complications.html#essential-fatty-acid">Essential Fatty Acid Deficiency</a>
+              <a href="complications.html#allergy">Allergy Considerations</a>
+              <a href="complications.html#inflammation">Inflammation</a>
+            </div>
+            <a href="pn-safety-administration.html" class="mobile-menu__section-link">PN Safety &amp; Administration</a>
+            <a href="pn-formulation.html" class="mobile-menu__section-link">PN Formulation</a>
+            <a href="prescription-writing.html" class="mobile-menu__section-link">Prescription Writing</a>
+            <a href="monitoring-protocols.html" class="mobile-menu__section-link">Monitoring Protocols</a>
+            <a href="pharmacy-compatibility.html" class="mobile-menu__section-link">Pharmacy Compatibility &amp; Stability</a>
+            <a href="multi-chamber-bags.html" class="mobile-menu__section-link">Multi-Chamber Bags</a>
+            <a href="enteral-nutrition.html" class="mobile-menu__section-link">Enteral Nutrition</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Therapeutic Areas -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">Therapeutic Areas <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="therapeutic-areas.html" class="mobile-menu__view-all">View all of Therapeutic Areas <span aria-hidden="true">→</span></a>
+            <a href="oncology.html" class="mobile-menu__section-link">Oncology</a>
+            <a href="critical-care.html" class="mobile-menu__section-link">Critical Care</a>
+            <a href="malnutrition.html" class="mobile-menu__section-link">Malnutrition</a>
+            <a href="intestinal-failure.html" class="mobile-menu__section-link">Intestinal Failure</a>
+            <div class="mobile-menu__section-children">
+              <a href="intestinal-failure.html#short-bowel-syndrome">Short Bowel Syndrome</a>
+              <a href="intestinal-failure.html#ifald">IFALD (Liver Disease)</a>
+              <a href="intestinal-failure.html#fistulas-obstructions">Fistulas &amp; Obstructions</a>
+            </div>
+            <a href="pancreatitis.html" class="mobile-menu__section-link">Pancreatitis</a>
+            <a href="pediatrics-neonatal.html" class="mobile-menu__section-link">Pediatrics &amp; Neonatal</a>
+            <a href="home-ambulatory-pn.html" class="mobile-menu__section-link">Home &amp; Ambulatory PN</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evidence & Guidelines -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">Evidence &amp; Guidelines <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="evidence-guidelines.html" class="mobile-menu__view-all">View all of Evidence &amp; Guidelines <span aria-hidden="true">→</span></a>
+            <a href="emerging-research.html" class="mobile-menu__section-link">What's New &amp; Emerging Research</a>
+            <a href="clinical-studies.html" class="mobile-menu__section-link">Clinical Studies</a>
+            <a href="aspen-protocols.html" class="mobile-menu__section-link">ASPEN-Aligned Protocols</a>
+            <a href="best-practices.html" class="mobile-menu__section-link">Best Practice Recommendations</a>
+            <a href="expert-contributors.html" class="mobile-menu__section-link">Expert Contributors</a>
+            <a href="external-resources.html" class="mobile-menu__section-link">External Resources</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & Resources -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">Tools &amp; Resources <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="tools-resources.html" class="mobile-menu__view-all">View all of Tools &amp; Resources <span aria-hidden="true">→</span></a>
+            <a href="quick-reference-guides.html" class="mobile-menu__section-link">Quick Reference Guides</a>
+            <a href="videos-webinars.html" class="mobile-menu__section-link">Videos &amp; Webinars</a>
+            <a href="downloadable-tools.html" class="mobile-menu__section-link">Downloadable Tools &amp; Calculators</a>
+            <a href="infographics.html" class="mobile-menu__section-link">Infographics</a>
+            <a href="patient-caregiver-resources.html" class="mobile-menu__section-link">Patient &amp; Caregiver Resources</a>
+            <a href="ce-professional-development.html" class="mobile-menu__section-link">CE &amp; Professional Development</a>
+            <div class="mobile-menu__section-children">
+              <a href="ce-professional-development.html#ce-takeaways">CE Takeaways (MSL)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- About -->
+      <div class="mobile-menu__section">
+        <button class="mobile-menu__section-head">About <span class="chev" aria-hidden="true"></span></button>
+        <div class="mobile-menu__section-body">
+          <div class="mobile-menu__section-body-inner">
+            <a href="about.html" class="mobile-menu__view-all">View all of About <span aria-hidden="true">→</span></a>
+            <a href="about-this-resource.html" class="mobile-menu__section-link">About This Resource</a>
+            <a href="contact.html" class="mobile-menu__section-link">Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mobile-menu__foot">
+      <div class="mobile-menu__foot-meta">
+        <a href="search-results.html">Search</a>
+        <a href="contact.html">Contact</a>
+        <a href="#">Global</a>
+      </div>
+      <div class="mobile-menu__foot-legal">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms-and-conditions.html">Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FPO CONTENT NOTICE — placeholder copy disclaimer
+       ========================================================= -->
+  <div class="fpo-notice__container">
+    <div class="fpo-notice" role="note">
+      <strong>FPO Content:</strong> The text and data on this page are for position only and do not represent our final copy. This is directional content only and is intended to help inform how the page and site experience can be structured based on stakeholder feedback and strategic objectives for the site.
+    </div>
+  </div>
+
+  <!-- =========================================================
+       BREADCRUMB (Figma 1665:10787)
+       Live-FK position: between header and hero, "Section / Current Page".
+       ========================================================= -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="project-components.html#breadcrumb" class="lib-label">Breadcrumb</a>
+    <a href="evidence-guidelines.html">Evidence &amp; Guidelines</a>
+    <span class="breadcrumb__sep">/</span>
+    <span class="breadcrumb__current">What's New &amp; Emerging Research</span>
+  </nav>
+
+  <!-- =========================================================
+       STAGE (Figma: Stage — 1982:13446)
+       Page-level hero for the PN Fundamentals landing page.
+       ========================================================= -->
+  <!-- Stage — Quote variant. -->
+  <section class="stage stage--page stage--quote" aria-label="What's New &amp; Emerging Research">
+    <div class="stage__inner">
+      <div class="stage__content">
+        <a href="project-components.html#stage-quote" class="lib-label">Stage / Quote</a>
+        <h1 class="stage__headline">Research moves faster than guidelines.</h1>
+        <span class="stage__cite">Evidence &amp; Guidelines / What's New</span>
+        <a href="#first-section" class="stage__discover" aria-label="Discover how" style="margin-top: var(--sp-xl);">
+          Read more
+          <svg viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v26M3 21l9 9 9-9" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stat strip intro — research-cadence numbers. -->
+  <section class="section section--tight" id="intro">
+    <div class="container">
+      <a href="project-components.html#stat-strip" class="lib-label">Stat Strip</a>
+      <div class="stat-strip">
+        <div class="stat-strip__item">
+          <div class="stat-strip__num">Monthly</div>
+          <p class="stat-strip__label">research digest cadence</p>
+        </div>
+        <div class="stat-strip__item">
+          <div class="stat-strip__num">3</div>
+          <p class="stat-strip__label">themes shaping current PN practice</p>
+        </div>
+        <div class="stat-strip__item">
+          <div class="stat-strip__num">~6 yr</div>
+          <p class="stat-strip__label">typical lag between publication and guideline</p>
+        </div>
+        <div class="stat-strip__item">
+          <div class="stat-strip__num">2024+</div>
+          <p class="stat-strip__label">studies prioritized for inclusion</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTENT BODY — substantive page content (Figma-aligned).
+       Section Heading + body paragraphs + Callout (Quote derivative)
+       + 3-up Feature Grid + Tool Cards. Carried from legacy wireframe.
+       ========================================================= -->
+  <section class="content-body">
+    <div class="content-body__inner">
+
+      <div class="content-block content-narrow">
+        <a href="project-components.html#text-block" class="lib-label">Text Block / Narrow Intro</a>
+        <span class="content-eyebrow">Editorial summaries</span>
+        <h2 class="content-block__h2">What's New in PN Research</h2>
+        <p>This section is regularly updated with the latest developments in PN science, clinical practice, and guideline evolution. The goal: condensed, digestible research summaries that can be applied to everyday practice. Check back monthly or subscribe to receive curated updates.</p>
+      </div>
+
+      <div class="content-spotlight">
+        <a href="project-components.html#spotlight-callout" class="lib-label">Spotlight Callout</a>
+        <p class="content-spotlight__eyebrow">Stay current</p>
+        <p class="content-spotlight__title">Subscribe to the monthly research digest.</p>
+        <p class="content-spotlight__body">Emerging evidence, guideline updates, and clinical study summaries delivered to your inbox. Designed for busy clinicians who want to stay informed without the time commitment of full literature review.</p>
+      </div>
+
+      <div class="content-block">
+        <h3 class="content-block__h3">Recent Highlights</h3>
+        <p>Featured research summaries from the past quarter, selected for clinical relevance and practice impact.</p>
+      </div>
+
+      <div class="content-feature-grid">
+        <div class="content-feature-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Feature Card</a>
+          <h4 class="content-feature-card__title">Lipid Emulsion Advances</h4>
+          <p class="content-feature-card__body">New data on multi-oil lipid emulsions continue to reshape clinical understanding of intravenous fat delivery. Recent trials compare soybean-only formulations against composite emulsions containing olive oil, MCT, and fish oil, with emerging evidence suggesting improved hepatic and inflammatory outcomes in both adult and pediatric populations.</p>
+        </div>
+        <div class="content-feature-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Feature Card</a>
+          <h4 class="content-feature-card__title">Early PN in the ICU</h4>
+          <p class="content-feature-card__body">Updated guidelines on timing of PN initiation in critical care settings reflect evolving perspectives on early vs. late supplementation. Recent consensus statements from ESPEN and ASPEN address risk stratification, caloric targets during the acute phase, and how early PN may benefit specific subpopulations of critically ill patients.</p>
+        </div>
+        <div class="content-feature-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Feature Card</a>
+          <h4 class="content-feature-card__title">Pediatric IFALD Prevention</h4>
+          <p class="content-feature-card__body">Emerging evidence on fish oil-based lipid emulsions in neonatal liver protection continues to build. Studies examine the role of omega-3 enriched formulations in reducing the incidence and severity of intestinal failure-associated liver disease (IFALD) in preterm infants and neonates requiring prolonged PN support.</p>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h3 class="content-block__h3">Research Topic Areas</h3>
+        <p>Key research themes we are actively tracking across the parenteral nutrition landscape.</p>
+      </div>
+
+      <div class="content-tool-grid">
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Lipid Science &amp; Innovation</h4>
+          <p class="content-tool-card__body">Multi-oil emulsions, fatty acid profiles, and next-generation lipid formulations for improved clinical outcomes.</p>
+        </div>
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Metabolic Monitoring</h4>
+          <p class="content-tool-card__body">Advances in biomarker tracking, indirect calorimetry, and real-time metabolic assessment during PN therapy.</p>
+        </div>
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Home PN Outcomes</h4>
+          <p class="content-tool-card__body">Long-term quality of life, complication rates, and patient-reported outcomes in home parenteral nutrition programs.</p>
+        </div>
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Pediatric Nutrition</h4>
+          <p class="content-tool-card__body">Neonatal PN protocols, growth optimization, and age-specific formulation strategies for pediatric populations.</p>
+        </div>
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Guideline Evolution</h4>
+          <p class="content-tool-card__body">Updates from ASPEN, ESPEN, and other professional societies on PN practice recommendations and consensus statements.</p>
+        </div>
+        <div class="content-tool-card">
+          <a href="project-components.html#image-text-block" class="lib-label">Tool Card</a>
+          <div class="content-tool-card__media wire-image"></div>
+          <h4 class="content-tool-card__title">Complication Prevention</h4>
+          <p class="content-tool-card__body">Catheter-related bloodstream infections, metabolic complications, and evidence-based strategies for risk reduction.</p>
+        </div>
+      </div>
+
+      <div class="content-callout">
+        <a href="project-components.html#callout" class="lib-label" style="margin-bottom:8px;">Callout</a>
+        <p class="content-callout__title">How We Curate Research</p>
+        <p class="content-callout__body">All research summaries featured on this page undergo independent clinical review. Our editorial process prioritizes evidence-based findings from peer-reviewed journals, professional society guidelines, and validated clinical datasets. Content selection is driven by clinical relevance and educational value and is not influenced by commercial interests.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__head">
+        <a href="project-components.html#teaser-news" class="lib-label">Storytelling Teaser × 3</a>
+        <div class="section__eyebrow">Connected sections</div>
+        <h2 class="section__title">Three sibling pages that frame current research.</h2>
+        <p class="section__lede">Where emerging research connects to the rest of the Evidence &amp; Guidelines section.</p>
+      </div>
+      <div class="teaser-grid teaser-grid--3">
+        <a href="clinical-studies.html" class="teaser">
+          <div class="teaser__media"><div class="wire-image"></div></div>
+          <h3 class="teaser__title">
+            <span>Clinical Studies</span>
+            <svg class="teaser__title-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </h3>
+          <p class="teaser__desc">Plain-language recaps of the landmark trials that shape modern PN practice — EPaNIC, CALORIES, PEPaNIC, and others.</p>
+        </a>
+        <a href="aspen-protocols.html" class="teaser">
+          <div class="teaser__media"><div class="wire-image"></div></div>
+          <h3 class="teaser__title">
+            <span>ASPEN-Aligned Protocols</span>
+            <svg class="teaser__title-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </h3>
+          <p class="teaser__desc">Condensed ASPEN guideline summaries — translated from 40&ndash;60 page documents into bedside-ready protocols.</p>
+        </a>
+        <a href="best-practices.html" class="teaser">
+          <div class="teaser__media"><div class="wire-image"></div></div>
+          <h3 class="teaser__title">
+            <span>Best Practice Recommendations</span>
+            <svg class="teaser__title-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </h3>
+          <p class="teaser__desc">Evidence-based recommendations organized by skill level, with case-based learning scenarios.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="story-row story-row--reverse">
+        <div class="story-row__media">
+          <div class="story-row__media-accent" aria-hidden="true"></div>
+          <div class="wire-image"></div>
+          <a href="project-components.html#image-text-block" class="lib-label story-row__media-label">Image Text Block / Reverse</a>
+        </div>
+        <div class="story-row__content">
+          <div class="story-row__eyebrow">Recent</div>
+          <h2 class="story-row__title">The lipid-emulsion shift continues to play out in long-term PN.</h2>
+          <p class="story-row__desc">Mixed-source emulsions (SMOF) have become the institutional default in many programs. Newer fish-oil-only formulations are now under study for IFALD-prone populations, particularly pediatric SBS and adults on prolonged HPN.</p>
+          <a href="lipid-types.html" class="btn btn--primary">Compare lipid types
+            <svg class="btn__arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 8h14M9 2l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--shaded" id="faqs">
+    <div class="container">
+      <div class="section__head">
+        <a href="project-components.html#section-heading" class="lib-label">Section Heading</a>
+        <div class="section__eyebrow">Frequently Asked</div>
+        <h2 class="section__title">Common questions.</h2>
+        <p class="section__lede">Quick answers to the questions most often asked about this topic. Expand any item for more detail and links to deeper references.</p>
+      </div>
+      <a href="project-components.html#accordion" class="lib-label">Accordion</a>
+      <div class="accordion">
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            How is &ldquo;emerging&rdquo; research curated?
+            <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">
+              Editorial review of major nutrition and ICU journals (Clinical Nutrition, JPEN, Critical Care, NEJM, JAMA), plus surveillance of ASPEN, ESPEN, and ACG conference proceedings. Items are selected for clinical relevance and study quality.
+              <a href="expert-contributors.html">Expert Contributors <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            How often are entries added?
+            <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">
+              New entries appear within 30&ndash;60 days of major publication. The page is reviewed monthly and refreshed when guideline-changing studies appear.
+              <a href="about-this-resource.html">About this resource <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            Is preprint research included?
+            <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">
+              Selectively. Preprints from established research groups with high-priority topics (lipid emulsions, IFALD prevention, perioperative PN) may be flagged with explicit &ldquo;preprint&rdquo; tagging until peer-review status changes.
+              <a href="best-practices.html">Best Practice Recommendations <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__head" aria-expanded="false">
+            Where can I find primary studies?
+            <svg class="accordion__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14" stroke-linecap="round"/></svg>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">
+              Each entry links to its primary citation. For broader literature searches, the External Resources page lists ASPEN, ESPEN, and PubMed entry points.
+              <a href="external-resources.html">External Resources <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER (Figma component: Footer — 1785:11849)
+       ========================================================= -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="project-components.html#footer" class="lib-label">Footer</a>
+      <div class="footer__cols">
+        <div class="footer__big-links">
+          <a class="footer__big-link" href="pn-fundamentals.html">What are the fundamentals of PN?</a>
+          <a class="footer__big-link" href="therapeutic-areas.html">What are our therapeutic areas?</a>
+          <a class="footer__big-link" href="emerging-research.html">What's new in PN research?</a>
+          <a class="footer__big-link" href="tools-resources.html">What tools support clinicians?</a>
+          <a class="footer__big-link" href="about.html">How is this resource curated?</a>
+        </div>
+        <div class="footer__right">
+          <div class="footer__social">
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.339 18.337v-8.59H5.667v8.59h2.672zM7 8.59a1.55 1.55 0 1 0 0-3.1 1.55 1.55 0 0 0 0 3.1zm11.337 9.747V13.61c0-2.314-1.252-3.392-2.92-3.392-1.347 0-1.95.74-2.286 1.26v-1.08H10.46c.034.748 0 8.59 0 8.59h2.672v-4.795c0-.24.017-.48.087-.652.193-.479.633-.975 1.371-.975.967 0 1.354.737 1.354 1.818v4.605h2.393z"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.563 9.875v-6.987H7.898V12h2.539V9.797c0-2.506 1.492-3.89 3.776-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.888h-2.33v6.987A10.002 10.002 0 0 0 22 12z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></a>
+          </div>
+          <div class="footer__newsletter">
+            <h4>Subscribe to Newsletter</h4>
+            <form class="footer__newsletter-form" onsubmit="event.preventDefault();">
+              <input type="email" placeholder="Label text" aria-label="Email">
+              <button type="submit" aria-label="Subscribe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </form>
+          </div>
+          <div class="footer__secondary">
+            <a href="#">Imprint<span>Second row</span></a>
+            <a href="privacy-policy.html">Data Protection<span>Second row</span></a>
+            <a href="privacy-policy.html">Private Policy<span>Second row</span></a>
+            <a href="legal-disclaimer.html">Legal Disclaimer<span>Second row</span></a>
+            <a href="sitemap.html">Sitemap<span>Second row</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="footer__bottom-inner">
+        <p class="footer__copyright">Fresenius Kabi AG &copy; 2026</p>
+        <p class="footer__legal">This is an independent educational resource. The content is intended for healthcare professionals and is supported by Fresenius Kabi without editorial control over the clinical content. Always consult full guidelines and your institution's policies for clinical decision-making.</p>
+        <a href="#" class="footer__textlink">This is a textlink</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       FK LIB LABEL TOGGLE — bottom-right
+       Show/hide Figma component callouts.
+       ========================================================= -->
+  <script>
+  (function () {
+    var STORAGE_KEY = 'fk-lib-labels-visible';
+    var visible = localStorage.getItem(STORAGE_KEY) !== 'false';
+
+    var style = document.createElement('style');
+    style.textContent =
+      'body.hide-labels .lib-label { display: none !important; }' +
+      '.label-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 9999;' +
+      '  display: flex; align-items: center; gap: 8px; background: #fff;' +
+      '  border: 1px solid #cccccc; border-radius: 6px; padding: 8px 14px;' +
+      '  box-shadow: 0 2px 8px rgba(0,0,0,0.12); cursor: pointer;' +
+      '  font-family: "Albert Sans", Arial, sans-serif; font-size: 12px;' +
+      '  font-weight: 600; color: #555; user-select: none; transition: box-shadow 0.15s; }' +
+      '.label-toggle:hover { box-shadow: 0 3px 12px rgba(0,0,0,0.18); }' +
+      '.label-toggle__switch { width: 34px; height: 18px; border-radius: 9px;' +
+      '  background: #cccccc; position: relative; transition: background 0.2s; flex-shrink: 0; }' +
+      '.label-toggle__switch.is-on { background: #333333; }' +
+      '.label-toggle__knob { width: 14px; height: 14px; border-radius: 50%;' +
+      '  background: #fff; position: absolute; top: 2px; left: 2px;' +
+      '  transition: left 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }' +
+      '.label-toggle__switch.is-on .label-toggle__knob { left: 18px; }';
+    document.head.appendChild(style);
+
+    if (!visible) document.body.classList.add('hide-labels');
+
+    var btn = document.createElement('div');
+    btn.className = 'label-toggle';
+    btn.innerHTML =
+      '<div class="label-toggle__switch' + (visible ? ' is-on' : '') + '">' +
+      '  <div class="label-toggle__knob"></div>' +
+      '</div>' +
+      '<a href="project-components.html" style="color: #555; text-decoration: none; font-weight: 600;" title="View FK LIB Component Library">FK LIB</a>';
+
+    btn.querySelector('.label-toggle__switch').addEventListener('click', function (e) {
+      e.stopPropagation();
+      visible = !visible;
+      localStorage.setItem(STORAGE_KEY, visible);
+      document.body.classList.toggle('hide-labels', !visible);
+      btn.querySelector('.label-toggle__switch').classList.toggle('is-on', visible);
+    });
+
+    document.body.appendChild(btn);
+  })();
+  </script>
+
+  <!-- =========================================================
+       INTERACTIVE BEHAVIORS
+       Accordion + mega menu (no carousel — Stage is static)
+       ========================================================= -->
+  <script>
+  (function () {
+    /* ---- Accordion ---- */
+    document.querySelectorAll('.accordion__item').forEach(function (item) {
+      var head = item.querySelector('.accordion__head');
+      var body = item.querySelector('.accordion__body');
+      head.addEventListener('click', function () {
+        var open = item.classList.toggle('is-open');
+        head.setAttribute('aria-expanded', open);
+        body.style.maxHeight = open ? body.scrollHeight + 'px' : 0;
+      });
+    });
+
+    /* ---- Mega menus (click-open + drill-down + close + active state) ---- */
+    var triggers = document.querySelectorAll('[data-mega]');
+    var panels = document.querySelectorAll('[data-mega-panel]');
+
+    function resetPanelView(panel) {
+      panel.querySelectorAll('.mega-menu__view').forEach(function (v) { v.classList.remove('is-active'); });
+      var defaultView = panel.querySelector('.mega-menu__view--1');
+      if (defaultView) defaultView.classList.add('is-active');
+    }
+    function clearActive() {
+      triggers.forEach(function (t) { t.classList.remove('is-mega-open'); });
+    }
+    function closeAll() {
+      panels.forEach(function (p) {
+        p.classList.remove('is-open');
+        resetPanelView(p);
+      });
+      clearActive();
+    }
+    function openPanel(id, trigger) {
+      panels.forEach(function (p) { p.classList.remove('is-open'); });
+      clearActive();
+      var panel = document.querySelector('[data-mega-panel="' + id + '"]');
+      if (panel) {
+        resetPanelView(panel);
+        panel.classList.add('is-open');
+        if (trigger) trigger.classList.add('is-mega-open');
+      }
+    }
+    function isAnyOpen() {
+      for (var i = 0; i < panels.length; i++) {
+        if (panels[i].classList.contains('is-open')) return true;
+      }
+      return false;
+    }
+
+    /* Click trigger to open / toggle the matching panel */
+    triggers.forEach(function (t) {
+      var id = t.getAttribute('data-mega');
+      t.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (t.classList.contains('is-mega-open')) {
+          closeAll();
+        } else {
+          openPanel(id, t);
+        }
+      });
+    });
+
+    /* Click outside the open panel/trigger closes it */
+    document.addEventListener('click', function (e) {
+      if (!isAnyOpen()) return;
+      if (e.target.closest('.mega-menu')) return;
+      if (e.target.closest('[data-mega]')) return;
+      closeAll();
+    });
+
+    /* ESC closes the open panel */
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && isAnyOpen()) closeAll();
+    });
+
+    /* Drill-down: parent button [data-drill] → 2nd-level view */
+    document.querySelectorAll('.mega-menu__item-title[data-drill]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var target = btn.getAttribute('data-drill');
+        var panel = btn.closest('.mega-menu');
+        panel.querySelectorAll('.mega-menu__view').forEach(function (v) { v.classList.remove('is-active'); });
+        var nextView = panel.querySelector('[data-drill-target="' + target + '"]');
+        if (nextView) nextView.classList.add('is-active');
+      });
+    });
+
+    /* Back: 2nd-level → 1st-level */
+    document.querySelectorAll('.mega-menu__back').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var panel = btn.closest('.mega-menu');
+        resetPanelView(panel);
+      });
+    });
+
+    /* Close button */
+    document.querySelectorAll('.mega-menu__close').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeAll();
+      });
+    });
+
+    /* ---- Search modal (overlay triggered by eyebrow Search link) ---- */
+    var searchModal = document.getElementById('search-modal');
+    var searchModalClose = document.getElementById('search-modal-close');
+    var searchModalInput = document.getElementById('search-modal-input');
+    var searchTriggers = document.querySelectorAll('a[href="search-results.html"]');
+    function openSearch(e) {
+      if (!searchModal) return;
+      if (e) e.preventDefault();
+      searchModal.classList.add('is-open');
+      searchModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      if (searchModalInput) setTimeout(function () { searchModalInput.focus(); }, 150);
+    }
+    function closeSearch() {
+      if (!searchModal) return;
+      searchModal.classList.remove('is-open');
+      searchModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    searchTriggers.forEach(function (t) { t.addEventListener('click', openSearch); });
+    if (searchModalClose) searchModalClose.addEventListener('click', closeSearch);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && searchModal && searchModal.classList.contains('is-open')) closeSearch();
+    });
+
+    /* ---- Mobile menu (open / close / expand sections) ---- */
+    var mobileToggle = document.querySelector('.header__mobile-toggle');
+    var mobileMenu = document.getElementById('mobile-menu');
+    var mobileClose = document.getElementById('mobile-menu-close');
+    function openMobile() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.add('is-open');
+      mobileMenu.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobile() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.remove('is-open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    if (mobileToggle) mobileToggle.addEventListener('click', openMobile);
+    if (mobileClose) mobileClose.addEventListener('click', closeMobile);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('is-open')) closeMobile();
+    });
+    document.querySelectorAll('.mobile-menu__section-head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var section = head.parentElement;
+        var body = section.querySelector('.mobile-menu__section-body');
+        var open = section.classList.toggle('is-expanded');
+        body.style.maxHeight = open ? body.scrollHeight + 'px' : 0;
+      });
+    });
+  })();
+  </script>
+
+  <!-- =========================================================
+       REVIEW COMMENTS WIDGET — bottom-left (configured in JS)
+       ========================================================= -->
+  <script src="review-comments.js"></script>
+
+
+  <!-- =========================================================
+       HEADER AUTO-HIDE on scroll-down, reveal on scroll-up.
+       Matches fresenius-kabi.com/us. Skipped near top of page.
+       ========================================================= -->
+  <script>
+  (function () {
+    var header = document.querySelector('.header');
+    if (!header) return;
+    var lastY = window.scrollY;
+    var DELTA = 8;     // ignore tiny scroll movements
+    var MIN_Y = 100;   // always show within MIN_Y of the top
+    var ticking = false;
+    function update() {
+      var y = window.scrollY;
+      var dy = y - lastY;
+      if (Math.abs(dy) >= DELTA) {
+        if (dy > 0 && y > MIN_Y) {
+          header.classList.add('header--hidden');
+        } else if (dy < 0) {
+          header.classList.remove('header--hidden');
+        }
+        lastY = y;
+      }
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+  })();
+  </script>
+
+</body>
+</html>
