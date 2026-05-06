@@ -307,6 +307,34 @@
     }
     .btn--block { width: 100%; }
 
+    /* ===== BENEFITS GRID ===== */
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px 32px;
+    }
+    .benefit {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .benefit__icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-md);
+    }
+    .benefit__title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.3;
+    }
+    .benefit__copy {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--grey-700);
+    }
+
     /* ===== FILTERS ===== */
     .filters {
       background: var(--white);
@@ -790,6 +818,10 @@
       .apply-info, .general-app, .mobile-callout { grid-template-columns: 1fr; }
       .stat + .stat { border-left: none; border-top: 1px solid var(--grey-200); }
       .hero__stats { grid-template-columns: 1fr; }
+      .benefits { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 600px) and (max-width: 900px) {
+      .benefits { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -862,6 +894,61 @@
       <span class="note__tag">Audit Note 1</span>
       <div class="note__body">
         <strong>Hero with context.</strong> Replaces a cold opening on a list of locations with a short employer story — 7 companies, 8 openings, 5 locations — so candidates feel the organization before they commit to applying.
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       BENEFITS & CULTURE — Note 1b: why work at CCG
+       ============================================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">Benefits &amp; Culture</div>
+        <h2 class="section__title">What it's like to work at CCG.</h2>
+        <p class="section__lead">A family of seven manufacturing companies offering stable, year-round work, hands-on training, and the benefits you'd expect from a national manufacturer — delivered with the close-knit feel of a local shop.</p>
+      </div>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">Health, Dental &amp; Vision</h3>
+          <p class="benefit__copy">Comprehensive medical, dental, and vision coverage for full-time employees and their families.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">401(k) with Company Match</h3>
+          <p class="benefit__copy">Save for retirement with a competitive employer match available across all CCG companies.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">Paid Time Off &amp; Holidays</h3>
+          <p class="benefit__copy">Generous PTO and paid holidays so you can recharge and take care of what matters at home.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">On-the-Job Training</h3>
+          <p class="benefit__copy">Structured training and mentorship from experienced operators — no composites background required.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">Safety-First Culture</h3>
+          <p class="benefit__copy">Active safety programs, PPE provided, and a workplace that doesn't compromise on the fundamentals.</p>
+        </div>
+        <div class="benefit">
+          <div class="benefit__icon img-x"></div>
+          <h3 class="benefit__title">Growth Across 7 Companies</h3>
+          <p class="benefit__copy">Move between roles, plants, and disciplines as you grow — from production to fabrication to engineering.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="note">
+    <div class="note__inner">
+      <span class="note__tag">Audit Note 1b</span>
+      <div class="note__body">
+        <strong>Benefits &amp; culture section.</strong> Answers "why work here?" before candidates scan openings. Six concrete benefits plus a short culture statement give visitors a reason to keep reading and apply, instead of bouncing on the job list alone.
       </div>
     </div>
   </div>
