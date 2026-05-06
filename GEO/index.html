@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GEO Services | TSY Internal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --atlantic: #3B75E6;
+      --off-white: #ECE8DD;
+      --white: #FFFFFF;
+      --creative-black: #000000;
+      --pacific: #88D8FF;
+      --moss: #13544E;
+      --mango: #FFE829;
+      --navel-orange: #FE4A25;
+      --mint: #CBE0D9;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--creative-black);
+      background: var(--off-white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--creative-black);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 52px;
+    }
+
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-links .cta-btn {
+      background: var(--navel-orange);
+      color: var(--white);
+      padding: 7px 16px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-weight: 700;
+      transition: opacity 0.15s;
+    }
+
+    .nav-links .cta-btn:hover { opacity: 0.88; color: var(--white); }
+
+    /* ── HERO ── */
+    .hero {
+      height: 20vh;
+      min-height: 130px;
+      background: var(--atlantic);
+      display: flex;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .hero-inner { max-width: 1100px; width: 100%; }
+
+    .hero-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 8px;
+    }
+
+    .hero-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 4vw, 64px);
+      line-height: 1.0;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-subhead {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: clamp(14px, 1.6vw, 22px);
+      color: rgba(255,255,255,0.75);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 6px;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 56px 40px; }
+
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--atlantic);
+      margin-bottom: 10px;
+    }
+
+    .section-headline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(26px, 3vw, 44px);
+      text-transform: uppercase;
+      line-height: 1.05;
+      margin-bottom: 32px;
+    }
+
+    /* ── COMPARISON TABLE ── */
+    #services {
+      background: var(--white);
+      padding: 52px 40px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .comparison-table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .comparison-table thead th {
+      padding: 16px 18px 20px;
+      vertical-align: top;
+      text-align: left;
+      border-bottom: 2px solid #e2e2e2;
+      height: 1px; /* enables 100% height on inner flex in some browsers */
+    }
+
+    .th-inner {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 100%;
+    }
+
+    .th-inner .col-title { order: 1; }
+    .th-inner .example-thumb-link { order: 2; margin-bottom: 10px; }
+    .th-inner .example-btn { order: 3; margin-top: auto; align-self: flex-start; }
+
+    .comparison-table thead th:first-child {
+      width: 130px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+
+    .col-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    .example-btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      padding: 5px 10px;
+      border-radius: 3px;
+      text-decoration: none;
+      border: 1.5px solid currentColor;
+      transition: opacity 0.15s;
+    }
+
+    .example-btn:hover { opacity: 0.7; }
+
+    .example-btn.is-disabled {
+      color: #bbb;
+      border-color: #ddd;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .example-btn.is-disabled:hover { opacity: 1; }
+
+    .example-thumb {
+      display: block;
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      border: 1px solid #e2e2e2;
+      border-radius: 3px;
+      transition: opacity 0.15s;
+    }
+
+    .example-thumb:hover { opacity: 0.85; }
+
+    .th-standard .example-btn { color: var(--atlantic); }
+    .th-featured .example-btn { color: var(--white); border-color: rgba(255,255,255,0.6); }
+
+    .th-standard .example-btn.is-disabled,
+    .th-featured .example-btn.is-disabled {
+      color: #bbb;
+      border-color: #ddd;
+    }
+
+    /* featured column header */
+    .th-featured {
+      background: var(--atlantic);
+      color: var(--white);
+    }
+
+    .th-featured .col-title { color: var(--white); }
+
+    .comparison-table tbody tr {
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .comparison-table tbody tr:last-child { border-bottom: none; }
+
+    .comparison-table tbody td {
+      padding: 14px 18px;
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .row-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #888;
+      padding-top: 16px;
+    }
+
+    .td-standard { background: var(--white); color: var(--creative-black); }
+    .td-featured { background: var(--white); color: var(--creative-black); }
+
+    .badge {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+
+    .badge-standard { background: var(--off-white); color: #555; }
+    .badge-featured { background: var(--atlantic); color: var(--white); }
+    .badge-moss { background: var(--moss); color: var(--white); }
+    .badge-orange { background: var(--navel-orange); color: var(--white); }
+
+    .deliver-list {
+      list-style: none;
+      margin-top: 4px;
+    }
+
+    .deliver-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      margin-bottom: 4px;
+      font-size: 13.5px;
+    }
+
+    .deliver-list li::before {
+      content: "—";
+      color: #aaa;
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 12px;
+    }
+
+    .td-featured .deliver-list li::before { color: var(--atlantic); }
+
+    .outcome-text {
+      font-size: 13.5px;
+      font-style: italic;
+      color: #444;
+    }
+
+    .td-featured .outcome-text { color: #333; }
+
+    .timeline-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--atlantic);
+    }
+
+    .td-featured .timeline-text { color: var(--atlantic); }
+
+    /* ── DOWNLOAD BAND ── */
+    .download-band {
+      background: var(--moss);
+      color: var(--white);
+      padding: 40px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .download-band-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      width: 100%;
+      max-width: 800px;
+      flex-wrap: wrap;
+    }
+
+    .download-band-text .label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mint);
+      margin-bottom: 6px;
+    }
+
+    .download-band-text h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+    }
+
+    .download-band-text p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+      max-width: 480px;
+      line-height: 1.5;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--moss);
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 12px 24px;
+      border-radius: 3px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.15s;
+      flex-shrink: 0;
+    }
+
+    .download-btn:hover { opacity: 0.88; }
+
+    .download-btn-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .coming-soon {
+      font-size: 11px;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── REQUEST CTA ── */
+    #request {
+      background: var(--white);
+      padding: 64px 40px;
+    }
+
+    .request-intro {
+      max-width: 600px;
+      margin: 0 auto 36px;
+      text-align: center;
+    }
+
+    .request-intro .section-label,
+    .request-intro .section-headline {
+      text-align: center;
+    }
+
+    .request-subhead {
+      font-size: 15px;
+      font-style: italic;
+      color: #555;
+      line-height: 1.6;
+      margin-top: -16px;
+      border: 1.5px solid #ddd;
+      background: #fafafa;
+      border-radius: 4px;
+      padding: 14px 20px;
+    }
+
+    .request-cta {
+      display: flex;
+      justify-content: center;
+    }
+
+    .request-btn {
+      display: inline-block;
+      background: var(--navel-orange);
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(22px, 3vw, 36px);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 22px 64px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .request-btn:hover { opacity: 0.88; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--creative-black);
+      color: rgba(255,255,255,0.5);
+      padding: 40px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer strong {
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── FADE-UP ANIMATION ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      section, #services, #request { padding: 36px 20px; }
+      .hero { padding: 0 20px; }
+      nav { padding: 0 20px; }
+      .download-band { padding: 32px 20px; }
+      footer { padding: 32px 20px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Shipyard</span>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#request" class="cta-btn">Submit Request</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Internal Resource &middot; TSY</p>
+      <h1 class="hero-headline">Generative Engine Optimization</h1>
+      <p class="hero-subhead">How The Shipyard Approaches AI Visibility</p>
+    </div>
+  </div>
+
+  <!-- SERVICE TIERS -->
+  <section id="services">
+    <p class="section-label fade-up">Services</p>
+    <h2 class="section-headline fade-up">What We Offer</h2>
+    <div class="table-wrapper fade-up">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="th-standard">
+              <div class="th-inner">
+                <div class="col-title">AI Visibility<br>Snapshot</div>
+                <a href="https://clientpreview.theshipyard.com/Trex-AI-Snapshot/" target="_blank" rel="noopener" class="example-thumb-link"><img src="trex-snapshot-cover.png" alt="AI Visibility Snapshot example cover" class="example-thumb"></a>
+                <a href="https://clientpreview.theshipyard.com/Trex-AI-Snapshot/" target="_blank" rel="noopener" class="example-btn">View Example &rarr;</a>
+              </div>
+            </th>
+            <th class="th-standard">
+              <div class="th-inner">
+                <div class="col-title">AI Visibility<br>Snapshot <em style="font-size:14px;font-style:normal;">(Extended)</em></div>
+                <a href="#" class="example-btn is-disabled" aria-disabled="true" tabindex="-1">View Example &rarr;</a>
+              </div>
+            </th>
+            <th class="th-standard">
+              <div class="th-inner">
+                <div class="col-title">Full AI<br>Visibility Audit</div>
+                <a href="26.04.10 BBW AI Audit.pdf" target="_blank" rel="noopener" class="example-thumb-link"><img src="bbw-audit-cover.png" alt="Full AI Visibility Audit example cover" class="example-thumb"></a>
+                <a href="26.04.10 BBW AI Audit.pdf" target="_blank" rel="noopener" class="example-btn">View Example &rarr;</a>
+              </div>
+            </th>
+            <th class="th-standard">
+              <div class="th-inner">
+                <div class="col-title">Ongoing<br>Reporting</div>
+                <a href="#" class="example-btn is-disabled" aria-disabled="true" tabindex="-1">View Examples &rarr;</a>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- When to Use -->
+          <tr>
+            <td class="row-label">When to Use</td>
+            <td class="td-standard">Open the conversation and build the case for deeper work.</td>
+            <td class="td-standard">A deeper, more data-rich version of the Snapshot for clients who want to go further before committing to a full audit.</td>
+            <td class="td-featured">Client is engaged and wants a GEO plan they can act on.</td>
+            <td class="td-standard">Client desires ongoing optimization of an AI-informed strategy.</td>
+          </tr>
+          <!-- Positioning -->
+          <tr>
+            <td class="row-label">Positioning</td>
+            <td class="td-standard"><span class="badge badge-standard">Sales Tool</span></td>
+            <td class="td-standard"><span class="badge badge-orange">Extended Snapshot</span></td>
+            <td class="td-featured"><span class="badge badge-featured">Comprehensive Engagement</span></td>
+            <td class="td-standard"><span class="badge badge-moss">Requires Audit</span></td>
+          </tr>
+          <!-- What It Delivers -->
+          <tr>
+            <td class="row-label">What It Delivers</td>
+            <td class="td-standard">
+              <ul class="deliver-list">
+                <li>4-page HTML report</li>
+                <li>Channel mix breakdowns</li>
+                <li>Mention rates</li>
+                <li>Brand characterization</li>
+              </ul>
+            </td>
+            <td class="td-standard">
+              <ul class="deliver-list">
+                <li>4-page HTML report</li>
+                <li>Channel mix breakdowns</li>
+                <li>Mention rates</li>
+                <li>Brand characterization</li>
+                <li>Extended data analysis</li>
+                <li>Deeper competitive insights</li>
+              </ul>
+            </td>
+            <td class="td-featured">
+              <ul class="deliver-list">
+                <li>Citation landscape mapping</li>
+                <li>Competitive analysis</li>
+                <li>Owned channel deep dive</li>
+                <li>Narrative analysis</li>
+                <li>Actionable recommendations</li>
+                <li>Technical optimization roadmap</li>
+              </ul>
+            </td>
+            <td class="td-standard">
+              <ul class="deliver-list">
+                <li>Quarterly monitoring</li>
+                <li>Evolved prompt sets</li>
+                <li>Trend analysis</li>
+                <li>Performance calibration</li>
+              </ul>
+            </td>
+          </tr>
+          <!-- Outcome -->
+          <tr>
+            <td class="row-label">Outcome</td>
+            <td class="td-standard"><span class="outcome-text">Compelling entry point for client discussions.</span></td>
+            <td class="td-standard"><span class="outcome-text">Compelling entry point for client discussions with richer context and additional data depth.</span></td>
+            <td class="td-featured"><span class="outcome-text">Complete analysis with actionable and measurable recommendations.</span></td>
+            <td class="td-standard"><span class="outcome-text">Sustained visibility improvements tracked over time.</span></td>
+          </tr>
+          <!-- Timeline -->
+          <tr>
+            <td class="row-label">Timeline</td>
+            <td class="td-standard"><span class="timeline-text">5 Days</span></td>
+            <td class="td-standard"><span class="timeline-text">1–2 Weeks</span></td>
+            <td class="td-featured"><span class="timeline-text">4–6 Weeks</span></td>
+            <td class="td-standard"><span class="timeline-text">Quarterly</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD BAND -->
+  <div class="download-band fade-up">
+    <div class="download-band-inner">
+      <div class="download-band-text">
+        <div class="label">Resource</div>
+        <h3>AIO/GEO Slides</h3>
+        <p>Use these slides to talk to clients about changes in search and opportunities to provide support across The Shipyard's broad services.</p>
+      </div>
+      <div class="download-btn-wrap">
+        <a href="TSY_How AI Is Reshaping Search Strategy_022626.pptx" download class="download-btn">Download PPT slides</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- REQUEST CTA -->
+  <section id="request">
+    <div class="request-intro fade-up">
+      <p class="section-label">Get Started</p>
+      <h2 class="section-headline">Submit a GEO Request</h2>
+      <p class="request-subhead">Interested in scheduling a Snapshot or full Audit for a client? Use the form below to submit your request and the GEO team will follow up to get things moving.</p>
+    </div>
+    <div class="request-cta fade-up">
+      <a href="https://wkf.ms/3Ow685w" target="_blank" rel="noopener" class="request-btn">Submit Request</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <strong>Shipyard</strong>
+    <span>Internal resource &middot; The Shipyard &middot; Not for client distribution</span>
+  </footer>
+
+  <script>
+    // Fade-up on scroll
+    const fadeEls = document.querySelectorAll('.fade-up');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+  </script>
+</body>
+</html>
