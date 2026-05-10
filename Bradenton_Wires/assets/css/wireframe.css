@@ -4,6 +4,7 @@
    ============================================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=Stardos+Stencil:wght@400;700&display=swap');
+@import url('https://use.typekit.net/bar7ztb.css'); /* Adobe Fonts · Bradenton CVB Wireframes · Quasimoda */
 
 /* --- Brand-spec fonts (per BACVB Brand Guidelines).
    Leisure: Lifehack Sans Regular/Medium/Bold + Melburch Stamp accent.
@@ -81,7 +82,7 @@ input, textarea, select { font: inherit; color: inherit; }
   --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-display: 'Lifehack Sans', 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   --font-stencil: 'Melburch Stamp', 'Stardos Stencil', 'Hanken Grotesk', sans-serif;
-  --font-meetings: 'Quasimoda', 'Sora', 'Helvetica Neue', sans-serif;
+  --font-meetings: quasimoda, 'Sora', 'Helvetica Neue', sans-serif;
 
   /* Spacing */
   --s-1: 4px;
@@ -119,7 +120,7 @@ body.leisure {
   --font-display: 'Lifehack Sans', 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
 }
 body.meetings {
-  --font-display: 'Quasimoda', 'Sora', 'Helvetica Neue', sans-serif;
+  --font-display: quasimoda, 'Sora', 'Helvetica Neue', sans-serif;
   letter-spacing: 0.005em;
 }
 
