@@ -131,8 +131,10 @@ h1, h2, h3, h4, h5 {
   letter-spacing: -0.01em;
   line-height: 1.08;
 }
-body.meetings h1, body.meetings h2 {
+body.meetings h1, body.meetings h2, body.meetings h3,
+body.meetings h4, body.meetings h5 {
   letter-spacing: 0.02em;
+  font-weight: 600;
 }
 
 p { color: var(--ink-2); }
