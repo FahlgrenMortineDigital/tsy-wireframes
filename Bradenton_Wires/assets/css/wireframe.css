@@ -383,17 +383,24 @@ body.meetings .brandmark__words {
 .primary-nav__item { position: relative; }
 .primary-nav a {
   /* Per-site brand display font (Lifehack Sans on leisure, Quasimoda
-     on meetings) at consistent size and tracking. */
+     on meetings). Size + casing matches the live bradentongulfislands.com
+     primary nav (1.1rem · regular · uppercase). */
   font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 14px;
+  font-weight: 400;
+  font-size: 17px;
   letter-spacing: 0.04em;
-  text-transform: none;
+  text-transform: uppercase;
   position: relative;
   padding: 6px 0;
   display: inline-block;
 }
-body.meetings .primary-nav a { letter-spacing: 0.06em; }
+body.meetings .primary-nav a {
+  /* Meetings labels are longer (CONVENTION CENTER SERVICES, EVENT
+     HOSTING & LODGING, etc.) — scale down a notch so 5 items still
+     fit at common desktop widths. */
+  font-size: 14px;
+  letter-spacing: 0.06em;
+}
 .primary-nav a:hover { color: var(--ink-3); }
 
 /* Chevron on parent items that have a dropdown panel */
