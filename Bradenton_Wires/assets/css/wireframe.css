@@ -335,6 +335,40 @@ header.site-header.header--hidden,
   align-items: center;
   gap: var(--s-3);
 }
+/* Header brandmark renders as a wireframe placeholder square that says
+   "BACVB Logo" — same on both sites. Sun + words spans are hidden when
+   nested under .site-header / .site-footer / .mobile-menu__brand the
+   square reads against either background via currentColor. */
+.site-header .brandmark > .brandmark__sun,
+.site-header .brandmark > .brandmark__words,
+.site-footer .brandmark > .brandmark__sun,
+.site-footer .brandmark > .brandmark__words,
+.mobile-menu__brand > .brandmark__sun,
+.mobile-menu__brand > .brandmark__words { display: none; }
+.site-header .brandmark::before,
+.site-footer .brandmark::before,
+.mobile-menu__brand::before {
+  content: 'BACVB\A Logo';
+  white-space: pre;
+  display: grid;
+  place-items: center;
+  width: 84px;
+  height: 84px;
+  border: 1px solid currentColor;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: currentColor;
+  text-align: center;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+.mobile-menu__brand::before { width: 56px; height: 56px; font-size: 9px; }
+.site-footer .brandmark::before { color: #fff; }
+
 .brandmark__sun {
   width: 38px;
   height: 38px;
@@ -380,65 +414,63 @@ body.meetings .brandmark__words {
 .primary-nav {
   display: flex;
   gap: var(--s-6);
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: nowrap;
+  padding-top: 8px;
 }
 .primary-nav__item { position: relative; }
 .primary-nav a {
   /* Per-site brand display font (Lifehack Sans on leisure, Quasimoda
      on meetings). Size + casing matches the live bradentongulfislands.com
-     primary nav (1.1rem · regular · uppercase). Long labels are allowed
-     to wrap to 2 lines so they don't shove the brandmark into a wrap. */
+     primary nav (1.1rem · regular · uppercase). Long labels wrap to 2
+     lines, left-aligned, top of the row. */
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 17px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  line-height: 1.15;
+  line-height: 1.18;
   color: var(--ink);
-  text-align: center;
+  text-align: left;
   position: relative;
   padding: 6px 0;
   display: inline-block;
   max-width: 14ch;
 }
 body.meetings .primary-nav a {
-  /* Meetings labels are longer (CONVENTION CENTER SERVICES, EVENT
-     HOSTING & LODGING). Medium weight + explicit ink so Quasimoda
-     doesn't render as washed-out grey, but lighter than 600. */
+  /* Meetings labels are longer. Medium weight + pure black for
+     Quasimoda — reads cleanly without being chunky. */
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.04em;
-  color: var(--ink);
+  color: #000;
   max-width: 11ch;
 }
 .primary-nav a:hover { color: var(--ink-3); }
 
-/* Chevron on parent items that have a dropdown panel */
-.primary-nav__item.has-children > a {
-  padding-right: 16px;
-}
-.primary-nav__item.has-children > a::before {
+/* Chevron on parent items that have a dropdown panel — inline so it
+   flows next to the last word (works for 1-line and 2-line labels). */
+.primary-nav__item.has-children > a::after {
   content: '';
-  position: absolute;
-  right: 2px;
-  top: 50%;
+  display: inline-block;
+  margin-left: 6px;
   width: 0; height: 0;
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   border-top: 4px solid currentColor;
-  transform: translateY(-50%);
+  vertical-align: middle;
+  transform: translateY(-2px);
   transition: transform .2s;
 }
-.primary-nav__item.has-children:hover > a::before,
-.primary-nav__item.has-children:focus-within > a::before {
-  transform: translateY(-50%) rotate(180deg);
+.primary-nav__item.has-children:hover > a::after,
+.primary-nav__item.has-children:focus-within > a::after {
+  transform: translateY(-2px) rotate(180deg);
 }
 
-.primary-nav a.is-active::after {
+.primary-nav a.is-active::before {
   content: '';
   position: absolute;
-  left: 0; right: 14px; bottom: -2px;
+  left: 0; right: 0; bottom: -4px;
   height: 2px; background: var(--ink);
 }
 
