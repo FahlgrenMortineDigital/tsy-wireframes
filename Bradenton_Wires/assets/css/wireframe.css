@@ -357,7 +357,9 @@ header.site-header.header--hidden,
   letter-spacing: 0.04em;
   line-height: 1;
   color: var(--ink);
+  white-space: nowrap;
 }
+.brandmark__words small { white-space: nowrap; }
 body.meetings .brandmark__words {
   font-family: var(--font-meetings);
   font-weight: 700;
@@ -378,34 +380,37 @@ body.meetings .brandmark__words {
 .primary-nav {
   display: flex;
   gap: var(--s-6);
-  align-items: baseline;
+  align-items: center;
   flex-wrap: nowrap;
 }
 .primary-nav__item { position: relative; }
 .primary-nav a {
   /* Per-site brand display font (Lifehack Sans on leisure, Quasimoda
      on meetings). Size + casing matches the live bradentongulfislands.com
-     primary nav (1.1rem · regular · uppercase). */
+     primary nav (1.1rem · regular · uppercase). Long labels are allowed
+     to wrap to 2 lines so they don't shove the brandmark into a wrap. */
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 17px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  white-space: nowrap;
+  line-height: 1.15;
   color: var(--ink);
+  text-align: center;
   position: relative;
   padding: 6px 0;
   display: inline-block;
+  max-width: 14ch;
 }
 body.meetings .primary-nav a {
   /* Meetings labels are longer (CONVENTION CENTER SERVICES, EVENT
-     HOSTING & LODGING). Smaller font fits all five at common widths.
-     Heavier weight + explicit ink color so Quasimoda doesn't read
-     as washed-out grey. */
+     HOSTING & LODGING). Medium weight + explicit ink so Quasimoda
+     doesn't render as washed-out grey, but lighter than 600. */
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
   color: var(--ink);
+  max-width: 11ch;
 }
 .primary-nav a:hover { color: var(--ink-3); }
 
