@@ -324,26 +324,17 @@ header.site-header.header--hidden,
 .utility-bar__back:hover { color: var(--ink); text-decoration: underline; }
 
 .header-row {
-  /* Two-row layout: brandmark (left) + utility/CTAs (right) on row 1,
-     primary nav left-aligned with the container on row 2. */
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-rows: auto auto;
-  grid-template-areas:
-    "brand . cta"
-    "nav nav nav";
-  gap: 12px var(--s-5);
+  display: flex;
   align-items: center;
+  gap: var(--s-5);
   padding: 18px var(--gutter);
 }
-.brandmark { grid-area: brand; }
-.primary-nav { grid-area: nav; justify-self: start; }
-.header-cta { grid-area: cta; }
+.brandmark { flex: none; }
+/* ~100px breathing room between the logo and the first nav item. */
+.primary-nav { margin-left: 100px; }
+.header-cta { margin-left: auto; }
 @media (max-width: 980px) {
-  .header-row {
-    grid-template-areas: "brand . cta";
-    grid-template-rows: auto;
-  }
+  .primary-nav { margin-left: 0; }
 }
 .brandmark {
   display: flex;
