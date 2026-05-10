@@ -510,12 +510,16 @@ body.meetings .primary-nav a {
 }
 .primary-nav__panel a {
   display: block;
+  width: 100%;
+  max-width: none;          /* override .primary-nav a max-width:14ch */
   padding: 9px 18px;
   font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.01em;
   color: var(--ink-2);
+  text-transform: none;     /* override .primary-nav a uppercase */
+  text-align: left;
   white-space: nowrap;
 }
 .primary-nav__panel a:hover {
