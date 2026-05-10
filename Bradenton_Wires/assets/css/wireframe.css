@@ -441,12 +441,11 @@ body.meetings .brandmark__words {
   max-width: 14ch;
 }
 body.meetings .primary-nav a {
-  /* Meetings labels are longer — smaller size, weight 600.
-     macOS -webkit-font-smoothing: antialiased (set on body) renders
-     Quasimoda thinner than it should; overriding to subpixel here
-     plus weight 600 commits to actually-black on screen. */
+  /* Quasimoda Medium (500). Subpixel smoothing override keeps it
+     reading as solid black at this weight; the body-level
+     antialiased smoothing would otherwise wash it out. */
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: 0.04em;
   color: #000;
   -webkit-font-smoothing: subpixel-antialiased;
