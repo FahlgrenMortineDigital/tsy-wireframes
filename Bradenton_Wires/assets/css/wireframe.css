@@ -378,7 +378,8 @@ body.meetings .brandmark__words {
 .primary-nav {
   display: flex;
   gap: var(--s-6);
-  align-items: center;
+  align-items: baseline;
+  flex-wrap: nowrap;
 }
 .primary-nav__item { position: relative; }
 .primary-nav a {
@@ -390,16 +391,21 @@ body.meetings .brandmark__words {
   font-size: 17px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--ink);
   position: relative;
   padding: 6px 0;
   display: inline-block;
 }
 body.meetings .primary-nav a {
   /* Meetings labels are longer (CONVENTION CENTER SERVICES, EVENT
-     HOSTING & LODGING, etc.) — scale down a notch so 5 items still
-     fit at common desktop widths. */
+     HOSTING & LODGING). Smaller font fits all five at common widths.
+     Heavier weight + explicit ink color so Quasimoda doesn't read
+     as washed-out grey. */
   font-size: 14px;
-  letter-spacing: 0.06em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--ink);
 }
 .primary-nav a:hover { color: var(--ink-3); }
 
