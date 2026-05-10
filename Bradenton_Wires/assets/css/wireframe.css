@@ -602,41 +602,143 @@ body.meetings .brandmark__words {
    stacked CTAs, and switch the trip selector to inline flow
    with horizontal-scrolling chips so it stops blocking content.
    ============================================================ */
-@media (max-width: 720px) {
+/* Trip-style selector — desktop hides the <select> dropdown; mobile
+   hides the chip rail and shows the dropdown instead. */
+.trip-selector__select { display: none; }
+
+@media (max-width: 880px) {
+  /* HERO — tighter padding + smaller headline floor */
   .hero--full {
     min-height: auto;
-    padding: 56px 0 0;
+    padding: 32px 0 0;
     display: block;
   }
-  .hero--full .hero__inner { padding-bottom: 32px; }
-  .hero--compact { padding: 40px 0 32px; }
-  .hero__headline { font-size: clamp(32px, 9vw, 48px); }
-  .hero__sub { font-size: 16px; }
+  .hero--full .hero__inner { padding-bottom: 20px; gap: 14px; }
+  .hero--compact { padding: 32px 0 24px; }
+  .hero--compact .hero__inner { gap: 10px; }
+  .hero__headline { font-size: clamp(28px, 7.5vw, 40px); line-height: 1.05; }
+  .hero__sub { font-size: 15px; line-height: 1.45; }
   .hero__ctas { flex-direction: column; align-items: stretch; gap: 10px; }
-  .hero__ctas .btn { width: 100%; justify-content: center; padding: 14px 18px; font-size: 13px; }
+  .hero__ctas .btn { width: 100%; justify-content: center; padding: 12px 16px; font-size: 13px; }
 
-  /* Trip selector — inline at bottom of hero, chips horizontal-scroll */
+  /* Trip selector — collapses to a dropdown on mobile */
   .trip-selector {
     position: static;
     background: var(--bg-soft);
     border-top: 1px solid var(--line);
   }
   .trip-selector__inner {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
     padding: 12px var(--gutter);
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    align-items: center;
   }
-  .trip-selector__inner::-webkit-scrollbar { display: none; }
-  .trip-selector__label { font-size: 11px; flex-shrink: 0; }
-  .trip-selector__chips {
-    flex-wrap: nowrap;
-    overflow: visible;
+  .trip-selector__label { font-size: 11px; flex: none; }
+  .trip-selector__chips { display: none; }
+  .trip-selector__select {
+    display: block;
     flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 1.5px solid var(--ink);
+    background: #fff;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 32px;
   }
-  .trip-selector__chips .chip { flex-shrink: 0; }
+
+  /* TRIP STYLE CARDS — shorter, less tall portraits */
+  .trip-card { aspect-ratio: 16 / 11; }
+  .trip-card__inner { padding: 16px; }
+  .trip-card__title { font-size: 19px; }
+  .trip-card__sub { font-size: 12px; }
+
+  /* MAP MODULE — taller (portrait) so the 10 pins don't collide */
+  .map-module { aspect-ratio: 3 / 4; }
+  .map-module__pin { width: 22px; height: 22px; font-size: 9px; }
+  .map-module__pin::after { font-size: 9px; padding: 3px 6px; }
+  .map-module__filters {
+    top: 8px; left: 8px; right: 8px;
+    padding: 8px;
+  }
+  .map-module__filters .chip { padding: 3px 8px; font-size: 10px; }
+
+  /* COMMUNITIES / ZONE CARDS — shorter media so the grid is tighter */
+  .zone-card__media { aspect-ratio: 16 / 9; }
+  .zone-card__body { padding: 14px; gap: 6px; }
+  .zone-card__title { font-size: 18px; }
+
+  /* FEATURED ITINERARY visual — landscape on mobile, capped */
+  .itin {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .itin .ph--3x4 {
+    aspect-ratio: 16 / 9;
+    max-height: 220px;
+  }
+  .itin__day { padding: 10px 0; }
+
+  /* SECTION padding + heads tighter for less scroll */
+  .section { padding: 40px 0; }
+  .section--tight { padding: 28px 0; }
+  .section-head { margin-bottom: 20px; gap: 12px; }
+  .section-head h2 { font-size: clamp(22px, 5.5vw, 30px); }
+
+  /* GRID adjustments — auto-collapse */
+  .grid--3, .grid--4 { gap: 12px; }
+  .grid--6 { grid-template-columns: repeat(2, 1fr); }
+
+  /* FERRY SPOTLIGHT and similar 2-col modules — stack tighter */
+  .ferry-spot__media { aspect-ratio: 16 / 9; max-height: 240px; }
+  .ferry-spot__body { padding: 24px; }
+  .ferry-spot__pull { font-size: 22px; }
+
+  /* STATS BAND — 2-up on mobile, smaller numbers */
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat { padding: 24px 12px; }
+  .stat__num { font-size: clamp(28px, 6vw, 40px); }
+
+  /* CTA BAND — smaller heading + tighter padding */
+  .cta-band { padding: 40px 0; }
+  .cta-band h2 { font-size: 24px !important; }
+
+  /* VOICES — 2-up on mobile */
+  .voices { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .voice__media { width: 80px; height: 80px; align-self: start; }
+
+  /* EVENT CARDS — tighter rows */
+  .event-card { padding: 12px 0; gap: 12px; }
+  .event-card__date { padding: 4px; min-width: 56px; }
+  .event-card__date strong { font-size: 18px; }
+  .event-card__title { font-size: 15px; }
+
+  /* LISTING CARDS — slightly tighter */
+  .listing-card { padding: 12px; gap: 12px; }
+  .listing-card__media { max-width: 96px; }
+  .listing-card__title { font-size: 16px; }
+}
+
+@media (max-width: 540px) {
+  /* Very small phones — tighten further */
+  .hero__headline { font-size: clamp(26px, 8vw, 34px); }
+  .hero--full { padding-top: 24px; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .voices { grid-template-columns: 1fr; }
+  .grid--6 { grid-template-columns: 1fr; }
+  .map-module { aspect-ratio: 9 / 14; }
+  .listing-card { grid-template-columns: 80px 1fr; }
 }
 
 /* ============================================================
