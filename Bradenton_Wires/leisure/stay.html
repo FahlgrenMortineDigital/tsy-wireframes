@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Stay · Bradenton Gulf Islands — Wireframe</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+</head>
+<body class="leisure">
+
+<header class="site-header" data-component="SITE_HEADER">
+  <div class="utility-bar" data-component="UTILITY_NAV"><a href="../index.html" class="utility-bar__back">← Back to Wireframe Home</a>
+    <a href="#">Travel Guide</a><a href="guides-stories.html">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a>
+  </div>
+  <div class="container header-row">
+    <a href="index.html" class="brandmark"><span class="brandmark__sun" aria-hidden="true"></span><span class="brandmark__words">Bradenton Gulf Islands<small>Florida's West Coast</small></span></a>
+    <nav class="primary-nav" data-component="PRIMARY_NAV">
+      <a href="discover.html">Discover</a><a href="beaches.html">Beaches</a><a href="see-do.html">See &amp; Do</a><a href="eat-drink.html">Eat &amp; Drink</a><a href="stay.html" class="is-active">Stay</a><a href="plan.html">Plan</a><a href="events.html">Events</a>
+    </nav>
+    <div class="header-cta"><button class="search-stub" aria-label="Search">⌕</button><a href="plan.html" class="btn btn--sm">Plan Your Trip</a><button class="menu-btn" type="button">Menu</button></div>
+  </div>
+</header>
+
+<section class="hero hero--compact" data-component="HERO_COMPACT">
+  <div class="container hero__inner">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><span>Stay</span></nav>
+    <span class="hero__kicker">Where to wake up</span>
+    <h1 class="hero__headline">Beachfront, downtown, ranch, or resort.</h1>
+    <p class="hero__sub">The Bradenton Area is a collection of distinct places — and where you stay sets the trip. Compare the four areas, then book the room that fits.</p>
+  </div>
+</section>
+
+<section class="section" data-component="STAY_COMPARATOR">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Where should I stay?</span><h2>Compare the four ways to wake up here.</h2></div></div>
+    <div class="compare-table">
+      <div class="compare-table__cell compare-table__head">Anna Maria Island</div>
+      <div class="compare-table__cell compare-table__head">Longboat Key</div>
+      <div class="compare-table__cell compare-table__head">Downtown / Riverwalk</div>
+      <div class="compare-table__cell compare-table__head">Lakewood Ranch</div>
+
+      <div class="compare-table__cell compare-table__row"><strong>Best for</strong>Old-Florida island feel, walkable, beach-first</div>
+      <div class="compare-table__cell compare-table__row"><strong>Best for</strong>Resort stays, quiet, upscale relaxation</div>
+      <div class="compare-table__cell compare-table__row"><strong>Best for</strong>Arts, restaurants, ferry access, no-car trips</div>
+      <div class="compare-table__cell compare-table__row"><strong>Best for</strong>Polished modern stay, shopping &amp; events</div>
+
+      <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Low-rise, sandy, casual</div>
+      <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Quiet, manicured, coastal-formal</div>
+      <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Riverfront energy, art &amp; food</div>
+      <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Inland, contemporary, family</div>
+
+      <div class="compare-table__cell compare-table__row"><strong>Need a car?</strong>Optional — trolley + ferry</div>
+      <div class="compare-table__cell compare-table__row"><strong>Need a car?</strong>Yes</div>
+      <div class="compare-table__cell compare-table__row"><strong>Need a car?</strong>No — walk + ferry</div>
+      <div class="compare-table__cell compare-table__row"><strong>Need a car?</strong>Yes</div>
+
+      <div class="compare-table__cell compare-table__row"><strong>Beach feel</strong>On the sand</div>
+      <div class="compare-table__cell compare-table__row"><strong>Beach feel</strong>On the sand, quieter</div>
+      <div class="compare-table__cell compare-table__row"><strong>Beach feel</strong>Ferry away</div>
+      <div class="compare-table__cell compare-table__row"><strong>Beach feel</strong>15–20 min drive</div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" data-component="STAY_CATEGORIES">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Categories</span><h2>Pick your kind of stay.</h2></div></div>
+    <div class="grid grid--3">
+      <a href="#" class="trip-card" data-component="CATEGORY_CARD"><div class="trip-card__inner"><span class="trip-card__title">Hotels &amp; Resorts</span><span class="trip-card__sub">From boutique to oceanfront resort.</span></div></a>
+      <a href="#" class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Vacation Rentals</span><span class="trip-card__sub">Houses, condos, and beach cottages.</span></div></a>
+      <a href="#" class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Camping &amp; RV</span><span class="trip-card__sub">State-park sites, glamping, RV resorts.</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-component="STAY_LISTINGS">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Featured stays</span><h2>Where to lay your head this week.</h2></div><a class="link-arrow" href="#">All places to stay</a></div>
+    <div class="filter-bar">
+      <span class="filter-bar__label">Filter</span>
+      <select aria-label="Stay type"><option>Stay type</option><option>Hotel</option><option>Resort</option><option>Vacation Rental</option><option>Camping / RV</option></select>
+      <select aria-label="Area"><option>Area</option><option>Anna Maria Island</option><option>Longboat Key</option><option>Downtown</option><option>Lakewood Ranch</option></select>
+      <select aria-label="Best for"><option>Best for</option><option>Family</option><option>Couples</option><option>Pet-friendly</option><option>Accessible</option></select>
+      <select aria-label="Price"><option>Price</option><option>$</option><option>$$</option><option>$$$</option></select>
+    </div>
+    <div class="grid grid--auto" style="margin-top:24px">
+      <article class="listing-card" data-component="LISTING_CARD"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Resort · Longboat Key</span><h3 class="listing-card__title">St. Regis Longboat Key Resort</h3><p class="card__excerpt">New oceanfront resort with full spa and culinary program.</p><div class="listing-card__meta"><span>$$$</span><span>Couples</span><span>★ 4.9</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Resort · Palmetto</span><h3 class="listing-card__title">Palmetto Marriott Resort &amp; Spa</h3><p class="card__excerpt">River views, golf, full meeting facilities and headquarters hotel.</p><div class="listing-card__meta"><span>$$</span><span>Family</span><span>★ 4.6</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Hotel · Anna Maria</span><h3 class="listing-card__title">The Waterline Marina Resort</h3><p class="card__excerpt">Bayfront boutique, walk to Bridge Street, kayak launch onsite.</p><div class="listing-card__meta"><span>$$</span><span>Couples</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Vacation rental · Holmes Beach</span><h3 class="listing-card__title">Old-Florida Beach House</h3><p class="card__excerpt">Three bedroom, deck, two-minute walk to sand. Sleeps 8.</p><div class="listing-card__meta"><span>$$</span><span>Family</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Hotel · Downtown</span><h3 class="listing-card__title">Hampton Inn Riverwalk</h3><p class="card__excerpt">Walk to the river, Motorworks, the Bishop, and the ferry.</p><div class="listing-card__meta"><span>$</span><span>Family</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Camping · Bradenton Beach</span><h3 class="listing-card__title">Coquina Beach Pavilion Camp</h3><p class="card__excerpt">Sites steps from the Gulf, with grills and showers.</p><div class="listing-card__meta"><span>$</span><span>Outdoors</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" data-component="ZONE_GRID">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">By area</span><h2>Browse stays by neighborhood.</h2></div></div>
+    <div class="grid grid--3">
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Island</span><h3 class="zone-card__title">Anna Maria Island</h3><p>62 listings</p><div class="zone-card__tags"><span class="tag">Beach</span><span class="tag">Walkable</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Resort island</span><h3 class="zone-card__title">Longboat Key</h3><p>24 listings</p><div class="zone-card__tags"><span class="tag">Resort</span><span class="tag">Quiet</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Downtown</span><h3 class="zone-card__title">Bradenton / Riverwalk</h3><p>18 listings</p><div class="zone-card__tags"><span class="tag">Walk</span><span class="tag">Ferry</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Inland</span><h3 class="zone-card__title">Lakewood Ranch</h3><p>14 listings</p><div class="zone-card__tags"><span class="tag">Modern</span><span class="tag">Family</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Island village</span><h3 class="zone-card__title">Bradenton Beach</h3><p>22 listings</p><div class="zone-card__tags"><span class="tag">Ferry</span><span class="tag">Dining</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">River town</span><h3 class="zone-card__title">Palmetto</h3><p>9 listings</p><div class="zone-card__tags"><span class="tag">River</span><span class="tag">Resort</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="CTA_BAND">
+  <div class="container"><div class="cta-band__row"><div><span class="eyebrow" style="color:#9a9a9a">Almost booked?</span><h2 class="display-md" style="color:#fff;margin-top:6px">Get the Travel Guide before you go.</h2></div><a class="btn" href="#">Order or download</a></div></div>
+</section>
+
+<footer class="site-footer" data-component="SITE_FOOTER">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><div class="brandmark" style="margin-bottom:16px"><span class="brandmark__sun" style="border-color:#fff" aria-hidden="true"></span><span class="brandmark__words" style="color:#fff">Bradenton Gulf Islands<small style="color:#888">Florida's West Coast</small></span></div><p>Bradenton Area Convention &amp; Visitors Bureau<br>941-729-9177</p></div>
+      <div class="footer-col"><h4>Explore</h4><ul><li><a href="discover.html">Discover</a></li><li><a href="beaches.html">Beaches</a></li><li><a href="see-do.html">See &amp; Do</a></li><li><a href="eat-drink.html">Eat &amp; Drink</a></li><li><a href="stay.html">Stay</a></li></ul></div>
+      <div class="footer-col"><h4>Plan</h4><ul><li><a href="plan.html">Plan Your Trip</a></li><li><a href="#">Travel Guide</a></li><li><a href="#">Ferry Guide</a></li><li><a href="events.html">Events</a></li><li><a href="guides-stories.html">Guides &amp; Stories</a></li></ul></div>
+      <div class="footer-col"><h4>Other Sites</h4><ul><li><a href="../meetings/index.html">Meetings &amp; Conventions</a></li><li><a href="#">Premier Sports Campus</a></li><li><a href="#">Powel Crosley Estate</a></li><li><a href="#">Listings Directory</a></li></ul></div>
+      <div class="footer-col"><h4>Industry</h4><ul><li><a href="#">Partners</a></li><li><a href="#">Media Resources</a></li><li><a href="#">Film &amp; Permitting</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BGI Leisure</a></div>
+<script src="../assets/js/labels.js"></script>
+</body>
+</html>

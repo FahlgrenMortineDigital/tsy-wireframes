@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BACC Meetings — Component Library</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+  <style>
+    html { scroll-behavior: smooth; }
+
+    .lib-header {
+      background: var(--ink);
+      color: #fff;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .lib-header h1 {
+      font-family: var(--font-meetings);
+      font-size: 28px; line-height: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .lib-header p {
+      font-size: 14px; line-height: 22px;
+      color: rgba(255,255,255,0.72);
+      max-width: 640px;
+      margin: 0 auto 16px;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+    .lib-header__back {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px; line-height: 18px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .lib-header__back:hover { background: #ddd; }
+
+    .lib-toc { max-width: 1280px; margin: 48px auto 24px; padding: 0 32px; }
+    .lib-toc h2 {
+      font-family: var(--font-meetings);
+      font-size: 20px; line-height: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .lib-toc__lede {
+      font-size: 14px; line-height: 22px;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      max-width: 720px;
+    }
+    .lib-toc__group { border-top: 2px solid var(--ink); padding-top: 16px; margin-bottom: 32px; }
+    .lib-toc__group h3 {
+      font-family: var(--font-body);
+      font-size: 12px; line-height: 18px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-5);
+      margin-bottom: 12px;
+    }
+    .lib-toc__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px 32px; }
+    .lib-toc__grid a {
+      display: flex; align-items: baseline; gap: 8px;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--ink-2);
+      text-decoration: none;
+      border-bottom: 1px solid #f1f1f1;
+      transition: color .15s, border-color .15s;
+    }
+    .lib-toc__grid a:hover { color: var(--pill-text); border-bottom-color: var(--pill-text); }
+    .lib-toc__grid a span {
+      color: var(--ink-5); font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      min-width: 24px; flex-shrink: 0;
+    }
+    @media (max-width: 880px) { .lib-toc__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .lib-toc__grid { grid-template-columns: 1fr; } }
+
+    .lib-section-head {
+      max-width: 1280px;
+      margin: 48px auto 0;
+      padding: 0 32px 12px;
+      border-bottom: 2px solid var(--pill-text);
+    }
+    .lib-section-head h2 {
+      font-family: var(--font-meetings);
+      font-size: 20px; line-height: 28px;
+      font-weight: 700;
+      color: var(--pill-text);
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .lib-section-head p { font-size: 13px; line-height: 20px; color: var(--ink-3); }
+
+    .lib-body { max-width: 1280px; margin: 0 auto; padding: 0 32px 80px; }
+    .comp { margin-bottom: 64px; border-top: 2px solid var(--ink); padding-top: 24px; scroll-margin-top: 24px; }
+    .comp__eyebrow {
+      font-size: 11px; line-height: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ink-5);
+      margin-bottom: 4px;
+    }
+    .comp__name-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; margin-bottom: 8px;
+    }
+    .comp__name {
+      font-family: var(--font-meetings);
+      font-size: 22px; line-height: 28px;
+      font-weight: 700;
+      color: var(--pill-text);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .comp__back {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; line-height: 16px;
+      font-weight: 600;
+      color: var(--pill-text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .comp__back:hover { color: var(--ink); }
+    .comp__desc { font-size: 14px; line-height: 22px; color: var(--ink-3); max-width: 720px; margin-bottom: 16px; }
+    .comp__pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .comp__demo {
+      border: 2px dashed var(--line);
+      background: var(--bg-soft);
+      border-radius: 12px;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .comp__demo--bare { padding: 0; background: #fff; }
+    .comp__demo > section, .comp__demo > .container { width: 100%; }
+    .comp__demo [data-component] > .lib-label.lib-label--injected { display: none; }
+
+    .demo-clip { max-height: 440px; overflow: hidden; position: relative; border-radius: 8px; }
+    .demo-clip::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+      background: linear-gradient(180deg, transparent, var(--bg-soft));
+      pointer-events: none;
+    }
+    .comp__demo--bare .demo-clip::after { background: linear-gradient(180deg, transparent, #fff); }
+  </style>
+</head>
+<body class="meetings">
+
+  <div id="top"></div>
+
+  <!-- ============================== LIB HEADER ============================== -->
+  <div class="lib-header">
+    <h1>BACC Meetings — Component Library</h1>
+    <p>Wireframe catalog of every component used across the Bradenton Area Convention Center site. Greyscale by intent. Click any pill on a wireframe to jump straight to its definition here.</p>
+    <a href="index.html" class="lib-header__back">← Back to Wireframes</a>
+  </div>
+
+  <!-- ============================== TOC ============================== -->
+  <div class="lib-toc">
+    <h2>All Components</h2>
+    <p class="lib-toc__lede">Components grouped by purpose. Click an entry to jump to its definition. The floating switch (bottom-right) toggles the pill labels overlaid on every wireframe page.</p>
+
+    <div class="lib-toc__group">
+      <h3>Site Chrome</h3>
+      <div class="lib-toc__grid">
+        <a href="#SITE_HEADER"><span>01</span> Site Header</a>
+        <a href="#UTILITY_NAV"><span>02</span> Utility Nav</a>
+        <a href="#PRIMARY_NAV"><span>03</span> Primary Nav</a>
+        <a href="#BREADCRUMBS"><span>04</span> Breadcrumbs</a>
+        <a href="#SUB_NAV"><span>05</span> In-Page Sub Nav</a>
+        <a href="#SITE_FOOTER"><span>06</span> Site Footer</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Hero &amp; Page Lead</h3>
+      <div class="lib-toc__grid">
+        <a href="#HERO_MEETINGS"><span>07</span> Hero · Meetings (RFP)</a>
+        <a href="#HERO_COMPACT"><span>08</span> Hero · Compact</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Modules</h3>
+      <div class="lib-toc__grid">
+        <a href="#STATS_BAND"><span>09</span> Stats Band</a>
+        <a href="#WHY_BRADENTON_INTRO"><span>10</span> Why-Bradenton Intro</a>
+        <a href="#VENUE_FEATURE"><span>11</span> Venue Feature</a>
+        <a href="#FLOOR_PLANS"><span>12</span> Floor Plan Module</a>
+        <a href="#FOOD_BEVERAGE"><span>13</span> F&amp;B Spotlight</a>
+        <a href="#PLANNER_GUIDE"><span>14</span> Planner Guide Feature</a>
+        <a href="#PLANNER_RESOURCES"><span>15</span> Planner Resources Grid</a>
+        <a href="#LODGING_PREVIEW"><span>16</span> Lodging Preview</a>
+        <a href="#NEARBY_HOTELS"><span>17</span> Nearby Hotels Directory</a>
+        <a href="#OFFSITE_GRID"><span>18</span> Off-site Venues Grid</a>
+        <a href="#DESTINATION_BRIDGE"><span>19</span> Destination Bridge</a>
+        <a href="#MEET_THE_TEAM"><span>20</span> Meet the Team</a>
+        <a href="#PULL_QUOTE"><span>21</span> Pull Quote</a>
+        <a href="#CTA_RFP"><span>22</span> CTA · RFP Band</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Cards &amp; Listings</h3>
+      <div class="lib-toc__grid">
+        <a href="#VALUE_CARD"><span>23</span> Value Card</a>
+        <a href="#ROOM_CARD"><span>24</span> Room Card</a>
+        <a href="#LODGING_CARD"><span>25</span> Lodging Card</a>
+        <a href="#LODGING_LISTING"><span>26</span> Lodging Listing</a>
+        <a href="#EDITORIAL_CARD"><span>27</span> Editorial Card</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Forms &amp; Filters</h3>
+      <div class="lib-toc__grid">
+        <a href="#RFP_FORM"><span>28</span> RFP Form</a>
+        <a href="#GENERAL_CONTACT"><span>29</span> General Contact Form</a>
+        <a href="#FILTER_BAR"><span>30</span> Filter Bar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== BODY ============================== -->
+  <div class="lib-body">
+
+    <!-- ============================== SITE CHROME ============================== -->
+    <div class="lib-section-head">
+      <h2>Site Chrome</h2>
+      <p>Page-level containers and wayfinding — present on every wireframe.</p>
+    </div>
+
+    <!-- 01. Site Header -->
+    <div class="comp" id="SITE_HEADER">
+      <div class="comp__eyebrow">Component 01</div>
+      <div class="comp__name-row"><div class="comp__name">Site Header</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span><span class="lib-label">Sticky</span></div>
+      <p class="comp__desc">Sticky two-bar header with utility row, brand mark, primary nav, and a persistent Submit RFP CTA. Slides off on scroll-down past 100px and slides back in on scroll-up.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="utility-bar"><a>Bradenton Gulf Islands</a><a>Meeting Planner Guide</a><a>FAQs</a><a>Newsletter</a><a>Contact</a></div>
+        <div class="container header-row" style="background:#fff">
+          <div class="brandmark"><span class="brandmark__sun"></span><span class="brandmark__words">Bradenton Area Convention Center<small>Meet on Florida's West Coast</small></span></div>
+          <nav class="primary-nav"><a>Why the Bradenton Area</a><a>Convention Center Services</a><a>Event Hosting &amp; Lodging</a><a>Articles</a><a>Events</a></nav>
+          <div class="header-cta"><a class="btn btn--sm">Submit RFP</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02. Utility Nav -->
+    <div class="comp" id="UTILITY_NAV">
+      <div class="comp__eyebrow">Component 02</div>
+      <div class="comp__name-row"><div class="comp__name">Utility Nav</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Top utility row of the site header. First link points sister-site to the Bradenton Gulf Islands leisure site; remaining links flat — Planner Guide, FAQs, Newsletter, Contact.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="utility-bar"><a>Bradenton Gulf Islands</a><a>Meeting Planner Guide</a><a>FAQs</a><a>Newsletter</a><a>Contact</a></div>
+      </div>
+    </div>
+
+    <!-- 03. Primary Nav -->
+    <div class="comp" id="PRIMARY_NAV">
+      <div class="comp__eyebrow">Component 03</div>
+      <div class="comp__name-row"><div class="comp__name">Primary Nav</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Five sections in planner-decision order: Why · Convention Center Services · Event Hosting &amp; Lodging · Articles · Events.</p>
+      <div class="comp__demo">
+        <nav class="primary-nav" style="justify-content:flex-start"><a class="is-active">Why the Bradenton Area</a><a>Convention Center Services</a><a>Event Hosting &amp; Lodging</a><a>Articles</a><a>Events</a></nav>
+      </div>
+    </div>
+
+    <!-- 04. Breadcrumbs -->
+    <div class="comp" id="BREADCRUMBS">
+      <div class="comp__eyebrow">Component 04</div>
+      <div class="comp__name-row"><div class="comp__name">Breadcrumbs</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Sits at the top of every interior compact-hero, before the kicker.</p>
+      <div class="comp__demo">
+        <nav class="crumbs"><a>Home</a><span>›</span><a>Convention Center Services</a><span>›</span><span>Floor Plans</span></nav>
+      </div>
+    </div>
+
+    <!-- 05. Sub Nav -->
+    <div class="comp" id="SUB_NAV">
+      <div class="comp__eyebrow">Component 05</div>
+      <div class="comp__name-row"><div class="comp__name">In-Page Sub Nav</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Chip rail of section anchors used on long planner pages — Convention Center, Why-Bradenton, Event Hosting.</p>
+      <div class="comp__demo">
+        <div class="filter-bar">
+          <span class="filter-bar__label">In this section</span>
+          <a class="chip">Venue Details</a>
+          <a class="chip">Floor Plans</a>
+          <a class="chip">Food &amp; Beverage</a>
+          <a class="chip">Planner Guide</a>
+          <a class="chip">Planner Resources</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06. Site Footer -->
+    <div class="comp" id="SITE_FOOTER">
+      <div class="comp__eyebrow">Component 06</div>
+      <div class="comp__name-row"><div class="comp__name">Site Footer</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">5-column dark footer — brand block (with venue address), Plan, Resources, Other Sites (sister sites), Contact.</p>
+      <div class="comp__demo comp__demo--bare">
+        <footer class="site-footer" style="margin-top:0;padding-top:48px">
+          <div class="container">
+            <div class="footer-grid">
+              <div class="footer-col"><div class="brandmark"><span class="brandmark__sun" style="border-color:#fff"></span><span class="brandmark__words" style="color:#fff">Bradenton Area Convention Center<small style="color:#888">Meet on Florida's West Coast</small></span></div><p>1 Haben Blvd. Palmetto, FL 34221<br>941-729-9177</p></div>
+              <div class="footer-col"><h4>Plan</h4><ul><li><a>Why the Bradenton Area</a></li><li><a>Convention Center Services</a></li><li><a>Event Hosting &amp; Lodging</a></li></ul></div>
+              <div class="footer-col"><h4>Resources</h4><ul><li><a>Articles</a></li><li><a>Floor Plans</a></li><li><a>Capacity Sheets</a></li><li><a>FAQs</a></li></ul></div>
+              <div class="footer-col"><h4>Other Sites</h4><ul><li><a>Bradenton Gulf Islands</a></li><li><a>Powel Crosley Estate</a></li><li><a>Premier Sports Campus</a></li></ul></div>
+              <div class="footer-col"><h4>Contact</h4><ul><li><a>Submit an RFP</a></li><li><a>Convention Center Contact</a></li><li><a>Newsletter</a></li></ul></div>
+            </div>
+            <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a>Privacy</a> · <a>Terms</a> · <a>Accessibility</a></span></div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ============================== HEROES ============================== -->
+    <div class="lib-section-head">
+      <h2>Hero &amp; Page Lead</h2>
+      <p>Two hero variants — chosen by page type.</p>
+    </div>
+
+    <!-- 07. Hero · Meetings -->
+    <div class="comp" id="HERO_MEETINGS">
+      <div class="comp__eyebrow">Component 07</div>
+      <div class="comp__name-row"><div class="comp__name">Hero · Meetings (RFP-led)</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Hero</span><span class="lib-label">Home only</span></div>
+      <p class="comp__desc">Full-bleed home hero with the destination value statement and a primary RFP CTA. Tone-shift vs. leisure: Quasimoda-style, all-caps, more elevated.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="demo-clip">
+          <section class="hero hero--full" style="min-height:520px">
+            <div class="container hero__inner">
+              <span class="hero__kicker">Meet in Real. Authentic. Florida.™</span>
+              <h1 class="hero__headline" style="font-size:56px">So many reasons to host on Florida's West Coast.</h1>
+              <p class="hero__sub">A 60,000 sq. ft. waterfront convention center, a Marriott headquarters hotel next door, and a destination your attendees will actually thank you for picking.</p>
+              <div class="hero__ctas"><a class="btn btn--lg">Submit an RFP</a><a class="btn btn--lg btn--ghost">Tour the venue</a></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08. Hero · Compact -->
+    <div class="comp" id="HERO_COMPACT">
+      <div class="comp__eyebrow">Component 08</div>
+      <div class="comp__name-row"><div class="comp__name">Hero · Compact</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Hero</span><span class="lib-label">Interior pages</span></div>
+      <p class="comp__desc">Interior-page lead — breadcrumbs → kicker → headline → sub-deck.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="hero hero--compact"><div class="container hero__inner">
+          <nav class="crumbs"><a>Home</a><span>›</span><span>Convention Center Services</span></nav>
+          <span class="hero__kicker">Convention Center Services</span>
+          <h1 class="hero__headline" style="font-size:48px">A flexible 60,000 sq ft venue, ready when you are.</h1>
+          <p class="hero__sub">Floor plans, capacity charts, in-house Floribbean catering by Gulf Islands Hospitality, and the full planner toolkit.</p>
+        </div></section>
+      </div>
+    </div>
+
+    <!-- ============================== MODULES ============================== -->
+    <div class="lib-section-head">
+      <h2>Modules</h2>
+      <p>Reusable section blocks.</p>
+    </div>
+
+    <!-- 09. Stats Band -->
+    <div class="comp" id="STATS_BAND">
+      <div class="comp__eyebrow">Component 09</div>
+      <div class="comp__name-row"><div class="comp__name">Stats Band</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">4-up venue facts — sq ft, capacity, room count, distance to airport. Bordered top + bottom.</p>
+      <div class="comp__demo">
+        <div class="stats">
+          <div class="stat"><div class="stat__num">60K</div><div class="stat__label">Sq. ft. of flexible space</div></div>
+          <div class="stat"><div class="stat__num">8</div><div class="stat__label">Distinct meeting rooms</div></div>
+          <div class="stat"><div class="stat__num">2,500</div><div class="stat__label">Reception capacity</div></div>
+          <div class="stat"><div class="stat__num">25<sup>min</sup></div><div class="stat__label">From SRQ airport</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 10. Why-Bradenton Intro -->
+    <div class="comp" id="WHY_BRADENTON_INTRO">
+      <div class="comp__eyebrow">Component 10</div>
+      <div class="comp__name-row"><div class="comp__name">Why-Bradenton Intro</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">3-up value cards — location · venue · destination. Used on the home page.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">01 · Location</span><h3 class="card__title">25 minutes from SRQ.</h3><p class="card__excerpt">Sarasota–Bradenton International with 30+ nonstops.</p></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">02 · Venue</span><h3 class="card__title">Riverside, full-service convention center.</h3><p class="card__excerpt">Flexible 60,000 sq ft on the Manatee River, in-house catering.</p></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">03 · Destination</span><h3 class="card__title">Beaches, ferry, and Bridge Street, in 20 minutes.</h3><p class="card__excerpt">Pre/post stay opportunities your attendees will book themselves.</p></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11. Venue Feature -->
+    <div class="comp" id="VENUE_FEATURE">
+      <div class="comp__eyebrow">Component 11</div>
+      <div class="comp__name-row"><div class="comp__name">Venue Feature</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span><span class="lib-label">Reusable</span></div>
+      <p class="comp__desc">Image+pull module reused across the site. Two-column layout — image left, headline + body + dual CTAs right.</p>
+      <div class="comp__demo">
+        <div class="ferry-spot">
+          <div class="ph ferry-spot__media"></div>
+          <div class="ferry-spot__body">
+            <span class="eyebrow eyebrow--stencil">The venue</span>
+            <p class="ferry-spot__pull">Reimagined spaces. Unforgettable meetings.</p>
+            <p>The Bradenton Area Convention Center is a state-of-the-art facility designed to host a variety of events, from large conventions to intimate banquets. Located on the scenic Manatee River.</p>
+            <div class="hero__ctas"><a class="btn">Floor plans &amp; specs</a><a class="link-arrow">Download capacity sheet</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Floor Plans -->
+    <div class="comp" id="FLOOR_PLANS">
+      <div class="comp__eyebrow">Component 12</div>
+      <div class="comp__name-row"><div class="comp__name">Floor Plan Module</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span><span class="lib-label">Convention Center page</span></div>
+      <p class="comp__desc">Interactive diagram + tabular room list with capacities. Click a room in the diagram to highlight its row (and vice versa).</p>
+      <div class="comp__demo">
+        <div class="floorplan">
+          <div class="floorplan__diagram"></div>
+          <div class="floorplan__rooms">
+            <div class="floorplan__room"><strong>Manatee Ballroom</strong><span>22,000 sq ft · 2,000 reception</span></div>
+            <div class="floorplan__room"><strong>Riverview Hall</strong><span>9,500 sq ft · 800 banquet</span></div>
+            <div class="floorplan__room"><strong>Sunset Terrace</strong><span>4,000 sq ft · 250 reception</span></div>
+            <div class="floorplan__room"><strong>Manatee Room</strong><span>3,200 sq ft · 80 banquet</span></div>
+            <div class="floorplan__room"><strong>Pre-Function Foyer</strong><span>5,800 sq ft · expo / registration</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. F&B Spotlight -->
+    <div class="comp" id="FOOD_BEVERAGE">
+      <div class="comp__eyebrow">Component 13</div>
+      <div class="comp__name-row"><div class="comp__name">F&amp;B Spotlight</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Floribbean catering — Gulf Islands Hospitality. Same Venue Feature layout, different content slot.</p>
+      <div class="comp__demo">
+        <div class="ferry-spot">
+          <div class="ph ferry-spot__media"></div>
+          <div class="ferry-spot__body">
+            <span class="eyebrow eyebrow--stencil">Food &amp; Beverage</span>
+            <p class="ferry-spot__pull">Gulf Islands Hospitality, in-house, all-in.</p>
+            <p>The exclusive in-house caterer for the Bradenton Area Convention Center. From boxed lunches to plated five-course Floribbean tastings, your menu reads like the destination — because it is.</p>
+            <div class="hero__ctas"><a class="btn">Sample menus</a><a class="link-arrow">Dietary &amp; sourcing notes</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Planner Guide -->
+    <div class="comp" id="PLANNER_GUIDE">
+      <div class="comp__eyebrow">Component 14</div>
+      <div class="comp__name-row"><div class="comp__name">Planner Guide Feature</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Cover image + download/order CTAs for the printed Meeting Planner Guide.</p>
+      <div class="comp__demo">
+        <div class="grid grid--2">
+          <article class="card"><div class="ph ph--3x4 card__media"><div class="ph__label">MEETING PLANNER GUIDE</div></div></article>
+          <div>
+            <span class="eyebrow eyebrow--stencil">Meeting Planner Guide</span>
+            <h2 class="display-md" style="font-size:24px">The reference. Bookmark it.</h2>
+            <p>Helpful insights and ideas on what your trade show, conference, or board off-site can become — with floor plans, capacity charts, vendor partners, and the contacts you'll actually need.</p>
+            <div class="hero__ctas"><a class="btn">Download (PDF)</a><a class="btn btn--ghost">Order printed copy</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Planner Resources -->
+    <div class="comp" id="PLANNER_RESOURCES">
+      <div class="comp__eyebrow">Component 15</div>
+      <div class="comp__name-row"><div class="comp__name">Planner Resources Grid</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Capacity sheet, floor plans, vendor partner list, 3D walkthrough, catering menus, image library — everything a planner pulls together at the RFP stage.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Document</span><h3 class="card__title">Capacity Sheet (PDF)</h3><p class="card__excerpt">Every room, every set, every number.</p></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Document</span><h3 class="card__title">Floor Plan Pack (PDF)</h3><p class="card__excerpt">Scaled drawings for every space.</p></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Tool</span><h3 class="card__title">3D Venue Walkthrough</h3><p class="card__excerpt">Self-guided tour of every space.</p></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. Lodging Preview -->
+    <div class="comp" id="LODGING_PREVIEW">
+      <div class="comp__eyebrow">Component 16</div>
+      <div class="comp__name-row"><div class="comp__name">Lodging Preview</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">3-up — HQ hotel · nearby summary · Powel Crosley off-site. Used on the home page.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="zone-card"><div class="ph zone-card__media"><div class="ph__label">PALMETTO MARRIOTT</div></div><div class="zone-card__body"><span class="card__eyebrow">Headquarters · Palmetto</span><h3 class="zone-card__title">Palmetto Marriott Resort &amp; Spa</h3><p>Connected campus, river views, full meeting facilities.</p><div class="zone-card__tags"><span class="tag">HQ</span><span class="tag">River</span></div></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Nearby</span><h3 class="zone-card__title">14 properties under 10 minutes</h3><p>Branded blocks for groups of every size.</p><div class="zone-card__tags"><span class="tag">Group rates</span></div></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Off-site</span><h3 class="zone-card__title">Powel Crosley Estate</h3><p>The 1929 estate — board dinners, cocktail receptions, off-sites.</p><div class="zone-card__tags"><span class="tag">Historic</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17. Nearby Hotels -->
+    <div class="comp" id="NEARBY_HOTELS">
+      <div class="comp__eyebrow">Component 17</div>
+      <div class="comp__name-row"><div class="comp__name">Nearby Hotels Directory</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span><span class="lib-label">Event Hosting page</span></div>
+      <p class="comp__desc">Filter bar + horizontal lodging listings — distance, brand, class, group capacity.</p>
+      <div class="comp__demo">
+        <div class="filter-bar" style="margin-bottom:24px">
+          <span class="filter-bar__label">Filter</span>
+          <select><option>Within 10 minutes</option></select>
+          <select><option>All brands</option></select>
+          <select><option>Class</option></select>
+          <select><option>Group capacity</option></select>
+        </div>
+        <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Marriott · Palmetto · 0 mi</span><h3 class="listing-card__title">Palmetto Marriott Resort &amp; Spa</h3><p class="card__excerpt">HQ hotel · 248 rooms · 20,000 sq ft</p><div class="listing-card__meta"><span>Group rates</span><span>Connected</span></div></div></article>
+      </div>
+    </div>
+
+    <!-- 18. Off-site Grid -->
+    <div class="comp" id="OFFSITE_GRID">
+      <div class="comp__eyebrow">Component 18</div>
+      <div class="comp__name-row"><div class="comp__name">Off-site Venues Grid</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">6-up grid of distinctive off-site venues with capacities — for the dinner that gets remembered.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Estate</span><h3 class="zone-card__title">Powel Crosley Estate</h3><p>Historic 1929 estate · up to 250 reception</p></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Sports</span><h3 class="zone-card__title">Premier Sports Campus</h3><p>Outdoor + tented · 100–1,500</p></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Museum</span><h3 class="zone-card__title">Bishop Museum of Science &amp; Nature</h3><p>Planetarium dinners · receptions to 200</p></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19. Destination Bridge -->
+    <div class="comp" id="DESTINATION_BRIDGE">
+      <div class="comp__eyebrow">Component 19</div>
+      <div class="comp__name-row"><div class="comp__name">Destination Bridge</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span><span class="lib-label">Cross-link</span></div>
+      <p class="comp__desc">4-up "what attendees do here when the agenda ends" block — beaches, dining, team-building, spouse programs. Bridges from meetings to the leisure side.</p>
+      <div class="comp__demo">
+        <div class="grid grid--4">
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Things to do</span><h3 class="zone-card__title">Beaches</h3><p>Anna Maria, Holmes Beach, Coquina — under 25 minutes.</p></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Things to do</span><h3 class="zone-card__title">Dining</h3><p>Floribbean, waterfront, dine-arounds for every group.</p></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Things to do</span><h3 class="zone-card__title">Team Building</h3><p>Kayak tournaments, cooking classes, sailing regattas.</p></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Things to do</span><h3 class="zone-card__title">Spouse Programs</h3><p>Spa days, art tours, ferry afternoons.</p></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 20. Meet the Team -->
+    <div class="comp" id="MEET_THE_TEAM">
+      <div class="comp__eyebrow">Component 20</div>
+      <div class="comp__name-row"><div class="comp__name">Meet the Team</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">4 portraits + roles + planner-tone quote. Used on Why-Bradenton.</p>
+      <div class="comp__demo">
+        <div class="voices">
+          <article class="voice"><div class="ph voice__media"></div><span class="voice__name">Jennifer M.</span><span class="voice__role">VP, Sales</span><p class="voice__quote">"My job is to make your job look easy."</p></article>
+          <article class="voice"><div class="ph voice__media"></div><span class="voice__name">Marcus T.</span><span class="voice__role">Senior Coordinator</span><p class="voice__quote">"Ten years here. I know which loading dock to use, when, and why."</p></article>
+          <article class="voice"><div class="ph voice__media"></div><span class="voice__name">Priya R.</span><span class="voice__role">Catering &amp; Banquets</span><p class="voice__quote">"Floribbean for 800 isn't a stretch goal. It's Tuesday."</p></article>
+          <article class="voice"><div class="ph voice__media"></div><span class="voice__name">Devon W.</span><span class="voice__role">Tech &amp; AV Lead</span><p class="voice__quote">"If the AV works, you don't notice me. That's the goal."</p></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 21. Pull Quote -->
+    <div class="comp" id="PULL_QUOTE">
+      <div class="comp__eyebrow">Component 21</div>
+      <div class="comp__name-row"><div class="comp__name">Pull Quote</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Planner / customer testimonial pull. Used between dense sections on the home and Why pages.</p>
+      <div class="comp__demo">
+        <div class="pullquote" style="margin:0">
+          <p>"The space worked, the staff worked harder, and our attendees came back with sand still in their shoes. We're rebooking 2027."</p>
+          <cite>— Director of Events · National Trade Association</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- 22. CTA · RFP -->
+    <div class="comp" id="CTA_RFP">
+      <div class="comp__eyebrow">Component 22</div>
+      <div class="comp__name-row"><div class="comp__name">CTA · RFP Band</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Universal closing module — every interior page ends with this RFP-driving black band.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="cta-band" style="padding:48px 0">
+          <div class="container"><div class="cta-band__row">
+            <div><span class="eyebrow" style="color:#9a9a9a">Ready to book?</span><h2 class="display-md" style="color:#fff;margin-top:6px;font-size:28px">Submit an RFP. Get a real reply.</h2><p style="color:#b6b6b6;max-width:560px;margin-top:8px">A real person, in our office in Palmetto, gets back to you within a business day.</p></div>
+            <a class="btn btn--lg">Start an RFP</a>
+          </div></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============================== CARDS ============================== -->
+    <div class="lib-section-head">
+      <h2>Cards &amp; Listings</h2>
+      <p>Repeating units inside grids, lists, and feeds.</p>
+    </div>
+
+    <!-- 23. Value Card -->
+    <div class="comp" id="VALUE_CARD">
+      <div class="comp__eyebrow">Component 23</div>
+      <div class="comp__name-row"><div class="comp__name">Value Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Numbered value-prop card — used on Why-Bradenton intro and home page.</p>
+      <div class="comp__demo">
+        <div style="max-width:340px">
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">02 Catering</span><h3 class="card__title">In-house Floribbean catering.</h3><p class="card__excerpt">Gulf Islands Hospitality, the exclusive in-house caterer for the BACC.</p></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 24. Room Card -->
+    <div class="comp" id="ROOM_CARD">
+      <div class="comp__eyebrow">Component 24</div>
+      <div class="comp__name-row"><div class="comp__name">Room Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Square-footage eyebrow + capacity copy. Used on Convention Center Services.</p>
+      <div class="comp__demo">
+        <div style="max-width:340px">
+          <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">MANATEE BALLROOM</div></div><span class="card__eyebrow">22,000 sq ft</span><h3 class="card__title">Manatee Ballroom</h3><p class="card__excerpt">Theater 2,000 · Banquet 1,400 · Reception 2,500. Divisible to A/B.</p></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 25. Lodging Card -->
+    <div class="comp" id="LODGING_CARD">
+      <div class="comp__eyebrow">Component 25</div>
+      <div class="comp__name-row"><div class="comp__name">Lodging Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Bordered card with media, eyebrow, title, body, and tag pills. Used in Lodging Preview and the Off-site grid.</p>
+      <div class="comp__demo">
+        <div style="max-width:340px">
+          <article class="zone-card"><div class="ph zone-card__media"><div class="ph__label">PALMETTO MARRIOTT</div></div><div class="zone-card__body"><span class="card__eyebrow">Headquarters · Palmetto</span><h3 class="zone-card__title">Palmetto Marriott Resort &amp; Spa</h3><p>Connected campus, river views, full meeting facilities and a spa for the off-day.</p><div class="zone-card__tags"><span class="tag">HQ</span><span class="tag">River</span><span class="tag">Spa</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 26. Lodging Listing -->
+    <div class="comp" id="LODGING_LISTING">
+      <div class="comp__eyebrow">Component 26</div>
+      <div class="comp__name-row"><div class="comp__name">Lodging Listing (horizontal)</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Hotel-directory listing with brand / distance / rate meta. Used in the Nearby Hotels Directory.</p>
+      <div class="comp__demo">
+        <div style="max-width:560px">
+          <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Hilton · Bradenton · 4 mi</span><h3 class="listing-card__title">Hampton Inn Riverwalk</h3><p class="card__excerpt">Select-service · 124 rooms · meeting room</p><div class="listing-card__meta"><span>Group rates</span><span>Shuttle</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 27. Editorial Card -->
+    <div class="comp" id="EDITORIAL_CARD">
+      <div class="comp__eyebrow">Component 27</div>
+      <div class="comp__name-row"><div class="comp__name">Editorial Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Standard editorial card used in the Articles preview and grid.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Planner</span><h3 class="card__title">5 reasons meeting planners love the Bradenton Area.</h3><span class="card__meta">8 min read</span></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Attendee</span><h3 class="card__title">8 ways to spend an extra day in the Bradenton Area.</h3><span class="card__meta">5 min read</span></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Dine-around</span><h3 class="card__title">Best spots for dine-arounds in the Bradenton Area.</h3><span class="card__meta">7 min read</span></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== FORMS ============================== -->
+    <div class="lib-section-head">
+      <h2>Forms &amp; Filters</h2>
+      <p>Inputs across the site.</p>
+    </div>
+
+    <!-- 28. RFP Form -->
+    <div class="comp" id="RFP_FORM">
+      <div class="comp__eyebrow">Component 28</div>
+      <div class="comp__name-row"><div class="comp__name">RFP Form</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Form</span><span class="lib-label">Contact page</span></div>
+      <p class="comp__desc">Two-column form — organization, dates, attendees, spaces required (chip-driven multi-select). Lives on the Contact &amp; RFP page.</p>
+      <div class="comp__demo">
+        <form class="flow-lg" onsubmit="return false">
+          <div class="form-grid">
+            <div class="field"><label>Your name *</label><input></div>
+            <div class="field"><label>Title</label><input></div>
+            <div class="field"><label>Organization *</label><input></div>
+            <div class="field"><label>Email *</label><input type="email"></div>
+            <div class="field"><label>Preferred dates *</label><input type="text" placeholder="MM/DD/YYYY – MM/DD/YYYY"></div>
+            <div class="field"><label>Attendees (peak)</label><input type="number" min="1"></div>
+            <div class="field field--full"><label>Spaces required</label>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+                <span class="chip">General session</span><span class="chip">Banquet</span><span class="chip">Reception</span><span class="chip">Breakouts</span><span class="chip">Expo</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-end"><button class="btn btn--lg" type="submit">Submit RFP</button></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- 29. General Contact -->
+    <div class="comp" id="GENERAL_CONTACT">
+      <div class="comp__eyebrow">Component 29</div>
+      <div class="comp__name-row"><div class="comp__name">General Contact Form</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Form</span></div>
+      <p class="comp__desc">Lighter contact form — non-RFP inquiries.</p>
+      <div class="comp__demo">
+        <form class="flow-lg" onsubmit="return false" style="max-width:560px">
+          <div class="form-grid">
+            <div class="field"><label>Name</label><input></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field field--full"><label>How can we help?</label><textarea rows="4"></textarea></div>
+          </div>
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- 30. Filter Bar -->
+    <div class="comp" id="FILTER_BAR">
+      <div class="comp__eyebrow">Component 30</div>
+      <div class="comp__name-row"><div class="comp__name">Filter Bar</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BACC Meetings</span><span class="lib-label">Form</span></div>
+      <p class="comp__desc">Selects + chip rail used on Lodging Directory, Articles grid, and other listing pages.</p>
+      <div class="comp__demo">
+        <div class="filter-bar">
+          <span class="filter-bar__label">Filter</span>
+          <select><option>Within 10 minutes</option></select>
+          <select><option>All brands</option></select>
+          <select><option>Class</option></select>
+          <select><option>Group capacity</option></select>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.lib-body -->
+
+  <div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BACC Meetings</a></div>
+  <script src="../assets/js/labels.js"></script>
+</body>
+</html>

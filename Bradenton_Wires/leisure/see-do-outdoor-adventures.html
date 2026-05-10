@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Outdoor Adventures · See &amp; Do — Wireframe</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+</head>
+<body class="leisure">
+
+<header class="site-header" data-component="SITE_HEADER">
+  <div class="utility-bar" data-component="UTILITY_NAV"><a href="../index.html" class="utility-bar__back">← Back to Wireframe Home</a><a href="#">Travel Guide</a><a href="guides-stories.html">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a></div>
+  <div class="container header-row">
+    <a href="index.html" class="brandmark"><span class="brandmark__sun"></span><span class="brandmark__words">Bradenton Gulf Islands<small>Florida's West Coast</small></span></a>
+    <nav class="primary-nav" data-component="PRIMARY_NAV">
+      <a href="discover.html">Discover</a><a href="beaches.html">Beaches</a><a href="see-do.html" class="is-active">See &amp; Do</a><a href="eat-drink.html">Eat &amp; Drink</a><a href="stay.html">Stay</a><a href="plan.html">Plan</a><a href="events.html">Events</a>
+    </nav>
+    <div class="header-cta"><button class="search-stub" aria-label="Search">⌕</button><a href="plan.html" class="btn btn--sm">Plan Your Trip</a><button class="menu-btn" type="button">Menu</button></div>
+  </div>
+</header>
+
+<section class="hero hero--compact" data-component="HERO_COMPACT">
+  <div class="container hero__inner">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><a href="see-do.html">See &amp; Do</a><span>›</span><span>Outdoor Adventures</span></nav>
+    <span class="hero__kicker">See &amp; Do · Outdoor Adventures</span>
+    <h1 class="hero__headline">Kayak, paddleboard, hike, fish.</h1>
+    <p class="hero__sub">487 acres of preserve. Mangrove tunnels at low tide. Charters that put you on tarpon at sunrise. The outdoor side of Florida's West Coast — quieter than you'd expect, wilder than the brochures show.</p>
+  </div>
+</section>
+
+<section class="section" data-component="SUB_NAV">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-bar__label">Jump to</span>
+      <a href="#paddling" class="chip">Paddling</a>
+      <a href="#fishing" class="chip">Fishing &amp; Charters</a>
+      <a href="#trails" class="chip">Trails &amp; Wildlife</a>
+      <a href="#water" class="chip">On-Water Tours</a>
+      <a href="#bikes" class="chip">Bikes &amp; E-Bikes</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-component="SUBCATEGORY_FEATURE">
+  <div class="container">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"><div class="ph__label">ROBINSON · MANGROVE TUNNEL</div></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">Why outdoor here</span>
+        <p class="ferry-spot__pull">A coastline still wild enough to be worth visiting.</p>
+        <p>Most of Florida's coast got built. We protected ours. Robinson Preserve alone is 487 acres of restored coastal habitat — bird rookeries, mangrove tunnels, kayak trails, and trail markers locals still get wrong.</p>
+        <a href="guides-stories.html" class="link-arrow">A naturalist's guide to Robinson Preserve</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="filter" data-component="FILTERED_LISTINGS">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Outdoor operators</span><h2>Local outfitters &amp; guides.</h2></div><a class="link-arrow" href="#">All listings</a></div>
+    <div class="filter-bar">
+      <span class="filter-bar__label">Filter</span>
+      <select aria-label="Activity"><option>All activities</option><option>Kayak</option><option>Paddleboard</option><option>Fishing</option><option>Hiking</option><option>Bike rental</option></select>
+      <select aria-label="Community"><option>All communities</option><option>Anna Maria</option><option>Robinson Preserve</option><option>Cortez</option></select>
+      <select aria-label="Best for"><option>Best for…</option><option>Family</option><option>Beginners</option><option>Pros</option><option>Sunset</option></select>
+      <select aria-label="Duration"><option>Duration</option><option>Under 2 hrs</option><option>Half day</option><option>Full day</option></select>
+      <span class="chip">Map view</span>
+    </div>
+    <div class="grid grid--auto" style="margin-top:24px">
+      <article class="listing-card" id="paddling" data-component="LISTING_CARD"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Kayak · Robinson Preserve</span><h3 class="listing-card__title">Robinson Preserve Kayak Tours</h3><p class="card__excerpt">Guided mangrove tunnel paddles, daily.</p><div class="listing-card__meta"><span>$45 / person</span><span>2 hrs</span><span>★ 4.9</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Paddleboard · Anna Maria</span><h3 class="listing-card__title">Island Paddleboard Co.</h3><p class="card__excerpt">SUP rentals + lessons on calm bay water.</p><div class="listing-card__meta"><span>$35 / hour</span><span>★ 4.7</span></div></div></article>
+      <article class="listing-card" id="fishing"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Fishing · Cortez</span><h3 class="listing-card__title">Cortez Charter Fishing</h3><p class="card__excerpt">Half-day inshore charters with local captains.</p><div class="listing-card__meta"><span>From $300</span><span>4 hrs</span><span>★ 4.9</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Fishing · Anna Maria Pier</span><h3 class="listing-card__title">Rod &amp; Reel Pier Fishing</h3><p class="card__excerpt">Walk-on pier fishing — gear rental, no license needed.</p><div class="listing-card__meta"><span>$5 entry</span><span>Family</span></div></div></article>
+      <article class="listing-card" id="trails"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Trails · Robinson Preserve</span><h3 class="listing-card__title">Robinson Preserve Trails</h3><p class="card__excerpt">7 miles of marked trails — mangrove boardwalks, observation tower, restored coastal habitat.</p><div class="listing-card__meta"><span>Free</span><span>Family</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Trails · DeSoto National Memorial</span><h3 class="listing-card__title">DeSoto National Memorial</h3><p class="card__excerpt">Mile-long shoreline trail through preserved Florida coastline.</p><div class="listing-card__meta"><span>Free</span><span>Family</span></div></div></article>
+      <article class="listing-card" id="water"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Tour · Bradenton Beach</span><h3 class="listing-card__title">Florida Coastal Excursions</h3><p class="card__excerpt">Dolphin tours, sunset cruises, snorkeling at Egmont Key.</p><div class="listing-card__meta"><span>From $65</span><span>★ 4.8</span></div></div></article>
+      <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Sailing · Longboat Key</span><h3 class="listing-card__title">Longboat Key Sailing Charters</h3><p class="card__excerpt">Half-day private sailing, captain included.</p><div class="listing-card__meta"><span>From $450</span><span>3–4 hrs</span></div></div></article>
+      <article class="listing-card" id="bikes"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Bikes · Anna Maria</span><h3 class="listing-card__title">Beach Bums Recreation</h3><p class="card__excerpt">Beach cruisers and e-bikes by the day. Helmets included.</p><div class="listing-card__meta"><span>$25 / day</span><span>Family</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-component="EDITORIAL_INLINE">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Read up</span><h2>Outdoor stories.</h2></div><a class="link-arrow" href="guides-stories.html">All guides</a></div>
+    <div class="grid grid--3">
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Outdoor</span><h3 class="card__title">Five paddles only locals know.</h3><p class="card__excerpt">Bird rookeries, dolphin lanes, and the cut behind the preserve.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Wildlife</span><h3 class="card__title">A naturalist's guide to Robinson Preserve.</h3><p class="card__excerpt">When to go, where to look, what you'll see in each season.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Fishing</span><h3 class="card__title">A captain's guide to the Gulf Islands.</h3><p class="card__excerpt">From the dock at Cortez — where the tarpon run and when.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" data-component="ACCESSIBILITY_BAND">
+  <div class="container">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">Accessibility</span>
+        <p class="ferry-spot__pull">Boardwalks, beach wheelchairs, accessible kayak launches.</p>
+        <p>Robinson Preserve has paved paths and observation towers with ramps. Manatee County loans beach wheelchairs at multiple parks. Adaptive kayak programs are available — see the accessibility planning guide for details.</p>
+        <div class="hero__ctas"><a href="#" class="btn">Accessibility planning guide</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="CTA_BAND">
+  <div class="container"><div class="cta-band__row"><div><span class="eyebrow" style="color:#9a9a9a">Ready</span><h2 class="display-md" style="color:#fff;margin-top:6px">Save your favorites to a trip.</h2></div><a class="btn" href="plan.html">Open the trip planner</a></div></div>
+</section>
+
+<footer class="site-footer" data-component="SITE_FOOTER">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><div class="brandmark" style="margin-bottom:16px"><span class="brandmark__sun" style="border-color:#fff"></span><span class="brandmark__words" style="color:#fff">Bradenton Gulf Islands<small style="color:#888">Florida's West Coast</small></span></div><p>Bradenton Area Convention &amp; Visitors Bureau<br>941-729-9177</p></div>
+      <div class="footer-col"><h4>Explore</h4><ul><li><a href="discover.html">Discover</a></li><li><a href="beaches.html">Beaches</a></li><li><a href="see-do.html">See &amp; Do</a></li><li><a href="eat-drink.html">Eat &amp; Drink</a></li><li><a href="stay.html">Stay</a></li></ul></div>
+      <div class="footer-col"><h4>Plan</h4><ul><li><a href="plan.html">Plan Your Trip</a></li><li><a href="#">Travel Guide</a></li><li><a href="plan-ferry-guide.html">Ferry Guide</a></li><li><a href="events.html">Events</a></li><li><a href="guides-stories.html">Guides &amp; Stories</a></li></ul></div>
+      <div class="footer-col"><h4>Other Sites</h4><ul><li><a href="../meetings/index.html">Meetings &amp; Conventions</a></li><li><a href="#">Premier Sports Campus</a></li><li><a href="#">Powel Crosley Estate</a></li><li><a href="#">Listings Directory</a></li></ul></div>
+      <div class="footer-col"><h4>Industry</h4><ul><li><a href="#">Partners</a></li><li><a href="#">Media Resources</a></li><li><a href="#">Film &amp; Permitting</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BGI Leisure</a></div>
+<script src="../assets/js/labels.js"></script>
+</body>
+</html>

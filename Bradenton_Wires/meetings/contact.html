@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact &amp; Submit an RFP · Meetings — Wireframe</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+</head>
+<body class="meetings">
+
+<header class="site-header" data-component="SITE_HEADER">
+  <div class="utility-bar" data-component="UTILITY_NAV"><a href="../index.html" class="utility-bar__back">← Back to Wireframe Home</a>
+    <a href="../leisure/index.html">Bradenton Gulf Islands</a><a href="#">Meeting Planner Guide</a><a href="#">FAQs</a><a href="#">Newsletter</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="container header-row">
+    <a href="index.html" class="brandmark"><span class="brandmark__sun" aria-hidden="true"></span><span class="brandmark__words">Bradenton Area Convention Center<small>Meet on Florida's West Coast</small></span></a>
+    <nav class="primary-nav" data-component="PRIMARY_NAV">
+      <a href="why-bradenton.html">Why the Bradenton Area</a><a href="convention-center.html">Convention Center Services</a><a href="event-hosting.html">Event Hosting &amp; Lodging</a><a href="articles.html">Articles</a><a href="#">Events</a>
+    </nav>
+    <div class="header-cta"><a href="contact.html" class="btn btn--sm">Submit RFP</a><button class="menu-btn" type="button">Menu</button></div>
+  </div>
+</header>
+
+<section class="hero hero--compact" data-component="HERO_COMPACT">
+  <div class="container hero__inner">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><span>Contact</span></nav>
+    <span class="hero__kicker">Contact &amp; RFP</span>
+    <h1 class="hero__headline">A real person. Within a business day.</h1>
+    <p class="hero__sub">Tell us about the event. We'll match you with the right coordinator, send a real proposal, and answer the questions you didn't ask yet.</p>
+  </div>
+</section>
+
+<section class="section" data-component="CONTACT_TABS">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-bar__label">I want to</span>
+      <a href="#rfp" class="chip">Submit an RFP</a>
+      <a href="#cc" class="chip">Contact the Convention Center</a>
+      <a href="#sales" class="chip">Talk to Sales</a>
+      <a href="#newsletter" class="chip">Subscribe to the Planner Newsletter</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="rfp" data-component="RFP_FORM">
+  <div class="container">
+    <div class="grid grid--2">
+      <div>
+        <span class="eyebrow eyebrow--stencil">Submit an RFP</span>
+        <h2 class="display-md">Tell us about the event.</h2>
+        <p>The more you share, the faster we can get to a real proposal. Required fields are marked.</p>
+        <hr class="divider">
+        <h3 class="card__title">Sales team</h3>
+        <p>Bradenton Area Convention Center Sales Team<br>1 Haben Blvd. Palmetto, FL 34221<br>Office: 941-729-9177<br>Email: meetings@bacvb.com</p>
+        <h3 class="card__title" style="margin-top:24px">Reply window</h3>
+        <p>We reply to all RFPs within one business day. If your event is inside 30 days, call the office.</p>
+      </div>
+
+      <form class="flow-lg" onsubmit="return false">
+        <div class="form-grid">
+          <div class="field"><label>Your name *</label><input required></div>
+          <div class="field"><label>Title</label><input></div>
+          <div class="field"><label>Organization *</label><input required></div>
+          <div class="field"><label>Email *</label><input type="email" required></div>
+          <div class="field"><label>Phone</label><input type="tel"></div>
+          <div class="field"><label>How did you hear about us?</label><select><option>Referral</option><option>Google</option><option>Trade publication</option><option>Past attendee</option><option>Other</option></select></div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="form-grid">
+          <div class="field field--full"><label>Event name</label><input></div>
+          <div class="field"><label>Event type</label><select><option>Conference</option><option>Convention</option><option>Trade show</option><option>Board meeting</option><option>Banquet</option><option>Off-site / Retreat</option><option>Other</option></select></div>
+          <div class="field"><label>Format</label><select><option>In-person</option><option>Hybrid</option></select></div>
+          <div class="field"><label>Preferred dates *</label><input type="text" placeholder="MM/DD/YYYY – MM/DD/YYYY" required></div>
+          <div class="field"><label>Date flexibility</label><select><option>Firm</option><option>± 1 week</option><option>± 1 month</option><option>Flexible</option></select></div>
+          <div class="field"><label>Attendees (peak)</label><input type="number" min="1"></div>
+          <div class="field"><label>Room nights (peak)</label><input type="number" min="0"></div>
+          <div class="field field--full"><label>Spaces required</label>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
+              <span class="chip">General session</span>
+              <span class="chip">Banquet</span>
+              <span class="chip">Reception</span>
+              <span class="chip">Breakouts</span>
+              <span class="chip">Expo</span>
+              <span class="chip">Outdoor</span>
+              <span class="chip">Boardroom</span>
+            </div>
+          </div>
+          <div class="field field--full"><label>Anything else we should know?</label><textarea rows="4" placeholder="Catering needs, AV asks, off-site interest, accessibility, sustainability priorities…"></textarea></div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+          <span class="card__meta">We'll reply within one business day.</span>
+          <button class="btn btn--lg" type="submit">Submit RFP</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="cc" data-component="GENERAL_CONTACT">
+  <div class="container container--narrow">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"><div class="ph__label">VENUE EXTERIOR</div></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">General contact</span>
+        <p class="ferry-spot__pull">Have any questions? Drop us a line.</p>
+        <p>A member of our team will follow up with you soon. For attendee-side questions, please contact your event organizer directly.</p>
+        <form class="flow-lg" onsubmit="return false" style="margin-top:16px">
+          <div class="form-grid">
+            <div class="field"><label>Name</label><input></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field field--full"><label>How can we help?</label><textarea rows="4"></textarea></div>
+          </div>
+          <button class="btn" type="submit">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="CTA_BAND">
+  <div class="container"><div class="cta-band__row"><div><span class="eyebrow" style="color:#9a9a9a">Stay in the loop</span><h2 class="display-md" style="color:#fff;margin-top:6px">Planner newsletter — quarterly.</h2></div><form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="your@email.com" aria-label="Email"><button>Subscribe</button></form></div></div>
+</section>
+
+<footer class="site-footer" data-component="SITE_FOOTER">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><div class="brandmark" style="margin-bottom:16px"><span class="brandmark__sun" style="border-color:#fff" aria-hidden="true"></span><span class="brandmark__words" style="color:#fff">Bradenton Area Convention Center<small style="color:#888">Meet on Florida's West Coast</small></span></div><p>1 Haben Blvd. Palmetto, FL 34221<br>941-729-9177<br>meetings@bacvb.com</p></div>
+      <div class="footer-col"><h4>Plan</h4><ul><li><a href="why-bradenton.html">Why the Bradenton Area</a></li><li><a href="convention-center.html">Convention Center Services</a></li><li><a href="event-hosting.html">Event Hosting &amp; Lodging</a></li><li><a href="#">Meeting Planner Guide</a></li></ul></div>
+      <div class="footer-col"><h4>Resources</h4><ul><li><a href="articles.html">Articles</a></li><li><a href="#">Floor Plans</a></li><li><a href="#">Capacity Sheets</a></li><li><a href="#">FAQs</a></li></ul></div>
+      <div class="footer-col"><h4>Other Sites</h4><ul><li><a href="../leisure/index.html">Bradenton Gulf Islands</a></li><li><a href="#">Powel Crosley Estate</a></li><li><a href="#">Premier Sports Campus</a></li></ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul><li><a href="contact.html">Submit an RFP</a></li><li><a href="contact.html">Convention Center Contact</a></li><li><a href="#">Newsletter</a></li></ul></div>
+    </div>
+    <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BACC Meetings</a></div>
+<script src="../assets/js/labels.js"></script>
+</body>
+</html>

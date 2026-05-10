@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Plan Your Trip · Bradenton Gulf Islands — Wireframe</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+</head>
+<body class="leisure">
+
+<header class="site-header" data-component="SITE_HEADER">
+  <div class="utility-bar" data-component="UTILITY_NAV"><a href="../index.html" class="utility-bar__back">← Back to Wireframe Home</a>
+    <a href="#">Travel Guide</a><a href="guides-stories.html">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a>
+  </div>
+  <div class="container header-row">
+    <a href="index.html" class="brandmark"><span class="brandmark__sun" aria-hidden="true"></span><span class="brandmark__words">Bradenton Gulf Islands<small>Florida's West Coast</small></span></a>
+    <nav class="primary-nav" data-component="PRIMARY_NAV">
+      <a href="discover.html">Discover</a><a href="beaches.html">Beaches</a><a href="see-do.html">See &amp; Do</a><a href="eat-drink.html">Eat &amp; Drink</a><a href="stay.html">Stay</a><a href="plan.html" class="is-active">Plan</a><a href="events.html">Events</a>
+    </nav>
+    <div class="header-cta"><button class="search-stub" aria-label="Search">⌕</button><a href="plan.html" class="btn btn--sm">Plan Your Trip</a><button class="menu-btn" type="button">Menu</button></div>
+  </div>
+</header>
+
+<section class="hero hero--compact" data-component="HERO_PLAN">
+  <div class="container hero__inner">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><span>Plan Your Trip</span></nav>
+    <span class="hero__kicker">Plan your escape</span>
+    <h1 class="hero__headline">Tell us what you want. We'll line up the rest.</h1>
+    <p class="hero__sub">Itineraries, the official Travel Guide, the ferry guide, the trolley map, airline routes — all the planning utility in one place. Save it, share it, bring it with you.</p>
+  </div>
+</section>
+
+<section class="section" data-component="AI_TRIP_PLANNER">
+  <div class="container container--narrow">
+    <div class="planner">
+      <span class="eyebrow eyebrow--stencil">AI trip planner</span>
+      <h2 class="display-md">Build my trip.</h2>
+      <p>Describe the trip you want, and we'll generate a starting itinerary you can edit, save, and share.</p>
+      <form class="planner__input" onsubmit="return false">
+        <input type="text" placeholder="Plan a 4-day beach trip with two teens, seafood, and no rental car…" aria-label="Describe your trip">
+        <button type="submit">Plan it</button>
+      </form>
+      <div class="planner__suggested">
+        <span class="chip">Quiet weekend for two</span>
+        <span class="chip">Family with kids 6–10</span>
+        <span class="chip">Rainy day backup plan</span>
+        <span class="chip">No rental car</span>
+        <span class="chip">Spring training week</span>
+        <span class="chip">First-timer 3-day loop</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" data-component="SUB_NAV">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-bar__label">In this section</span>
+      <a href="#itineraries" class="chip">Itineraries</a>
+      <a href="#guide" class="chip">Travel Guide</a>
+      <a href="#getting-here" class="chip">Getting Here</a>
+      <a href="#getting-around" class="chip">Getting Around</a>
+      <a href="#flights" class="chip">Nonstop Flights</a>
+      <a href="#ferry" class="chip">Ferry Guide</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="itineraries" data-component="ITINERARY_LIBRARY">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Itineraries</span><h2>Trip plans we've already done the homework for.</h2></div><a class="link-arrow" href="#">All itineraries</a></div>
+    <div class="grid grid--3">
+      <article class="card" data-component="ITINERARY_CARD"><div class="ph ph--16x9 card__media"><div class="ph__label">3 DAYS · ISLAND + DOWNTOWN</div></div><span class="card__eyebrow">3 days · Family</span><h3 class="card__title">Island Beaches, Old Florida &amp; Downtown Bradenton</h3><p class="card__excerpt">The crowd-tested loop for first-time visitors.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">CAR-LIGHT WEEKEND</div></div><span class="card__eyebrow">2 days · Couples</span><h3 class="card__title">A Car-Light Weekend Using the Ferry</h3><p class="card__excerpt">Park once, ride the water, ride the trolley.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">REAL FLORIDA · 3 DAYS</div></div><span class="card__eyebrow">3 days · Couples</span><h3 class="card__title">3 Days of Real Florida (No Theme Parks)</h3><p class="card__excerpt">Heritage, food, and nature on Florida's West Coast.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">FAMILY BEACH WEEK</div></div><span class="card__eyebrow">7 days · Family</span><h3 class="card__title">A Family Beach Week</h3><p class="card__excerpt">A full week with kids — beach, food, rainy-day backup.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">FOOD &amp; FISHING</div></div><span class="card__eyebrow">3 days · Foodies</span><h3 class="card__title">Old Florida Food, Fishing &amp; Waterfront Culture</h3><p class="card__excerpt">Cortez, Bridge Street, and a charter morning.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">NATURE LOVER'S GUIDE</div></div><span class="card__eyebrow">3 days · Nature</span><h3 class="card__title">A Nature Lover's Guide</h3><p class="card__excerpt">Robinson, DeSoto, manatees, and mangroves.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="guide" data-component="TRAVEL_GUIDE_FEATURE">
+  <div class="container">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"><div class="ph__label">TRAVEL GUIDE COVER</div></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">Official Travel Guide</span>
+        <p class="ferry-spot__pull">The book locals hand visitors.</p>
+        <p>Our printed guide — beach maps, restaurant lists, itineraries, and the things you only learn after living here. Order one to your door, or download the PDF.</p>
+        <div class="hero__ctas"><a href="#" class="btn">Order print copy</a><a href="#" class="btn btn--ghost">Download PDF</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="getting-here" data-component="GETTING_HERE">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Getting here</span><h2>Three airports. One easy arrival.</h2></div></div>
+    <div class="grid grid--3">
+      <article class="card" data-component="AIRPORT_CARD"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">SRQ · 25 min</span><h3 class="card__title">Sarasota–Bradenton International</h3><p class="card__excerpt">Closest airport to the islands — nonstop service from 30+ cities.</p><a class="link-arrow" href="#flights">Nonstop flights</a></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">TPA · 50 min</span><h3 class="card__title">Tampa International</h3><p class="card__excerpt">Most options, biggest hub. Easy I-275 corridor down.</p><a class="link-arrow" href="#">TPA transportation</a></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">PIE · 60 min</span><h3 class="card__title">St. Pete-Clearwater Intl.</h3><p class="card__excerpt">Limited routes, smaller terminal, often cheaper fares.</p><a class="link-arrow" href="#">PIE transportation</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="flights" data-component="NONSTOP_FLIGHTS">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Nonstop to SRQ</span><h2>30+ cities, no connections.</h2></div><a class="link-arrow" href="#">See all routes</a></div>
+    <div class="grid grid--6">
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">Boston</span><span class="trip-card__sub">JetBlue · Year-round</span></div></a>
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">New York</span><span class="trip-card__sub">JetBlue, Delta · Year-round</span></div></a>
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">Chicago</span><span class="trip-card__sub">United, American · Seasonal</span></div></a>
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">Pittsburgh</span><span class="trip-card__sub">Allegiant · Seasonal</span></div></a>
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">Detroit</span><span class="trip-card__sub">Delta · Seasonal</span></div></a>
+      <a class="trip-card" href="#"><div class="trip-card__inner"><span class="trip-card__title" style="font-size:18px">Toronto</span><span class="trip-card__sub">Sun Country · Seasonal</span></div></a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="getting-around" data-component="GETTING_AROUND">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Getting around</span><h2>Yes, you can do this car-light.</h2></div></div>
+    <div class="grid grid--3">
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Ferry</span><h3 class="card__title">Gulf Islands Ferry</h3><p class="card__excerpt">Riverwalk to Bridge Street, year-round.</p><a class="link-arrow" href="#ferry">Ferry guide</a></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Trolley</span><h3 class="card__title">Anna Maria Island Trolley</h3><p class="card__excerpt">Free, end-to-end, every 20 minutes.</p><a class="link-arrow" href="#">Trolley map</a></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Bike + walk</span><h3 class="card__title">Bike &amp; e-bike rentals</h3><p class="card__excerpt">All islands, all communities. Helmets included.</p><a class="link-arrow" href="#">Rental partners</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="ferry" data-component="FERRY_SPOTLIGHT">
+  <div class="container">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">Gulf Islands Ferry</span>
+        <p class="ferry-spot__pull">Park once. Ride the water. Explore the island.</p>
+        <p>The 45-minute crossing from the Riverwalk to Bridge Street is part of the trip — not just a way to skip the bridge. Get the Perks Pass and the ride pays for itself.</p>
+        <div class="hero__ctas"><a href="#" class="btn">Schedule</a><a href="#" class="btn btn--ghost">Perks Pass</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" data-component="FAQ_BLOCK">
+  <div class="container container--narrow">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Common questions</span><h2>The quick answers.</h2></div></div>
+    <div class="faq">
+      <details open><summary>Do I need to rent a car?</summary><p>It depends on where you stay. Anna Maria + downtown is doable car-light using the ferry and trolley. Lakewood Ranch and Longboat Key effectively require a car.</p></details>
+      <details><summary>Which airport should I fly into?</summary><p>SRQ if you can — closest, easiest. TPA for more options. PIE for cheaper fares.</p></details>
+      <details><summary>When is the best time to visit?</summary><p>March–May: warm, dry, peak. October–November: warm, quiet, locals' favorite. June–September: hot but the beaches breathe.</p></details>
+      <details><summary>How does the Ferry Perks Pass work?</summary><p>Round-trip pass plus discounts at restaurants near both ferry stops. Pays for itself in two stops.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="CTA_BAND">
+  <div class="container"><div class="cta-band__row"><div><span class="eyebrow" style="color:#9a9a9a">Last step</span><h2 class="display-md" style="color:#fff;margin-top:6px">Save &amp; share your trip.</h2></div><a class="btn" href="#">Open my trip</a></div></div>
+</section>
+
+<footer class="site-footer" data-component="SITE_FOOTER">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><div class="brandmark" style="margin-bottom:16px"><span class="brandmark__sun" style="border-color:#fff" aria-hidden="true"></span><span class="brandmark__words" style="color:#fff">Bradenton Gulf Islands<small style="color:#888">Florida's West Coast</small></span></div><p>Bradenton Area Convention &amp; Visitors Bureau<br>941-729-9177</p></div>
+      <div class="footer-col"><h4>Explore</h4><ul><li><a href="discover.html">Discover</a></li><li><a href="beaches.html">Beaches</a></li><li><a href="see-do.html">See &amp; Do</a></li><li><a href="eat-drink.html">Eat &amp; Drink</a></li><li><a href="stay.html">Stay</a></li></ul></div>
+      <div class="footer-col"><h4>Plan</h4><ul><li><a href="plan.html">Plan Your Trip</a></li><li><a href="#">Travel Guide</a></li><li><a href="#">Ferry Guide</a></li><li><a href="events.html">Events</a></li><li><a href="guides-stories.html">Guides &amp; Stories</a></li></ul></div>
+      <div class="footer-col"><h4>Other Sites</h4><ul><li><a href="../meetings/index.html">Meetings &amp; Conventions</a></li><li><a href="#">Premier Sports Campus</a></li><li><a href="#">Powel Crosley Estate</a></li><li><a href="#">Listings Directory</a></li></ul></div>
+      <div class="footer-col"><h4>Industry</h4><ul><li><a href="#">Partners</a></li><li><a href="#">Media Resources</a></li><li><a href="#">Film &amp; Permitting</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BGI Leisure</a></div>
+<script src="../assets/js/labels.js"></script>
+</body>
+</html>

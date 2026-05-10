@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ferry Guide · Plan Your Trip — Wireframe</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+</head>
+<body class="leisure">
+
+<header class="site-header" data-component="SITE_HEADER">
+  <div class="utility-bar" data-component="UTILITY_NAV"><a href="../index.html" class="utility-bar__back">← Back to Wireframe Home</a><a href="#">Travel Guide</a><a href="guides-stories.html">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a></div>
+  <div class="container header-row">
+    <a href="index.html" class="brandmark"><span class="brandmark__sun"></span><span class="brandmark__words">Bradenton Gulf Islands<small>Florida's West Coast</small></span></a>
+    <nav class="primary-nav" data-component="PRIMARY_NAV">
+      <a href="discover.html">Discover</a><a href="beaches.html">Beaches</a><a href="see-do.html">See &amp; Do</a><a href="eat-drink.html">Eat &amp; Drink</a><a href="stay.html">Stay</a><a href="plan.html" class="is-active">Plan</a><a href="events.html">Events</a>
+    </nav>
+    <div class="header-cta"><button class="search-stub" aria-label="Search">⌕</button><a href="plan.html" class="btn btn--sm">Plan Your Trip</a><button class="menu-btn" type="button">Menu</button></div>
+  </div>
+</header>
+
+<section class="hero hero--full" data-component="HERO_FERRY" style="min-height:62vh">
+  <div class="container hero__inner">
+    <nav class="crumbs"><a href="index.html">Home</a><span>›</span><a href="plan.html">Plan</a><span>›</span><span>Ferry Guide</span></nav>
+    <span class="hero__kicker">Gulf Islands Ferry</span>
+    <h1 class="hero__headline">Park once. Ride the water. Explore the island.</h1>
+    <p class="hero__sub">A 45-minute ride between Bradenton's Riverwalk and Bridge Street on Anna Maria Island. The ferry isn't just a way to skip the bridge — it's part of the trip.</p>
+    <div class="hero__ctas"><a href="#schedule" class="btn btn--lg">See the schedule</a><a href="#perks" class="btn btn--lg btn--ghost">Perks Pass</a></div>
+  </div>
+</section>
+
+<section class="section" data-component="SUB_NAV">
+  <div class="container">
+    <div class="filter-bar">
+      <span class="filter-bar__label">In this guide</span>
+      <a href="#route" class="chip">Route</a>
+      <a href="#schedule" class="chip">Schedule</a>
+      <a href="#perks" class="chip">Perks Pass</a>
+      <a href="#stops" class="chip">At each stop</a>
+      <a href="#parking" class="chip">Parking</a>
+      <a href="#faq" class="chip">FAQ</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="route" data-component="FERRY_ROUTE_MAP">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">The route</span><h2>Riverwalk to Bridge Street.</h2></div></div>
+    <div class="map-module">
+      <div class="map-module__bg" aria-hidden="true"></div>
+      <span class="map-module__pin" data-name="Bradenton Riverwalk · Departure" style="top:50%;left:60%">A</span>
+      <span class="map-module__pin" data-name="Bridge Street · Arrival" style="top:46%;left:24%">B</span>
+      <span class="map-module__pin" data-name="Cortez · seasonal stop" style="top:54%;left:34%">C</span>
+    </div>
+    <p style="margin-top:16px;color:var(--ink-3);max-width:680px">A · Bradenton Riverwalk dock · downtown.<br>B · Bridge Street pier · Bradenton Beach.<br>C · Cortez Village · seasonal stop, weekends only.</p>
+  </div>
+</section>
+
+<section class="section section--alt" id="schedule" data-component="FERRY_SCHEDULE">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Schedule</span><h2>Year-round, every day.</h2></div><a class="link-arrow" href="#">Live schedule (PDF)</a></div>
+    <div class="grid grid--3">
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">SUNDAY–THURSDAY</div></div><span class="card__eyebrow">Sun–Thu</span><h3 class="card__title">9am · 11am · 1pm · 3pm · 5pm · 7pm</h3><p class="card__excerpt">Last return ferry departs Bridge Street at 7:45pm.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">FRIDAY–SATURDAY</div></div><span class="card__eyebrow">Fri–Sat</span><h3 class="card__title">9am – 11pm · every 2 hours</h3><p class="card__excerpt">Sunset run is the popular one — book ahead.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"><div class="ph__label">HOLIDAYS</div></div><span class="card__eyebrow">Holidays</span><h3 class="card__title">Special holiday schedules</h3><p class="card__excerpt">July 4 fireworks ferry, NYE late return, Stone Crab Festival weekend.</p></article>
+    </div>
+    <div style="margin-top:32px;text-align:center"><a href="#" class="btn btn--lg">Book ferry tickets</a></div>
+  </div>
+</section>
+
+<section class="section" id="perks" data-component="PERKS_PASS">
+  <div class="container">
+    <div class="ferry-spot">
+      <div class="ph ferry-spot__media"><div class="ph__label">PERKS PASS</div></div>
+      <div class="ferry-spot__body">
+        <span class="eyebrow eyebrow--stencil">Ferry Perks Pass</span>
+        <p class="ferry-spot__pull">Round-trip ferry + restaurant discounts.</p>
+        <p>The Perks Pass bundles round-trip ferry, plus 15% off at participating restaurants near both ferry stops, plus a free trolley day-pass for the island. The pass usually pays for itself in two stops.</p>
+        <ul style="margin:16px 0 0;padding-left:20px;color:var(--ink-2);font-size:14px;line-height:2">
+          <li>Round-trip ferry — Riverwalk ↔ Bridge Street</li>
+          <li>15% off at 18 participating restaurants</li>
+          <li>Free Anna Maria Island Trolley day-pass</li>
+          <li>10% off paddle &amp; bike rentals</li>
+        </ul>
+        <div class="hero__ctas" style="margin-top:24px"><a href="#" class="btn">Buy Perks Pass</a><a href="#" class="link-arrow">Participating restaurants</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="stops" data-component="STOP_DETAILS">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">At each stop</span><h2>What's near the dock.</h2></div></div>
+    <div class="grid grid--2">
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Stop A · Bradenton Riverwalk</span><h3 class="zone-card__title">Riverwalk Departure</h3><p>Walking distance to the Bishop Museum, Motorworks, Pier 22, McKechnie Field, and downtown restaurants. Parking garage steps from the dock.</p><div class="zone-card__tags"><span class="tag">Free parking</span><span class="tag">Walkable</span><span class="tag">Restaurants</span></div></div></article>
+      <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Stop B · Bridge Street</span><h3 class="zone-card__title">Bridge Street Arrival</h3><p>Steps off the ferry into Bridge Street — restaurants, boutiques, the historic pier, and the AMI Trolley stop. Coquina Beach is 2 minutes south by trolley.</p><div class="zone-card__tags"><span class="tag">Trolley</span><span class="tag">Beach</span><span class="tag">Dining</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="parking" data-component="PARKING">
+  <div class="container">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Parking</span><h2>Park once. Ride the water.</h2></div></div>
+    <div class="grid grid--3">
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Riverwalk side</span><h3 class="card__title">Old Main Street Garage</h3><p class="card__excerpt">$5/day · steps from the dock · accessible spaces &amp; EV charging.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Riverwalk side</span><h3 class="card__title">Wares Creek Park lot</h3><p class="card__excerpt">Free overflow lot · 5-min walk to dock · weekends only.</p></article>
+      <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Bridge Street side</span><h3 class="card__title">Beach access lots</h3><p class="card__excerpt">Bridge Street has limited parking — most visitors arrive via ferry or trolley.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section section--alt" id="faq" data-component="FAQ_BLOCK">
+  <div class="container container--narrow">
+    <div class="section-head"><div><span class="eyebrow eyebrow--stencil">Ferry FAQ</span><h2>Common questions.</h2></div></div>
+    <div class="faq">
+      <details open><summary>How long is the ride?</summary><p>About 45 minutes from dock to dock. Sit on the upper deck for the best view.</p></details>
+      <details><summary>Are bikes &amp; strollers allowed?</summary><p>Yes — bikes ride free, strollers fold flat in the lower cabin.</p></details>
+      <details><summary>Is the ferry pet-friendly?</summary><p>Leashed dogs are welcome on the lower deck.</p></details>
+      <details><summary>What if it's bad weather?</summary><p>Service continues in light rain. Lightning or 25+ knot winds will delay or cancel — refunds are automatic.</p></details>
+      <details><summary>Where do I buy tickets?</summary><p>Online (recommended), at the Riverwalk dock, or onboard if seats are available.</p></details>
+      <details><summary>Wheelchair accessible?</summary><p>Yes — boarding ramp, accessible seating, and accessible restroom onboard.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" data-component="CTA_BAND">
+  <div class="container"><div class="cta-band__row"><div><span class="eyebrow" style="color:#9a9a9a">Ready to ride</span><h2 class="display-md" style="color:#fff;margin-top:6px">Book your ferry tickets.</h2></div><a class="btn" href="#">Book now</a></div></div>
+</section>
+
+<footer class="site-footer" data-component="SITE_FOOTER">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col"><div class="brandmark" style="margin-bottom:16px"><span class="brandmark__sun" style="border-color:#fff"></span><span class="brandmark__words" style="color:#fff">Bradenton Gulf Islands<small style="color:#888">Florida's West Coast</small></span></div><p>Bradenton Area Convention &amp; Visitors Bureau<br>941-729-9177</p></div>
+      <div class="footer-col"><h4>Explore</h4><ul><li><a href="discover.html">Discover</a></li><li><a href="beaches.html">Beaches</a></li><li><a href="see-do.html">See &amp; Do</a></li><li><a href="eat-drink.html">Eat &amp; Drink</a></li><li><a href="stay.html">Stay</a></li></ul></div>
+      <div class="footer-col"><h4>Plan</h4><ul><li><a href="plan.html">Plan Your Trip</a></li><li><a href="#">Travel Guide</a></li><li><a href="plan-ferry-guide.html">Ferry Guide</a></li><li><a href="events.html">Events</a></li><li><a href="guides-stories.html">Guides &amp; Stories</a></li></ul></div>
+      <div class="footer-col"><h4>Other Sites</h4><ul><li><a href="../meetings/index.html">Meetings &amp; Conventions</a></li><li><a href="#">Premier Sports Campus</a></li><li><a href="#">Powel Crosley Estate</a></li><li><a href="#">Listings Directory</a></li></ul></div>
+      <div class="footer-col"><h4>Industry</h4><ul><li><a href="#">Partners</a></li><li><a href="#">Media Resources</a></li><li><a href="#">Film &amp; Permitting</a></li><li><a href="#">Newsletter</a></li><li><a href="#">Contact</a></li></ul></div>
+    </div>
+    <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Accessibility</a></span></div>
+  </div>
+</footer>
+
+<div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BGI Leisure</a></div>
+<script src="../assets/js/labels.js"></script>
+</body>
+</html>

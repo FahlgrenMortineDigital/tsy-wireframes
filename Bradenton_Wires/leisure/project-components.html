@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BGI Leisure — Component Library</title>
+  <link rel="stylesheet" href="../assets/css/wireframe.css">
+  <style>
+    /* ============================================================
+       LIB PAGE LAYOUT — mirrors FK LIB structure.
+       Inverted black banner, TOC of grouped pill links, and a
+       long body of comp blocks each with eyebrow / name / pill row /
+       description / dashed demo container.
+       ============================================================ */
+    html { scroll-behavior: smooth; }
+
+    .lib-header {
+      background: var(--ink);
+      color: #fff;
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .lib-header h1 {
+      font-family: var(--font-display);
+      font-size: 28px; line-height: 36px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+      letter-spacing: -0.01em;
+    }
+    .lib-header p {
+      font-size: 14px; line-height: 22px;
+      color: rgba(255,255,255,0.72);
+      max-width: 640px;
+      margin: 0 auto 16px;
+    }
+    .lib-header__back {
+      display: inline-block;
+      padding: 8px 16px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 13px; line-height: 18px;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .lib-header__back:hover { background: #ddd; }
+
+    .lib-toc {
+      max-width: 1280px;
+      margin: 48px auto 24px;
+      padding: 0 32px;
+    }
+    .lib-toc h2 {
+      font-family: var(--font-display);
+      font-size: 20px; line-height: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .lib-toc__lede {
+      font-size: 14px; line-height: 22px;
+      color: var(--ink-3);
+      margin-bottom: 20px;
+      max-width: 720px;
+    }
+    .lib-toc__group {
+      border-top: 2px solid var(--ink);
+      padding-top: 16px;
+      margin-bottom: 32px;
+    }
+    .lib-toc__group h3 {
+      font-family: var(--font-body);
+      font-size: 12px; line-height: 18px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-5);
+      margin-bottom: 12px;
+    }
+    .lib-toc__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px 32px;
+    }
+    .lib-toc__grid a {
+      display: flex; align-items: baseline; gap: 8px;
+      padding: 6px 0;
+      font-size: 14px;
+      color: var(--ink-2);
+      text-decoration: none;
+      border-bottom: 1px solid #f1f1f1;
+      transition: color .15s, border-color .15s;
+    }
+    .lib-toc__grid a:hover { color: var(--pill-text); border-bottom-color: var(--pill-text); }
+    .lib-toc__grid a span {
+      color: var(--ink-5); font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      min-width: 24px; flex-shrink: 0;
+    }
+    @media (max-width: 880px) { .lib-toc__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .lib-toc__grid { grid-template-columns: 1fr; } }
+
+    .lib-section-head {
+      max-width: 1280px;
+      margin: 48px auto 0;
+      padding: 0 32px 12px;
+      border-bottom: 2px solid var(--pill-text);
+    }
+    .lib-section-head h2 {
+      font-family: var(--font-display);
+      font-size: 20px; line-height: 28px;
+      font-weight: 700;
+      color: var(--pill-text);
+      margin-bottom: 2px;
+    }
+    .lib-section-head p {
+      font-size: 13px; line-height: 20px;
+      color: var(--ink-3);
+    }
+
+    .lib-body {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+    .comp {
+      margin-bottom: 64px;
+      border-top: 2px solid var(--ink);
+      padding-top: 24px;
+      scroll-margin-top: 24px;
+    }
+    .comp__eyebrow {
+      font-size: 11px; line-height: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ink-5);
+      margin-bottom: 4px;
+    }
+    .comp__name-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      gap: 16px; margin-bottom: 8px;
+    }
+    .comp__name {
+      font-family: var(--font-display);
+      font-size: 22px; line-height: 28px;
+      font-weight: 700;
+      color: var(--pill-text);
+    }
+    .comp__back {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 11px; line-height: 16px;
+      font-weight: 600;
+      color: var(--pill-text);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .comp__back:hover { color: var(--ink); }
+    .comp__desc {
+      font-size: 14px; line-height: 22px;
+      color: var(--ink-3);
+      max-width: 720px;
+      margin-bottom: 16px;
+    }
+    .comp__pill-row {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 16px;
+    }
+    .comp__demo {
+      border: 2px dashed var(--line);
+      background: var(--bg-soft);
+      border-radius: 12px;
+      padding: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .comp__demo--bare { padding: 0; background: #fff; }
+    .comp__demo > section,
+    .comp__demo > .container { width: 100%; }
+    /* Demo containers should not propagate the lib-label injection */
+    .comp__demo [data-component] > .lib-label.lib-label--injected { display: none; }
+
+    .comp__variant-label {
+      display: inline-block;
+      font-size: 11px; line-height: 16px;
+      font-weight: 600;
+      color: var(--ink-5);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin: 20px 0 8px;
+    }
+    .comp__variant-label:first-child { margin-top: 0; }
+
+    /* Some demos benefit from a fixed visual height to keep the page scannable */
+    .demo-clip { max-height: 440px; overflow: hidden; position: relative; border-radius: 8px; }
+    .demo-clip::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 60px;
+      background: linear-gradient(180deg, transparent, var(--bg-soft));
+      pointer-events: none;
+    }
+    .comp__demo--bare .demo-clip::after { background: linear-gradient(180deg, transparent, #fff); }
+  </style>
+</head>
+<body class="leisure">
+
+  <div id="top"></div>
+
+  <!-- ============================== LIB HEADER ============================== -->
+  <div class="lib-header">
+    <h1>BGI Leisure — Component Library</h1>
+    <p>Wireframe catalog of every component used across the Bradenton Gulf Islands leisure site. Greyscale by intent. Click any pill on a wireframe to jump straight to its definition here.</p>
+    <a href="index.html" class="lib-header__back">← Back to Wireframes</a>
+  </div>
+
+  <!-- ============================== TOC ============================== -->
+  <div class="lib-toc">
+    <h2>All Components</h2>
+    <p class="lib-toc__lede">31 components grouped by purpose. Click an entry to jump to its definition. The floating switch (bottom-right) toggles the pill labels overlaid on every wireframe page.</p>
+
+    <div class="lib-toc__group">
+      <h3>Site Chrome</h3>
+      <div class="lib-toc__grid">
+        <a href="#ANNOUNCE_BAR"><span>01</span> Announcement Bar</a>
+        <a href="#SITE_HEADER"><span>02</span> Site Header</a>
+        <a href="#UTILITY_NAV"><span>03</span> Utility Nav</a>
+        <a href="#PRIMARY_NAV"><span>04</span> Primary Nav</a>
+        <a href="#BREADCRUMBS"><span>05</span> Breadcrumbs</a>
+        <a href="#SUB_NAV"><span>06</span> In-Page Sub Nav</a>
+        <a href="#SITE_FOOTER"><span>07</span> Site Footer</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Hero &amp; Page Lead</h3>
+      <div class="lib-toc__grid">
+        <a href="#HERO_TRIP_SELECTOR"><span>08</span> Hero · Trip-Style Selector</a>
+        <a href="#HERO_COMPACT"><span>09</span> Hero · Compact</a>
+        <a href="#HERO_PLAN"><span>10</span> Hero · Plan</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Modules</h3>
+      <div class="lib-toc__grid">
+        <a href="#TRIP_STYLE_CARDS"><span>11</span> Trip-Style Cards</a>
+        <a href="#MAP_MODULE"><span>12</span> Interactive Map</a>
+        <a href="#ZONE_GRID"><span>13</span> Zone / Communities Grid</a>
+        <a href="#FERRY_SPOTLIGHT"><span>14</span> Ferry Spotlight</a>
+        <a href="#FEATURED_ITINERARY"><span>15</span> Featured Itinerary</a>
+        <a href="#STAY_COMPARATOR"><span>16</span> Stay Comparator</a>
+        <a href="#AI_TRIP_PLANNER"><span>17</span> AI Trip Planner</a>
+        <a href="#BEACH_FINDER_QUIZ"><span>18</span> Beach Finder Quiz</a>
+        <a href="#LOCAL_VOICES"><span>19</span> Local Voices</a>
+        <a href="#STATS_BAND"><span>20</span> Stats Band</a>
+        <a href="#PULL_QUOTE"><span>21</span> Pull Quote</a>
+        <a href="#FAQ_BLOCK"><span>22</span> FAQ Accordion</a>
+        <a href="#CTA_BAND"><span>23</span> CTA Band</a>
+        <a href="#CTA_NEWSLETTER"><span>24</span> CTA · Newsletter</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Cards &amp; Listings</h3>
+      <div class="lib-toc__grid">
+        <a href="#EDITORIAL_CARD"><span>25</span> Editorial Card</a>
+        <a href="#ZONE_CARD"><span>26</span> Zone / Community Card</a>
+        <a href="#CATEGORY_CARD"><span>27</span> Category / Trip Card</a>
+        <a href="#BEACH_CARD"><span>28</span> Beach Card</a>
+        <a href="#LISTING_CARD"><span>29</span> Listing Card</a>
+        <a href="#EVENT_CARD"><span>30</span> Event Card</a>
+      </div>
+    </div>
+
+    <div class="lib-toc__group">
+      <h3>Forms &amp; Filters</h3>
+      <div class="lib-toc__grid">
+        <a href="#FILTER_BAR"><span>31</span> Filter Bar</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================== BODY ============================== -->
+  <div class="lib-body">
+
+    <!-- ============================== SITE CHROME ============================== -->
+    <div class="lib-section-head">
+      <h2>Site Chrome</h2>
+      <p>Page-level containers and wayfinding — present on every wireframe.</p>
+    </div>
+
+    <!-- 01. Announcement Bar -->
+    <div class="comp" id="ANNOUNCE_BAR">
+      <div class="comp__eyebrow">Component 01</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Announcement Bar</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span><span class="lib-label">Conditional</span></div>
+      <p class="comp__desc">Top-of-page urgent message. Shown only when an active announcement exists — hurricane recovery, travel advisories, beach closures. Sits above the site header in normal flow.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="announce">Hurricane recovery update — area is open for visitors. <a href="#">Read the full update</a></div>
+      </div>
+    </div>
+
+    <!-- 02. Site Header -->
+    <div class="comp" id="SITE_HEADER">
+      <div class="comp__eyebrow">Component 02</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Site Header</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span><span class="lib-label">Sticky</span></div>
+      <p class="comp__desc">Sticky two-bar header — utility row above, brand + primary nav + Plan-Your-Trip CTA below. Slides off on scroll-down past 100px and slides back in on scroll-up. Mobile collapses primary nav into a hamburger drawer.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="utility-bar"><a href="#">Travel Guide</a><a href="#">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a></div>
+        <div class="container header-row" style="background:#fff">
+          <div class="brandmark"><span class="brandmark__sun"></span><span class="brandmark__words">Bradenton Gulf Islands<small>Florida's West Coast</small></span></div>
+          <nav class="primary-nav"><a>Discover</a><a>Beaches</a><a>See &amp; Do</a><a>Eat &amp; Drink</a><a>Stay</a><a>Plan</a><a>Events</a></nav>
+          <div class="header-cta"><span class="search-stub">⌕</span><a class="btn btn--sm">Plan Your Trip</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03. Utility Nav -->
+    <div class="comp" id="UTILITY_NAV">
+      <div class="comp__eyebrow">Component 03</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Utility Nav</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Top utility row of the site header. Flat links only — Travel Guide, Guides &amp; Stories, Love It Like A Local, Newsletter, Partners, Contact. Per the FY27 IA, utility nav has no children.</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="utility-bar"><a href="#">Travel Guide</a><a href="#">Guides &amp; Stories</a><a href="#">Love It Like A Local</a><a href="#">Newsletter</a><a href="#">Partners</a><a href="#">Contact</a></div>
+      </div>
+    </div>
+
+    <!-- 04. Primary Nav -->
+    <div class="comp" id="PRIMARY_NAV">
+      <div class="comp__eyebrow">Component 04</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Primary Nav</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Eight visitor-decision sections in journey order: Discover · Beaches · See &amp; Do · Eat &amp; Drink · Stay · Plan · Events. (Guides &amp; Stories lives in utility per the FY27 sitemap restructure.)</p>
+      <div class="comp__demo">
+        <nav class="primary-nav" style="justify-content:flex-start"><a class="is-active">Discover</a><a>Beaches</a><a>See &amp; Do</a><a>Eat &amp; Drink</a><a>Stay</a><a>Plan</a><a>Events</a></nav>
+      </div>
+    </div>
+
+    <!-- 05. Breadcrumbs -->
+    <div class="comp" id="BREADCRUMBS">
+      <div class="comp__eyebrow">Component 05</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Breadcrumbs</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Sits at the top of every interior compact-hero, before the kicker. Two- or three-level depth.</p>
+      <div class="comp__demo">
+        <nav class="crumbs"><a>Home</a><span>›</span><a>See &amp; Do</a><span>›</span><span>Outdoor Adventures</span></nav>
+      </div>
+    </div>
+
+    <!-- 06. Sub Nav -->
+    <div class="comp" id="SUB_NAV">
+      <div class="comp__eyebrow">Component 06</div>
+      <div class="comp__name-row">
+        <div class="comp__name">In-Page Sub Nav</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">Chip rail of section anchors used on long hub pages (Discover, Plan, Beaches). Lets visitors jump within the page without scrolling.</p>
+      <div class="comp__demo">
+        <div class="filter-bar">
+          <span class="filter-bar__label">In this section</span>
+          <a class="chip">About</a>
+          <a class="chip">Communities</a>
+          <a class="chip">FAQ</a>
+          <a class="chip">Spring Training</a>
+          <a class="chip">Robinson Preserve</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07. Site Footer -->
+    <div class="comp" id="SITE_FOOTER">
+      <div class="comp__eyebrow">Component 07</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Site Footer</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Site Chrome</span></div>
+      <p class="comp__desc">5-column dark footer — brand block, Explore, Plan, Other Sites (sub-brand microsites &amp; listings), Industry. Per the FY27 IA: sub-brands are footer links, not primary nav entries.</p>
+      <div class="comp__demo comp__demo--bare">
+        <footer class="site-footer" style="margin-top:0;padding-top:48px">
+          <div class="container">
+            <div class="footer-grid">
+              <div class="footer-col"><div class="brandmark"><span class="brandmark__sun" style="border-color:#fff"></span><span class="brandmark__words" style="color:#fff">Bradenton Gulf Islands<small style="color:#888">Florida's West Coast</small></span></div></div>
+              <div class="footer-col"><h4>Explore</h4><ul><li><a>Discover</a></li><li><a>Beaches</a></li><li><a>See &amp; Do</a></li><li><a>Eat &amp; Drink</a></li><li><a>Stay</a></li></ul></div>
+              <div class="footer-col"><h4>Plan</h4><ul><li><a>Plan Your Trip</a></li><li><a>Travel Guide</a></li><li><a>Ferry Guide</a></li><li><a>Events</a></li></ul></div>
+              <div class="footer-col"><h4>Other Sites</h4><ul><li><a>Meetings &amp; Conventions</a></li><li><a>Premier Sports Campus</a></li><li><a>Powel Crosley Estate</a></li><li><a>Listings Directory</a></li></ul></div>
+              <div class="footer-col"><h4>Industry</h4><ul><li><a>Partners</a></li><li><a>Media Resources</a></li><li><a>Film &amp; Permitting</a></li><li><a>Newsletter</a></li><li><a>Contact</a></li></ul></div>
+            </div>
+            <div class="footer-meta"><span>© 2026 Bradenton Area CVB</span><span><a>Privacy</a> · <a>Terms</a> · <a>Accessibility</a></span></div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <!-- ============================== HEROES ============================== -->
+    <div class="lib-section-head">
+      <h2>Hero &amp; Page Lead</h2>
+      <p>Three hero variants for the leisure site — chosen by page type.</p>
+    </div>
+
+    <!-- 08. Hero · Trip-Style Selector -->
+    <div class="comp" id="HERO_TRIP_SELECTOR">
+      <div class="comp__eyebrow">Component 08</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Hero · Trip-Style Selector</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Hero</span><span class="lib-label">Home only</span></div>
+      <p class="comp__desc">Full-bleed home hero with the brand identity statement and a floating "What kind of trip?" chip rail. The chips set a personalization filter for the rest of the home page (and ultimately drive curated landing experiences).</p>
+      <div class="comp__demo comp__demo--bare">
+        <div class="demo-clip">
+          <section class="hero hero--full" style="min-height:520px">
+            <div class="container hero__inner">
+              <span class="hero__kicker">Real. Authentic. Florida.™</span>
+              <h1 class="hero__headline" style="font-size:56px">Find your slice of paradise on Florida's West Coast.</h1>
+              <p class="hero__sub">Sugar-white sand. Turquoise water. The easy pace of island life — and a downtown energized with arts, culture, and Floribbean flavors.</p>
+              <div class="hero__ctas"><a class="btn btn--lg">Start planning</a><a class="btn btn--lg btn--ghost">Explore the beaches</a></div>
+            </div>
+            <div class="trip-selector"><div class="trip-selector__inner"><span class="trip-selector__label">What kind of trip?</span><div class="trip-selector__chips"><span class="chip">Beach Escape</span><span class="chip">Family Week</span><span class="chip">Nature</span><span class="chip">Food &amp; Fishing</span><span class="chip">Arts &amp; Downtown</span><span class="chip">Romantic Weekend</span></div></div></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09. Hero · Compact -->
+    <div class="comp" id="HERO_COMPACT">
+      <div class="comp__eyebrow">Component 09</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Hero · Compact</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Hero</span><span class="lib-label">Interior pages</span></div>
+      <p class="comp__desc">Interior-page lead. Breadcrumbs → kicker → headline → sub-deck. No CTA stack — the page itself drives action.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="hero hero--compact"><div class="container hero__inner">
+          <nav class="crumbs"><a>Home</a><span>›</span><span>Beaches</span></nav>
+          <span class="hero__kicker">Sugar-white sand. Turquoise water.</span>
+          <h1 class="hero__headline" style="font-size:48px">Seven miles of unspoiled Gulf beaches.</h1>
+          <p class="hero__sub">From the working pier at Anna Maria to the quiet end of Longboat Key — the beaches here are low-rise, low-key, and the kind that ruin you for everywhere else.</p>
+        </div></section>
+      </div>
+    </div>
+
+    <!-- 10. Hero · Plan -->
+    <div class="comp" id="HERO_PLAN">
+      <div class="comp__eyebrow">Component 10</div>
+      <div class="comp__name-row">
+        <div class="comp__name">Hero · Plan</div>
+        <a href="#top" class="comp__back">Back to top ↑</a>
+      </div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Hero</span><span class="lib-label">Plan hub</span></div>
+      <p class="comp__desc">Variant of the compact hero used on Plan Your Trip. Same structure, slightly more utilitarian voice.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="hero hero--compact"><div class="container hero__inner">
+          <nav class="crumbs"><a>Home</a><span>›</span><span>Plan Your Trip</span></nav>
+          <span class="hero__kicker">Plan your escape</span>
+          <h1 class="hero__headline" style="font-size:48px">Tell us what you want. We'll line up the rest.</h1>
+          <p class="hero__sub">Itineraries, the official Travel Guide, the ferry guide, the trolley map, airline routes — all the planning utility in one place.</p>
+        </div></section>
+      </div>
+    </div>
+
+    <!-- ============================== MODULES ============================== -->
+    <div class="lib-section-head">
+      <h2>Modules</h2>
+      <p>Reusable section blocks. Combined to build hub pages and category landings.</p>
+    </div>
+
+    <!-- 11. Trip Style Cards -->
+    <div class="comp" id="TRIP_STYLE_CARDS">
+      <div class="comp__eyebrow">Component 11</div>
+      <div class="comp__name-row"><div class="comp__name">Trip-Style Cards</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">8-up grid of image-led trip-style tiles. Each card sets a context for further browsing and connects to the AI Trip Planner suggestions.</p>
+      <div class="comp__demo">
+        <div class="grid grid--4">
+          <a class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Beach Escape</span><span class="trip-card__sub">Toes in the sand, sunset in the sky.</span></div></a>
+          <a class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Family Week</span><span class="trip-card__sub">Beaches, ferry rides, ice cream.</span></div></a>
+          <a class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Nature &amp; Wildlife</span><span class="trip-card__sub">Robinson Preserve, kayaks, manatees.</span></div></a>
+          <a class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Food &amp; Fishing</span><span class="trip-card__sub">Cortez heritage, Floribbean tables.</span></div></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12. Map Module -->
+    <div class="comp" id="MAP_MODULE">
+      <div class="comp__eyebrow">Component 12</div>
+      <div class="comp__name-row"><div class="comp__name">Interactive Illustrated Map</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Inspiration concept</span></div>
+      <p class="comp__desc">Filterable destination map with every community pinned. Filters: All · Beaches · Food · Nature · Arts · Family · Stay · Transit. Top inspiration concept from the FY27 strategy doc.</p>
+      <div class="comp__demo">
+        <div class="map-module">
+          <div class="map-module__bg"></div>
+          <div class="map-module__filters"><span class="chip">All</span><span class="chip">Beaches</span><span class="chip">Food</span><span class="chip">Nature</span><span class="chip">Stay</span></div>
+          <span class="map-module__pin" data-name="Anna Maria" style="top:22%;left:18%">1</span>
+          <span class="map-module__pin" data-name="Bradenton Beach" style="top:46%;left:24%">2</span>
+          <span class="map-module__pin" data-name="Cortez" style="top:54%;left:34%">3</span>
+          <span class="map-module__pin" data-name="Riverwalk" style="top:50%;left:60%">4</span>
+          <span class="map-module__pin" data-name="Lakewood Ranch" style="top:58%;left:82%">5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13. Zone Grid -->
+    <div class="comp" id="ZONE_GRID">
+      <div class="comp__eyebrow">Component 13</div>
+      <div class="comp__name-row"><div class="comp__name">Zone / Communities Grid</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">3-up zone cards used on home, Stay, and Discover. Surfaces the destination-zone framework — Anna Maria, Cortez, Longboat, Riverwalk, etc.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Island</span><h3 class="zone-card__title">Anna Maria Island</h3><p>Low-rise, low-key, all-Florida.</p><div class="zone-card__tags"><span class="tag">Beach</span><span class="tag">Walkable</span></div></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Fishing village</span><h3 class="zone-card__title">Cortez</h3><p>One of Florida's last working waterfronts.</p><div class="zone-card__tags"><span class="tag">Heritage</span><span class="tag">Seafood</span></div></div></article>
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Downtown</span><h3 class="zone-card__title">Bradenton Riverwalk</h3><p>Galleries, the Bishop, riverfront tables.</p><div class="zone-card__tags"><span class="tag">Arts</span><span class="tag">Family</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 14. Ferry Spotlight -->
+    <div class="comp" id="FERRY_SPOTLIGHT">
+      <div class="comp__eyebrow">Component 14</div>
+      <div class="comp__name-row"><div class="comp__name">Ferry Spotlight</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Reusable</span></div>
+      <p class="comp__desc">Image+pull module reused for spotlights across the site (Ferry, Floribbean, Travel Guide, Accessibility). Two-column layout — image on the left, headline + body + dual CTAs on the right.</p>
+      <div class="comp__demo">
+        <div class="ferry-spot">
+          <div class="ph ferry-spot__media"></div>
+          <div class="ferry-spot__body">
+            <span class="eyebrow eyebrow--stencil">Gulf Islands Ferry</span>
+            <p class="ferry-spot__pull">Park once. Ride the water. Explore the island.</p>
+            <p>Skip the bridge traffic and let the Manatee do the work — a 45-minute crossing that's part of the trip, not a chore on the way to it.</p>
+            <div class="hero__ctas"><a class="btn">See the ferry guide</a><a class="link-arrow">Schedule &amp; Perks Pass</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 15. Featured Itinerary -->
+    <div class="comp" id="FEATURED_ITINERARY">
+      <div class="comp__eyebrow">Component 15</div>
+      <div class="comp__name-row"><div class="comp__name">Featured Itinerary</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Day-by-day itinerary feature with image, day list, and Save / See full plan CTAs.</p>
+      <div class="comp__demo">
+        <div class="itin">
+          <div>
+            <span class="eyebrow eyebrow--stencil">Featured itinerary</span>
+            <h2 class="display-md" style="font-size:28px">3 Days: Island Beaches, Old Florida &amp; Downtown Bradenton.</h2>
+            <p>The crowd-tested loop for first-time visitors who want a beach week without missing the heritage, the food, or the river.</p>
+            <div class="itin__days">
+              <div class="itin__day"><strong>Day 01</strong><span>Anna Maria Island, sunset on Bridge Street</span></div>
+              <div class="itin__day"><strong>Day 02</strong><span>Cortez seafood, Robinson Preserve, ferry to Riverwalk</span></div>
+              <div class="itin__day"><strong>Day 03</strong><span>Bishop Museum, downtown brunch, Longboat afternoon</span></div>
+            </div>
+          </div>
+          <div class="ph ph--3x4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 16. Stay Comparator -->
+    <div class="comp" id="STAY_COMPARATOR">
+      <div class="comp__eyebrow">Component 16</div>
+      <div class="comp__name-row"><div class="comp__name">Stay Comparator</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Decision support</span></div>
+      <p class="comp__desc">Where-should-I-stay decision support — compares Anna Maria, Longboat Key, Downtown / Riverwalk, and Lakewood Ranch on best-for, vibe, need-a-car, beach feel.</p>
+      <div class="comp__demo">
+        <div class="compare-table">
+          <div class="compare-table__cell compare-table__head">Anna Maria Island</div>
+          <div class="compare-table__cell compare-table__head">Longboat Key</div>
+          <div class="compare-table__cell compare-table__head">Downtown / Riverwalk</div>
+          <div class="compare-table__cell compare-table__head">Lakewood Ranch</div>
+          <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Low-rise, sandy, casual</div>
+          <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Quiet, manicured, coastal-formal</div>
+          <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Riverfront energy, art &amp; food</div>
+          <div class="compare-table__cell compare-table__row"><strong>Vibe</strong>Inland, contemporary, family</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 17. AI Trip Planner -->
+    <div class="comp" id="AI_TRIP_PLANNER">
+      <div class="comp__eyebrow">Component 17</div>
+      <div class="comp__name-row"><div class="comp__name">AI Trip Planner</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Inspiration concept</span></div>
+      <p class="comp__desc">Free-text planning prompt that generates a starter itinerary. Suggested chips below seed the prompt for first-time visitors.</p>
+      <div class="comp__demo">
+        <div class="planner">
+          <span class="eyebrow eyebrow--stencil">Build my trip</span>
+          <h2 class="display-md" style="font-size:24px">Tell us what you want — we'll line up the rest.</h2>
+          <form class="planner__input" onsubmit="return false">
+            <input type="text" placeholder="Plan a 4-day beach trip with two teens, seafood, and no rental car…">
+            <button type="submit">Plan it</button>
+          </form>
+          <div class="planner__suggested"><span class="chip">Quiet beach weekend</span><span class="chip">Family with kids 6–10</span><span class="chip">Rainy day options</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 18. Beach Finder Quiz -->
+    <div class="comp" id="BEACH_FINDER_QUIZ">
+      <div class="comp__eyebrow">Component 18</div>
+      <div class="comp__name-row"><div class="comp__name">Beach Finder Quiz</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Beaches hub only</span></div>
+      <p class="comp__desc">Decision-support module on the Beaches hub. Three-tap match — vibe → community → amenity → beach recommendation with the right parking lot and a place to eat after.</p>
+      <div class="comp__demo">
+        <div class="planner">
+          <span class="eyebrow eyebrow--stencil">Beach finder</span>
+          <h2 class="display-md" style="font-size:24px">Pick your beach in three taps.</h2>
+          <div class="planner__suggested"><span class="chip">Family with kids</span><span class="chip">Quiet stretch</span><span class="chip">Best sunset</span><span class="chip">Pet friendly</span><span class="chip">Walkable to food</span><span class="chip">Accessible</span></div>
+          <div><a class="btn">Find my beach</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 19. Local Voices -->
+    <div class="comp" id="LOCAL_VOICES">
+      <div class="comp__eyebrow">Component 19</div>
+      <div class="comp__name-row"><div class="comp__name">Local Voices ("Local Color")</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Brand · Local Color</span></div>
+      <p class="comp__desc">4-up portrait + quote module — chefs, captains, naturalists, photographers. Connects to the brand's "Local Color" series.</p>
+      <div class="comp__demo">
+        <div class="voices">
+          <article class="voice"><div class="ph voice__media"></div><p class="voice__quote">"The water tells you when it's time to come in."</p><span class="voice__name">Captain Ana</span><span class="voice__role">Charter Captain · Cortez</span></article>
+          <article class="voice"><div class="ph voice__media"></div><p class="voice__quote">"If it wasn't swimming this morning, it isn't on the menu tonight."</p><span class="voice__name">Chef Mateo</span><span class="voice__role">Bridge Street</span></article>
+          <article class="voice"><div class="ph voice__media"></div><p class="voice__quote">"Mangrove tunnels are a different planet at low tide."</p><span class="voice__name">Naturalist Paige</span><span class="voice__role">Robinson Preserve</span></article>
+          <article class="voice"><div class="ph voice__media"></div><p class="voice__quote">"Riverwalk at golden hour, every time."</p><span class="voice__name">Devon</span><span class="voice__role">Photographer</span></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 20. Stats Band -->
+    <div class="comp" id="STATS_BAND">
+      <div class="comp__eyebrow">Component 20</div>
+      <div class="comp__name-row"><div class="comp__name">Stats Band</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">4-up quick-fact band, bordered top + bottom. Supports superscripts (e.g. minutes, miles).</p>
+      <div class="comp__demo">
+        <div class="stats">
+          <div class="stat"><div class="stat__num">9</div><div class="stat__label">Communities</div></div>
+          <div class="stat"><div class="stat__num">7+</div><div class="stat__label">Miles of beach</div></div>
+          <div class="stat"><div class="stat__num">487</div><div class="stat__label">Acres of preserve</div></div>
+          <div class="stat"><div class="stat__num">45<sup>min</sup></div><div class="stat__label">River-to-island ferry</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 21. Pull Quote -->
+    <div class="comp" id="PULL_QUOTE">
+      <div class="comp__eyebrow">Component 21</div>
+      <div class="comp__name-row"><div class="comp__name">Pull Quote</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Editorial pause moment between dense modules. Used on category and editorial pages.</p>
+      <div class="comp__demo">
+        <div class="pullquote" style="margin:0">
+          <p>"There's a reason locals don't really talk about the Bishop. Once you've been, you stop comparing it."</p>
+          <cite>— from "A weekend that doesn't touch sand"</cite>
+        </div>
+      </div>
+    </div>
+
+    <!-- 22. FAQ Block -->
+    <div class="comp" id="FAQ_BLOCK">
+      <div class="comp__eyebrow">Component 22</div>
+      <div class="comp__name-row"><div class="comp__name">FAQ Accordion</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Native &lt;details&gt;-based accordion. Open / closed indicator on the right.</p>
+      <div class="comp__demo">
+        <div class="faq">
+          <details open><summary>Do I need a car?</summary><p>Not always. The Gulf Islands Ferry, the Anna Maria trolley, and a tight downtown make car-light trips genuinely doable.</p></details>
+          <details><summary>What's the best beach for families?</summary><p>Coquina Beach in Bradenton Beach for facilities; Manatee Public Beach in Holmes Beach for a more local feel.</p></details>
+          <details><summary>What is "Floribbean" and where do I eat it?</summary><p>The fusion of Floridian and Caribbean flavors built around fresh local seafood. Cortez Village and Bridge Street are the best places to start.</p></details>
+        </div>
+      </div>
+    </div>
+
+    <!-- 23. CTA Band -->
+    <div class="comp" id="CTA_BAND">
+      <div class="comp__eyebrow">Component 23</div>
+      <div class="comp__name-row"><div class="comp__name">CTA Band</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span></div>
+      <p class="comp__desc">Black band immediately above the footer. Closing CTA for category and hub pages.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="cta-band" style="padding:48px 0">
+          <div class="container"><div class="cta-band__row">
+            <div><span class="eyebrow" style="color:#9a9a9a">Almost there</span><h2 class="display-md" style="color:#fff;margin-top:6px;font-size:28px">Plan the rest of the trip.</h2></div>
+            <a class="btn">Open the trip planner</a>
+          </div></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- 24. CTA Newsletter -->
+    <div class="comp" id="CTA_NEWSLETTER">
+      <div class="comp__eyebrow">Component 24</div>
+      <div class="comp__name-row"><div class="comp__name">CTA · Newsletter Band</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Module</span><span class="lib-label">Form</span></div>
+      <p class="comp__desc">Newsletter variant of the CTA band — heading + inline email-capture form. Used on home and high-traffic editorial pages.</p>
+      <div class="comp__demo comp__demo--bare">
+        <section class="cta-band" style="padding:48px 0">
+          <div class="container"><div class="cta-band__row">
+            <div><span class="eyebrow" style="color:#9a9a9a">Stay connected</span><h2 class="display-md" style="color:#fff;margin-top:6px;font-size:28px">More ways to experience Real. Authentic. Florida.™</h2></div>
+            <form class="newsletter-form" onsubmit="return false"><input type="email" placeholder="your@email.com"><button>Subscribe</button></form>
+          </div></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- ============================== CARDS ============================== -->
+    <div class="lib-section-head">
+      <h2>Cards &amp; Listings</h2>
+      <p>Repeating units used inside grids, lists, and feeds.</p>
+    </div>
+
+    <!-- 25. Editorial Card -->
+    <div class="comp" id="EDITORIAL_CARD">
+      <div class="comp__eyebrow">Component 25</div>
+      <div class="comp__name-row"><div class="comp__name">Editorial Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Standard editorial article card — image, eyebrow, headline, excerpt, read-time meta. Used in Guides &amp; Stories.</p>
+      <div class="comp__demo">
+        <div class="grid grid--3">
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Old Florida</span><h3 class="card__title">A first-timer's guide to Anna Maria Island.</h3><p class="card__excerpt">Where to park, when to go, and the streets the locals would actually point you to.</p><span class="card__meta">8 min read</span></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Eat &amp; Drink</span><h3 class="card__title">Floribbean 101 — the only food guide you need.</h3><p class="card__excerpt">Conch fritters, key lime, hogfish, and the Cortez seafood you can't get anywhere else.</p><span class="card__meta">6 min read</span></article>
+          <article class="card"><div class="ph ph--16x9 card__media"></div><span class="card__eyebrow">Plan</span><h3 class="card__title">Yes, you can do this trip car-light. Here's how.</h3><p class="card__excerpt">The ferry, the trolley, the rideshares, and the small concessions you'll trade for the freedom.</p><span class="card__meta">5 min read</span></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 26. Zone Card -->
+    <div class="comp" id="ZONE_CARD">
+      <div class="comp__eyebrow">Component 26</div>
+      <div class="comp__name-row"><div class="comp__name">Zone / Community Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Bordered card with media, eyebrow, title, body, and inline tag pills. Atomic unit of the Zone Grid module.</p>
+      <div class="comp__demo">
+        <div style="max-width:320px">
+          <article class="zone-card"><div class="ph zone-card__media"></div><div class="zone-card__body"><span class="card__eyebrow">Island village</span><h3 class="zone-card__title">Bradenton Beach &amp; Bridge Street</h3><p>Bridge Street energy: dining, shops, and the ferry that takes you straight to the Riverwalk.</p><div class="zone-card__tags"><span class="tag">Dining</span><span class="tag">Ferry</span><span class="tag">Nightlife</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 27. Category / Trip Card -->
+    <div class="comp" id="CATEGORY_CARD">
+      <div class="comp__eyebrow">Component 27</div>
+      <div class="comp__name-row"><div class="comp__name">Category / Trip Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Image-led tile with overlay headline. Used by the Trip-Style Cards module and on category-hub pages (See &amp; Do, Eat &amp; Drink, Stay).</p>
+      <div class="comp__demo">
+        <div style="max-width:320px">
+          <a class="trip-card"><div class="trip-card__inner"><span class="trip-card__title">Floribbean</span><span class="trip-card__sub">The fusion built here.</span></div></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 28. Beach Card -->
+    <div class="comp" id="BEACH_CARD">
+      <div class="comp__eyebrow">Component 28</div>
+      <div class="comp__name-row"><div class="comp__name">Beach Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span><span class="lib-label">Beaches hub only</span></div>
+      <p class="comp__desc">Beach name + best-for + parking row. Used on the Beaches hub and beach-related sub-category pages.</p>
+      <div class="comp__demo">
+        <div style="max-width:320px">
+          <article class="beach-card"><div class="ph ph--4x3"></div><span class="card__eyebrow">Bradenton Beach</span><h3 class="card__title">Coquina Beach</h3><p class="card__excerpt">Long stretch, big lots, pavilion grills.</p><div class="beach-card__row"><span><strong>Best for</strong> Big day</span><span><strong>Parking</strong> Large lots</span></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 29. Listing Card -->
+    <div class="comp" id="LISTING_CARD">
+      <div class="comp__eyebrow">Component 29</div>
+      <div class="comp__name-row"><div class="comp__name">Listing Card (Business)</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Horizontal listing card — square media on the left, eyebrow + name + excerpt + meta on the right. Used across See &amp; Do, Eat &amp; Drink, and Stay.</p>
+      <div class="comp__demo">
+        <div style="max-width:520px">
+          <article class="listing-card"><div class="ph listing-card__media"></div><div><span class="card__eyebrow">Floribbean · Bridge Street</span><h3 class="listing-card__title">The Reef House</h3><p class="card__excerpt">Hogfish, key lime pie, and a deck over the pass.</p><div class="listing-card__meta"><span>$$</span><span>Date night</span><span>★ 4.7</span></div></div></article>
+        </div>
+      </div>
+    </div>
+
+    <!-- 30. Event Card -->
+    <div class="comp" id="EVENT_CARD">
+      <div class="comp__eyebrow">Component 30</div>
+      <div class="comp__name-row"><div class="comp__name">Event Card</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Card</span></div>
+      <p class="comp__desc">Date block + title + meta + details link. Used in event lists on the home page and Events.</p>
+      <div class="comp__demo">
+        <div style="max-width:560px">
+          <div class="event-card"><div class="event-card__date"><strong>14</strong><span>JUN</span></div><div><h3 class="event-card__title">Cortez Stone Crab Festival</h3><p class="event-card__meta">Sat · Cortez Village · Free</p></div><a class="link-arrow">Details</a></div>
+          <div class="event-card"><div class="event-card__date"><strong>15</strong><span>JUN</span></div><div><h3 class="event-card__title">Bridge Street Sunset Market</h3><p class="event-card__meta">Sun · Bradenton Beach · 4–9pm</p></div><a class="link-arrow">Details</a></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== FORMS ============================== -->
+    <div class="lib-section-head">
+      <h2>Forms &amp; Filters</h2>
+      <p>Inputs across the site.</p>
+    </div>
+
+    <!-- 31. Filter Bar -->
+    <div class="comp" id="FILTER_BAR">
+      <div class="comp__eyebrow">Component 31</div>
+      <div class="comp__name-row"><div class="comp__name">Filter Bar</div><a href="#top" class="comp__back">Back to top ↑</a></div>
+      <div class="comp__pill-row"><span class="lib-label">BGI Leisure</span><span class="lib-label">Form</span></div>
+      <p class="comp__desc">Selects + chip rail used on category, beaches, events, and other listing-driven pages. Combines view-toggles (Map / List) with active filters.</p>
+      <div class="comp__demo">
+        <div class="filter-bar">
+          <span class="filter-bar__label">Filter</span>
+          <select><option>All categories</option><option>Outdoor</option><option>Arts</option></select>
+          <select><option>All communities</option><option>Anna Maria</option><option>Downtown</option></select>
+          <select><option>Best for…</option><option>Family</option><option>Date night</option></select>
+          <span class="chip">Map view</span>
+          <span class="chip">List view</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.lib-body -->
+
+  <div class="label-toggle"><div class="label-toggle__switch is-on" role="button" tabindex="0" aria-label="Toggle component labels"><div class="label-toggle__knob"></div></div><a class="label-toggle__link" href="project-components.html">BGI Leisure</a></div>
+  <script src="../assets/js/labels.js"></script>
+</body>
+</html>
