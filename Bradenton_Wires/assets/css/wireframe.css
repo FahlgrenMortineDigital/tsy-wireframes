@@ -287,11 +287,12 @@ header.site-header,
 .site-header.site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   background: #fff;
   border-bottom: 1px solid var(--line-soft);
   transition: transform 0.3s ease;
   will-change: transform;
+  overflow: visible;
 }
 header.site-header.header--hidden,
 .site-header.site-header.header--hidden { transform: translateY(-100%); }
@@ -440,13 +441,16 @@ body.meetings .brandmark__words {
   max-width: 14ch;
 }
 body.meetings .primary-nav a {
-  /* Meetings labels are longer (CONVENTION CENTER SERVICES, EVENT
-     HOSTING & LODGING) — smaller size so all five fit at common
-     desktop widths. Medium weight, pure black. */
+  /* Meetings labels are longer — smaller size, weight 600.
+     macOS -webkit-font-smoothing: antialiased (set on body) renders
+     Quasimoda thinner than it should; overriding to subpixel here
+     plus weight 600 commits to actually-black on screen. */
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.04em;
   color: #000;
+  -webkit-font-smoothing: subpixel-antialiased;
+  -moz-osx-font-smoothing: auto;
   max-width: 12ch;
 }
 .primary-nav a:hover { color: var(--ink-3); }
@@ -483,24 +487,27 @@ body.meetings .primary-nav a {
   position: absolute;
   top: 100%;
   left: -16px;
-  margin-top: 6px;
-  min-width: 240px;
+  margin-top: 12px;
+  min-width: 260px;
   background: #fff;
   border: 1px solid var(--line-soft);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-  padding: 8px 0;
-  z-index: 60;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  padding: 10px 0;
+  /* High z-index to clear the hero / next-section stacking that
+     was clipping the panel content. */
+  z-index: 500;
 }
 .primary-nav__item.has-children:hover > .primary-nav__panel,
 .primary-nav__item.has-children:focus-within > .primary-nav__panel {
   display: block;
 }
-/* Hover bridge — keeps panel open when cursor crosses the gap */
+/* Hover bridge — keeps panel open when cursor crosses the gap. Uses
+   a higher z-index than the panel so the bridge is on top. */
 .primary-nav__item.has-children:hover::after {
   content: '';
   position: absolute;
-  top: 100%; left: 0; right: 0; height: 6px;
-  z-index: 59;
+  top: 100%; left: -16px; right: -16px; height: 14px;
+  z-index: 499;
 }
 .primary-nav__panel a {
   display: block;
