@@ -3,11 +3,40 @@
    Greyscale only. Brand differentiation through type & voice.
    ============================================================ */
 
-/* --- Web fonts (free Google Fonts substituted for licensed brand fonts):
-   Leisure primary (Lifehack Sans -> Hanken Grotesk)
-   Leisure stylized accent (Melburch Stamp -> Stardos Stencil)
-   Meetings primary (Quasimoda -> Sora)                                */
 @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=Stardos+Stencil:wght@400;700&display=swap');
+
+/* --- Brand-spec fonts (per BACVB Brand Guidelines).
+   Leisure: Lifehack Sans Regular/Medium/Bold + Melburch Stamp accent.
+   Meetings: Quasimoda not provided; still falling back to Google Sora.
+   Google Fonts kept above as fallback if the brand .otf files miss. */
+@font-face {
+  font-family: 'Lifehack Sans';
+  src: url('../fonts/LifehackSans-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lifehack Sans';
+  src: url('../fonts/LifehackSans-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Lifehack Sans';
+  src: url('../fonts/LifehackSans-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Melburch Stamp';
+  src: url('../fonts/MelburchStamp.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ============================================================
    RESET / BASE
@@ -45,11 +74,14 @@ input, textarea, select { font: inherit; color: inherit; }
   --label-fg:   #ffffff;
   --label-accent: #ff5e3a; /* used ONLY for component-label overlay outlines */
 
-  /* Type defaults */
+  /* Type defaults — brand-spec fonts.
+     Leisure: Lifehack Sans + Melburch Stamp (.otf installed locally).
+     Meetings: Quasimoda (Adobe Fonts — must be activated on viewer's
+     machine; Sora is the public-web fallback). */
   --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-display: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
-  --font-stencil: 'Stardos Stencil', 'Hanken Grotesk', sans-serif;
-  --font-meetings: 'Sora', 'Helvetica Neue', sans-serif;
+  --font-display: 'Lifehack Sans', 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --font-stencil: 'Melburch Stamp', 'Stardos Stencil', 'Hanken Grotesk', sans-serif;
+  --font-meetings: 'Quasimoda', 'Sora', 'Helvetica Neue', sans-serif;
 
   /* Spacing */
   --s-1: 4px;
@@ -84,10 +116,10 @@ body {
 }
 
 body.leisure {
-  --font-display: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --font-display: 'Lifehack Sans', 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
 }
 body.meetings {
-  --font-display: 'Sora', 'Helvetica Neue', sans-serif;
+  --font-display: 'Quasimoda', 'Sora', 'Helvetica Neue', sans-serif;
   letter-spacing: 0.005em;
 }
 
@@ -349,8 +381,9 @@ body.meetings .brandmark__words {
 }
 .primary-nav__item { position: relative; }
 .primary-nav a {
-  /* Pinned font + size + tracking — identical on both sites. */
-  font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  /* Per-site brand display font (Lifehack Sans on leisure, Quasimoda
+     on meetings) at consistent size and tracking. */
+  font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.04em;
@@ -359,6 +392,7 @@ body.meetings .brandmark__words {
   padding: 6px 0;
   display: inline-block;
 }
+body.meetings .primary-nav a { letter-spacing: 0.06em; }
 .primary-nav a:hover { color: var(--ink-3); }
 
 /* Chevron on parent items that have a dropdown panel */
@@ -581,7 +615,7 @@ body.meetings .mobile-menu__brand .brandmark__words { font-size: 10px; letter-sp
   align-items: center;
   justify-content: space-between;
   padding: 18px 20px;
-  font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 700;
   color: var(--ink);
