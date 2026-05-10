@@ -1039,7 +1039,7 @@ body.meetings .site-footer h4 { letter-spacing: 0.2em; }
   background: var(--bg-soft);
 }
 .hero--full {
-  min-height: 78vh;
+  min-height: 80vh;
   display: flex;
   align-items: end;
   padding: var(--s-9) 0 var(--s-8);
@@ -2085,9 +2085,9 @@ body.meetings .cx-card__name { text-transform: uppercase; letter-spacing: 0.02em
 .trip-selector__select { display: none; }
 
 @media (max-width: 880px) {
-  /* HERO — block flow, full-width content, tighter padding */
+  /* HERO — keep at 80vh on mobile per spec; block flow, full width */
   .hero--full {
-    min-height: auto;
+    min-height: 80vh;
     padding: 32px 0 0;
     display: block;
   }
@@ -2130,13 +2130,23 @@ body.meetings .cx-card__name { text-transform: uppercase; letter-spacing: 0.02em
     background-repeat: no-repeat;
   }
 
-  /* TRIP STYLE CARDS — landscape, much shorter */
-  .trip-card { aspect-ratio: 16 / 10; }
-  .trip-card__inner { padding: 14px; justify-content: end; }
-  .trip-card__title { font-size: 17px; }
+  /* CARDS — ~20% shorter mobile aspect-ratios across the board.
+     Editorial card media (.card .ph--16x9) and standalone .ph--16x9
+     get a wider/shorter ratio. Trip / zone / beach / itinerary
+     visuals all reduced. Map intentionally STAYS portrait — pins
+     need height. */
+  .card .ph--16x9 { aspect-ratio: 16 / 7.2; }
+  .ph--16x9       { aspect-ratio: 16 / 7.2; }
+  .ph--4x3        { aspect-ratio: 16 / 8; }
+  .ph--3x4        { aspect-ratio: 16 / 9; max-height: 160px; }
+
+  /* TRIP STYLE CARDS — wider/shorter (was 16/10) */
+  .trip-card { aspect-ratio: 16 / 8; }
+  .trip-card__inner { padding: 12px; justify-content: end; }
+  .trip-card__title { font-size: 16px; }
   .trip-card__sub { font-size: 11px; }
 
-  /* MAP MODULE — portrait so the 10 pins + labels have headroom */
+  /* MAP MODULE — portrait STAYS for pin headroom */
   .map-module { aspect-ratio: 3 / 4; }
   .map-module__pin { width: 22px; height: 22px; font-size: 9px; }
   .map-module__pin::after { font-size: 9px; padding: 3px 6px; }
@@ -2147,60 +2157,69 @@ body.meetings .cx-card__name { text-transform: uppercase; letter-spacing: 0.02em
   .map-module__filters .chip { padding: 3px 8px; font-size: 10px; }
 
   /* ZONE / COMMUNITY CARDS — shorter media, tighter padding */
-  .zone-card__media { aspect-ratio: 16 / 9; }
-  .zone-card__body { padding: 14px; gap: 6px; }
-  .zone-card__title { font-size: 18px; }
+  .zone-card__media { aspect-ratio: 16 / 7.2; }
+  .zone-card__body { padding: 12px; gap: 4px; }
+  .zone-card__title { font-size: 17px; }
 
-  /* FEATURED ITINERARY — stack, cap visual height */
+  /* BEACH CARDS — stay compact, shorter media */
+  .beach-card .ph--4x3 { aspect-ratio: 16 / 8; }
+
+  /* EDITORIAL CARD — tighter padding */
+  .card { gap: 10px; }
+  .card__title { font-size: 17px; }
+
+  /* FEATURED ITINERARY — stack, smaller cap */
   .itin {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
   .itin .ph--3x4 {
     aspect-ratio: 16 / 9;
-    max-height: 200px;
+    max-height: 160px;
   }
-  .itin__day { padding: 10px 0; }
+  .itin__day { padding: 8px 0; }
 
   /* SECTION padding + heads tighter for less scrolling */
-  .section { padding: 40px 0; }
-  .section--tight { padding: 28px 0; }
-  .section-head { margin-bottom: 20px; gap: 12px; }
-  .section-head h2 { font-size: clamp(22px, 5.5vw, 30px); }
+  .section { padding: 32px 0; }
+  .section--tight { padding: 24px 0; }
+  .section-head { margin-bottom: 16px; gap: 10px; }
+  .section-head h2 { font-size: clamp(22px, 5.5vw, 28px); }
 
   /* GRID adjustments */
-  .grid--3, .grid--4 { gap: 12px; }
-  .grid--6 { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .grid--3, .grid--4 { gap: 10px; }
+  .grid--6 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 
   /* FERRY SPOTLIGHT / image+pull modules — stack tighter */
   .ferry-spot { grid-template-columns: 1fr; }
-  .ferry-spot__media { aspect-ratio: 16 / 9; max-height: 220px; }
-  .ferry-spot__body { padding: 24px; }
-  .ferry-spot__pull { font-size: 22px; }
+  .ferry-spot__media { aspect-ratio: 16 / 7.2; max-height: 176px; }
+  .ferry-spot__body { padding: 20px; }
+  .ferry-spot__pull { font-size: 20px; }
 
-  /* STATS BAND — 2-up on mobile, smaller numbers */
+  /* STATS BAND — 2-up, smaller numbers, tighter padding */
   .stats { grid-template-columns: repeat(2, 1fr); }
-  .stat { padding: 24px 12px; }
-  .stat__num { font-size: clamp(28px, 6vw, 40px); }
+  .stat { padding: 18px 10px; }
+  .stat__num { font-size: clamp(26px, 5.5vw, 36px); }
 
   /* CTA BAND — smaller heading + tighter padding */
-  .cta-band { padding: 40px 0; }
-  .cta-band h2 { font-size: 24px; }
-  .cta-band__row { gap: 16px; }
+  .cta-band { padding: 32px 0; }
+  .cta-band h2 { font-size: 22px; }
+  .cta-band__row { gap: 14px; }
 
-  /* VOICES — 2-up on mobile */
-  .voices { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .voice__media { width: 80px; height: 80px; align-self: start; }
+  /* VOICES — 2-up, smaller portraits */
+  .voices { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .voice__media { width: 64px; height: 64px; align-self: start; }
+  .voice__quote { font-size: 14px; }
 
   /* EVENT CARDS — tighter rows */
-  .event-card { padding: 12px 0; gap: 12px; }
-  .event-card__date { padding: 4px; min-width: 56px; }
-  .event-card__date strong { font-size: 18px; }
-  .event-card__title { font-size: 15px; }
+  .event-card { padding: 10px 0; gap: 10px; }
+  .event-card__date { padding: 4px; min-width: 48px; }
+  .event-card__date strong { font-size: 16px; }
+  .event-card__title { font-size: 14px; }
 
   /* LISTING CARDS — tighter */
-  .listing-card { padding: 12px; gap: 12px; }
-  .listing-card__title { font-size: 16px; }
+  .listing-card { padding: 10px; gap: 10px; }
+  .listing-card__title { font-size: 15px; }
+  .listing-card__media { max-width: 80px; }
 }
 
 @media (max-width: 540px) {
