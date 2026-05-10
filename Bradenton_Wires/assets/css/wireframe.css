@@ -510,17 +510,21 @@ body.meetings .primary-nav a {
   top: 100%; left: -16px; right: -16px; height: 14px;
   z-index: 499;
 }
-.primary-nav__panel a {
+/* Selectors prefixed with body so specificity matches the
+   body.meetings .primary-nav a rule (0,2,2). Plain
+   .primary-nav__panel a is only (0,1,1) and was losing the cascade. */
+body.leisure .primary-nav__panel a,
+body.meetings .primary-nav__panel a {
   display: block;
   width: 100%;
-  max-width: none;          /* override .primary-nav a max-width:14ch */
+  max-width: none;
   padding: 9px 18px;
   font-family: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
   font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.01em;
   color: var(--ink-2);
-  text-transform: none;     /* override .primary-nav a uppercase */
+  text-transform: none;
   text-align: left;
   white-space: nowrap;
 }
