@@ -269,6 +269,134 @@
     }
     .hero__locs span { color: var(--grey-700); }
 
+    /* ===== HERO VIDEO PLAYER ===== */
+    .hero__video {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .hero__video-main {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--grey-150);
+      border: 1px solid var(--grey-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .hero__video-main::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0; height: 0;
+      border-left: 28px solid var(--black);
+      border-top: 18px solid transparent;
+      border-bottom: 18px solid transparent;
+    }
+    .hero__video-main::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 84px; height: 84px;
+      border: 2px solid var(--black);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.65);
+      z-index: -1;
+    }
+    .hero__video-main-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero__video-main-label {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--grey-700);
+      background: var(--white);
+      padding: 4px 8px;
+      border: 1px solid var(--grey-300);
+    }
+    .hero__video-main-duration {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--white);
+      background: rgba(0,0,0,0.7);
+      padding: 3px 6px;
+    }
+    .hero__video-thumbs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .hero__video-thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background: var(--grey-100);
+      border: 1px solid var(--grey-300);
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      padding: 8px 10px;
+    }
+    .hero__video-thumb::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 0; height: 0;
+      border-left: 14px solid var(--grey-700);
+      border-top: 9px solid transparent;
+      border-bottom: 9px solid transparent;
+    }
+    .hero__video-thumb::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 42px; height: 42px;
+      border: 1.5px solid var(--grey-700);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.55);
+      z-index: 0;
+    }
+    .hero__video-thumb-label {
+      position: relative;
+      z-index: 1;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--grey-700);
+    }
+    .hero__video-caption {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--grey-500);
+      text-align: center;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
     /* ===== BUTTONS ===== */
     .btn {
       display: inline-flex;
@@ -306,6 +434,40 @@
       font-size: 12px;
     }
     .btn--block { width: 100%; }
+
+    /* ===== VALUES STRIP ===== */
+    .values {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: var(--grey-50);
+      border: 1px solid var(--grey-200);
+      margin-bottom: 40px;
+    }
+    .value {
+      padding: 24px 24px;
+      border-left: 1px solid var(--grey-200);
+    }
+    .value:first-child { border-left: none; }
+    .value__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--grey-500);
+      margin-bottom: 8px;
+    }
+    .value__title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .value__copy {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--grey-700);
+    }
 
     /* ===== BENEFITS GRID ===== */
     .benefits {
@@ -819,9 +981,15 @@
       .stat + .stat { border-left: none; border-top: 1px solid var(--grey-200); }
       .hero__stats { grid-template-columns: 1fr; }
       .benefits { grid-template-columns: 1fr; }
+      .values { grid-template-columns: 1fr; }
+      .value { border-left: none; border-top: 1px solid var(--grey-200); }
+      .value:first-child { border-top: none; }
     }
     @media (min-width: 600px) and (max-width: 900px) {
       .benefits { grid-template-columns: repeat(2, 1fr); }
+      .values { grid-template-columns: repeat(2, 1fr); }
+      .value:nth-child(3) { border-left: none; border-top: 1px solid var(--grey-200); }
+      .value:nth-child(4) { border-top: 1px solid var(--grey-200); }
     }
   </style>
 </head>
@@ -868,22 +1036,20 @@
             <a href="#general-application" class="btn">Submit a General Application</a>
           </div>
         </div>
-        <div class="hero__stats">
-          <div class="stat">
-            <div class="stat__num">7</div>
-            <div class="stat__label">Companies</div>
+        <div class="hero__video">
+          <div class="hero__video-main" role="button" aria-label="Play featured HR video">
+            <span class="hero__video-main-label">Featured · HR Video</span>
+            <span class="hero__video-main-duration">0:00</span>
           </div>
-          <div class="stat">
-            <div class="stat__num">8</div>
-            <div class="stat__label">Open Roles</div>
+          <div class="hero__video-thumbs">
+            <div class="hero__video-thumb" role="button" aria-label="Play HR video 1">
+              <span class="hero__video-thumb-label">HR Video 1</span>
+            </div>
+            <div class="hero__video-thumb" role="button" aria-label="Play HR video 2">
+              <span class="hero__video-thumb-label">HR Video 2</span>
+            </div>
           </div>
-          <div class="stat">
-            <div class="stat__num">5</div>
-            <div class="stat__label">Locations</div>
-          </div>
-          <div class="hero__locs">
-            <span>PA</span> · <span>ME</span> · <span>OH</span> · <span>TX</span> · <span>+1</span>
-          </div>
+          <div class="hero__video-caption">Two HR videos — currently in editing</div>
         </div>
       </div>
     </div>
@@ -907,6 +1073,29 @@
         <div class="section__eyebrow">Benefits &amp; Culture</div>
         <h2 class="section__title">What it's like to work at CCG.</h2>
         <p class="section__lead">A family of seven innovative companies offering rewarding careers, hands-on training, and the benefits you'd expect from a leading national manufacturer — delivered with the close-knit feel of a local operation.</p>
+      </div>
+
+      <div class="values" aria-label="Company values">
+        <div class="value">
+          <div class="value__num">01</div>
+          <h3 class="value__title">Innovation</h3>
+          <p class="value__copy">Engineered FRP solutions that advance what's possible in composites.</p>
+        </div>
+        <div class="value">
+          <div class="value__num">02</div>
+          <h3 class="value__title">Engineering Excellence</h3>
+          <p class="value__copy">Combined expertise across composite design and advanced manufacturing processes.</p>
+        </div>
+        <div class="value">
+          <div class="value__num">03</div>
+          <h3 class="value__title">Built to Last</h3>
+          <p class="value__copy">Lightweight, high-strength, corrosion-resistant work — made to endure.</p>
+        </div>
+        <div class="value">
+          <div class="value__num">04</div>
+          <h3 class="value__title">Make It Happen</h3>
+          <p class="value__copy">If you can imagine it, our engineers, technology, and vision turn it into reality.</p>
+        </div>
       </div>
 
       <div class="benefits">
@@ -1310,21 +1499,6 @@
               <label class="field__label">Phone</label>
               <input class="field__input" type="tel" placeholder="">
             </div>
-          </div>
-          <div class="field">
-            <label class="field__label">Position</label>
-            <select class="field__select">
-              <option>Select a role…</option>
-              <option>Pultrusion Line Operator (PA)</option>
-              <option>Industrial Maintenance Technician (PA)</option>
-              <option>Composite Fabricator (PA)</option>
-              <option>FRP Laminator (ME)</option>
-              <option>Project Engineer (ME)</option>
-              <option>Production Associate (OH)</option>
-              <option>Plant Maintenance Mechanic (OH)</option>
-              <option>Shop Laborer (TX)</option>
-              <option>General application — no specific role</option>
-            </select>
           </div>
           <div class="field">
             <label class="field__label">Upload resume (PDF, DOC, DOCX)</label>
