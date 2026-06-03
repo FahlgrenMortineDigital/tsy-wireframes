@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Component Source Matrix — Doc · Figma · Live Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --w-black:#000; --w-ink:#1a1a1a; --w-text:#333; --w-mid:#666; --w-soft:#999;
+      --w-line:#ccc; --w-faint:#ddd; --w-bg:#f4f4f4; --w-bg-alt:#fafafa; --w-white:#fff;
+      --pill-bg:#e8ecf4; --pill-text:#5060a0;
+      --ok:#1f7a3d; --ok-bg:#e6f4ea;
+      --no:#9a9a9a; --no-bg:#f2f2f2;
+      --part:#9a6a00; --part-bg:#fbf2dc;
+      --container-max:1320px; --container-pad:32px;
+      --radius-sm:4px; --radius-md:8px; --radius-lg:12px; --radius-pill:9999px;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Albert Sans',system-ui,-apple-system,sans-serif;font-weight:400;font-size:16px;line-height:1.55;color:var(--w-text);background:var(--w-white);-webkit-font-smoothing:antialiased;}
+    a{color:var(--pill-text);text-decoration:none;}
+    a:hover{color:var(--w-ink);}
+
+    /* Header */
+    .lib-header{background:var(--w-ink);color:var(--w-white);padding:48px 32px;text-align:center;}
+    .lib-header h1{font-size:28px;line-height:36px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px;}
+    .lib-header p{font-size:14px;line-height:22px;color:rgba(255,255,255,.72);max-width:720px;margin:0 auto 16px;}
+    .lib-header__nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+    .lib-header__nav a{display:inline-block;padding:8px 16px;background:var(--w-white);color:var(--w-ink);font-size:13px;font-weight:600;border-radius:var(--radius-md);}
+    .lib-header__nav a:hover{background:var(--w-faint);}
+
+    .wrap{max-width:var(--container-max);margin:0 auto;padding:0 var(--container-pad);}
+
+    /* Intro + sources */
+    .intro{margin:40px auto 8px;}
+    .intro h2{font-size:20px;font-weight:700;margin-bottom:6px;}
+    .intro p{font-size:14px;color:var(--w-mid);max-width:860px;margin-bottom:6px;}
+    .sources{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 8px;}
+    .source-card{border:1px solid var(--w-line);border-radius:var(--radius-md);padding:16px 18px;background:var(--w-bg-alt);}
+    .source-card h3{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--pill-text);font-weight:700;margin-bottom:6px;}
+    .source-card p{font-size:13px;line-height:19px;color:var(--w-mid);margin:0;}
+    .source-card .src-meta{display:block;margin-top:8px;font-size:11px;color:var(--w-soft);}
+
+    /* Stats */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0;}
+    .stat{border:1px solid var(--w-line);border-radius:var(--radius-md);padding:18px;text-align:center;}
+    .stat__num{font-size:34px;font-weight:700;color:var(--w-black);line-height:1;letter-spacing:-1px;}
+    .stat__label{font-size:12px;color:var(--w-mid);margin-top:6px;line-height:16px;}
+
+    /* Legend */
+    .legend{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin:8px 0 20px;font-size:13px;color:var(--w-mid);}
+    .legend b{color:var(--w-text);font-weight:600;margin-right:24px;}
+    .mk{display:inline-flex;align-items:center;justify-content:center;width:24px;height:22px;border-radius:5px;font-weight:700;font-size:13px;}
+    .mk.yes{background:var(--ok-bg);color:var(--ok);}
+    .mk.no{background:var(--no-bg);color:var(--no);}
+    .mk.part{background:var(--part-bg);color:var(--part);}
+
+    /* Section bands */
+    .band{margin:40px 0 10px;padding:0 0 8px;border-bottom:2px solid var(--pill-text);}
+    .band h2{font-size:18px;font-weight:700;color:var(--pill-text);}
+    .band p{font-size:13px;color:var(--w-mid);margin-top:2px;}
+
+    /* Table */
+    table.matrix{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 8px;}
+    table.matrix thead th{position:sticky;top:0;background:var(--w-ink);color:var(--w-white);font-weight:600;text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.2px;z-index:2;}
+    table.matrix thead th.c{text-align:center;width:74px;}
+    table.matrix tbody td{padding:9px 12px;border-bottom:1px solid var(--w-faint);vertical-align:top;}
+    table.matrix tbody tr:hover td{background:var(--w-bg-alt);}
+    td.c{text-align:center;}
+    .comp-name{font-weight:600;color:var(--w-black);}
+    .comp-aka{display:block;font-size:11px;color:var(--w-soft);font-weight:400;margin-top:1px;}
+    td.note{color:var(--w-mid);font-size:12.5px;line-height:17px;}
+    code{background:var(--w-bg);border:1px solid var(--w-faint);border-radius:3px;padding:0 4px;font-size:11.5px;color:var(--w-ink);font-family:ui-monospace,Menlo,monospace;}
+
+    /* Insights */
+    .insights{margin:36px 0;}
+    .insight{border-left:4px solid var(--pill-text);background:var(--w-bg-alt);padding:14px 18px;border-radius:0 var(--radius-md) var(--radius-md) 0;margin-bottom:14px;}
+    .insight h4{font-size:14px;font-weight:700;color:var(--w-black);margin-bottom:4px;}
+    .insight p{font-size:13.5px;color:var(--w-text);margin:0;line-height:20px;}
+    .insight code{font-size:11.5px;}
+
+    .footnote{font-size:12px;color:var(--w-soft);border-top:1px solid var(--w-faint);margin:40px 0 60px;padding-top:16px;line-height:18px;}
+
+    @media (max-width:900px){
+      .sources,.stats{grid-template-columns:1fr 1fr;}
+      table.matrix{font-size:12.5px;}
+    }
+  </style>
+</head>
+<body>
+
+  <div id="top"></div>
+  <div class="lib-header">
+    <h1>FK Component Source Matrix</h1>
+    <p>A three-way reconciliation of every component across the <strong>Ways of Working (Comwrap) doc</strong>, the <strong>Fresenius&nbsp;Kabi LIB (Original) Figma file</strong>, and the <strong>live fresenius-kabi.com site</strong> — cross-referenced against the wireframe library.</p>
+    <div class="lib-header__nav">
+      <a href="index.html">← Wireframes</a>
+      <a href="project-components.html">Component Library</a>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- INTRO -->
+    <div class="intro">
+      <h2>About this document</h2>
+      <p>Each component is checked against three independent sources. The aim is to surface where they agree, where naming diverges, and where one source has a component the others don't — so the wireframes can be brought into alignment with what is actually designed and built.</p>
+    </div>
+
+    <div class="sources">
+      <div class="source-card">
+        <h3>① The Doc</h3>
+        <p>The authoritative AEM/Comwrap component inventory from <em>"Fresenius Kabi – Ways of working"</em>. 64 components spanning all 11 tenants.</p>
+        <span class="src-meta">Source: Ways of working Comwrap.docx · Appendix "List of components and usage"</span>
+      </div>
+      <div class="source-card">
+        <h3>② Figma LIB</h3>
+        <p>The design library — page <em>"6. Components/Elements"</em>. ~90 named component frames using Figma-LIB naming.</p>
+        <span class="src-meta">Source: Fresenius Kabi LIB (Original) · file LMdPfXeH0gHmqxICLFnEBO · node 2:30</span>
+      </div>
+      <div class="source-card">
+        <h3>③ Live Site</h3>
+        <p>Production AEM markup (<code>cmp-*</code> classes) sampled across 7 representative pages of fresenius-kabi.com.</p>
+        <span class="src-meta">Pages: home · story article · leadership · news · contact · we-are-global · stories index</span>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat"><div class="stat__num">64</div><div class="stat__label">components in the doc</div></div>
+      <div class="stat"><div class="stat__num">~90</div><div class="stat__label">component frames in Figma</div></div>
+      <div class="stat"><div class="stat__num">37</div><div class="stat__label">distinct cmp-* live components found</div></div>
+      <div class="stat"><div class="stat__num">6</div><div class="stat__label">Figma-only components confirmed live</div></div>
+    </div>
+
+    <!-- LEGEND -->
+    <div class="legend">
+      <b>Legend</b>
+      <span><span class="mk yes">✓</span> present / confirmed</span>
+      <span><span class="mk part">~</span> partial · related · style-preset</span>
+      <span><span class="mk no">—</span> not present / not found</span>
+    </div>
+
+    <!-- ====================== NAVIGATION & STRUCTURE ====================== -->
+    <div class="band">
+      <h2>Navigation &amp; Structure</h2>
+      <p>Site chrome: header, footer, menus, wayfinding.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Header / Navigation<span class="comp-aka">Navigation Main + Meta</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-navigation</code>. Aligned across all sources.</td></tr>
+        <tr><td class="comp-name">Mega Menu Desktop</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Part of Navigation in the doc.</td></tr>
+        <tr><td class="comp-name">Menu Mobile</td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-nav-mobile</code>. Doc folds it into Navigation.</td></tr>
+        <tr><td class="comp-name">Footer</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Doc = Experience Fragment. Live <code>cmp-footer</code>.</td></tr>
+        <tr><td class="comp-name">Breadcrumb</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-breadcrumb</code>.</td></tr>
+        <tr><td class="comp-name">Language Navigation</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note"><strong>Gap:</strong> heavily used live (<code>cmp-languagenavigation</code>) &amp; in Figma, but the wireframe only has a "Global" text link.</td></tr>
+        <tr><td class="comp-name">Suggest Location<span class="comp-aka">Location Switcher</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Live <code>suggestlocation</code>. FK-only geolocation prompt.</td></tr>
+        <tr><td class="comp-name">Search / Search Bar</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-search-bar</code>.</td></tr>
+        <tr><td class="comp-name">Sub Navigation</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Not found on sampled pages (likely on deeper content pages).</td></tr>
+        <tr><td class="comp-name">Anchor Navigation</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">In Figma &amp; wireframe; <strong>not in doc</strong> and not seen live on sampled pages.</td></tr>
+        <tr><td class="comp-name">Back to Top button</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note"><strong>Figma-only in doc terms, but live on every page</strong> (<code>cmp-back-to-top</code>).</td></tr>
+        <tr><td class="comp-name">Social Media Icons</td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-social</code> (within Footer). Not a standalone doc row.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== HERO & PAGE LEAD ====================== -->
+    <div class="band">
+      <h2>Hero &amp; Page Lead</h2>
+      <p>Top-of-page stages and highlight modules.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Stage Hero<span class="comp-aka">Text Stage / Hero Stage · WF "Stage"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-stage-hero</code>. Wireframe calls it "Stage".</td></tr>
+        <tr><td class="comp-name">Image Text Block<span class="comp-aka">WF "Topic Highlight" / "Story Row"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-image-text-block</code>. Naming differs in wireframe.</td></tr>
+        <tr><td class="comp-name">Topic Highlight<span class="comp-aka">Highlight Carousel</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note"><strong>Figma + live, not in doc</strong> (<code>cmp-highlight-carousel</code>, homepage).</td></tr>
+        <tr><td class="comp-name">Storytelling Teaser</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Doc = Teaser. Live <code>cmp-teaser</code>.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== CARDS & TEASERS ====================== -->
+    <div class="band">
+      <h2>Cards &amp; Teasers</h2>
+      <p>Repeating content cards, link blocks, and listing items.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Teaser</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-teaser</code> (most-used component on the site).</td></tr>
+        <tr><td class="comp-name">Teaser News / Teaser Image</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Teaser variants; doc lists "Teaser Image".</td></tr>
+        <tr><td class="comp-name">Teaser Info</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note"><strong>Figma + live, not in doc, missing from wireframe</strong> (<code>cmp-info-teaser-container</code>). Add candidate.</td></tr>
+        <tr><td class="comp-name">Category Teaser</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-category-teaser</code>. Wireframe covers via Teaser.</td></tr>
+        <tr><td class="comp-name">Story Teaser</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-story-teaser</code> (hover-overlay card).</td></tr>
+        <tr><td class="comp-name">Story Container</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-container-story-teaser</code>.</td></tr>
+        <tr><td class="comp-name">Story Scroll</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">In doc &amp; Figma; not on sampled pages, missing from wireframe.</td></tr>
+        <tr><td class="comp-name">Continue Link Block</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note"><strong>Figma + live, not in doc</strong> — live as a Container preset <code>cmp-container-link-block</code>.</td></tr>
+        <tr><td class="comp-name">Quick Link Cards<span class="comp-aka">WF "Topic Area"</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">In Figma &amp; wireframe; not a discrete doc/live component.</td></tr>
+        <tr><td class="comp-name">Download<span class="comp-aka">WF "Asset Card"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Doc "Download" = wireframe "Asset Card". Likely on product/doc pages live.</td></tr>
+        <tr><td class="comp-name">Person Card<span class="comp-aka">Person Contact Cart</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">In Figma; live it's a Text style-preset (<code>cmp-text__contact-card</code>), not a discrete component.</td></tr>
+        <tr><td class="comp-name">Content Cards</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Live it's a Text preset (<code>cmp-text__content-card</code>).</td></tr>
+        <tr><td class="comp-name">Event Teaser</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc + Figma; not on sampled pages (events sites).</td></tr>
+        <tr><td class="comp-name">Event List</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Figma "Event Card". Events sites only.</td></tr>
+        <tr><td class="comp-name">Product Teaser &amp; product family<span class="comp-aka">Details · Order · Overview · Search · Summary</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Commerce / product sites — out of scope for this corporate-nutrition wireframe.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== CONTENT ====================== -->
+    <div class="band">
+      <h2>Content</h2>
+      <p>Body content, headings, expandable and tabular structures.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Title<span class="comp-aka">WF "Section Heading"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-title</code> + <code>cmp-container-section-heading</code>.</td></tr>
+        <tr><td class="comp-name">Subtitle</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Doc-only; folded into Type/Section Heading elsewhere.</td></tr>
+        <tr><td class="comp-name">Text<span class="comp-aka">Text Block · WF "Body Copy"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-text</code> (carries the contact-card / content-card presets).</td></tr>
+        <tr><td class="comp-name">Accordion</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-accordion</code>.</td></tr>
+        <tr><td class="comp-name">FAQ</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note"><strong>Live-only.</strong> <code>cmp-faq</code> on every page — in neither the doc nor the Figma list.</td></tr>
+        <tr><td class="comp-name">Tabs</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Doc + Figma + wireframe; not on sampled pages.</td></tr>
+        <tr><td class="comp-name">Table</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">In Figma &amp; wireframe; no standalone doc row.</td></tr>
+        <tr><td class="comp-name">Facts and Figures Container<span class="comp-aka">WF "Counter / Stat Strip"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Figma "Facts and Figures Cards" + "Counter". Not on sampled pages.</td></tr>
+        <tr><td class="comp-name">Quote block</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Figma only; wireframe Spotlight/Pull-quote derive from it. Not seen live.</td></tr>
+        <tr><td class="comp-name">Separator</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-separator</code>. Implicit in wireframe.</td></tr>
+        <tr><td class="comp-name">List</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-list</code>. Wireframe covers via Topic Area.</td></tr>
+        <tr><td class="comp-name">Category List</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note"><strong>Gap:</strong> live <code>cmp-categorylist</code> (powers news/listings) &amp; in doc, but missing from wireframe.</td></tr>
+        <tr><td class="comp-name">Container</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Live <code>cmp-container</code>. Structural; carries style presets (link-block, section-heading, story-teaser).</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== INPUTS & FORMS ====================== -->
+    <div class="band">
+      <h2>Inputs &amp; Forms</h2>
+      <p>Form container and field atoms, plus interactive inputs.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Button</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-button</code>.</td></tr>
+        <tr><td class="comp-name">Form Container<span class="comp-aka">WF "Contact Form"</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-form</code>.</td></tr>
+        <tr><td class="comp-name">Form Text</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-form-text</code>.</td></tr>
+        <tr><td class="comp-name">Form Options<span class="comp-aka">Radio · Checkbox · Combobox</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-form-options</code>.</td></tr>
+        <tr><td class="comp-name">Form Button</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-form-button</code>.</td></tr>
+        <tr><td class="comp-name">Form File Upload</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only; not in wireframe form demo.</td></tr>
+        <tr><td class="comp-name">Form Hidden</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Non-visual.</td></tr>
+        <tr><td class="comp-name">Slider</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Figma + wireframe; not in doc, not seen live.</td></tr>
+        <tr><td class="comp-name">Newsletter Signup</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Figma option within Footer; not a discrete doc/live component.</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== MEDIA & MISC ====================== -->
+    <div class="band">
+      <h2>Media &amp; Misc</h2>
+      <p>Media delivery, carousels, and utility components.</p>
+    </div>
+    <table class="matrix">
+      <thead><tr><th>Component</th><th class="c">Doc</th><th class="c">Figma</th><th class="c">Live</th><th class="c">Wireframe</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td class="comp-name">Image</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-image</code>.</td></tr>
+        <tr><td class="comp-name">Dynamic Media</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Live <code>cmp-dmimage</code> (Scene7 delivery).</td></tr>
+        <tr><td class="comp-name">Video / Smart Crop Video</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live appears as <code>cmp-teaser__video</code>. Figma "Image/Video 16:9".</td></tr>
+        <tr><td class="comp-name">Carousel</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-carousel</code>. Wireframe only shows the indicator.</td></tr>
+        <tr><td class="comp-name">Carousel Indicator</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="note">Live <code>cmp-carousel__indicator</code>. Sub-part of Carousel.</td></tr>
+        <tr><td class="comp-name">Experience Fragment</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Live <code>cmp-experiencefragment</code> (header/footer/reusable blocks).</td></tr>
+        <tr><td class="comp-name">Login</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="note">FK-only. <code>login</code> token present live.</td></tr>
+        <tr><td class="comp-name">Modal</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Figma only; used by Product Order / Asset Card flows.</td></tr>
+        <tr><td class="comp-name">Pagination</td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Figma only; live listings use Category List instead.</td></tr>
+        <tr><td class="comp-name">Embed</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only — AEM runtime component, no design artifact.</td></tr>
+        <tr><td class="comp-name">PDF Viewer</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Figma shows a PDF preview inside Asset Card only.</td></tr>
+        <tr><td class="comp-name">Progress Bar</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only.</td></tr>
+        <tr><td class="comp-name">Interactive Media</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only (Scene7 shoppable media).</td></tr>
+        <tr><td class="comp-name">Tags Viewer</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only (Fresubin/nutrition sites).</td></tr>
+        <tr><td class="comp-name">Content Fragment / Content Fragment List</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="note">Doc only — AEM authoring constructs.</td></tr>
+        <tr><td class="comp-name">SCORM Viewer · Recipe Search · BMI Calc/Questionnaire · Dosing Calculator</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk part">~</span></td><td class="note">Doc only — tenant-specific (Events, Recipe, Nutrition, Biosimilars). Wireframe has a generic "Calculator" placeholder.</td></tr>
+        <tr><td class="comp-name">Asset Search</td><td class="c"><span class="mk yes">✓</span></td><td class="c"><span class="mk part">~</span></td><td class="c"><span class="mk no">—</span></td><td class="c"><span class="mk part">~</span></td><td class="note">FK US-only. Figma "Asset Card" + "Search Results".</td></tr>
+      </tbody>
+    </table>
+
+    <!-- ====================== KEY INSIGHTS ====================== -->
+    <div class="band" style="border-color:var(--w-ink);">
+      <h2 style="color:var(--w-ink);">Key insights</h2>
+      <p>What the three-way comparison reveals.</p>
+    </div>
+    <div class="insights">
+      <div class="insight">
+        <h4>1. The doc's list is incomplete, not the wireframe</h4>
+        <p>Several components flagged earlier as "invented" are real — <strong>Continue Link Block</strong>, <strong>Back to Top</strong>, <strong>Topic Highlight</strong>, <strong>Carousel Indicator</strong>, <strong>Anchor Navigation</strong> and <strong>Person Card</strong> all exist in Figma. The doc simply omits them because live they're implemented as <em>Container/Text style presets</em> (e.g. <code>cmp-container-link-block</code>, <code>cmp-text__contact-card</code>) rather than discrete components.</p>
+      </div>
+      <div class="insight">
+        <h4>2. Six "Figma-only" components are confirmed live</h4>
+        <p>Continue Link Block, Back to Top (site-wide), Topic Highlight / Highlight Carousel, Carousel Indicator, Teaser Info, and Social Media Icons all render on the production site — validating the wireframe entries that carry them.</p>
+      </div>
+      <div class="insight">
+        <h4>3. Real wireframe gaps (in doc AND Figma AND/or live, but missing from wireframe)</h4>
+        <p><strong>Language Navigation</strong> (used heavily live), <strong>Category List</strong> (powers the news/listing pages live), <strong>Teaser Info</strong> (Figma + live), and <strong>Story Scroll</strong> (doc + Figma) are the strongest add candidates. <strong>Suggest Location</strong> and <strong>Login</strong> are FK-only and in scope if needed.</p>
+      </div>
+      <div class="insight">
+        <h4>4. One live-only surprise: FAQ</h4>
+        <p><code>cmp-faq</code> appears on every sampled page but is in <em>neither</em> the doc's component list <em>nor</em> the Figma library as a named component. Worth confirming with the dev team whether it's a distinct component or an Accordion variant.</p>
+      </div>
+      <div class="insight">
+        <h4>5. Doc-only components can't be wireframed from design</h4>
+        <p>Embed, Content/Experience Fragment, Tags Viewer, Interactive Media, Smart Crop, Progress Bar, SCORM, Recipe, BMI/Dosing have no Figma artifact — they're AEM authoring/runtime constructs. Flag them as "AEM-only" rather than treating them as drawing gaps.</p>
+      </div>
+      <div class="insight">
+        <h4>6. Naming should be reconciled to the AEM/Figma canon</h4>
+        <p>Stage → <strong>Stage Hero</strong> · Topic Highlight/Story Row → <strong>Image Text Block</strong> · Counter/Stat Strip → <strong>Facts and Figures</strong> · Asset Card → <strong>Download</strong> · Topic Area → <strong>Quick Link Cards / List</strong> · Section Heading → <strong>Title</strong>.</p>
+      </div>
+    </div>
+
+    <p class="footnote">
+      <strong>Methodology &amp; caveats.</strong> Doc data is from the Appendix "List of components and usage" in <em>Fresenius Kabi – Ways of working Comwrap.docx</em> (64 rows). Figma data is the named component frames on page "6. Components/Elements" (node 2:30) of file LMdPfXeH0gHmqxICLFnEBO. Live data is the set of distinct <code>cmp-*</code> classes found in the raw HTML of 7 sampled pages of fresenius-kabi.com (home, an inspiring-story article, executive-leadership, news, contact, we-are-global, inspiring-stories index). A "—" in the <strong>Live</strong> column means <em>not found on those 7 pages</em> — not that the component is never used; Quote, Modal, Slider, Pagination, Tabs and Anchor Navigation may appear on page types not sampled (product, FAQ, search-results). Generated 2026-06-03.
+    </p>
+
+  </div>
+</body>
+</html>
