@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SLO CAL — Impromptu Widget Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="widget.css">
+</head>
+<body data-view="desktop">
+
+  <!-- ============ DEMO CONTROL BAR (dev chrome, not the product) ============ -->
+  <div class="demobar" id="demobar">
+    <span class="brandtag">SLO CAL · Impromptu Widget — wireframe</span>
+    <div class="grp"><span class="lbl">View</span>
+      <span class="seg">
+        <button data-set="view:desktop">Desktop</button>
+        <button data-set="view:mobile">Mobile</button>
+      </span>
+    </div>
+    <div class="grp"><span class="lbl">Collapsed style</span>
+      <span class="seg">
+        <button data-set="approach:thumb">Thumbnail map</button>
+        <button data-set="approach:dock">Edge dock</button>
+      </span>
+    </div>
+    <div class="spacer"></div>
+    <span class="ghosthint">Background = ghosted current slocal.com (your creative team owns the real design)</span>
+  </div>
+
+  <!-- ============ STAGE ============ -->
+  <div class="stage">
+
+    <!-- ---- GHOSTED slocal.com (muted, non-interactive) ---- -->
+    <div class="site" aria-hidden="true">
+      <div class="ghost-ribbon">Current slocal.com — shown ghosted for context only</div>
+      <div class="site-util">
+        <span>Meetings &amp; Weddings · Travel Trade · Media · Partners</span>
+        <span>Order Visitor Guide · Newsletter</span>
+      </div>
+      <div class="site-head">
+        <div class="site-logo">SLO<br>CAL</div>
+        <nav class="site-nav">
+          <span>Explore Communities</span><span>Things to Do</span><span>Eat &amp; Drink</span>
+          <span>Places to Stay</span><span>Events</span><span>Highway 1</span><span>Plan Your Trip</span><span>Stories</span>
+        </nav>
+        <div class="site-actions"><span class="site-pillbtn">Q</span><span class="site-pillbtn">♡</span><span class="site-pillbtn">Visitor Guide</span></div>
+      </div>
+      <div class="site-hero">
+        <div>
+          <div class="eyebrow">Life's too beautiful to rush</div>
+          <h1>Take the turn you didn't plan on.</h1>
+          <div class="wline lg"></div><div class="wline lg"></div><div class="wline md"></div>
+          <div style="display:flex;gap:12px;margin-top:18px;">
+            <span class="site-pillbtn" style="background:var(--ink);color:#fff;">What's happening today</span>
+            <span class="site-pillbtn">Plan a getaway</span>
+          </div>
+        </div>
+        <div class="hero-img ph"><span>Hero video / image</span></div>
+      </div>
+      <div class="site-section">
+        <h2>Seven destinations, one impromptu county.</h2>
+        <div class="row3">
+          <div class="site-card"><div class="ph"><span>image</span></div><div class="wline lg"></div><div class="wline sm"></div></div>
+          <div class="site-card"><div class="ph"><span>image</span></div><div class="wline lg"></div><div class="wline sm"></div></div>
+          <div class="site-card"><div class="ph"><span>image</span></div><div class="wline lg"></div><div class="wline sm"></div></div>
+        </div>
+      </div>
+      <div class="site-section">
+        <h2>Right now in SLO CAL.</h2>
+        <div class="row4">
+          <div class="site-card"><div class="ph" style="aspect-ratio:1;"><span>img</span></div><div class="wline md"></div></div>
+          <div class="site-card"><div class="ph" style="aspect-ratio:1;"><span>img</span></div><div class="wline md"></div></div>
+          <div class="site-card"><div class="ph" style="aspect-ratio:1;"><span>img</span></div><div class="wline md"></div></div>
+          <div class="site-card"><div class="ph" style="aspect-ratio:1;"><span>img</span></div><div class="wline md"></div></div>
+        </div>
+      </div>
+      <div class="site-foot">
+        <div class="wline md" style="background:#5a574f;"></div>
+        <div class="wline lg" style="background:#46443e;"></div>
+        <div class="wline sm" style="background:#46443e;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ MOBILE PHONE FRAME (only shown in Mobile view) ============ -->
+  <div class="phone">
+    <div class="bezel"></div>
+    <div class="screen">
+      <!-- ghosted mini-site inside the phone -->
+      <div class="site" aria-hidden="true" style="filter:grayscale(1) opacity(.5);">
+        <div class="site-head" style="grid-template-columns:48px 1fr auto;padding:12px 14px;">
+          <div class="site-logo" style="width:42px;height:42px;font-size:9px;">SLO<br>CAL</div>
+          <span></span>
+          <span class="site-pillbtn" style="padding:6px 10px;">☰</span>
+        </div>
+        <div class="site-hero" style="grid-template-columns:1fr;padding:22px 16px;">
+          <div>
+            <div class="eyebrow">Life's too beautiful to rush</div>
+            <h1 style="font-size:26px;">Take the turn you didn't plan on.</h1>
+            <div class="wline lg"></div><div class="wline md"></div>
+          </div>
+          <div class="hero-img ph" style="aspect-ratio:4/3;margin-top:14px;"><span>hero</span></div>
+        </div>
+        <div class="site-section" style="padding:22px 16px;">
+          <div class="ph" style="aspect-ratio:4/3;margin-bottom:10px;"><span>image</span></div>
+          <div class="wline lg"></div><div class="wline sm"></div>
+        </div>
+      </div>
+      <!-- mobile widget (pill / sheet) is injected here by JS -->
+    </div>
+  </div>
+
+  <script src="widget.js"></script>
+</body>
+</html>
