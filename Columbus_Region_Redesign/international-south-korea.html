@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Columbus Region — South Korea (International Reach) Wireframe</title>
+  <style>
+    /* ================= BRAND FONTS (embedded from /Fonts) ================= */
+    @font-face {
+      font-family: 'Korolev Condensed';
+      src: url('Fonts/Korolev Condensed W04 Heavy/Web Fonts/088f0f02003283a4a8e6329066cee6c5.woff2') format('woff2'),
+           url('Fonts/Korolev Condensed W04 Heavy/Web Fonts/088f0f02003283a4a8e6329066cee6c5.woff') format('woff');
+      font-weight: 700 900; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Book.otf') format('opentype');
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-BookItalic.otf') format('opentype');
+      font-weight: 400; font-style: italic; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Medium.otf') format('opentype');
+      font-weight: 500; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Bold.otf') format('opentype');
+      font-weight: 600 700; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: 'Freight Disp'; src: url('Fonts/Freight Disp Bold Italic/Freight Disp Bold Italic.otf') format('opentype');
+      font-weight: 700; font-style: italic; font-display: swap;
+    }
+
+    /* ================= RESET / BASE ================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Brand fonts embedded from /Fonts (see 11245-6 Brand Guidelines):
+         Korolev Condensed W04 Heavy = headlines; Gotham = body/subheads;
+         Freight Disp Bold Italic = accent. Arial is the brand-approved fallback. */
+      --font-head: 'Korolev Condensed', 'Arial Narrow', Arial, sans-serif;
+      --font-body: 'Gotham', Arial, Helvetica, sans-serif;
+      --font-accent: 'Freight Disp', Georgia, serif;
+
+      /* Tailwind type scale */
+      --text-xs: .75rem;   --text-sm: .875rem; --text-base: 1rem;  --text-lg: 1.125rem;
+      --text-xl: 1.25rem;  --text-2xl: 1.5rem; --text-3xl: 1.875rem; --text-4xl: 2.25rem;
+      --text-5xl: 3rem;    --text-6xl: 3.75rem; --text-7xl: 4.5rem;
+
+      /* Grayscale wireframe palette */
+      --ink: #333; --wf-dark: #2b2b2b; --wf-mid: #666; --wf-light: #999;
+      --wf-faint: #ccc; --line: #e4e4e4; --wf-bg: #f4f4f4; --wf-bg2: #ececec;
+
+      /* Content-status key (matches sitemap workflow) */
+      --st-keep: #c5b9ff; --st-enhance: #ffaa00; --st-new: #3ccd63;
+
+      --max-width: 1280px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; font-size: var(--text-base); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: var(--font-head); text-transform: uppercase; letter-spacing: -0.03em; line-height: 1.05; font-weight: 800; }
+    a { color: inherit; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; width: 100%; }
+
+    /* ================= WIREFRAME ANNOTATIONS ================= */
+    .annotation {
+      display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-body);
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+      padding: 3px 9px; border-radius: 4px; position: absolute; z-index: 30;
+    }
+    .annotation--anim { background: #333; color: #fff; }
+    .annotation--a11y { background: #2e6da4; color: #fff; }
+
+    /* WCAG note block */
+    .a11y-note {
+      max-width: var(--max-width); margin: 0 auto; padding: 14px 32px 16px;
+      background: #eef5fb; border-left: 4px solid #5b9bd5; font-family: var(--font-body);
+      font-size: 12px; line-height: 1.55; color: #2a3b48;
+    }
+    .a11y-note__t { font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11px; color: #2e6da4; margin-bottom: 8px; }
+    .a11y-note ul { margin: 0 0 0 18px; }
+    .a11y-note li { margin-bottom: 4px; }
+    .a11y-note code { background: #dceaf6; padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+    .a11y-note__hint { margin-top: 8px; font-style: italic; color: #51677a; }
+
+    /* Dev-notes block */
+    .dev-note {
+      max-width: var(--max-width); margin: 0 auto; padding: 14px 32px 16px;
+      background: #f6f6f4; border-left: 4px solid #555; font-family: var(--font-body);
+      font-size: 12px; line-height: 1.55; color: #333;
+    }
+    .dev-note__t { display: flex; align-items: center; gap: 8px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; font-size: 11px; color: #444; margin-bottom: 8px; }
+    .dev-note__t::before { content: "DEV"; background: #2b2b2b; color: #fff; font-size: 9px;
+      padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; }
+    .dev-note ul { margin: 0 0 0 18px; }
+    .dev-note li { margin-bottom: 4px; }
+    .dev-note code { background: #e7e7e3; padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+    .dev-note a { color: #2b2b2b; font-weight: 600; }
+
+    .section-header-bar {
+      display: flex; align-items: center; gap: 8px; padding: 7px 32px;
+      background: #f8f8f8; border-bottom: 1px solid #eee; font-family: var(--font-body);
+      font-size: 11px; font-weight: 600; color: #666; flex-wrap: wrap;
+    }
+    .section-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; background: #2b2b2b; color: #fff;
+      font-size: 10px; font-weight: 800; border-radius: 50%; flex-shrink: 0;
+    }
+    .section-header-bar .comp-tags { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+    .comp-tag {
+      font-size: 9px; font-weight: 700; background: #5b9bd5; color: #fff;
+      padding: 3px 9px; border-radius: 10px; text-decoration: none; white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+    }
+    .comp-tag:hover { background: #3f86c4; color: #fff; }
+    /* component tags overlaid on each component */
+    .comp-badge { position: absolute; top: 8px; left: 8px; z-index: 25; display: flex; gap: 6px; flex-wrap: wrap; }
+    .utility, .hero, .sec, .ind, .split, .footer { position: relative; }
+
+    /* Type-spec annotations */
+    .type-spec {
+      display: inline-block; font-family: var(--font-body); font-size: 9px; font-weight: 700;
+      text-transform: none; letter-spacing: 0; color: #fff; background: #444;
+      padding: 2px 7px; border-radius: 3px; vertical-align: middle; margin-left: 8px; white-space: nowrap;
+    }
+
+    /* Content-status highlight + dots */
+    .hl { border-radius: 2px; padding: 0 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .hl--keep { background: var(--st-keep); }
+    .hl--enhance { background: rgba(255,170,0,0.15); }
+    .hl--new { background: var(--st-new); }
+    .sdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .sdot--keep { background: var(--st-keep); }
+    .sdot--enhance { background: var(--st-enhance); }
+    .sdot--new { background: var(--st-new); }
+
+    /* Toggle visibility */
+    body.hide-anim .annotation--anim { display: none !important; }
+    body.hide-bars .section-header-bar { display: none !important; }
+    body.hide-comp .comp-tag { display: none !important; }
+    body.hide-type .type-spec { display: none !important; }
+    body.hide-status .hl { background: transparent !important; }
+    body.hide-status .sdot { display: none !important; }
+    body.hide-status .ctrl-legend .sdot { display: inline-block !important; }
+    body.hide-version .version-bar { display: none !important; }
+    body.hide-a11y .a11y-note, body.hide-a11y .annotation--a11y { display: none !important; }
+    body.hide-devnotes .dev-note, body.hide-devnotes .content-brief { display: none !important; }
+    .content-brief { max-width: var(--max-width); margin: 0 auto 6px; padding: 14px 32px 16px; background: #eef4fb; border-left: 4px solid #5b9bd5; font-family: var(--font-body); font-size: 12px; line-height: 1.55; color: #2b3a4a; }
+    .content-brief__t { display: flex; align-items: center; gap: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11px; color: #2c5a85; margin-bottom: 8px; }
+    .content-brief__t::before { content: "CONTENT"; background: #5b9bd5; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; }
+    .content-brief ul { margin: 0 0 0 18px; } .content-brief li { margin-bottom: 4px; } .content-brief b { color: #14222e; }
+
+    /* ================= VERSION BAR ================= */
+    .version-bar {
+      background: #1a1a1a; color: #aaa; font-family: var(--font-body);
+      font-size: 10px; padding: 7px 32px; display: flex; justify-content: space-between;
+      align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .version-bar a { color: #fff; text-decoration: none; }
+    .version-bar a:hover { text-decoration: underline; }
+
+    /* ================= BUTTONS ================= */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: var(--text-sm); font-weight: 700;
+      letter-spacing: 0.3px; padding: 13px 26px; border-radius: 999px; cursor: pointer;
+      text-decoration: none; border: 2px solid transparent; white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .btn--primary { background: #fff; color: #333; }
+    .btn--primary:hover { background: #ececec; }
+    .btn--dark { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
+    .btn--dark:hover { background: #444; border-color: #444; }
+    .btn--outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
+    .btn--outline-light:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+
+    /* ================= IMAGE PLACEHOLDER ================= */
+    .img-ph { background: #e6e6e6; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; }
+    .img-ph::before, .img-ph::after { content: ''; position: absolute; background: #d2d2d2; width: 150%; height: 1px; }
+    .img-ph::before { transform: rotate(34deg); }
+    .img-ph::after { transform: rotate(-34deg); }
+    .img-ph span { position: relative; z-index: 1; font-family: var(--font-body); font-size: 11px; font-weight: 600;
+      color: #888; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.82); padding: 5px 12px; border-radius: 4px; opacity: 0.5; }
+    .img-ph__icon { position: relative; z-index: 1; width: 46px; height: 46px; opacity: 0.55; }
+
+    /* ================= UTILITY BAR (c1) ================= */
+    .utility { background: #f4f4f4; border-bottom: 1px solid #e4e4e4; }
+    .utility__row { display: flex; justify-content: flex-end; align-items: center; gap: 22px; padding: 7px 0; }
+    .utility a { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 400; color: #555; text-decoration: none; }
+    .utility a:hover { color: #333; }
+    .utility__search { display: flex; align-items: center; gap: 6px; color: #777; }
+    .utility .btn-contact {
+      background: #2b2b2b; color: #fff; padding: 7px 16px; border-radius: 4px; border: 1px solid transparent;
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+      transition: background 0.2s ease;
+    }
+    .utility .btn-contact:hover { background: #444; color: #fff; }
+
+    /* ================= HEADER + NAV (c2 + c3) ================= */
+    .header { background: #fff; border-bottom: 2px solid #ededed; position: sticky; top: 0; z-index: 50; }
+    .header__row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 0; }
+
+    .logo { display: flex; align-items: baseline; gap: 5px; flex-shrink: 0; text-decoration: none; }
+    .logo .logo-the { font-family: var(--font-body); font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+    .logo .logo-main { font-family: var(--font-head); font-size: var(--text-2xl); font-weight: 800; color: #333; letter-spacing: -0.02em; }
+    .logo .logo-diamond { color: #888; font-size: var(--text-xl); }
+    .logo .logo-region { font-family: var(--font-head); font-size: var(--text-base); color: #888; letter-spacing: 0.05em; }
+    .logo__img { height: 44px; width: auto; display: block; }
+
+    .nav { display: flex; align-items: stretch; margin-left: auto; }  /* right-align nav (search icon hidden) */
+    .nav__item { position: relative; display: flex; align-items: center; }
+    .nav__link {
+      display: flex; align-items: center; gap: 5px; padding: 12px 14px; min-height: 24px;
+      background: none; border: none; font-family: var(--font-body);
+      font-size: var(--text-sm); font-weight: 700; color: #333; text-transform: uppercase;
+      letter-spacing: 0.3px; text-decoration: none; cursor: pointer; white-space: nowrap;
+    }
+    .nav__link .caret { font-size: 7px; color: #aaa; transition: transform 0.2s; }
+    .nav__item:hover > .nav__link, .nav__item.is-open > .nav__link { color: #000; }
+    .nav__item.is-open .caret { transform: rotate(180deg); }
+    .nav__link:focus-visible, .nav__sublink:focus-visible, .utility a:focus-visible, .btn:focus-visible {
+      outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px;
+    }
+
+    .nav__mega {
+      position: absolute; top: 100%; left: 0; min-width: 300px;
+      background: #fff; border: 1px solid #e2e2e2; border-top: 3px solid #2b2b2b;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12); padding: 16px;
+      display: none; z-index: 60;
+    }
+    .nav__item.is-open .nav__mega { display: block; }
+    .nav__mega--wide { min-width: 440px; }
+    .nav__grid { display: grid; grid-template-columns: 1fr; gap: 2px; }
+    .nav__grid--2 { grid-template-columns: 1fr 1fr; gap: 2px 22px; }
+    .nav__sublink {
+      display: flex; align-items: center; gap: 9px; padding: 8px 8px; font-family: var(--font-body);
+      font-size: var(--text-sm); font-weight: 500; color: #444; text-decoration: none; border-radius: 4px;
+    }
+    .nav__sublink:hover { background: #f5f5f5; color: #000; }
+    .nav__sublink.is-overview { font-weight: 700; color: #333; }
+
+    /* ================= HAMBURGER + DRAWER (c4) ================= */
+    .hamburger { display: none; flex-direction: column; justify-content: space-between; width: 28px; height: 19px; cursor: pointer; flex-shrink: 0; }
+    .hamburger span { display: block; height: 2px; width: 100%; background: #333; transition: 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+
+    .drawer {
+      position: fixed; inset: 0; background: #fff; z-index: 70; padding: 84px 24px 32px;
+      overflow-y: auto; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: none;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer__close { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 34px; line-height: 1; color: #333; cursor: pointer; padding: 4px 8px; z-index: 2; }
+    .drawer__close:hover { color: #000; }
+    .drawer__close:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px; }
+    .drawer__item { border-bottom: 1px solid #eee; }
+    .drawer__head {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      width: 100%; padding: 16px 2px; background: none; border: none; text-align: left;
+      font-family: var(--font-body); font-size: var(--text-base); font-weight: 700; color: #333;
+      text-transform: uppercase; letter-spacing: 0.3px; cursor: pointer;
+    }
+    .drawer__head:focus-visible, .drawer__sub a:focus-visible {
+      outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px;
+    }
+    .drawer__head .arr { font-size: 11px; color: #999; transition: transform 0.3s; }
+    .drawer__item.open .arr { transform: rotate(180deg); }
+    .drawer__sub { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .drawer__item.open .drawer__sub { max-height: 720px; }
+    .drawer__sub a {
+      display: flex; align-items: center; gap: 9px; padding: 11px 0 11px 8px; font-family: var(--font-body);
+      font-size: var(--text-sm); font-weight: 500; color: #555; text-decoration: none; border-top: 1px solid #f4f4f4;
+    }
+    .drawer__cta { display: block; text-align: center; margin-top: 24px; padding: 15px;
+      background: #2b2b2b; color: #fff; font-family: var(--font-body); font-size: var(--text-sm);
+      font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; border-radius: 6px; }
+    .drawer__partners { margin-top: 26px; padding-top: 20px; border-top: 1px solid #eee; }
+    .drawer__partners-t { font-family: var(--font-body); font-size: 10px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; }
+    .drawer__partners a { display: block; padding: 9px 0; font-family: var(--font-body); font-size: var(--text-sm);
+      color: #555; text-decoration: none; border-bottom: 1px solid #f4f4f4; }
+
+    /* ================= SEARCH (nav trigger + slide-down drawer) — c2 / s14 ================= */
+    .header__actions { display: none; align-items: center; gap: 14px; }  /* desktop: empty after search icon hidden; shown on mobile for hamburger */
+    .search-toggle { display: flex; align-items: center; justify-content: center; min-width: 24px; min-height: 24px;
+      padding: 6px; background: none; border: none; color: #333; cursor: pointer; }
+    .search-toggle svg { width: 22px; height: 22px; }
+    .search-drawer { position: absolute; top: 100%; left: 0; right: 0; background: #fff;
+      border-top: 1px solid #ededed; box-shadow: 0 14px 28px rgba(0,0,0,0.13); padding: 30px 0 34px;
+      transform: translateY(-12px); opacity: 0; visibility: hidden;
+      transition: transform .25s ease, opacity .25s ease, visibility .25s; z-index: 55; }
+    .search-drawer.open { transform: translateY(0); opacity: 1; visibility: visible; }
+    .search-drawer__inner { position: relative; }
+    .search-close { position: absolute; top: -10px; right: 0; background: none; border: none;
+      font-size: 26px; line-height: 1; color: #999; cursor: pointer; }
+    .search-close:hover { color: #333; }
+    .search-form { display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #2b2b2b; padding: 0 60px 12px 0; }
+    .search-form .s-icon { width: 22px; height: 22px; color: #999; flex-shrink: 0; }
+    .search-form input { flex: 1; min-width: 0; border: none; outline: none; background: none;
+      font-family: var(--font-body); font-size: var(--text-2xl); color: #333; padding: 4px 0; }
+    .search-form .btn { flex-shrink: 0; }
+    .popular { margin-top: 24px; }
+    .popular__t { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #999; margin-bottom: 12px; }
+    .popular__tags { display: flex; flex-wrap: nowrap; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
+    .ptag { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border: 1px solid #ddd;
+      border-radius: 999px; font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600;
+      color: #333; text-decoration: none; cursor: pointer; white-space: nowrap; }
+    .ptag:hover { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
+    .search-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.35); opacity: 0; visibility: hidden; transition: .25s; z-index: 45; }
+    body.search-open .search-backdrop { opacity: 1; visibility: visible; }
+    .search-toggle:focus-visible, .search-close:focus-visible, .ptag:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px; }
+
+    /* ================= HERO (c6 split) ================= */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 560px; position: relative; }
+    .hero__panel { background: #2b2b2b; color: #fff; padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .hero__eyebrow { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.65); margin-bottom: 18px; }
+    .hero__title { font-size: var(--text-6xl); font-weight: 800; margin-bottom: 22px; }
+    .hero__sub { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.6;
+      color: rgba(255,255,255,0.85); margin-bottom: 32px; max-width: 30em; text-transform: none; font-weight: 400; }
+    .hero__cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero__img { min-height: 560px; }
+
+    /* ================= HOME BODY SECTIONS ================= */
+    .sec { padding: 80px 0; }
+    .sec--alt { background: #f6f6f6; }
+    .sec--dark { background: #1a1a1a; color: #fff; }
+    .sec__eyebrow { font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 12px; }
+    .sec__eyebrow.eyebrow-off { display: none; } /* eyebrow is an optional CMS field — hidden in this instance */
+    .sec--dark .sec__eyebrow { color: rgba(255,255,255,0.55); }
+    .sec__h2 { font-size: var(--text-5xl); margin-bottom: 16px; }
+    .sec--dark .sec__h2 { color: #fff; }
+    .sec__intro { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.6; color: #555; max-width: 62ch; margin-bottom: 44px; }
+    .sec__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+
+    .arrow { font-family: var(--font-body); font-weight: 700; font-size: var(--text-sm); text-transform: uppercase;
+      letter-spacing: 0.5px; color: #333; text-decoration: none; display: inline-flex; align-items: center; gap: 7px; }
+    .sec--dark .arrow, .ind__panel .arrow, .cta .arrow { color: #fff; }
+    .arrow__tx::after { content: " \2192"; }
+    .arrow:hover .arrow__tx::after { padding-left: 3px; }
+    .arrow:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px; }
+
+    /* ===== BRAND-ELEMENT PLACEHOLDERS (grayscale — design team applies brand) ===== */
+    /* Font lockup: Freight Disp italic lead-in over the Korolev heavy headline */
+    .lead-in { font-family: var(--font-accent); font-style: italic; font-weight: 700;
+      font-size: var(--text-2xl); line-height: 1.05; margin-bottom: 8px; }
+    /* Custom iconography placeholder — repeating circle + generic glyph (✦) */
+    .brand-icon { width: 46px; height: 46px; border-radius: 50%; background: #e2e2e2; color: #888;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .brand-icon--dark { background: #2b2b2b; color: #fff; }
+    .fcard .brand-icon { margin-bottom: 0; }
+
+    /* Stats (c10) */
+    .sec.sec--stats { padding: 38px 0; background: #ececec; }
+    .sec--stats .sec__eyebrow { display: inline-block; margin-bottom: 36px; color: #999; }
+    .stats__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; text-align: center; }
+    .stat__num { font-family: var(--font-head); font-size: var(--text-5xl); line-height: 1; color: #333; }
+    .stat__label { font-family: var(--font-body); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 1.5px; color: #666; margin-top: 10px; }
+
+    /* Alternating blocks (c16) */
+    .altblock { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .altblock + .altblock { margin-top: 56px; }
+    .altblock__img { min-height: 320px; border-radius: 8px; }
+    .altblock--rev .altblock__txt { order: -1; }
+    .altblock h3 { font-size: var(--text-2xl); margin-bottom: 12px; }
+    .altblock p { font-family: var(--font-body); color: #555; line-height: 1.7; margin-bottom: 18px; }
+
+    /* Industries accordion (c13 dark) */
+    .ind { display: grid; grid-template-columns: 1fr 1fr; }
+    .ind__media { min-height: 560px; }
+    .ind__panel { background: #1a1a1a; color: #fff; padding: 56px 48px; }
+    .acc-item { border-top: 1px solid rgba(255,255,255,0.15); }
+    .acc-item:last-child { border-bottom: 1px solid rgba(255,255,255,0.15); }
+    .acc-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; background: none;
+      border: none; color: #fff; padding: 15px 0; font-family: var(--font-body); font-weight: 700; font-size: var(--text-base);
+      text-transform: uppercase; letter-spacing: 0.3px; cursor: pointer; text-align: left; }
+    .acc-head:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; }
+    .acc-head .pm { font-size: 18px; color: rgba(255,255,255,0.6); flex-shrink: 0; }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+    .acc-item.open .acc-body { max-height: 240px; }
+    .acc-body p { font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.7); line-height: 1.6; padding-bottom: 14px; }
+
+    /* Feature card grid (c12) */
+    .fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .fcard { border-top: 1px solid #999; padding-top: 18px; display: flex; gap: 14px; align-items: flex-start; }
+    .fcard__c { flex: 1; min-width: 0; }
+    .fcard h3 { font-size: var(--text-2xl); margin-bottom: 10px; }
+    .fcard p { font-family: var(--font-body); font-size: var(--text-sm); color: #555; line-height: 1.6; margin-bottom: 14px; }
+
+    /* Region map (c18 / c30) */
+    .regionmap { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+    .regionmap__map { min-height: 440px; border-radius: 8px; }
+
+    /* Cards (c22 / c24) */
+    .cards3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: #fff; border: 1px solid #e4e4e4; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
+    .card__img { height: 190px; border-radius: 0; }
+    .card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .card__cat { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+    .card h4 { font-size: var(--text-lg); line-height: 1.25; }
+    .card p { font-family: var(--font-body); font-size: var(--text-sm); color: #555; line-height: 1.6; }
+    .card .arrow { margin-top: auto; font-size: var(--text-xs); }
+
+    /* Talent split (c17 + c11) */
+    .split { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .split__txt { padding: 72px 56px; display: flex; flex-direction: column; justify-content: center; }
+    .split__txt p { font-family: var(--font-body); color: #555; line-height: 1.7; }
+    .split__img { min-height: 460px; }
+    .ministats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 26px 0; }
+    .ministat { background: #f0f0f0; border-radius: 6px; padding: 16px; text-align: center; }
+    .ministat__n { font-family: var(--font-head); font-size: var(--text-2xl); line-height: 1; }
+    .ministat__l { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-top: 6px; }
+
+    /* Quote (c21) — brand accent font */
+    .quote__mark { font-family: var(--font-head); font-size: 56px; line-height: 0.6; color: #ccc; }
+    .quote__text { font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: var(--text-3xl);
+      line-height: 1.3; color: #333; max-width: 30ch; margin-top: 12px; }
+    .quote__cite { font-family: var(--font-body); font-size: var(--text-sm); color: #555; margin-top: 22px; }
+    .quote__cite strong { color: #333; }
+
+    /* Contact CTA (c20 image overlay) */
+    .cta { position: relative; min-height: 440px; display: flex; align-items: center; }
+    .cta__bg { position: absolute; inset: 0; justify-content: flex-start; align-items: flex-end; padding: 16px; }
+    .cta__scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+    .cta .container { position: relative; z-index: 3; }
+    .cta__inner { max-width: 620px; color: #fff; }
+    .cta__inner h2 { font-size: var(--text-5xl); margin-bottom: 16px; color: #fff; }
+    .cta__inner p { font-family: var(--font-body); font-size: var(--text-lg); color: rgba(255,255,255,0.88); line-height: 1.6; margin-bottom: 28px; }
+    .cta__btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .cta__addr { margin-top: 22px; font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.65); }
+
+    /* ================= INTERIOR HERO (c7) ================= */
+    .ihero { position: relative; min-height: 473px; display: flex; align-items: center; }
+    .ihero__bg { position: absolute; inset: 0; justify-content: flex-start; align-items: flex-end; padding: 16px; }
+    .ihero__scrim { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+    .ihero .container { position: relative; z-index: 3; }
+    .ihero__inner { max-width: 760px; color: #fff; padding: 56px 0; }
+    .breadcrumb { font-family: var(--font-body); font-size: var(--text-xs); color: rgba(255,255,255,0.75); margin-bottom: 16px; }
+    .breadcrumb a { color: rgba(255,255,255,0.75); text-decoration: none; }
+    .breadcrumb a:hover { color: #fff; }
+    .ihero__title { font-size: 6rem; color: #fff; }
+    .ihero__intro { font-family: var(--font-body); font-size: var(--text-lg); color: rgba(255,255,255,0.9); line-height: 1.6; margin: 16px 0 24px; max-width: 56ch; }
+
+    /* breadcrumb bar below hero */
+    .crumb-bar { background: #fff; border-bottom: 1px solid #eee; }
+    .crumb-bar .container { padding-top: 14px; padding-bottom: 14px; }
+    .crumbs { font-family: var(--font-body); font-size: var(--text-xs); color: #777; }
+    .crumbs a { color: #777; text-decoration: none; }
+    .crumbs a:hover { color: #333; }
+    .crumbs .sep { color: #bbb; margin: 0 4px; }
+    .crumbs .current { color: #333; font-weight: 600; }
+
+    /* ================= SUB-PAGE CARD GRID ================= */
+    .subgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+    /* ================= FAQ ACCORDION (c15) ================= */
+    .faq { max-width: 860px; }
+    .faq__item { border-top: 1px solid #e2e2e2; }
+    .faq__item:last-child { border-bottom: 1px solid #e2e2e2; }
+    .faq__item summary { list-style: none; cursor: pointer; padding: 18px 0; font-family: var(--font-body);
+      font-weight: 700; font-size: var(--text-lg); color: #333; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .faq__item summary::-webkit-details-marker { display: none; }
+    .faq__item summary::after { content: "+"; font-size: 22px; color: #999; flex-shrink: 0; }
+    .faq__item[open] summary::after { content: "\2212"; }
+    .faq__item summary:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; }
+    .faq__item p { font-family: var(--font-body); color: #555; line-height: 1.7; padding: 0 0 18px; max-width: 74ch; }
+
+    /* active nav state */
+    .nav__link.is-active { position: relative; color: #000; }
+    .nav__link.is-active::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; background: #2b2b2b; }
+    .drawer__head.is-active { color: #000; }
+
+    @media (max-width: 1080px) { .ihero__title { font-size: var(--text-7xl); } .subgrid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 760px) { .ihero__title { font-size: var(--text-5xl); } .ihero__inner { padding: 40px 0; } .subgrid { grid-template-columns: 1fr; } }
+
+    /* ===== UTILITY DESCRIPTORS + STICKY BOTTOM CTA (JobsOhio pattern) ===== */
+    .util-desc { color: #aaa; margin-right: 5px; }
+    .utility .btn-contact--outline { background: #fff; color: #2b2b2b; border: 1px solid #b3b3b3; }
+    .utility .btn-contact--outline:hover { background: #ececec; color: #1a1a1a; }
+    .scroll-cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; background: #1a1a1a;
+      transform: translateY(100%); transition: transform .35s ease; box-shadow: 0 -2px 14px rgba(0,0,0,0.22); }
+    .scroll-cta.show { transform: translateY(0); }
+    .scroll-cta__inner { max-width: var(--max-width); margin: 0 auto; display: flex; align-items: center;
+      justify-content: center; gap: 22px; padding: 13px 32px; }
+    .scroll-cta__text { font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); color: #fff; }
+    .scroll-cta__close { background: none; border: none; color: rgba(255,255,255,0.55); font-size: 22px; line-height: 1; cursor: pointer; padding: 0 2px; }
+    .scroll-cta__close:hover { color: #fff; }
+    @media (max-width: 760px) {
+      .scroll-cta { transform: translateY(0) !important; }   /* always visible on mobile, no scroll reveal */
+      .scroll-cta__inner { padding: 10px 14px; gap: 12px; }
+      .scroll-cta__text { display: block; flex: 1; font-size: var(--text-xs); line-height: 1.25; }
+      .scroll-cta .btn { flex: none; padding: 11px 16px; font-size: var(--text-xs); white-space: nowrap; }
+    }
+
+    /* ===== L3 INTERIOR HERO (c8 — half-width block) ===== */
+    .l3hero { position: relative; min-height: 400px; display: flex; align-items: center; overflow: hidden; background: #ececec; }
+    .l3hero__bg { position: absolute; inset: 0; justify-content: flex-start; align-items: flex-end; padding: 16px; }
+    .l3hero .container { position: relative; z-index: 2; }
+    .l3hero__block { background: #2b2b2b; color: #fff; max-width: 520px; padding: 46px 44px; }
+    .l3hero__title { font-family: var(--font-head); font-size: var(--text-5xl); line-height: 1.02; color: #fff; margin: 6px 0 14px; }
+    .l3hero__intro { font-family: var(--font-body); font-size: var(--text-base); line-height: 1.6; color: rgba(255,255,255,0.88); }
+    .lede { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.7; color: #555; max-width: 64ch; margin-bottom: 30px; }
+    .l3note { font-family: var(--font-body); font-size: var(--text-xs); color: #999; font-style: italic; margin-top: 24px; }
+    @media (max-width: 760px) { .l3hero__block { max-width: 100%; padding: 36px 26px; } }
+    /* ===== INTERNATIONAL REACH — market cards ===== */
+    .markets { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+    .market { border: 1px solid #e0e0e0; background: #fff; }
+    .market__top { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid #eee; }
+    .market__flag { width: 48px; height: 34px; background: #e6e6e6; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 8px; font-weight: 700; color: #999; text-align: center; line-height: 1.1; }
+    .market__name { font-family: var(--font-head); font-size: var(--text-2xl); }
+    .market__body { padding: 16px 24px 22px; }
+    .market__row { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-body); font-size: 13px; padding: 7px 0; border-top: 1px solid #f2f2f2; }
+    .market__row:first-child { border-top: none; }
+    .market__row .l { color: #888; flex-shrink: 0; }
+    .market__row .v { color: var(--ink); font-weight: 600; text-align: right; }
+    @media (max-width: 760px) { .markets { grid-template-columns: 1fr; } }
+    /* ===== offsite / external link indicator ===== */
+    a[href^="https://"] { white-space: nowrap; }
+    a[href^="https://"]::after { content: "\2197"; display: inline-block; margin-left: 3px; font-size: 0.78em; font-weight: 700; opacity: 0.6; vertical-align: text-top; }
+
+    /* ================= FOOTER (c5 / D2) — global ================= */
+    .footer { background: #1a1a1a; color: #fff; }
+    .footer .container { padding-top: 56px; padding-bottom: 0; }
+    .footer__top { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px;
+      padding-bottom: 36px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .footer__brand img { height: 40px; width: auto; display: block; }
+    .footer__addr { color: rgba(255,255,255,0.55); font-size: var(--text-sm); line-height: 1.7; margin: 18px 0; }
+    .footer__social { display: flex; gap: 10px; }
+    .footer__social a { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none;
+      font-size: 11px; font-weight: 700; }
+    .footer__social a:hover { background: rgba(255,255,255,0.28); }
+    .newsletter__t { font-family: var(--font-body); font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; font-size: var(--text-base); margin-bottom: 8px; }
+    .newsletter__d { color: rgba(255,255,255,0.55); font-size: var(--text-sm); margin-bottom: 14px; }
+    .newsletter__form { display: flex; gap: 8px; }
+    .newsletter__form input { flex: 1; min-width: 0; background: transparent; border: 1px solid rgba(255,255,255,0.3);
+      color: #fff; border-radius: 6px; padding: 0 12px; height: 42px; font-family: var(--font-body); font-size: var(--text-sm); }
+    .newsletter__form button { background: #fff; color: #333; border: none; border-radius: 6px; padding: 0 18px;
+      font-family: var(--font-body); font-weight: 700; font-size: var(--text-sm); cursor: pointer; white-space: nowrap;
+      transition: background 0.2s ease; }
+    .newsletter__form button:hover { background: #e0e0e0; }
+    .footer__partner { margin-top: 16px; display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.45); font-size: 11px; }
+    .footer__partner .jo { display: inline-flex; align-items: center; padding: 4px 10px; border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 4px; font-weight: 700; color: rgba(255,255,255,0.7); }
+    .footer__links { display: grid; grid-template-columns: repeat(6, 1fr); gap: 26px; padding: 36px 0; }
+    .footer__col-t { font-family: var(--font-body); font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.2px; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+    .footer__col a { display: flex; align-items: center; gap: 7px; color: rgba(255,255,255,0.8);
+      font-size: var(--text-xs); text-decoration: none; padding: 4px 0; }
+    .footer__col a:hover { color: #fff; }
+    .footer__col a:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 3px; }
+    .footer__partners-bar { display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center;
+      padding: 22px 0; border-top: 1px solid rgba(255,255,255,0.12); }
+    .footer__partners-bar .pl-t { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-right: 4px; }
+    .footer__partners-bar a { color: rgba(255,255,255,0.75); font-family: var(--font-body); font-weight: 700;
+      text-transform: uppercase; font-size: var(--text-sm); letter-spacing: 0.5px; text-decoration: none; }
+    .footer__partners-bar a:hover { color: #fff; }
+    .footer__jo { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.45); font-size: 11px; }
+    .footer__sub { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 18px 0 30px; border-top: 1px solid rgba(255,255,255,0.12); font-size: 12px; color: rgba(255,255,255,0.45); }
+    .footer__sub-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer__sub-links a { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .footer__sub-links a:hover { color: #fff; }
+
+    /* ================= CONTROLS PALETTE ================= */
+    .controls { position: fixed; bottom: 22px; right: 22px; z-index: 200; width: 232px;
+      background: #fff; border: 1px solid #cdddf0; border-radius: 10px; box-shadow: 0 6px 24px rgba(46,91,140,0.22);
+      font-family: var(--font-body); overflow: hidden; }
+    .controls__head { background: #5b9bd5; color: #fff; padding: 11px 14px; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .controls__body { padding: 10px 14px; }
+    .controls.collapsed .controls__body { display: none; }
+    .ctrl-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+    .ctrl-row + .ctrl-row { border-top: 1px solid #f2f2f2; }
+    .ctrl-label { font-size: 11px; color: #444; }
+    .switch { position: relative; width: 34px; height: 19px; background: #d8d8d8; border-radius: 10px; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+    .switch.active { background: #5b9bd5; }
+    .switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; background: #fff; border-radius: 50%; transition: 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+    .switch.active::after { transform: translateX(15px); }
+    .ctrl-legend { margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+    .ctrl-legend__t { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 7px; }
+    .ctrl-legend__row { display: flex; align-items: center; gap: 8px; font-size: 10px; color: #555; padding: 2px 0; }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1080px) {
+      .nav { display: none; margin-left: 0; }
+      .hamburger { display: flex; }
+      .header__actions { display: flex; }
+      .drawer { display: block; }
+      .hero__title { font-size: var(--text-5xl); }
+      .footer__top { grid-template-columns: 1fr; gap: 32px; }
+      .footer__links { grid-template-columns: repeat(3, 1fr); gap: 28px; }
+      .stats__grid { grid-template-columns: repeat(2, 1fr); gap: 30px 32px; }
+      .ind { grid-template-columns: 1fr; }
+      .ind__media { min-height: 300px; order: -1; }
+      .regionmap { grid-template-columns: 1fr; gap: 32px; }
+      .split { grid-template-columns: 1fr; }
+      .split__img { min-height: 300px; order: -1; }
+      .cards3 { grid-template-columns: repeat(3, 1fr); }
+      .fgrid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .footer__links { grid-template-columns: repeat(2, 1fr); }
+      .footer__sub { flex-direction: column; align-items: flex-start; }
+      .sec { padding: 56px 0; }
+      .sec__h2 { font-size: var(--text-4xl); }
+      .altblock { grid-template-columns: 1fr; gap: 28px; }
+      .altblock--rev .altblock__txt { order: 0; }
+      .altblock__img { min-height: 240px; }
+      .stats__grid { grid-template-columns: 1fr 1fr; gap: 26px; }
+      .cards3 { grid-template-columns: 1fr; }
+      .fgrid { grid-template-columns: 1fr; }
+      .split__txt { padding: 44px 28px; }
+      .regionmap__map { min-height: 300px; }
+      .quote__text { font-size: var(--text-2xl); }
+      .cta__inner h2 { font-size: var(--text-4xl); }
+      .ind__panel { padding: 40px 28px; }
+      .container { padding: 0 20px; }
+      .utility { display: none; }
+      .hero { grid-template-columns: 1fr; min-height: 0; }
+      .hero__img { min-height: 280px; order: -1; }
+      .hero__panel { padding: 44px 28px; }
+      .hero__title { font-size: var(--text-4xl); }
+      .hero__sub { font-size: var(--text-base); }
+      .search-form { flex-wrap: wrap; padding-right: 36px; }
+      .search-form input { font-size: var(--text-lg); width: 100%; order: 2; }
+      .search-form .btn { order: 3; }
+      .section-header-bar { padding: 7px 20px; }
+      .version-bar { padding: 7px 20px; font-size: 9px; }
+      .controls { display: none; }   /* hidden on mobile */
+    }
+
+    @media print { .controls, .version-bar, .annotation { display: none !important; } }
+  </style>
+</head>
+<body id="top" class="hide-anim hide-bars hide-comp hide-type hide-version hide-a11y hide-devnotes hide-status">
+
+<!-- ===== VERSION BAR ===== -->
+<div class="version-bar">
+  <span>WIREFRAME · Columbus Region · Why Columbus &rsaquo; International Reach &rsaquo; South Korea · v1 · June 2026</span>
+  <span><a href="project-components.html">Component Library</a> &middot; <a href="project-components-details.html">Dev Assessment</a></span>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 — UTILITY BAR (c1) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">1</span> Utility Bar <span style="color:#aaa;">· desktop only</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Utility Bar — <a href="project-components.html#c1">c1</a> · D3 · Heavy leverage (2–3 hrs)</div>
+  <ul>
+    <li><strong>Build:</strong> Statamic <strong>Global Set</strong> (<code>utility_links</code>) so partner links + Contact CTA are editable in the CP without a deploy. Port Greenbrier's secondary-nav row pattern.</li>
+    <li><strong>Links:</strong> One Columbus, Columbus Partnership, Smart Columbus (external), Search, Contact CTA. Dots show each destination's content status.</li>
+    <li><strong>Responsive:</strong> hidden below 768px — these links move into the mobile drawer footer (Partner Organizations + Contact CTA).</li>
+  </ul>
+</div>
+<div class="utility">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c1">c1 · Utility Bar</a></div>
+  <div class="container">
+    <div class="utility__row">
+      <a href="https://columbusregion.com/about-us/what-we-do/regional-economic-development/" target="_blank" rel="noopener noreferrer"><span class="util-desc">Economic Development</span> One Columbus</a>
+      <a href="https://columbusregion.com/about-us/columbus-partnership/" target="_blank" rel="noopener noreferrer"><span class="util-desc">Civic Coalition</span> Columbus Partnership</a>
+      <a href="https://smartcolumbus.com/" target="_blank" rel="noopener noreferrer"><span class="util-desc">Innovation Lab</span> Smart Columbus</a>
+      <a href="contact-us.html" class="btn-contact" aria-label="Let&rsquo;s Talk &mdash; Contact Us">Let&rsquo;s Talk</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 — HEADER + MAIN NAV (c2 + c3 + c4) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">2</span> Header + Main Navigation
+  <span class="annotation annotation--anim" style="position:relative;">Shrinks on scroll</span>
+  <span class="annotation annotation--a11y" style="position:relative;">WCAG 2.2 AA</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Header + Nav — <a href="project-components.html#c2">c2</a>/<a href="project-components.html#c3">c3</a>/<a href="project-components.html#c4">c4</a> · D1 · Heavy leverage (8–10 hrs)</div>
+  <ul>
+    <li><strong>Build:</strong> port Knox's <strong>Alpine.js</strong> mega-menu (desktop) / accordion drawer (mobile) and reskin. Logo is a Statamic Global asset.</li>
+    <li><strong>Nav source:</strong> 7 top-level sections with dropdown panels; sub-links driven by a Statamic <strong>Navigation</strong> structure (not hard-coded). Sub-link dots = each page's content status.</li>
+    <li><strong>Behavior:</strong> sticky header, shrinks on scroll. Disclosure pattern (see WCAG note below).</li>
+    <li><strong>Search (<a href="project-components.html#s14">s14</a>):</strong> icon in the nav bar opens a full-width <strong>slide-down drawer</strong> (JobsOhio pattern). Statamic Search (Algolia or local) indexing Pages, News, Press Releases, Counties, Employers.</li>
+    <li><strong>Popular Searches:</strong> data-driven — derived from GA top-traffic pages + SEMrush keyword-gap volume + the site-consultant conversion funnel (Site Selection, Incentives, Top Employers, Real Estate, Semiconductors/Intel, Cost of Doing Business, Success Stories, Workforce). Editable as a Statamic Global.</li>
+    <li><strong>Responsive:</strong> desktop nav collapses to hamburger drawer at ≤1080px; search drawer form stacks at ≤760px.</li>
+  </ul>
+</div>
+<div class="a11y-note">
+  <div class="a11y-note__t">Navigation — WCAG 2.2 AA build requirements</div>
+  <ul>
+    <li><strong>2.1.1 Keyboard (A):</strong> each top-level item is a <code>&lt;button aria-expanded&gt;</code> — opens/closes on click, Enter or Space.</li>
+    <li><strong>1.4.13 Content on Hover or Focus (AA):</strong> the panel is Dismissible (Esc closes &amp; returns focus to the trigger), Hoverable (no gap between trigger and panel), and Persistent.</li>
+    <li><strong>4.1.2 Name, Role, Value (A):</strong> <code>aria-expanded</code> reflects open state; <code>aria-controls</code> points to the panel <code>id</code>.</li>
+    <li><strong>2.4.7 Focus Visible (AA):</strong> visible focus ring on the trigger and every sub-link.</li>
+    <li><strong>2.4.11 Focus Not Obscured (AA — new in 2.2):</strong> the sticky header must not hide a focused link (apply <code>scroll-margin-top</code>).</li>
+    <li><strong>2.5.8 Target Size Minimum (AA — new in 2.2):</strong> triggers &amp; links are ≥ 24×24 px.</li>
+    <li><strong>Search drawer:</strong> toggle is a <code>&lt;button aria-expanded aria-controls&gt;</code>; focus moves to the field on open, Esc closes and returns focus to the toggle, backdrop click dismisses.</li>
+  </ul>
+  <div class="a11y-note__hint">Hover still opens the menu as a convenience — keyboard, Esc, and click-outside are all supported. Toggle this note via “Accessibility (WCAG)” in Wireframe Controls.</div>
+</div>
+<header class="header">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c2">c2 · Site Header</a>
+    <a class="comp-tag" href="project-components.html#c3">c3 · Main Nav</a>
+    <a class="comp-tag" href="project-components.html#c4">c4 · Mobile Menu</a></div>
+  <div class="container">
+    <div class="header__row">
+      <!-- Logo -->
+      <a href="homepage-wireframe.html" class="logo">
+        <img src="images/cbus-region-logo-blkack.png" alt="The Columbus Region" class="logo__img">
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="nav" aria-label="Main">
+        <!-- 1. WHY COLUMBUS -->
+        <div class="nav__item">
+          <button type="button" class="nav__link is-active" aria-expanded="false" aria-controls="mega-1">Why Columbus <span class="caret">&#9660;</span></button>
+          <div class="nav__mega" id="mega-1">
+            <div class="nav__grid">
+              <a class="nav__sublink is-overview" href="why-columbus.html"><span class="sdot sdot--new"></span>Why Columbus Overview</a>
+              <a class="nav__sublink" href="rankings-recognition.html"><span class="sdot sdot--new"></span>Rankings &amp; Recognition</a>
+              <a class="nav__sublink" href="success-stories.html"><span class="sdot sdot--enhance"></span>Success Stories</a>
+              <a class="nav__sublink" href="county-region.html"><span class="sdot sdot--enhance"></span>The 11-County Region</a>
+              <a class="nav__sublink" href="international-reach.html" aria-current="page" style="font-weight:700;color:#000;"><span class="sdot sdot--enhance"></span>International Reach</a>
+              <a class="nav__sublink" href="why-partner.html"><span class="sdot sdot--new"></span>Why Partner With Us</a>
+            </div>
+          </div>
+        </div>
+        <!-- 2. ECONOMY -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-2">Economy <span class="caret">&#9660;</span></button>
+          <div class="nav__mega nav__mega--wide" id="mega-2">
+            <div class="nav__grid nav__grid--2">
+              <a class="nav__sublink is-overview" href="economy.html"><span class="sdot sdot--enhance"></span>Economy Overview</a>
+              <a class="nav__sublink" href="top-employers.html"><span class="sdot sdot--keep"></span>Top Employers</a>
+              <a class="nav__sublink" href="semiconductors.html"><span class="sdot sdot--enhance"></span>Semiconductors</a>
+              <a class="nav__sublink" href="automotive-mobility.html"><span class="sdot sdot--enhance"></span>Automotive &amp; Mobility</a>
+              <a class="nav__sublink" href="finance-fintech.html"><span class="sdot sdot--enhance"></span>Finance &amp; Fintech</a>
+              <a class="nav__sublink" href="life-sciences.html"><span class="sdot sdot--enhance"></span>Life Sciences</a>
+              <a class="nav__sublink" href="food-beverage.html"><span class="sdot sdot--keep"></span>Food &amp; Beverage</a>
+              <a class="nav__sublink" href="data-centers.html"><span class="sdot sdot--new"></span>Data Centers</a>
+              <a class="nav__sublink" href="defense-aerospace.html"><span class="sdot sdot--new"></span>Defense &amp; Aerospace</a>
+              <a class="nav__sublink" href="logistics-ecommerce.html"><span class="sdot sdot--enhance"></span>Logistics &amp; E-Commerce</a>
+              <a class="nav__sublink" href="manufacturing.html"><span class="sdot sdot--enhance"></span>Manufacturing</a>
+              <a class="nav__sublink" href="research-development.html"><span class="sdot sdot--enhance"></span>Research &amp; Development</a>
+              <a class="nav__sublink" href="company-expansions.html"><span class="sdot sdot--keep"></span>Company Expansions</a>
+            </div>
+          </div>
+        </div>
+        <!-- 3. DOING BUSINESS -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-3">Doing Business <span class="caret">&#9660;</span></button>
+          <div class="nav__mega nav__mega--wide" id="mega-3">
+            <div class="nav__grid nav__grid--2">
+              <a class="nav__sublink is-overview" href="doing-business.html"><span class="sdot sdot--enhance"></span>Doing Business Overview</a>
+              <a class="nav__sublink" href="site-selection-services.html"><span class="sdot sdot--new"></span>Site Selection Services</a>
+              <a class="nav__sublink" href="cost-of-doing-business.html"><span class="sdot sdot--enhance"></span>Cost of Doing Business</a>
+              <a class="nav__sublink" href="incentives-programs.html"><span class="sdot sdot--enhance"></span>Incentives &amp; Programs</a>
+              <a class="nav__sublink" href="available-real-estate.html"><span class="sdot sdot--keep"></span>Available Real Estate</a>
+              <a class="nav__sublink" href="infrastructure-logistics.html"><span class="sdot sdot--enhance"></span>Infrastructure &amp; Logistics</a>
+              <a class="nav__sublink" href="energy-sustainability.html"><span class="sdot sdot--keep"></span>Energy &amp; Sustainability</a>
+              <a class="nav__sublink" href="diversity-equity-inclusion.html"><span class="sdot sdot--enhance"></span>Diversity, Equity &amp; Inclusion</a>
+              <a class="nav__sublink" href="economic-development-ecosystem.html"><span class="sdot sdot--keep"></span>Economic Development Ecosystem</a>
+            </div>
+          </div>
+        </div>
+        <!-- 4. TALENT -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-4">Talent <span class="caret">&#9660;</span></button>
+          <div class="nav__mega" id="mega-4">
+            <div class="nav__grid">
+              <a class="nav__sublink is-overview" href="talent.html"><span class="sdot sdot--enhance"></span>Talent Overview</a>
+              <a class="nav__sublink" href="workforce-pipeline.html"><span class="sdot sdot--new"></span>Workforce Pipeline</a>
+              <a class="nav__sublink" href="education-universities.html"><span class="sdot sdot--enhance"></span>Education &amp; Universities</a>
+              <a class="nav__sublink" href="relocation-guide.html"><span class="sdot sdot--enhance"></span>Relocation Guide</a>
+              <a class="nav__sublink" href="quality-of-life.html"><span class="sdot sdot--enhance"></span>Quality of Life</a>
+              <a class="nav__sublink" href="diversity-inclusion.html"><span class="sdot sdot--keep"></span>Diversity &amp; Inclusion</a>
+            </div>
+          </div>
+        </div>
+        <!-- 5. PARTNERS & INVESTMENT -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-5">Partners <span class="caret">&#9660;</span></button>
+          <div class="nav__mega" id="mega-5">
+            <div class="nav__grid">
+              <a class="nav__sublink is-overview" href="partners.html"><span class="sdot sdot--enhance"></span>Partners &amp; Investment Overview</a>
+              <a class="nav__sublink" href="investors-members.html"><span class="sdot sdot--enhance"></span>Investors &amp; Members</a>
+              <a class="nav__sublink" href="board-of-directors.html"><span class="sdot sdot--keep"></span>Board of Directors</a>
+              <a class="nav__sublink" href="one-columbus.html"><span class="sdot sdot--keep"></span>One Columbus</a>
+              <a class="nav__sublink" href="smart-columbus.html"><span class="sdot sdot--enhance"></span>Smart Columbus</a>
+              <a class="nav__sublink" href="clean-energy-partners.html"><span class="sdot sdot--enhance"></span>Clean Energy Partners</a>
+              <a class="nav__sublink" href="government-relations.html"><span class="sdot sdot--keep"></span>Government Relations</a>
+            </div>
+          </div>
+        </div>
+        <!-- 6. ABOUT -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-6">About <span class="caret">&#9660;</span></button>
+          <div class="nav__mega" id="mega-6">
+            <div class="nav__grid">
+              <a class="nav__sublink is-overview" href="about.html"><span class="sdot sdot--enhance"></span>About Overview</a>
+              <a class="nav__sublink" href="the-columbus-partnership.html"><span class="sdot sdot--enhance"></span>The Columbus Partnership</a>
+              <a class="nav__sublink" href="meet-the-team.html"><span class="sdot sdot--keep"></span>Meet the Team</a>
+              <a class="nav__sublink" href="the-columbus-way.html"><span class="sdot sdot--keep"></span>The Columbus Way</a>
+              <a class="nav__sublink" href="careers.html"><span class="sdot sdot--keep"></span>Careers</a>
+              <a class="nav__sublink" href="contact-us.html"><span class="sdot sdot--keep"></span>Contact Us</a>
+            </div>
+          </div>
+        </div>
+        <!-- 7. NEWS & INSIGHTS -->
+        <div class="nav__item">
+          <button type="button" class="nav__link" aria-expanded="false" aria-controls="mega-7">News <span class="caret">&#9660;</span></button>
+          <div class="nav__mega" id="mega-7">
+            <div class="nav__grid">
+              <a class="nav__sublink is-overview" href="news-hub.html"><span class="sdot sdot--enhance"></span>News &amp; Insights Hub</a>
+              <a class="nav__sublink" href="press-releases.html"><span class="sdot sdot--keep"></span>Press Releases</a>
+              <a class="nav__sublink" href="economic-development-411.html"><span class="sdot sdot--enhance"></span>Economic Development 411</a>
+              <a class="nav__sublink" href="tech-fest.html"><span class="sdot sdot--new"></span>Tech Fest</a>
+              <a class="nav__sublink" href="media-resources.html"><span class="sdot sdot--new"></span>Media Resources</a>
+              <a class="nav__sublink" href="data-reports.html"><span class="sdot sdot--new"></span>Data &amp; Reports</a>
+            </div>
+          </div>
+        </div>
+        <span class="type-spec" style="align-self:center;">Gotham Bold · text-sm · uppercase</span>
+      </nav>
+
+      <!-- Search toggle + Hamburger -->
+      <div class="header__actions">
+        <!-- HIDDEN (internal only): main-nav search icon — uncomment to restore
+        <button type="button" class="search-toggle" id="searchToggle" aria-expanded="false" aria-controls="searchDrawer" aria-label="Open search" onclick="toggleSearch()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        </button>
+        -->
+        <div class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search drawer (slides down — JobsOhio pattern) -->
+  <div class="search-drawer" id="searchDrawer" role="region" aria-label="Site search">
+    <div class="container">
+      <div class="search-drawer__inner">
+        <button type="button" class="search-close" id="searchClose" aria-label="Close search" onclick="closeSearch()">&times;</button>
+        <form class="search-form" onsubmit="return false;">
+          <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="search" placeholder="Search the Columbus Region&hellip;" aria-label="Search the Columbus Region">
+          <button type="submit" class="btn btn--dark">Search</button>
+        </form>
+        <div class="popular">
+          <div class="popular__t">Popular Searches</div>
+          <div class="popular__tags">
+            <a class="ptag" href="#">Site Selection Services</a>
+            <a class="ptag" href="#">Incentives &amp; Programs</a>
+            <a class="ptag" href="#">Top Employers</a>
+            <a class="ptag" href="#">Available Real Estate</a>
+            <a class="ptag" href="#">Semiconductors / Intel</a>
+            <a class="ptag" href="#">Cost of Doing Business</a>
+            <a class="ptag" href="#">Success Stories</a>
+            <a class="ptag" href="#">Workforce &amp; Talent</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="search-backdrop" id="searchBackdrop" onclick="closeSearch()"></div>
+
+<!-- ===== MOBILE DRAWER (c4) ===== -->
+<div class="drawer" id="drawer">
+  <button type="button" class="drawer__close" aria-label="Close menu" onclick="toggleDrawer()">&times;</button>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head is-active" aria-expanded="false" aria-controls="draw-1" onclick="toggleAcc(this)">Why Columbus <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-1">
+      <a href="why-columbus.html"><span class="sdot sdot--new"></span>Why Columbus Overview</a>
+      <a href="rankings-recognition.html"><span class="sdot sdot--new"></span>Rankings &amp; Recognition</a>
+      <a href="success-stories.html"><span class="sdot sdot--enhance"></span>Success Stories</a>
+      <a href="county-region.html"><span class="sdot sdot--enhance"></span>The 11-County Region</a>
+      <a href="international-reach.html"><span class="sdot sdot--enhance"></span>International Reach</a>
+      <a href="why-partner.html"><span class="sdot sdot--new"></span>Why Partner With Us</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-2" onclick="toggleAcc(this)">Economy <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-2">
+      <a href="economy.html"><span class="sdot sdot--enhance"></span>Economy Overview</a>
+      <a href="top-employers.html"><span class="sdot sdot--keep"></span>Top Employers</a>
+      <a href="semiconductors.html"><span class="sdot sdot--enhance"></span>Semiconductors</a>
+      <a href="automotive-mobility.html"><span class="sdot sdot--enhance"></span>Automotive &amp; Mobility</a>
+      <a href="finance-fintech.html"><span class="sdot sdot--enhance"></span>Finance &amp; Fintech</a>
+      <a href="life-sciences.html"><span class="sdot sdot--enhance"></span>Life Sciences</a>
+      <a href="food-beverage.html"><span class="sdot sdot--keep"></span>Food &amp; Beverage</a>
+      <a href="data-centers.html"><span class="sdot sdot--new"></span>Data Centers</a>
+      <a href="defense-aerospace.html"><span class="sdot sdot--new"></span>Defense &amp; Aerospace</a>
+      <a href="logistics-ecommerce.html"><span class="sdot sdot--enhance"></span>Logistics &amp; E-Commerce</a>
+      <a href="manufacturing.html"><span class="sdot sdot--enhance"></span>Manufacturing</a>
+      <a href="research-development.html"><span class="sdot sdot--enhance"></span>Research &amp; Development</a>
+      <a href="company-expansions.html"><span class="sdot sdot--keep"></span>Company Expansions</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-3" onclick="toggleAcc(this)">Doing Business <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-3">
+      <a href="doing-business.html"><span class="sdot sdot--enhance"></span>Doing Business Overview</a>
+      <a href="site-selection-services.html"><span class="sdot sdot--new"></span>Site Selection Services</a>
+      <a href="cost-of-doing-business.html"><span class="sdot sdot--enhance"></span>Cost of Doing Business</a>
+      <a href="incentives-programs.html"><span class="sdot sdot--enhance"></span>Incentives &amp; Programs</a>
+      <a href="available-real-estate.html"><span class="sdot sdot--keep"></span>Available Real Estate</a>
+      <a href="infrastructure-logistics.html"><span class="sdot sdot--enhance"></span>Infrastructure &amp; Logistics</a>
+      <a href="energy-sustainability.html"><span class="sdot sdot--keep"></span>Energy &amp; Sustainability</a>
+      <a href="diversity-equity-inclusion.html"><span class="sdot sdot--enhance"></span>Diversity, Equity &amp; Inclusion</a>
+      <a href="economic-development-ecosystem.html"><span class="sdot sdot--keep"></span>Economic Development Ecosystem</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-4" onclick="toggleAcc(this)">Talent &amp; Workforce <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-4">
+      <a href="talent.html"><span class="sdot sdot--enhance"></span>Talent Overview</a>
+      <a href="workforce-pipeline.html"><span class="sdot sdot--new"></span>Workforce Pipeline</a>
+      <a href="education-universities.html"><span class="sdot sdot--enhance"></span>Education &amp; Universities</a>
+      <a href="relocation-guide.html"><span class="sdot sdot--enhance"></span>Relocation Guide</a>
+      <a href="quality-of-life.html"><span class="sdot sdot--enhance"></span>Quality of Life</a>
+      <a href="diversity-inclusion.html"><span class="sdot sdot--keep"></span>Diversity &amp; Inclusion</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-5" onclick="toggleAcc(this)">Partners &amp; Investment <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-5">
+      <a href="partners.html"><span class="sdot sdot--enhance"></span>Partners &amp; Investment Overview</a>
+      <a href="investors-members.html"><span class="sdot sdot--enhance"></span>Investors &amp; Members</a>
+      <a href="board-of-directors.html"><span class="sdot sdot--keep"></span>Board of Directors</a>
+      <a href="one-columbus.html"><span class="sdot sdot--keep"></span>One Columbus</a>
+      <a href="smart-columbus.html"><span class="sdot sdot--enhance"></span>Smart Columbus</a>
+      <a href="clean-energy-partners.html"><span class="sdot sdot--enhance"></span>Clean Energy Partners</a>
+      <a href="government-relations.html"><span class="sdot sdot--keep"></span>Government Relations</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-6" onclick="toggleAcc(this)">About <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-6">
+      <a href="about.html"><span class="sdot sdot--enhance"></span>About Overview</a>
+      <a href="the-columbus-partnership.html"><span class="sdot sdot--enhance"></span>The Columbus Partnership</a>
+      <a href="meet-the-team.html"><span class="sdot sdot--keep"></span>Meet the Team</a>
+      <a href="the-columbus-way.html"><span class="sdot sdot--keep"></span>The Columbus Way</a>
+      <a href="careers.html"><span class="sdot sdot--keep"></span>Careers</a>
+      <a href="contact-us.html"><span class="sdot sdot--keep"></span>Contact Us</a>
+    </div>
+  </div>
+  <div class="drawer__item">
+    <button type="button" class="drawer__head" aria-expanded="false" aria-controls="draw-7" onclick="toggleAcc(this)">News &amp; Insights <span class="arr">&#9660;</span></button>
+    <div class="drawer__sub" id="draw-7">
+      <a href="news-hub.html"><span class="sdot sdot--enhance"></span>News &amp; Insights Hub</a>
+      <a href="press-releases.html"><span class="sdot sdot--keep"></span>Press Releases</a>
+      <a href="economic-development-411.html"><span class="sdot sdot--enhance"></span>Economic Development 411</a>
+      <a href="tech-fest.html"><span class="sdot sdot--new"></span>Tech Fest</a>
+      <a href="media-resources.html"><span class="sdot sdot--new"></span>Media Resources</a>
+      <a href="data-reports.html"><span class="sdot sdot--new"></span>Data &amp; Reports</a>
+    </div>
+  </div>
+  <div class="drawer__partners">
+    <div class="drawer__partners-t">Partner Organizations</div>
+    <a href="https://columbusregion.com/about-us/what-we-do/regional-economic-development/" target="_blank" rel="noopener noreferrer">One Columbus</a>
+    <a href="https://columbusregion.com/about-us/columbus-partnership/" target="_blank" rel="noopener noreferrer">Columbus Partnership</a>
+    <a href="https://smartcolumbus.com/" target="_blank" rel="noopener noreferrer">Smart Columbus</a>
+  </div>
+  <a href="contact-us.html" class="drawer__cta" aria-label="Let&rsquo;s Talk &mdash; Contact Us">Let&rsquo;s Talk</a>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 — INTERIOR HERO (c8 · L3) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">3</span> Interior Hero &mdash; L3
+  <span class="annotation annotation--anim" style="position:relative;">Block slides over photo</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Interior Hero — Half-Width Block — <a href="project-components.html#c8">c8</a> &middot; D5 &middot; Heavy leverage</div>
+  <ul>
+    <li><strong>Build:</strong> L3 half-width-block hero. Child of <a href="international-reach.html">International Reach</a>.</li>
+    <li><strong>Content:</strong> <span class="hl hl--enhance">STUB</span> &mdash; South Korea market sub-page. No live equivalent exists; created in the redesign to replace the retired full-site language version for this market.</li>
+    <li><strong>SEO/LLM:</strong> hreflang on this single market overview; Statamic &ldquo;Markets&rdquo; collection entry.</li>
+  </ul>
+</div>
+<section class="l3hero">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c8">c8 · Interior Hero (Half-Width Block)</a></div>
+  <div class="l3hero__bg img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>Hero Image</span></div>
+  <div class="container">
+    <div class="l3hero__block">
+      <p class="lead-in" style="color:rgba(255,255,255,0.92);">한국 &middot; South Korea</p>
+      <h1 class="l3hero__title"><span class="hl hl--enhance">South Korea</span></h1>
+      <p class="l3hero__intro"><span class="hl hl--enhance">A fast-growing relationship driven by the electric-vehicle battery and semiconductor supply chain now taking root across the region.</span></p>
+    </div>
+  </div>
+</section>
+
+<div class="crumb-bar">
+  <div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="homepage-wireframe.html">Home</a> <span class="sep">/</span> <a href="why-columbus.html">Why Columbus</a> <span class="sep">/</span> <a href="international-reach.html">International Reach</a> <span class="sep">/</span> <span class="current">South Korea</span></nav></div>
+</div>
+
+<div class="content-brief">
+  <div class="content-brief__t">Content Brief &middot; South Korea (International Reach)</div>
+  <ul>
+    <li><b>Scope:</b> New (sub-page of International Reach) &middot; Owner: Abbey / John &middot; GatherContent Template A (Markets collection)</li>
+    <li><b>Must cover:</b> South Korea-specific overview (translated_overview), anchor companies, regional presence, and in-language local contacts</li>
+    <li><b>Replaces:</b> the retired full-site language version for this market; hreflang on this overview only</li>
+    <li><b>Keyword:</b> &ldquo;south korea business columbus ohio&rdquo;</li>
+    <li><b>Meta description (draft):</b> &ldquo;South Korean companies in the Columbus Region &mdash; battery and semiconductor supply-chain investment tied to Intel and the Honda&ndash;LG Energy Solution build-out, supported by a dedicated Korea Desk.&rdquo; (audit: meta descriptions missing site-wide)</li>
+    <li><b>Source:</b> derived &mdash; net-new in the redesign (no standalone live page)</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 — MARKET OVERVIEW (c16) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">4</span> Market Overview
+  <span class="annotation annotation--anim" style="position:relative;">Text slide-in</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Alternating Content — <a href="project-components.html#c16">c16</a> &middot; High leverage</div>
+  <ul>
+    <li><strong>Build:</strong> a single entry in the Statamic &ldquo;Markets&rdquo; collection (fields: sector, anchor company, presence, local contact, <code>translated_overview</code>); hreflang on this overview only.</li>
+    <li><strong>Content:</strong> STUB &mdash; representative placeholder for wireframe review; replaces the retired full-site language version for this market.</li>
+  </ul>
+</div>
+<section class="sec">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c16">c16 · Alternating Content</a></div>
+  <div class="container">
+    <div class="sec__eyebrow eyebrow-off">Why South Korea Chooses Columbus</div>
+    <h2 class="sec__h2">A Market Built on Real Relationships</h2>
+    <div class="altblock">
+      <div class="altblock__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>South Korea Market Image</span></div>
+      <div class="altblock__txt">
+        <p><span class="hl hl--enhance">South Korean investment has accelerated sharply, led by LG Energy Solution and a widening base of battery and semiconductor supply-chain partners drawn by Intel&rsquo;s New Albany campus and the region&rsquo;s EV momentum.</span></p>
+        <p><span class="hl hl--enhance">A Korean-language overview (translated_overview) and a dedicated local desk replace the retired /ko/ machine translation with a single, well-supported market hub.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 — AT A GLANCE (c10) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">5</span> At a Glance
+  <span class="annotation annotation--anim" style="position:relative;">Cards stagger in</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Market Snapshot &mdash; mirrors the parent hub&rsquo;s market card; figures pending verification.</div>
+</div>
+<section class="sec sec--alt">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c12">c12 · Feature Card Grid</a></div>
+  <div class="container">
+    <div class="sec__eyebrow eyebrow-off">Market Snapshot</div>
+    <h2 class="sec__h2" style="margin-bottom:30px;">South Korea in the Columbus Region</h2>
+    <div class="markets">
+      <div class="market">
+        <div class="market__top">
+          <div class="market__flag">FLAG</div>
+          <div class="market__name"><span class="hl hl--enhance">South Korea</span></div>
+        </div>
+        <div class="market__body">
+          <div class="market__row"><span class="l">Focus sector</span><span class="v"><span class="hl hl--enhance">Batteries &amp; Semiconductors</span></span></div>
+          <div class="market__row"><span class="l">Anchor company</span><span class="v"><span class="hl hl--enhance">LG Energy Solution</span></span></div>
+          <div class="market__row"><span class="l">Presence</span><span class="v"><span class="hl hl--enhance">Growing rapidly</span></span></div>
+          <div class="market__row"><span class="l">Local contact</span><span class="v"><span class="hl hl--enhance">Korea Desk &middot; 한국 데스크</span></span></div>
+        </div>
+      </div>
+    </div>
+    <p class="l3note"><span class="hl hl--enhance">Market data and local-contact labels are representative placeholders for wireframe review.</span></p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 — LOCAL CONTACTS (c33) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">6</span> Local Contacts
+  <span class="comp-tags"></span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Local Contacts &mdash; in-language support desk + partner resources for this market.</div>
+</div>
+<section class="sec">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c33">c33 · Supporting Block</a></div>
+  <div class="container">
+    <div class="sec__eyebrow eyebrow-off">Talk to a South Korea Specialist</div>
+    <h2 class="sec__h2" style="margin-bottom:16px;">In-Language Support</h2>
+    <p style="max-width:640px;"><span class="hl hl--enhance">Connect directly with the Korea Desk &middot; 한국 데스크 for soft-landing support, local introductions, and site-selection assistance &mdash; in your language.</span></p>
+    <div class="market__body" style="max-width:520px;margin-top:18px;">
+      <div class="market__row"><span class="l">Support desk</span><span class="v"><span class="hl hl--enhance">Korea Desk &middot; 한국 데스크</span></span></div>
+      <div class="market__row"><span class="l">Office</span><span class="v"><span class="hl hl--enhance">150 S. Front St., Suite 200, Columbus, OH 43215</span></span></div>
+      <div class="market__row"><span class="l">Phone</span><span class="v"><span class="hl hl--enhance">614-225-0500</span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7 — CONTACT CTA (c20) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">7</span> Contact CTA
+  <span class="annotation annotation--anim" style="position:relative;">Background parallax</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Contact CTA — <a href="project-components.html#c20">c20</a> &middot; High leverage</div>
+  <ul>
+    <li><strong>Build:</strong> image-overlay; routes to the international team.</li>
+  </ul>
+</div>
+<section class="cta">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c20">c20 · Contact CTA (Overlay)</a></div>
+  <div class="cta__bg img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>Background Image</span></div>
+  <div class="cta__scrim"></div>
+  <div class="container">
+    <div class="cta__inner">
+      <p class="lead-in" style="color:rgba(255,255,255,0.92);">Expanding from abroad?</p>
+      <h2><span class="hl hl--enhance">Bring Your Company to the Columbus Region</span></h2>
+      <p><span class="hl hl--enhance">Our international team provides soft-landing support, local introductions, and site selection &mdash; in your language.</span></p>
+      <div class="cta__btns">
+        <a class="btn btn--primary" href="contact-us.html" aria-label="Start the Conversation &mdash; Contact Us">Start the Conversation</a>
+      </div>
+      <div class="cta__addr">150 S. Front St., Suite 200, Columbus, OH 43215 &middot; 614-225-0500</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION F — FOOTER (c5) · global -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">F</span> Footer (global &mdash; reused on every page)
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Footer — <a href="project-components.html#c5">c5</a> · D2 · Heavy leverage (4&ndash;6 hrs)</div>
+  <ul>
+    <li><strong>Build:</strong> Statamic footer partial driven by Globals + a Navigation structure. Greenbrier + Knox multi-column footers port directly. Reused on every page in the sitemap.</li>
+    <li><strong>Newsletter (<a href="project-components.html#c34">c34</a> / D20):</strong> "Columbus Region News" / ED411 signup &mdash; HubSpot embed (<a href="project-components.html#s11">s11</a>, portal 44904048).</li>
+    <li><strong>Content:</strong> address + phone + newsletter copy carry over from the live site; nav mirrors the new 7-section IA; the Weglot <strong>language switcher is removed</strong> (English-only).</li>
+    <li><strong>Responsive:</strong> 5 link columns &rarr; 3 (&le;1080px) &rarr; 2 (&le;760px); brand/newsletter and sub-bar stack.</li>
+  </ul>
+</div>
+<footer class="footer">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c5">c5 · Footer</a></div>
+  <div class="container">
+    <!-- Top: brand + newsletter -->
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="images/cbus-region-logo-white.png" alt="The Columbus Region">
+        <div class="footer__addr">150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500</div>
+        <div class="footer__social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="X">X</a>
+          <a href="#" aria-label="YouTube">YT</a>
+          <a href="#" aria-label="Instagram">IG</a>
+        </div>
+      </div>
+      <div class="newsletter">
+        <div class="newsletter__t">Subscribe to Columbus Region News</div>
+        <div class="newsletter__d">The latest news, articles and resources sent to your inbox.</div>
+        <form class="newsletter__form" onsubmit="return false;">
+          <input type="email" placeholder="Email address" aria-label="Email address">
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Link columns (new 7-section IA) -->
+    <div class="footer__links">
+      <div class="footer__col">
+        <div class="footer__col-t">Why Columbus</div>
+        <a href="why-columbus.html"><span class="sdot sdot--new"></span>Overview</a>
+        <a href="rankings-recognition.html"><span class="sdot sdot--new"></span>Rankings &amp; Recognition</a>
+        <a href="success-stories.html"><span class="sdot sdot--enhance"></span>Success Stories</a>
+        <a href="county-region.html"><span class="sdot sdot--enhance"></span>The 11-County Region</a>
+        <a href="international-reach.html"><span class="sdot sdot--enhance"></span>International Reach</a>
+      </div>
+      <div class="footer__col">
+        <div class="footer__col-t">Economy</div>
+        <a href="economy.html"><span class="sdot sdot--enhance"></span>Overview</a>
+        <a href="top-employers.html"><span class="sdot sdot--keep"></span>Top Employers</a>
+        <a href="semiconductors.html"><span class="sdot sdot--enhance"></span>Semiconductors</a>
+        <a href="manufacturing.html"><span class="sdot sdot--enhance"></span>Manufacturing</a>
+        <a href="logistics-ecommerce.html"><span class="sdot sdot--enhance"></span>Logistics &amp; E-Commerce</a>
+        <a href="company-expansions.html"><span class="sdot sdot--keep"></span>Company Expansions</a>
+      </div>
+      <div class="footer__col">
+        <div class="footer__col-t">Doing Business</div>
+        <a href="doing-business.html"><span class="sdot sdot--enhance"></span>Overview</a>
+        <a href="site-selection-services.html"><span class="sdot sdot--new"></span>Site Selection Services</a>
+        <a href="cost-of-doing-business.html"><span class="sdot sdot--enhance"></span>Cost of Doing Business</a>
+        <a href="incentives-programs.html"><span class="sdot sdot--enhance"></span>Incentives &amp; Programs</a>
+        <a href="available-real-estate.html"><span class="sdot sdot--keep"></span>Available Real Estate</a>
+        <a href="infrastructure-logistics.html"><span class="sdot sdot--enhance"></span>Infrastructure &amp; Logistics</a>
+      </div>
+      <div class="footer__col">
+        <div class="footer__col-t">Talent &amp; Workforce</div>
+        <a href="talent.html"><span class="sdot sdot--enhance"></span>Overview</a>
+        <a href="workforce-pipeline.html"><span class="sdot sdot--new"></span>Workforce Pipeline</a>
+        <a href="education-universities.html"><span class="sdot sdot--enhance"></span>Education &amp; Universities</a>
+        <a href="relocation-guide.html"><span class="sdot sdot--enhance"></span>Relocation Guide</a>
+        <a href="quality-of-life.html"><span class="sdot sdot--enhance"></span>Quality of Life</a>
+      </div>
+      <div class="footer__col">
+        <div class="footer__col-t">Partners &amp; Investment</div>
+        <a href="partners.html"><span class="sdot sdot--enhance"></span>Overview</a>
+        <a href="investors-members.html"><span class="sdot sdot--enhance"></span>Investors &amp; Members</a>
+        <a href="board-of-directors.html"><span class="sdot sdot--keep"></span>Board of Directors</a>
+        <a href="one-columbus.html"><span class="sdot sdot--keep"></span>One Columbus</a>
+        <a href="smart-columbus.html"><span class="sdot sdot--enhance"></span>Smart Columbus</a>
+        <a href="clean-energy-partners.html"><span class="sdot sdot--enhance"></span>Clean Energy Partners</a>
+        <a href="government-relations.html"><span class="sdot sdot--keep"></span>Government Relations</a>
+      </div>
+      <div class="footer__col">
+        <div class="footer__col-t">About &amp; News</div>
+        <a href="about.html"><span class="sdot sdot--enhance"></span>About Overview</a>
+        <a href="the-columbus-partnership.html"><span class="sdot sdot--enhance"></span>The Columbus Partnership</a>
+        <a href="meet-the-team.html"><span class="sdot sdot--keep"></span>Meet the Team</a>
+        <a href="careers.html"><span class="sdot sdot--keep"></span>Careers</a>
+        <a href="news-hub.html"><span class="sdot sdot--enhance"></span>News &amp; Insights Hub</a>
+        <a href="press-releases.html"><span class="sdot sdot--keep"></span>Press Releases</a>
+        <a href="contact-us.html"><span class="sdot sdot--keep"></span>Contact Us</a>
+      </div>
+    </div>
+
+    <!-- Partner organizations -->
+    <div class="footer__partners-bar">
+      <span class="pl-t">Partner Organizations</span>
+      <a href="https://columbusregion.com/about-us/what-we-do/regional-economic-development/" target="_blank" rel="noopener noreferrer">One Columbus</a>
+      <a href="https://columbusregion.com/about-us/columbus-partnership/" target="_blank" rel="noopener noreferrer">Columbus Partnership</a>
+      <a href="https://smartcolumbus.com/" target="_blank" rel="noopener noreferrer">Smart Columbus</a>
+      <a href="clean-energy-partners.html">Clean Energy Partners</a>
+      <span class="footer__jo"><span class="jo">JobsOhio</span> Network Partner</span>
+    </div>
+
+    <!-- Sub-footer -->
+    <div class="footer__sub">
+      <span>&copy; 2026 The Columbus Region. All Rights Reserved.</span>
+      <div class="footer__sub-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Site Map</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- WIREFRAME CONTROLS -->
+<!-- ============================================================ -->
+<!-- sticky bottom CTA (JobsOhio pattern — appears after the eyebrow scrolls away; primary CTA on mobile) -->
+<div class="scroll-cta" id="scrollCta">
+  <div class="scroll-cta__inner">
+    <span class="scroll-cta__text">Grow your business in the Columbus Region.</span>
+    <a href="contact-us.html" class="btn btn--primary" aria-label="Start the Conversation &mdash; Contact Us">Start the Conversation</a>
+  </div>
+</div>
+
+<div class="controls collapsed" id="controls">
+  <div class="controls__head" onclick="document.getElementById('controls').classList.toggle('collapsed')">
+    <span>Wireframe Controls</span><span style="font-size:13px;">&#9776;</span>
+  </div>
+  <div class="controls__body">
+    <!-- HIDDEN (internal only): Animation Zones toggle — uncomment to restore
+    <div class="ctrl-row"><span class="ctrl-label">Animation Zones</span><div class="switch" data-layer="anim" onclick="toggleLayer(this)"></div></div> -->
+    <div class="ctrl-row"><span class="ctrl-label">Section Bars</span><div class="switch" data-layer="bars" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Component Tags</span><div class="switch" data-layer="comp" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Content Status</span><div class="switch" data-layer="status" onclick="toggleLayer(this)"></div></div>
+    <!-- HIDDEN (internal only): Type Specs toggle — uncomment to restore
+    <div class="ctrl-row"><span class="ctrl-label">Type Specs</span><div class="switch" data-layer="type" onclick="toggleLayer(this)"></div></div> -->
+    <!-- HIDDEN (internal only): Accessibility (WCAG) toggle — uncomment to restore
+    <div class="ctrl-row"><span class="ctrl-label">Accessibility (WCAG)</span><div class="switch" data-layer="a11y" onclick="toggleLayer(this)"></div></div> -->
+    <!-- HIDDEN (internal only): Dev Notes toggle — uncomment to restore
+    <div class="ctrl-row"><span class="ctrl-label">Dev Notes</span><div class="switch" data-layer="devnotes" onclick="toggleLayer(this)"></div></div> -->
+    <div class="ctrl-row"><span class="ctrl-label">Version Bar</span><div class="switch" data-layer="version" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row" style="border-top:1px solid #ddd;padding-top:9px;margin-top:3px;"><span class="ctrl-label" style="font-weight:700;">All Annotations</span><div class="switch" data-layer="all" onclick="toggleAll(this)"></div></div>
+
+    <div class="ctrl-legend">
+      <div class="ctrl-legend__t">Content Status Key</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--keep"></span> Keep &amp; Optimize</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--enhance"></span> Enhance / Rewrite</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--new"></span> New Page</div>
+    </div>
+    <div style="margin-top:10px;text-align:center;"><a href="#top" style="font-size:10px;color:#888;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">&uarr; Back to Top</a></div>
+  </div>
+</div>
+
+<script>
+function toggleDrawer() {
+  document.getElementById('hamburger').classList.toggle('open');
+  var d = document.getElementById('drawer');
+  d.classList.toggle('open');
+  document.body.style.overflow = d.classList.contains('open') ? 'hidden' : '';
+}
+function toggleAcc(btn) {
+  var item = btn.closest('.drawer__item');
+  var willOpen = !item.classList.contains('open');
+  document.querySelectorAll('.drawer__item').forEach(function(i){
+    i.classList.remove('open');
+    var h = i.querySelector('.drawer__head'); if (h) h.setAttribute('aria-expanded', 'false');
+  });
+  if (willOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+}
+function toggleLayer(el) {
+  el.classList.toggle('active');
+  document.body.classList.toggle('hide-' + el.dataset.layer);
+}
+function toggleAll(el) {
+  el.classList.toggle('active');
+  var on = el.classList.contains('active');
+  document.querySelectorAll('.switch[data-layer]').forEach(function(sw){
+    if (sw.dataset.layer === 'all') return;
+    if (on) { sw.classList.add('active'); document.body.classList.remove('hide-' + sw.dataset.layer); }
+    else { sw.classList.remove('active'); document.body.classList.add('hide-' + sw.dataset.layer); }
+  });
+}
+
+/* ===== Search drawer (slide-down) ===== */
+function openSearch() {
+  var d = document.getElementById('searchDrawer'), t = document.getElementById('searchToggle');
+  d.classList.add('open'); document.body.classList.add('search-open');
+  t.setAttribute('aria-expanded', 'true');
+  var inp = d.querySelector('input'); if (inp) setTimeout(function(){ inp.focus(); }, 60);
+}
+function closeSearch() {
+  var d = document.getElementById('searchDrawer'), t = document.getElementById('searchToggle');
+  d.classList.remove('open'); document.body.classList.remove('search-open');
+  t.setAttribute('aria-expanded', 'false'); t.focus();
+}
+function toggleSearch() {
+  document.getElementById('searchDrawer').classList.contains('open') ? closeSearch() : openSearch();
+}
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape' && document.getElementById('searchDrawer').classList.contains('open')) closeSearch();
+});
+
+/* ===== Industries accordion (c13) ===== */
+function toggleInd(btn) {
+  var item = btn.closest('.acc-item');
+  var willOpen = !item.classList.contains('open');
+  item.parentElement.querySelectorAll('.acc-item').forEach(function(i){
+    i.classList.remove('open');
+    var b = i.querySelector('.acc-head'); if (b) b.setAttribute('aria-expanded', 'false');
+    var pm = i.querySelector('.pm'); if (pm) pm.textContent = '+';
+  });
+  if (willOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true');
+    var pm = btn.querySelector('.pm'); if (pm) pm.textContent = '−'; }
+}
+
+/* ===== Accessible nav disclosure (WCAG 2.1.1 / 1.4.13 / 4.1.2) ===== */
+(function(){
+  var items = document.querySelectorAll('.nav .nav__item');
+  function setOpen(it, open){
+    it.classList.toggle('is-open', open);
+    var btn = it.querySelector('.nav__link');
+    if (btn) btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  function closeAll(except){
+    items.forEach(function(it){ if (it !== except) setOpen(it, false); });
+  }
+  items.forEach(function(it){
+    var btn = it.querySelector('.nav__link');
+    // click / Enter / Space (button fires click for all three)
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var willOpen = !it.classList.contains('is-open');
+      closeAll(it); setOpen(it, willOpen);
+    });
+    // hover as a supplement (Hoverable: panel is a child, so leaving the
+    // whole item — trigger + panel — is what closes it)
+    it.addEventListener('mouseenter', function(){ closeAll(it); setOpen(it, true); });
+    it.addEventListener('mouseleave', function(){ setOpen(it, false); });
+    // keyboard tab-away closes the panel
+    it.addEventListener('focusout', function(e){ if (!it.contains(e.relatedTarget)) setOpen(it, false); });
+  });
+  // Esc dismisses and returns focus to the trigger (Dismissible)
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      var open = document.querySelector('.nav .nav__item.is-open');
+      if (open) { setOpen(open, false); var b = open.querySelector('.nav__link'); if (b) b.focus(); }
+    }
+  });
+  // click outside closes
+  document.addEventListener('click', function(e){ if (!e.target.closest('.nav')) closeAll(null); });
+})();
+
+/* ===== sticky bottom CTA (shows once the eyebrow has scrolled away) ===== */
+(function(){
+  var el=document.getElementById('scrollCta'); if(!el) return;
+  var dismissed=false, ctaOnScreen=false, eyebrowVisible=true;
+  var eyebrow=document.querySelector('.utility'), hasEyebrow=!!(eyebrow && 'IntersectionObserver' in window);
+  window.dismissCta=function(){ dismissed=true; el.classList.remove('show'); };
+  function upd(){
+    if(dismissed) return;
+    var y=window.scrollY||window.pageYOffset;
+    var nearBottom=(y+window.innerHeight)>(document.body.scrollHeight-220);
+    /* reveal as soon as the eyebrow (utility) bar has scrolled out of view
+       (fall back to a scroll threshold if there is no eyebrow). Hide again while
+       the in-page Contact CTA (c20) overlay is on screen so the same CTA isn't
+       shown twice (desktop; on mobile the bar stays pinned via the !important rule) */
+    var eyebrowGone = hasEyebrow ? !eyebrowVisible : (y>220);
+    if(eyebrowGone && !nearBottom && !ctaOnScreen) el.classList.add('show'); else el.classList.remove('show');
+  }
+  if(hasEyebrow){
+    new IntersectionObserver(function(e){ eyebrowVisible=e[0].isIntersecting; upd(); }, {threshold:0}).observe(eyebrow);
+  }
+  var cta=document.querySelector('section.cta');
+  if(cta && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(e){ ctaOnScreen=e[0].isIntersecting; upd(); }, {threshold:0}).observe(cta);
+  }
+  window.addEventListener('scroll', upd, {passive:true});
+  window.addEventListener('resize', upd);
+  upd();
+})();
+</script>
+
+</body>
+</html>
