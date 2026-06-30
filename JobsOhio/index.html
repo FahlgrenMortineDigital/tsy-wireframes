@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JobsOhio — Countdown Animation Studies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a2747; --red:#E0392B; --bg:#ffffff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--navy)}
+  .wrap{padding:40px 44px 64px;max-width:1100px}
+  .thd{display:flex;align-items:baseline;gap:10px;margin:0 0 6px}
+  .tid{font:700 10px ui-monospace,Menlo,monospace;padding:3px 8px;background:var(--navy);color:#fff;border-radius:4px;letter-spacing:.04em}
+  .tname{font:700 15px/1.2 'Archivo',sans-serif}
+  .intro{font:400 13px/1.6 system-ui;color:rgba(0,0,0,.55);margin:0 0 20px;max-width:660px}
+
+  /* controls */
+  .controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 26px;padding:9px 12px;background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:12px;width:fit-content;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  .ctrl-label{font-size:10px;font-weight:700;letter-spacing:.14em;color:rgba(0,0,0,.4);margin-right:2px}
+  .cbtn{background:transparent;border:1px solid rgba(0,0,0,.15);color:var(--navy);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:system-ui}
+  .cbtn:hover{border-color:rgba(0,0,0,.35)}
+  .cbtn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .divider{width:1px;height:20px;background:rgba(0,0,0,.12);margin:0 4px}
+
+  /* options */
+  #options{display:flex;flex-direction:column;gap:30px;align-items:flex-start}
+  .opt{display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+  .olabel{display:flex;align-items:baseline;gap:9px;font:600 12.5px/1.3 'Archivo',sans-serif}
+  .oid{font:700 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(10,39,71,.1);color:var(--navy);border-radius:5px}
+  .odesc{font:400 12px/1.3 system-ui;color:rgba(0,0,0,.5)}
+  .card{width:840px;max-width:100%;border-radius:10px;box-shadow:0 8px 26px rgba(10,39,71,.18);overflow:hidden}
+
+  /* bar chrome */
+  .bar{position:relative;background:linear-gradient(105deg,#1f8fd6 0%,#10477b 52%,#0a2747 100%);color:#fff;padding:18px 26px 22px;font-family:'Archivo',sans-serif;overflow:hidden}
+  .close{position:absolute;top:10px;right:15px;background:none;border:none;color:rgba(255,255,255,.7);font-size:22px;line-height:1;cursor:pointer}
+  .headline{text-align:center;font-weight:700;font-size:17px;letter-spacing:.01em;margin:0 0 6px}
+  .subrow{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+  .subtext{font-size:13.5px;color:rgba(255,255,255,.82)}
+  .signup{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;border:none;padding:9px 8px 9px 16px;border-radius:24px;font-weight:700;font-size:12px;letter-spacing:.06em;cursor:pointer;box-shadow:0 2px 10px rgba(224,57,43,.45);white-space:nowrap;font-family:'Archivo',sans-serif}
+  .arrow{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.22);font-size:12px;flex:none}
+
+  /* clock */
+  .clock{display:flex;align-items:flex-start;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:54px;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.01em}
+  .group{display:flex;flex-direction:column;align-items:center}
+  .digits{display:flex}
+  .digit{position:relative;display:inline-flex;align-items:center;justify-content:center;width:.66em;height:1em;line-height:1em;color:#fff;overflow:visible}
+  .digit.danger{color:#ff5e50}
+  .digit .num{display:inline-block}
+  .label{font-size:11px;font-weight:600;letter-spacing:.16em;color:rgba(255,255,255,.72);margin-top:9px}
+  .sep{display:flex;flex-direction:column;gap:9px;margin-top:18px;padding:0 11px}
+  .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.6)}
+
+  /* style: odometer */
+  .digit.odometer{display:inline-block;overflow:hidden;vertical-align:top;text-align:center}
+  .digit.odometer .strip{display:block;transition:transform .6s cubic-bezier(.2,.85,.25,1)}
+  .digit.odometer .num{height:1em;display:flex;align-items:center;justify-content:center}
+
+  /* style: flip (split-flap board) */
+  .digit.flip{width:.84em;height:1.12em;background:#07233f;border-radius:7px;margin:0 2px;box-shadow:inset 0 -1px 0 rgba(0,0,0,.45),0 2px 3px rgba(0,0,0,.3);perspective:320px}
+  .digit.flip .num.anim{animation:flipIn .55s cubic-bezier(.3,.9,.3,1) both}
+
+  /* style: push & motion-blur */
+  .digit.push .num.anim{animation:pushBlur .5s cubic-bezier(.25,.9,.25,1) both}
+
+  /* style: glitch */
+  .digit.glitch .num.anim{animation:glitchIn .42s linear both}
+
+  /* style: pop & pulse */
+  .digit.pop .num.anim{animation:popIn .5s cubic-bezier(.2,1.5,.3,1) both}
+  .digit .ring{position:absolute;left:50%;top:50%;width:1.3em;height:1.3em;border:2px solid rgba(224,57,43,.85);border-radius:50%;transform:translate(-50%,-50%);animation:ringPulse .6s ease-out forwards;pointer-events:none}
+
+  /* reveal */
+  .bar.shake{animation:shake .5s}
+  .flash{position:absolute;inset:0;background:#fff;animation:flashOut .7s ease-out forwards;pointer-events:none;z-index:5}
+  .sweep{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.4) 50%,transparent 65%);animation:sweep 1.1s ease-out;pointer-events:none}
+  .particle{position:absolute;left:50%;top:42%;width:8px;height:8px;animation:burst .9s ease-out forwards;z-index:1}
+  .reveal-action{display:flex;justify-content:center;margin-top:16px}
+  .counting-label{font-size:12px;font-weight:700;letter-spacing:.18em;color:#ff5e50;animation:armPulse 1s ease-in-out infinite}
+  .reveal-done{position:relative;z-index:2}
+  .reveal-eyebrow{text-align:center;font-size:12px;font-weight:700;letter-spacing:.22em;color:rgba(255,255,255,.7);margin-bottom:6px}
+  .reveal-headline{text-align:center;font-family:'Archivo',sans-serif;font-weight:900;font-size:40px;letter-spacing:.02em;margin:4px 0 6px}
+  .reveal-headline.anim{animation:revealText .6s cubic-bezier(.2,.9,.3,1) both}
+  .reveal-sub{text-align:center;font-size:13.5px;color:rgba(255,255,255,.85);margin-bottom:18px}
+  .reveal-actions{display:flex;justify-content:center;gap:12px}
+  .signup.big{padding:11px 10px 11px 20px;font-size:13px}
+  .ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);padding:6px 12px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;font-family:system-ui}
+
+  @keyframes flipIn{0%{transform:rotateX(-90deg);opacity:.25}55%{transform:rotateX(13deg);opacity:1}100%{transform:rotateX(0)}}
+  @keyframes pushBlur{0%{transform:translateY(62%);filter:blur(7px);opacity:0}100%{transform:translateY(0);filter:blur(0);opacity:1}}
+  @keyframes glitchIn{0%{transform:translate(0) skewX(0);opacity:0;text-shadow:none}10%{transform:translate(-3px,2px) skewX(-6deg);opacity:1;text-shadow:3px 0 #ff3b30,-3px 0 #2bd1ff}20%{transform:translate(3px,-2px) skewX(5deg);text-shadow:-3px 0 #ff3b30,3px 0 #2bd1ff}30%{transform:translate(-3px,-1px);opacity:.55;text-shadow:3px 0 #ff3b30,-3px 0 #2bd1ff}40%{transform:translate(3px,2px) skewX(4deg);opacity:1;text-shadow:-3px 0 #ff3b30,3px 0 #2bd1ff}52%{transform:translate(-2px,1px);text-shadow:2px 0 #ff3b30,-2px 0 #2bd1ff}64%{transform:translate(2px,-1px) skewX(-3deg);opacity:.8;text-shadow:-2px 0 #ff3b30,2px 0 #2bd1ff}78%{transform:translate(-1px,1px);opacity:1;text-shadow:1px 0 #ff3b30,-1px 0 #2bd1ff}88%{transform:translate(1px,0);text-shadow:none}100%{transform:translate(0) skewX(0);text-shadow:none}}
+  @keyframes popIn{0%{transform:scale(.25);opacity:0}55%{transform:scale(1.22);opacity:1}100%{transform:scale(1)}}
+  @keyframes ringPulse{0%{transform:translate(-50%,-50%) scale(.5);opacity:.5}100%{transform:translate(-50%,-50%) scale(2);opacity:0}}
+  @keyframes flashOut{0%{opacity:.92}100%{opacity:0}}
+  @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  @keyframes sweep{0%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+  @keyframes burst{0%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(.2);opacity:0}}
+  @keyframes revealText{0%{transform:translateY(16px);opacity:0;letter-spacing:.3em}100%{transform:translateY(0);opacity:1;letter-spacing:.02em}}
+  @keyframes armPulse{0%,100%{opacity:.55}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="controls" id="controls"></div>
+  <div id="options"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var START = 6*86400 + 18*3600 + 32*60 + 42; // 06:18:32:42
+  var rem = START, speed = 1;
+  var mainClocks = [];
+
+  var GROUPS = [['days','DAYS'],['hours','HOURS'],['mins','MINUTES'],['secs','SECONDS']];
+
+  function el(tag, cls, txt){ var e=document.createElement(tag); if(cls) e.className=cls; if(txt!=null) e.textContent=txt; return e; }
+  function pad(n){ return (n<10?'0':'')+n; }
+  function digitsFrom(r){
+    return {
+      days: pad(Math.floor(r/86400)),
+      hours: pad(Math.floor(r%86400/3600)),
+      mins: pad(Math.floor(r%3600/60)),
+      secs: pad(r%60),
+      final: r<=10
+    };
+  }
+  function closeBtn(){ var b=el('button','close','\u00d7'); b.setAttribute('aria-label','close'); return b; }
+
+  // ---- clock construction ----
+  function buildClock(style){
+    var clock = el('div','clock'); clock._style = style; clock._cells = {};
+    GROUPS.forEach(function(g, gi){
+      var group = el('div','group');
+      var digits = el('div','digits');
+      for(var i=0;i<2;i++){
+        var win = el('div','digit '+style);
+        if(style==='odometer'){
+          var strip = el('div','strip');
+          for(var n=0;n<10;n++) strip.appendChild(el('div','num', n));
+          win.appendChild(strip); win._strip = strip;
+        } else {
+          var span = el('span','num',''); win.appendChild(span); win._span = span;
+        }
+        win._val = null;
+        clock._cells[g[0]+i] = win;
+        digits.appendChild(win);
+      }
+      group.appendChild(digits);
+      group.appendChild(el('div','label', g[1]));
+      clock.appendChild(group);
+      if(gi<3){ var sep=el('div','sep'); sep.appendChild(el('div','dot')); sep.appendChild(el('div','dot')); clock.appendChild(sep); }
+    });
+    return clock;
+  }
+
+  function updateDigit(win, style, ch, danger){
+    win.classList.toggle('danger', !!danger);
+    if(style==='odometer'){
+      win._strip.style.transform = 'translateY(' + (-(+ch)*10) + '%)';
+      win._val = ch; return;
+    }
+    if(win._val === ch) return;            // unchanged → leave static & fully visible
+    var first = win._val === null;
+    win._val = ch;
+    win._span.textContent = ch;
+    if(first) return;                      // initial paint: no entrance animation
+    // re-trigger the change animation
+    win._span.classList.remove('anim');
+    void win._span.offsetWidth;            // reflow
+    win._span.classList.add('anim');
+    if(style==='pop'){
+      var ring = el('span','ring'); win.appendChild(ring);
+      setTimeout(function(){ ring.remove(); }, 650);
+    }
+  }
+
+  function updateClock(clock, d){
+    GROUPS.forEach(function(g){
+      var val = d[g[0]];
+      for(var i=0;i<2;i++){
+        updateDigit(clock._cells[g[0]+i], clock._style, val[i], d.final && g[0]==='secs');
+      }
+    });
+  }
+
+  // ---- bar chrome ----
+  function buildBar(style){
+    var bar = el('div','bar');
+    bar.appendChild(closeBtn());
+    bar.appendChild(el('div','headline','The countdown is on for a major JobsOhio announcement.'));
+    var sub = el('div','subrow');
+    sub.appendChild(el('span','subtext','Be among the first to know what JobsOhio is announcing next.'));
+    var su = el('button','signup'); su.innerHTML = 'SIGN UP <span class="arrow">\u2192</span>'; sub.appendChild(su);
+    bar.appendChild(sub);
+    var clock = buildClock(style);
+    bar.appendChild(clock);
+    updateClock(clock, digitsFrom(rem));
+    return { bar: bar, clock: clock };
+  }
+
+  function optionCard(badge, style, name, desc){
+    var opt = el('div','opt'); opt.id = badge;
+    var lab = el('div','olabel');
+    lab.appendChild(el('span','oid', badge));
+    lab.appendChild(el('span','oname', name));
+    lab.appendChild(el('span','odesc', '\u2014 '+desc));
+    opt.appendChild(lab);
+    var card = el('div','card');
+    var built = buildBar(style);
+    card.appendChild(built.bar);
+    opt.appendChild(card);
+    return { opt: opt, clock: built.clock };
+  }
+
+  // ---- zero-hour reveal ----
+  var revealPhase='armed', revealRem=9, rvTimer=null, revealClock=null;
+  var revealBar = el('div','bar reveal');
+
+  function spawnParticles(container){
+    var colors=['#ffffff','#E0392B','#1f8fd6','#ffd34d'];
+    for(var i=0;i<18;i++){
+      var a=(Math.PI*2*i)/18 + (i%2?0.2:0), dist=72+(i%3)*34;
+      var p=el('span','particle');
+      p.style.background=colors[i%4];
+      p.style.borderRadius=(i%3)?'50%':'1px';
+      p.style.setProperty('--tx',(Math.cos(a)*dist)+'px');
+      p.style.setProperty('--ty',(Math.sin(a)*dist)+'px');
+      p.style.animationDelay=(i%4*30)+'ms';
+      container.appendChild(p);
+    }
+  }
+
+  function renderReveal(){
+    revealBar.className = 'bar reveal' + (revealPhase==='boom' ? ' shake' : '');
+    revealBar.innerHTML = '';
+
+    if(revealPhase==='done'){
+      revealBar.appendChild(el('div','sweep'));
+      spawnParticles(revealBar);
+      var inner = el('div','reveal-done');
+      inner.appendChild(el('div','reveal-eyebrow','JOBSOHIO'));
+      var hl = el('div','reveal-headline anim','THE WAIT IS OVER.');
+      inner.appendChild(hl);
+      inner.appendChild(el('div','reveal-sub','The announcement is live. See what Ohio is building next.'));
+      var row = el('div','reveal-actions');
+      var cta = el('button','signup big'); cta.innerHTML = 'SEE WHAT\u2019S NEXT <span class="arrow">\u2192</span>';
+      var replay = el('button','ghost','\u21bb Replay'); replay.onclick = resetReveal;
+      row.appendChild(cta); row.appendChild(replay);
+      inner.appendChild(row);
+      revealBar.appendChild(inner);
+      return;
+    }
+
+    var counting = (revealPhase==='counting' || revealPhase==='boom');
+    if(revealPhase==='boom') revealBar.appendChild(el('div','flash'));
+    revealBar.appendChild(closeBtn());
+    revealBar.appendChild(el('div','headline', counting ? 'The announcement is moments away\u2026' : 'The countdown is on for a major JobsOhio announcement.'));
+    var sub = el('div','subrow');
+    sub.appendChild(el('span','subtext', counting ? 'Hold tight \u2014 going live at zero.' : 'Press play to preview the zero-hour reveal.'));
+    revealBar.appendChild(sub);
+    revealClock = buildClock('pop');
+    revealBar.appendChild(revealClock);
+    updateClock(revealClock, { days:'00', hours:'00', mins:'00', secs:pad(revealRem), final:true });
+    var act = el('div','reveal-action');
+    if(revealPhase==='armed'){
+      var b = el('button','signup','\u25b6 Play the zero-hour reveal'); b.onclick = playReveal; act.appendChild(b);
+    } else {
+      act.appendChild(el('div','counting-label','COUNTING DOWN\u2026'));
+    }
+    revealBar.appendChild(act);
+  }
+
+  function playReveal(){
+    clearTimeout(rvTimer);
+    revealPhase='counting'; revealRem=9; renderReveal();
+    function step(){
+      revealRem--;
+      if(revealRem<=0){
+        revealRem=0;
+        updateClock(revealClock, { days:'00', hours:'00', mins:'00', secs:'00', final:true });
+        revealPhase='boom'; renderReveal();
+        setTimeout(function(){ revealPhase='done'; renderReveal(); }, 720);
+        return;
+      }
+      updateClock(revealClock, { days:'00', hours:'00', mins:'00', secs:pad(revealRem), final:true });
+      rvTimer = setTimeout(step, 220 + revealRem*48);
+    }
+    rvTimer = setTimeout(step, 700);
+  }
+  function resetReveal(){ clearTimeout(rvTimer); revealPhase='armed'; revealRem=9; renderReveal(); }
+
+  // ---- controls ----
+  function buildControls(){
+    var host = document.getElementById('controls');
+    host.appendChild(el('span','ctrl-label','TIME'));
+    var normal = el('button','cbtn active','Normal');
+    var fast = el('button','cbtn','50\u00d7 Fast');
+    function setSpeed(s){ speed=s; normal.classList.toggle('active', s===1); fast.classList.toggle('active', s===50); }
+    normal.onclick = function(){ setSpeed(1); };
+    fast.onclick = function(){ setSpeed(50); };
+    host.appendChild(normal); host.appendChild(fast);
+    host.appendChild(el('span','divider'));
+    var jump = el('button','cbtn','\u2192 Final 10 seconds');
+    jump.onclick = function(){ jumpTo(13); };
+    var reset = el('button','cbtn','\u21bb Reset');
+    reset.onclick = function(){ jumpTo(START); };
+    host.appendChild(jump); host.appendChild(reset);
+  }
+  function jumpTo(v){ rem=v; var d=digitsFrom(rem); mainClocks.forEach(function(c){ updateClock(c,d); }); }
+
+  // ---- build page ----
+  var OPTIONS = [
+    ['1a','odometer','Odometer roll','sleek & premium. Digits roll vertically like a mechanical board.'],
+    ['1b','flip','Split-flap board','the airport-departure flip. Announcement energy, tactile.'],
+    ['1c','push','Push & motion-blur','sleek. Digits rise in with a soft blur. Calm confidence.'],
+    ['1d','glitch','Glitch snap','high-energy. RGB-split flicker on every tick. Urgent, techy.'],
+    ['1e','pop','Pop & pulse','punchy. Overshoot scale with a radiating red ring. Heartbeat.']
+  ];
+
+  var optionsHost = document.getElementById('options');
+  buildControls();
+  OPTIONS.forEach(function(o){
+    var made = optionCard(o[0], o[1], o[2], o[3]);
+    optionsHost.appendChild(made.opt);
+    mainClocks.push(made.clock);
+  });
+  // reveal option
+  var ropt = el('div','opt'); ropt.id='1f';
+  var rlab = el('div','olabel');
+  rlab.appendChild(el('span','oid','1f'));
+  rlab.appendChild(el('span','oname','Zero-hour reveal'));
+  rlab.appendChild(el('span','odesc','\u2014 the big moment. Press play to preview 00:00:00 hitting zero.'));
+  ropt.appendChild(rlab);
+  var rcard = el('div','card'); rcard.appendChild(revealBar); ropt.appendChild(rcard);
+  optionsHost.appendChild(ropt);
+  renderReveal();
+
+  // ---- shared clock ----
+  setInterval(function(){
+    rem -= speed; if(rem<0) rem = START;
+    var d = digitsFrom(rem);
+    mainClocks.forEach(function(c){ updateClock(c, d); });
+  }, 1000);
+})();
+</script>
+</body>
+</html>
