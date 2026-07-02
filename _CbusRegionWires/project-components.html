@@ -1,0 +1,2525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Component Library — Columbus Region</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Arial, Helvetica, sans-serif; color: #333; background: #fff; padding: 40px 0; }
+    :root { --max-width: 1200px; --red: #444; --teal: #555; --light-blue: #eee; --dark: #333; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+
+    /* ===== PILL LABEL ===== */
+    .pill {
+      display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1px; padding: 3px 10px; border-radius: 10px; line-height: 1.4;
+    }
+    .pill--wp { background: #eee; color: #555; }
+    .pill--cms { background: #eee; color: #555; }
+    .pill--global { background: #eee; color: #555; }
+    .pill--page { background: #eee; color: #555; }
+    .pill--interactive { background: #eee; color: #666; }
+
+    /* ===== COMPONENT SECTION ===== */
+    .comp {
+      border: 1px solid #ddd; margin: 0 auto 40px; max-width: var(--max-width);
+      padding: 32px; background: #fff;
+    }
+    .comp__title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 2px; color: #999; margin-bottom: 4px;
+    }
+    .comp__name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .comp__url {
+      font-size: 10px; color: #aaa; margin-bottom: 12px; display: block;
+    }
+    .comp__pills { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .comp__demo {
+      border: 1px dashed #ddd; padding: 24px; background: #fafafa;
+    }
+    .comp__variant-label {
+      font-size: 10px; color: #999; text-transform: uppercase;
+      letter-spacing: 1px; font-weight: 600; margin: 20px 0 8px; display: block;
+    }
+    .comp__notes {
+      font-size: 11px; color: #666; margin-top: 12px; padding: 10px;
+      background: #f8f8f8; border: 1px solid #e5e5e5; border-radius: 4px;
+    }
+    .comp__notes strong { color: #333; }
+
+    /* Image placeholder with X */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc;
+      width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+
+    /* Generic btn */
+    .btn {
+      display: inline-block; border: 2px solid var(--teal); background: var(--teal);
+      color: #fff; padding: 10px 24px; font-size: 12px; font-weight: 700;
+      text-decoration: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .btn--outline { background: transparent; color: var(--teal); }
+    .btn--red { background: var(--red); border-color: var(--red); }
+    .btn--sm { padding: 6px 16px; font-size: 10px; }
+
+    /* Arrow link */
+    .arrow-link {
+      font-size: 12px; font-weight: 700; color: var(--red); text-decoration: none;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* ===== TOC ===== */
+    .toc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 16px; }
+    .toc-grid a { font-size: 12px; color: #555; text-decoration: underline; }
+    .toc-section { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-top: 16px; grid-column: 1 / -1; }
+
+    /* ===== CMS TABLE ===== */
+    .cms-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px; }
+    .cms-table th { text-align: left; padding: 8px 12px; background: #f5f5f5; border: 1px solid #ddd; font-weight: 700; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; }
+    .cms-table td { padding: 8px 12px; border: 1px solid #ddd; vertical-align: top; }
+    .cms-table tr:nth-child(even) td { background: #fafafa; }
+
+    /* ===== STATAMIC SECTION ===== */
+    .statamic-section {
+      border-left: 4px solid #555; background: #f8f8f8;
+    }
+    .pill--statamic { background: #555; color: #fff; }
+    .pill--collection { background: #555; color: #fff; }
+    .pill--taxonomy { background: #666; color: #fff; }
+    .pill--integration { background: #777; color: #fff; }
+    .pill--complex { background: #555; color: #fff; }
+    .complexity { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .complexity--low { background: #eee; color: #555; }
+    .complexity--medium { background: #eee; color: #555; }
+    .complexity--high { background: #eee; color: #555; }
+    .field-list { font-size: 10px; color: #555; margin-top: 8px; padding: 10px; background: #f8f8f8; border: 1px solid #eee; border-radius: 4px; }
+    .field-list code { background: #e8e8e8; padding: 1px 4px; border-radius: 2px; font-size: 9px; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 760px) {
+      .toc-grid { grid-template-columns: 1fr; }
+      .resp-stack { grid-template-columns: 1fr !important; }
+    }
+
+    /* ===== FK-FORMAT OVERRIDES (canonical library) ===== */
+    :root { --red:#444; --teal:#555; --dark:#333; --light-blue:#eee; }
+    body { padding:0; }
+    #top { position:absolute; top:0; }
+
+    .lib-header { background:#222; color:#fff; padding:56px 24px; text-align:center; }
+    .lib-header h1 { font-size:34px; font-weight:800; line-height:1.2; }
+    .lib-header p { color:rgba(255,255,255,0.7); font-size:15px; margin-top:8px; }
+    .lib-header .back-wires { display:inline-block; margin-top:22px; padding:10px 24px;
+      background:#fff; color:#222; border-radius:8px; font-size:13px; font-weight:700; text-decoration:none; }
+
+    .lib-toc { max-width:1200px; margin:40px auto 0; padding:0 24px; }
+    .lib-toc h2 { font-size:20px; font-weight:800; margin:24px 0 14px; }
+    .lib-toc__grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px 24px; }
+    .lib-toc__grid a { font-size:13px; color:#333; text-decoration:none; padding:6px 0;
+      display:block; border-bottom:1px solid #eee; }
+    .lib-toc__grid a:hover { color:#000; text-decoration:underline; }
+    .lib-toc__grid a span { color:#999; font-size:11px; margin-right:6px; font-weight:600; }
+    .lib-toc__group { grid-column:1/-1; font-size:11px; font-weight:700; text-transform:uppercase;
+      letter-spacing:1.5px; color:#999; margin-top:20px; padding-top:8px; border-top:1px solid #eee; }
+
+    .lib-section-header { max-width:1200px; margin:56px auto 0; padding:0 24px 16px; border-bottom:3px solid #333; }
+    .lib-section-header h2 { font-size:26px; font-weight:800; margin-bottom:6px; }
+    .lib-section-header p { font-size:13px; color:#666; }
+
+    .comp { border:none; border-top:3px solid #333; background:transparent;
+      max-width:1200px; margin:0 auto 56px; padding:28px 24px 0; }
+    .comp.statamic-section { border-top:3px solid #333; border-left:none; background:transparent; }
+    .comp__title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:#999; margin-bottom:4px; }
+    .comp__name-row { display:flex; align-items:baseline; justify-content:space-between; gap:16px; }
+    .comp__name { font-size:24px; font-weight:800; margin-bottom:0; }
+    .comp__back-to-top { font-size:11px; font-weight:600; color:#999; text-decoration:none; white-space:nowrap; }
+    .comp__back-to-top:hover { color:#333; }
+    .comp__url { font-size:11px; color:#aaa; margin:6px 0 0; display:block; }
+    .comp__demo { border:1px dashed #ccc; background:#fafafa; border-radius:8px; padding:24px; }
+
+    .leverage-label { display:inline-block; background:#eee; color:#444; font-size:9px; font-weight:700;
+      text-transform:uppercase; letter-spacing:0.5px; padding:4px 11px; border-radius:9999px;
+      margin:10px 0 14px; line-height:1.5; }
+
+    /* grayscale pill set */
+    .pill--wp,.pill--cms,.pill--global,.pill--page,.pill--interactive { background:#eee; color:#555; }
+    .pill--statamic { background:#333; color:#fff; }
+    .pill--collection,.pill--taxonomy,.pill--integration,.pill--complex { background:#777; color:#fff; }
+    .complexity--low { background:#eee; color:#444; }
+    .complexity--medium { background:#ddd; color:#333; }
+    .complexity--high { background:#bbb; color:#222; }
+    .comp__notes { background:#f5f5f5; border:1px solid #e5e5e5; }
+    .btn,.btn--red { background:#555; border-color:#555; color:#fff; }
+    .btn--outline { background:transparent; color:#555; }
+    .arrow-link { color:#333; }
+
+    @media (max-width:760px){
+      .lib-toc__grid { grid-template-columns:1fr; }
+    }
+
+
+    /* ===== EFFORT / LEVERAGE COLOR KEY (ties to Component Dev Assessment) ===== */
+    .comp__effort { margin:10px 0 14px; }
+    .effort-pill { display:inline-block; font-size:9px; font-weight:700; text-transform:uppercase;
+      letter-spacing:0.5px; padding:4px 11px; border-radius:9999px; line-height:1.5; vertical-align:middle; }
+    .effort-pill--high { background:#d1fae5; color:#065f46; }
+    .effort-pill--med  { background:#fef3c7; color:#92400e; }
+    .effort-pill--new  { background:#fee2e2; color:#991b1b; }
+    .effort-map { display:inline-block; font-size:11px; color:#666; margin-left:10px; vertical-align:middle; }
+    .effort-map strong { color:#333; }
+    .effort-legend { max-width:1200px; margin:28px auto 0; padding:16px 24px; background:#f8f8f8;
+      border:1px solid #eee; border-radius:8px; display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; }
+    .effort-legend .lg-title { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:#999; }
+    .effort-legend .lg-item { font-size:12px; color:#555; display:flex; align-items:center; gap:8px; }
+    .effort-legend .lg-total { margin-left:auto; font-size:12px; color:#333; font-weight:700; }
+
+  </style>
+</head>
+<body>
+<div id="top"></div>
+
+<div class="lib-header">
+  <h1>Project Component Library</h1>
+  <p>Columbus Region &middot; 38 UI components + 16 Statamic platform components &middot; canonical set for all wireframes</p>
+  <p style="font-size:12px;margin-top:4px;">Site audit: March 2026 &middot; WordPress &rarr; Statamic &middot; reference: greenbrierwv.com, visitknoxohio.org</p>
+  <a class="back-wires" href="homepage-wireframe.html">&larr; Back to Wireframes</a>
+</div>
+
+<!-- ============================================================ -->
+<!-- TABLE OF CONTENTS -->
+<!-- ============================================================ -->
+
+<div class="lib-toc">
+  <h2>UI Components</h2>
+  <div class="lib-toc__grid">
+    <div class="lib-toc__group">Global / Sitewide</div>
+    <a href="#c1"><span>01</span> Utility Bar</a>
+    <a href="#c2"><span>02</span> Site Header</a>
+    <a href="#c3"><span>03</span> Main Navigation (Dropdowns)</a>
+    <a href="#c4"><span>04</span> Mobile Menu</a>
+    <a href="#c5"><span>05</span> Footer</a>
+    <div class="lib-toc__group">Heroes</div>
+    <a href="#c6"><span>06</span> Homepage Hero (Split Layout)</a>
+    <a href="#c7"><span>07</span> Interior Hero — Full-Width Photo Overlay</a>
+    <a href="#c8"><span>08</span> Interior Hero — Half-Width Block</a>
+    <a href="#c9"><span>09</span> Counties Hero (Map + Dropdown)</a>
+    <div class="lib-toc__group">Content Sections</div>
+    <a href="#c10"><span>10</span> Stats Panel (Large Numbers)</a>
+    <a href="#c11"><span>11</span> Stats Callout Bar</a>
+    <a href="#c12"><span>12</span> Feature Card Grid (2×2)</a>
+    <a href="#c13"><span>13</span> Accordion — Dark Background</a>
+    <a href="#c14"><span>14</span> Accordion — Light Background</a>
+    <a href="#c15"><span>15</span> FAQ Accordion</a>
+    <a href="#c16"><span>16</span> Alternating Content Block</a>
+    <a href="#c17"><span>17</span> Two-Column Content (Text + Image)</a>
+    <a href="#c18"><span>18</span> Region Map Section</a>
+    <a href="#c19"><span>19</span> Contact CTA — Light Background</a>
+    <a href="#c20"><span>20</span> Contact CTA — Image Overlay</a>
+    <a href="#c21"><span>21</span> Quote / Testimonial Block</a>
+    <div class="lib-toc__group">Cards</div>
+    <a href="#c22"><span>22</span> News Card</a>
+    <a href="#c23"><span>23</span> Press Release Card (Text-Only)</a>
+    <a href="#c24"><span>24</span> News Feed Card (Large Image)</a>
+    <a href="#c25"><span>25</span> County Snapshot Card</a>
+    <a href="#c26"><span>26</span> City Card</a>
+    <a href="#c27"><span>27</span> Employer Card</a>
+    <a href="#c28"><span>28</span> Team Member Card</a>
+    <div class="lib-toc__group">Navigation &amp; Interactive</div>
+    <a href="#c29"><span>29</span> County Tab Bar</a>
+    <a href="#c30"><span>30</span> Interactive County Map</a>
+    <a href="#c31"><span>31</span> Scroll-to-Page Navigation</a>
+    <div class="lib-toc__group">Article / Page Templates</div>
+    <a href="#c32"><span>32</span> Article Detail Layout</a>
+    <a href="#c33"><span>33</span> Plain Text Page Layout</a>
+    <div class="lib-toc__group">Forms &amp; Inputs</div>
+    <a href="#c34"><span>34</span> Newsletter Signup Bar</a>
+    <a href="#c35"><span>35</span> HubSpot Contact Form</a>
+    <a href="#c36"><span>36</span> Inline Email Signup</a>
+    <div class="lib-toc__group">Atoms / UI Elements</div>
+    <a href="#c37"><span>37</span> CTA Button</a>
+    <a href="#c38"><span>38</span> Arrow Link</a>
+  </div>
+</div>
+<div class="lib-toc">
+  <h2>Statamic Platform Components</h2>
+  <div class="lib-toc__grid">
+    <a href="#s1"><span>S1</span> Company Expansions Collection + Filterable Grid</a>
+    <a href="#s2"><span>S2</span> Employers Collection</a>
+    <a href="#s3"><span>S3</span> Events System (Modern Events Calendar)</a>
+    <a href="#s4"><span>S4</span> Counties Collection (Structured Data)</a>
+    <a href="#s5"><span>S5</span> Press Releases Collection</a>
+    <a href="#s6"><span>S6</span> Content Hub / News Collection</a>
+    <a href="#s7"><span>S7</span> Team / Staff Collection</a>
+    <a href="#s8"><span>S8</span> Investors / Partners Collection</a>
+    <a href="#s9"><span>S9</span> Industries Taxonomy</a>
+    <a href="#s10"><span>S10</span> Sectors Taxonomy</a>
+    <a href="#s11"><span>S11</span> HubSpot Integration</a>
+    <a href="#s12"><span>S12</span> Analytics &amp; Tracking Stack</a>
+    <a href="#s13"><span>S13</span> Statamic Globals (Site Settings)</a>
+    <a href="#s14"><span>S14</span> Search</a>
+    <a href="#s15"><span>S15</span> Meta Box Relationships → Statamic Relationships</a>
+    <a href="#s16"><span>S16</span> iFrame Embeds (Economy Page)</a>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- CMS MIGRATION NOTES -->
+<!-- ============================================================ -->
+
+<div class="comp" style="margin-bottom:40px;background:#f8f9fa;">
+  <div class="comp__title">CMS Migration Notes</div>
+  <div class="comp__name-row"><div class="comp__name">WordPress &rarr; Statamic</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <table class="cms-table" style="margin-top:16px;">
+    <thead>
+      <tr>
+        <th style="width:25%;">WordPress Feature</th>
+        <th style="width:25%;">Current Plugin / Method</th>
+        <th style="width:25%;">Statamic Equivalent</th>
+        <th style="width:25%;">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contact / Lead Forms</td>
+        <td>HubSpot embedded forms</td>
+        <td>HubSpot embed (keep) or Statamic Forms</td>
+        <td>Evaluate if HubSpot CRM integration is needed or if native Statamic forms suffice</td>
+      </tr>
+      <tr>
+        <td>Newsletter Signup</td>
+        <td>HubSpot form embed</td>
+        <td>HubSpot embed (keep) or Mailchimp / native form</td>
+        <td>Simple email capture &mdash; could be native Statamic form with webhook</td>
+      </tr>
+      <tr>
+        <td>Translation / i18n</td>
+        <td>Weglot</td>
+        <td>Not needed</td>
+        <td>English-only site &mdash; remove Weglot entirely</td>
+      </tr>
+      <tr>
+        <td>Blog / News posts</td>
+        <td>WordPress Posts + Content Views Pro</td>
+        <td>Statamic Collections</td>
+        <td>Create &ldquo;News&rdquo; and &ldquo;Press Releases&rdquo; collections</td>
+      </tr>
+      <tr>
+        <td>Staff / Team directory</td>
+        <td>Custom post type or page</td>
+        <td>Statamic Collection (&ldquo;Team&rdquo;)</td>
+        <td>Fields: name, title, organization, headshot, leadership flag</td>
+      </tr>
+      <tr>
+        <td>Counties</td>
+        <td>Custom post type / pages</td>
+        <td>Statamic Collection (&ldquo;Counties&rdquo;)</td>
+        <td>11 entries with snapshot data, cities, employers</td>
+      </tr>
+      <tr>
+        <td>Industries taxonomy</td>
+        <td>Page sections / accordion content</td>
+        <td>Statamic Collection or Taxonomy</td>
+        <td>7 industries with descriptions &mdash; could be a reusable collection</td>
+      </tr>
+      <tr>
+        <td>Page builder / blocks</td>
+        <td>Gutenberg + Columbus Blocks (custom plugin)</td>
+        <td>Statamic Bard / Replicator fieldtype</td>
+        <td>Replicate block types as Bard sets or Replicator sets</td>
+      </tr>
+      <tr>
+        <td>PDF downloads</td>
+        <td>Download Monitor</td>
+        <td>Statamic Assets</td>
+        <td>Press release PDFs &mdash; store in asset container</td>
+      </tr>
+      <tr>
+        <td>Image optimization</td>
+        <td>EWWW Image Optimizer</td>
+        <td>Statamic Glide (built-in)</td>
+        <td>Glide handles responsive images and optimization natively</td>
+      </tr>
+      <tr>
+        <td>iFrame embeds</td>
+        <td>Advanced iFrame plugin</td>
+        <td>Bard embed set or raw HTML</td>
+        <td>19 iframes detected on Economy page alone &mdash; audit which are needed</td>
+      </tr>
+      <tr>
+        <td>Scroll-to-page navigation</td>
+        <td>Custom JavaScript</td>
+        <td>Evaluate: keep or remove</td>
+        <td>Auto-navigates to next page on scroll-past &mdash; potential a11y/SEO issue</td>
+      </tr>
+      <tr>
+        <td>Search</td>
+        <td>None found</td>
+        <td>Statamic Search (Algolia or local)</td>
+        <td>No search currently exists &mdash; consider adding in redesign</td>
+      </tr>
+      <tr>
+        <td>SEO</td>
+        <td>Likely Yoast or similar</td>
+        <td>Statamic SEO Pro or SEO addon</td>
+        <td>Meta fields, OG tags, sitemap generation</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 1. UTILITY BAR -->
+<!-- ============================================================ -->
+
+<div class="effort-legend"><span class="lg-title">Build Effort Key</span><span class="lg-item"><span class="effort-pill effort-pill--high">Heavy</span> direct port from Greenbrier / Knox &middot; 13 comps &middot; 55&ndash;70 hrs</span><span class="lg-item"><span class="effort-pill effort-pill--med">Medium</span> pattern exists, needs customization &middot; 5 comps &middot; 45&ndash;55 hrs</span><span class="lg-item"><span class="effort-pill effort-pill--new">New</span> no Statamic precedent &middot; 4 comps &middot; 60&ndash;75 hrs</span><span class="lg-total">Total: 22 dev components &middot; 160&ndash;200 hrs</span></div>
+
+<div class="lib-section-header"><h2>UI Components</h2><p>38 components cataloged across columbusregion.com &mdash; each mapped to its consolidated dev component (D#) with Knox / Greenbrier Statamic leverage.</p></div>
+
+<div class="comp" id="c1">
+  <div class="comp__title">Component 01</div>
+  <div class="comp__name-row"><div class="comp__name">Utility Bar</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages (top of page, above main header)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 2–3 hrs</span><span class="effort-map"><strong>D3</strong> &middot; Greenbrier has an identical secondary nav row; Knox has header utility links.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;justify-content:flex-end;align-items:center;gap:24px;padding:8px 0;font-size:12px;">
+      <a href="#" style="color:#555;text-decoration:none;">One Columbus</a>
+      <a href="#" style="color:#555;text-decoration:none;">Columbus Partnership</a>
+      <a href="#" style="color:#555;text-decoration:none;">Smart Columbus</a>
+      <a href="contact-us.html" style="color:white;text-decoration:none;background:var(--teal);padding:8px 20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Contact Us</a>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Links to partner/sister organization sites. &ldquo;Contact Us&rdquo; is a styled CTA button.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 2. SITE HEADER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c2">
+  <div class="comp__title">Component 02</div>
+  <div class="comp__name-row"><div class="comp__name">Site Header</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 8–10 hrs</span><span class="effort-map"><strong>D1</strong> &middot; Greenbrier + Knox share identical nav patterns; port Knox's Alpine.js and reskin.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;align-items:center;padding:12px 0;border-bottom:2px solid #eee;">
+      <div style="display:flex;align-items:center;gap:4px;">
+        <span style="font-size:8px;color:#999;text-transform:uppercase;line-height:1;">THE</span>
+        <span style="font-size:22px;font-weight:800;color:#333;letter-spacing:-0.5px;">COLUMBUS</span>
+        <span style="font-size:22px;font-weight:800;color:var(--red);margin-top:-8px;">&#x2726;</span>
+      </div>
+      <span style="font-size:10px;color:#999;display:block;margin-left:4px;">REGION</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Logo with red diamond accent. Sticky on scroll. Contains the main navigation below on desktop.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 3. MAIN NAVIGATION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c3">
+  <div class="comp__title">Component 03</div>
+  <div class="comp__name-row"><div class="comp__name">Main Navigation (with Dropdowns)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 8–10 hrs</span><span class="effort-map"><strong>D1</strong> &middot; Mega-menu hover (desktop) / accordion (mobile); 6 dropdown panels.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:0;border-bottom:2px solid #eee;">
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">The Columbus Region <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Economy <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Talent <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Doing Business <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">About Us <span style="font-size:8px;">&#9660;</span></span>
+      <span style="padding:12px 20px;font-size:12px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">News and Events <span style="font-size:8px;">&#9660;</span></span>
+    </div>
+    <span class="comp__variant-label">Dropdown Panel</span>
+    <div style="border:1px solid #ddd;padding:16px 20px;max-width:280px;background:#fff;font-size:12px;line-height:2.4;color:#555;border-top:2px solid var(--red);">
+      Sub-page Link 1<br>
+      Sub-page Link 2<br>
+      Sub-page Link 3<br>
+      Sub-page Link 4
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 6 top-level items, each with dropdown sub-navigation. Active section highlighted in red. Dropdown opens on hover with red top border.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 4. MOBILE MENU -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c4">
+  <div class="comp__title">Component 04</div>
+  <div class="comp__name-row"><div class="comp__name">Mobile Menu</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages (below breakpoint)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 8–10 hrs</span><span class="effort-map"><strong>D1</strong> &middot; Knox's Alpine.js mobile menu ports directly.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo" style="max-width:400px;">
+    <div style="background:#fff;border:1px solid #ddd;">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee;">
+        <span style="font-size:16px;font-weight:800;color:#333;">COLUMBUS</span>
+        <div style="width:24px;height:18px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;">
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          <span style="display:block;width:100%;height:2px;background:#333;"></span>
+        </div>
+      </div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">The Columbus Region <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Economy <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Talent <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">Doing Business <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">About Us <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;border-bottom:1px solid #eee;font-size:14px;font-weight:600;display:flex;justify-content:space-between;color:var(--teal);">News and Events <span style="color:#999;font-size:10px;">&#9660;</span></div>
+      <div style="padding:14px 16px;">
+        <span class="btn btn--red" style="display:block;text-align:center;font-size:11px;">Contact Us</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 5. FOOTER -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c5">
+  <div class="comp__title">Component 05</div>
+  <div class="comp__name-row"><div class="comp__name">Footer</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–6 hrs</span><span class="effort-map"><strong>D2</strong> &middot; Greenbrier + Knox multi-column footers with social icons; standard Statamic partial.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#fff;padding:32px 0;border-top:3px solid #eee;">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px;font-size:11px;color:#555;">
+        <!-- Col 1 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:12px;color:var(--teal);">One Columbus</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:4px;color:var(--teal);">Columbus Partnership</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:16px;color:var(--teal);">Smart Columbus</div>
+          <div style="font-size:10px;color:#888;line-height:1.6;">
+            150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500
+          </div>
+          <div style="margin-top:8px;font-size:10px;color:var(--teal);text-decoration:underline;">Privacy Policy</div>
+        </div>
+        <!-- Col 2 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">The Columbus Region</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Economy</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Talent</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;color:var(--teal);">Doing Business</div>
+        </div>
+        <!-- Col 3 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">About Us</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">News</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Staff</div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;color:var(--teal);">Contact Us</div>
+        </div>
+        <!-- Col 4 -->
+        <div>
+          <div style="font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:1px;margin-bottom:4px;">Subscribe to Columbus Region News</div>
+          <div style="font-size:10px;color:#888;margin-bottom:8px;">The latest news, articles and resources sent to your inbox.</div>
+          <div style="display:flex;gap:4px;">
+            <input type="text" placeholder="Email" style="flex:1;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+            <button style="background:var(--teal);color:#fff;border:none;padding:0 14px;font-size:10px;font-weight:700;cursor:pointer;">SIGN UP</button>
+          </div>
+          <div style="margin-top:12px;display:flex;align-items:center;gap:6px;">
+            <span style="font-size:10px;font-weight:700;color:#333;">JobsOhio</span>
+            <span style="font-size:9px;color:#888;">Network Partner</span>
+          </div>
+        </div>
+      </div>
+      <!-- Sub-footer -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:16px;border-top:1px solid #eee;">
+        <span style="font-size:9px;color:#aaa;">&copy; 2023 All Rights Reserved</span>
+        <div style="display:flex;gap:8px;">
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+          <div style="width:20px;height:20px;border-radius:50%;background:#ccc;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 4-column layout. Col 1: partner org links + address. Cols 2-3: site nav links. Col 4: newsletter signup + JobsOhio partner badge. Sub-footer: copyright + social icons (Instagram, Twitter/X, YouTube, LinkedIn).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 6. HOMEPAGE HERO -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c6">
+  <div class="comp__title">Component 06</div>
+  <div class="comp__name-row"><div class="comp__name">Homepage Hero (Split Layout)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 6–8 hrs</span><span class="effort-map"><strong>D4</strong> &middot; Split layout is custom; adapt Greenbrier hero as a Bard set (heading, body, CTA, image, panel_color).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Homepage Only</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:280px;">
+      <div style="background:var(--red);padding:40px 32px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h2 style="font-size:28px;font-weight:800;margin-bottom:16px;line-height:1.15;">See the Progress.<br>Join the Momentum.</h2>
+        <p style="font-size:12px;margin-bottom:20px;opacity:0.9;">Be a part of the transformation. Learn more about the Columbus Region.</p>
+        <div><span class="btn" style="background:var(--teal);border-color:var(--teal);font-size:11px;">Learn More</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:280px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 50/50 split. Red panel left with headline, supporting text, and CTA button. Full-bleed image right. Background image appears to be an aerial/city photo.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 7. INTERIOR HERO — FULL WIDTH -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c7">
+  <div class="comp__title">Component 07</div>
+  <div class="comp__name-row"><div class="comp__name">Interior Hero &mdash; Full-Width Photo Overlay</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: News &amp; Events, section landing pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 6–8 hrs</span><span class="effort-map"><strong>D5</strong> &middot; One interior-hero component, variant = full-width overlay; port Greenbrier editorial hero.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="position:relative;min-height:200px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;padding:48px 32px;max-width:50%;">
+        <div style="background:rgba(178,34,34,0.85);padding:32px;color:#fff;">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:8px;">News and Events</h2>
+          <p style="font-size:12px;opacity:0.9;">The latest updates from the Columbus Region economic development community.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width background image with semi-transparent red overlay block positioned over the left side. Contains title + description text. No CTA button in this variant.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 8. INTERIOR HERO — HALF WIDTH -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c8">
+  <div class="comp__title">Component 08</div>
+  <div class="comp__name-row"><div class="comp__name">Interior Hero &mdash; Half-Width Block</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: About Us, Cost, Talent, and most interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 6–8 hrs</span><span class="effort-map"><strong>D5</strong> &middot; Same hero component, variant = half-width block; add red overlay panel.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Variant A: Red Block</span>
+    <div style="position:relative;min-height:180px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;background:var(--red);padding:32px;max-width:45%;min-height:180px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Cost of Business</h2>
+        <p style="font-size:11px;margin-bottom:16px;opacity:0.9;">Description text about this section goes here with supporting details.</p>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Connect With Our Team</span></div>
+      </div>
+    </div>
+    <span class="comp__variant-label">Variant B: Teal Block (Contact page)</span>
+    <div style="position:relative;min-height:140px;">
+      <div style="background:var(--teal);padding:32px;max-width:45%;min-height:140px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Let's stay connected.</h2>
+        <div style="display:flex;gap:4px;margin-top:8px;">
+          <input type="text" placeholder="Email" style="flex:1;height:30px;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;padding:0 8px;font-size:10px;">
+          <button style="background:#fff;color:var(--teal);border:none;padding:0 14px;font-size:10px;font-weight:700;">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+    <span class="comp__variant-label">Variant C: Red Block without CTA</span>
+    <div style="position:relative;min-height:140px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;background:var(--red);padding:32px;max-width:45%;min-height:140px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Meet the Team</h2>
+        <p style="font-size:11px;opacity:0.9;">Learn about the people driving the Columbus Region forward.</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Most common interior hero pattern. A colored block (~40-45% width) overlays a background photo. Three observed color variants: red (most common), teal (contact page), and red without CTA button. Some variants include an email signup form instead of a CTA.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 9. COUNTIES HERO -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c9">
+  <div class="comp__title">Component 09</div>
+  <div class="comp__name-row"><div class="comp__name">Counties Hero (Map + Dropdown)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties landing page</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 6–8 hrs</span><span class="effort-map"><strong>D5</strong> &middot; Same hero component, variant = counties (map + dropdown).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:200px;">
+      <div style="position:relative;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:32px;color:#fff;">
+          <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Explore the Counties</h2>
+          <p style="font-size:11px;margin-bottom:16px;text-shadow:0 1px 2px rgba(0,0,0,0.5);">Description of the 11-county region.</p>
+          <select style="padding:8px 12px;font-size:11px;border:1px solid #ccc;min-width:180px;">
+            <option>COUNTIES</option>
+            <option>Franklin</option>
+            <option>Delaware</option>
+            <option>Fairfield</option>
+          </select>
+        </div>
+      </div>
+      <div style="background:#e8e8e8;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;">
+        <!-- Simplified map wireframe -->
+        <div style="width:200px;height:180px;position:relative;">
+          <div style="position:absolute;top:10%;left:30%;font-size:8px;color:var(--red);font-weight:700;">DELAWARE</div>
+          <div style="position:absolute;top:45%;left:35%;font-size:8px;color:var(--red);font-weight:700;">FRANKLIN</div>
+          <div style="position:absolute;top:75%;left:25%;font-size:8px;color:var(--red);font-weight:700;">PICKAWAY</div>
+          <div style="position:absolute;top:30%;left:5%;font-size:8px;color:var(--red);font-weight:700;">UNION</div>
+          <div style="position:absolute;top:30%;right:5%;font-size:8px;color:var(--red);font-weight:700;">KNOX</div>
+          <div style="border:1px solid #aaa;position:absolute;inset:0;border-radius:8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Unique to counties page. Left side has text + county dropdown selector over background photo. Right side has interactive SVG map of 11 counties with hover states (county highlights red on hover). Dropdown navigates to individual county detail.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 10. STATS PANEL -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c10">
+  <div class="comp__title">Component 10</div>
+  <div class="comp__name-row"><div class="comp__name">Stats Panel (Large Numbers)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Region by the Numbers&rdquo;), Economy, Counties</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 5–6 hrs</span><span class="effort-map"><strong>D7</strong> &middot; No reference precedent; build as a custom Bard set, stats[] = {number, label, link}.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:32px;color:#fff;">
+      <h3 style="font-size:20px;font-weight:800;margin-bottom:24px;">The Region by the Numbers</h3>
+      <div style="display:flex;gap:32px;">
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">2.3M</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Talented People</div>
+        </div>
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">150,000</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Enrolled College Students</div>
+        </div>
+        <div>
+          <div style="font-size:40px;font-weight:800;line-height:1;">No. 1</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">In the Midwest for GDP Growth</div>
+        </div>
+      </div>
+      <div style="margin-top:20px;"><span class="btn" style="font-size:10px;padding:8px 18px;">Learn More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Red background panel with large stat figures. On homepage this appears alongside a background image (split layout). Also used standalone on interior pages. Stats are editable content fields.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 11. STATS CALLOUT BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c11">
+  <div class="comp__title">Component 11</div>
+  <div class="comp__name-row"><div class="comp__name">Stats Callout Bar</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Cost of Business, Economy, Counties</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 5–6 hrs</span><span class="effort-map"><strong>D7</strong> &middot; Same stats component, inline callout-bar variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:32px;color:#fff;text-align:center;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Section Title</h3>
+      <p style="font-size:11px;opacity:0.8;margin-bottom:20px;">Supporting description text for this data section.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">$10B</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Capital Investment Secured</div>
+        </div>
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">$2B</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">New Payroll Across the Region</div>
+        </div>
+        <div>
+          <div style="font-size:36px;font-weight:800;line-height:1;">Top 10</div>
+          <div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:4px;opacity:0.8;">Millennial Concentration</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width dark red bar with centered heading, subheading, and 3-column stats layout. Differs from #10 in being full-width and centered rather than inline with an image.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 12. FEATURE CARD GRID -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c12">
+  <div class="comp__title">Component 12</div>
+  <div class="comp__name-row"><div class="comp__name">Feature Card Grid (2&times;2)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Doing Business&rdquo;), section landing pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D11</strong> &middot; Greenbrier category tiles / Knox interest cards; adapt to text-only grid with accent borders.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div>
+      <h3 style="font-size:22px;font-weight:800;margin-bottom:20px;">Doing Business</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Cost</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Cost of living in the Columbus Region is 10% lower than the national average.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Market Access</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">60% of the population of the U.S. and Canada within a one-day drive.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Talent</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">A top talent incubator for all key industries.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:16px;border-top:3px solid var(--red);">
+          <h4 style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:8px;">Economic Development Ecosystem</h4>
+          <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Community partners can directly assist in growing your business.</p>
+          <a href="#" class="arrow-link">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 2&times;2 grid of text-only feature cards. Each card has red top border, red title, description text, and arrow link. Section heading above the grid.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 13. ACCORDION — DARK BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c13">
+  <div class="comp__title">Component 13</div>
+  <div class="comp__name-row"><div class="comp__name">Accordion Section &mdash; Dark Background</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Industries&rdquo;)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–7 hrs</span><span class="effort-map"><strong>D8</strong> &middot; Knox FAQ pattern extended; dark theme + paired-image variant for Industries.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--dark);color:#fff;min-height:240px;">
+      <div class="img-placeholder" style="min-height:240px;background:#bbb;border-color:#aaa;"></div>
+      <div style="padding:24px;">
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px;">Industries</h3>
+        <p style="font-size:11px;opacity:0.8;margin-bottom:16px;">Key industries represent a diverse business community.</p>
+        <!-- Open accordion item -->
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;">
+          <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Automotive and Mobility <span style="font-size:10px;">&#9650;</span></div>
+          <p style="font-size:10px;opacity:0.8;margin-top:8px;line-height:1.5;">The Columbus Region is at the forefront of the automotive and mobility technology movement.</p>
+          <a href="#" class="arrow-link" style="color:#fff;font-size:10px;margin-top:8px;display:inline-block;">Learn More &rarr;</a>
+        </div>
+        <!-- Collapsed items -->
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Fashion and Retail <span style="font-size:10px;">&#9660;</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Finance and Fintech <span style="font-size:10px;">&#9660;</span></div>
+        <div style="border-top:1px solid rgba(255,255,255,0.2);padding:12px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;">Food and Beverage <span style="font-size:10px;">&#9660;</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Dark teal/slate background. Full-width image on left, accordion list on right. Each accordion item expands to show description + Learn More link. 7 industry items total.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 14. ACCORDION — LIGHT BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c14">
+  <div class="comp__title">Component 14</div>
+  <div class="comp__name-row"><div class="comp__name">Accordion Section &mdash; Light Background</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage (&ldquo;Operations&rdquo;)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–7 hrs</span><span class="effort-map"><strong>D8</strong> &middot; Same accordion component, light theme variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 0;">
+      <div>
+        <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Operations</h3>
+        <p style="font-size:11px;color:#555;margin-bottom:16px;">The Columbus Region is set up for success &mdash; your success.</p>
+        <!-- Accordion items -->
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">IT <span style="color:var(--red);font-size:10px;">&#9650;</span></div>
+        <p style="font-size:10px;color:#555;margin-bottom:12px;line-height:1.5;">The Columbus Region's relatively low cost of living aids in recruiting top IT talent.</p>
+        <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        <div style="border-top:2px solid var(--red);padding:14px 0;margin-top:8px;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Headquarters and Office <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Logistics and E-commerce <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+        <div style="border-top:2px solid var(--red);padding:14px 0;display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:#333;">Manufacturing <span style="color:var(--red);font-size:10px;">&#9660;</span></div>
+      </div>
+      <!-- Stats column -->
+      <div style="background:var(--red);padding:32px;color:#fff;display:flex;flex-direction:column;justify-content:center;gap:20px;">
+        <div><div style="font-size:36px;font-weight:800;">Top 10</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Millennial Concentration</div></div>
+        <div><div style="font-size:36px;font-weight:800;">52</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">College Campuses</div></div>
+        <div><div style="font-size:36px;font-weight:800;">16</div><div style="font-size:9px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Fortune 1000 Companies</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> White background. Accordion list on left with red top borders, stats panel on right. The accordion items expand with description + Learn More arrow link. 5 operation categories total.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 15. FAQ ACCORDION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c15">
+  <div class="comp__title">Component 15</div>
+  <div class="comp__name-row"><div class="comp__name">FAQ Accordion</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Economy page, section pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–7 hrs</span><span class="effort-map"><strong>D8</strong> &middot; Knox FAQ Q&amp;A; &lt;details&gt;/&lt;summary&gt; variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--cms">Statamic: Replicator Set</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:600px;">
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Why should a company consider the Columbus Region?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+        <div style="padding:0 16px 14px;font-size:11px;color:#555;line-height:1.6;">
+          Answer content goes here with detailed information about the Columbus Region's advantages for businesses.
+        </div>
+      </details>
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What industries are driving the economy right now?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+      </details>
+      <details style="border:1px solid #ddd;margin-bottom:4px;">
+        <summary style="padding:14px 16px;font-size:13px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What incentives or support can businesses access?
+          <span style="font-size:10px;color:#999;">&#9660;</span>
+        </summary>
+      </details>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Uses native HTML <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> elements. Standalone FAQ block (not paired with an image like #13/#14). Found on the Economy page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 16. ALTERNATING CONTENT BLOCK -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c16">
+  <div class="comp__title">Component 16</div>
+  <div class="comp__name-row"><div class="comp__name">Alternating Content Block</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Cost of Business, Talent, Doing Business interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D6</strong> &middot; Greenbrier 'Featured Spotlight' / Knox 'Featured Highlight'; direct port with image_position toggle.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Bard Set</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Image Left</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px;">
+      <div class="img-placeholder" style="min-height:160px;"></div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Favorable Business Economy</h3>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Supporting text about this topic with details about the Columbus Region advantage.</p>
+        <a href="#" class="arrow-link">Learn More &rarr;</a>
+      </div>
+    </div>
+    <span class="comp__variant-label">Image Right</span>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:18px;font-weight:700;margin-bottom:8px;">Real Estate</h3>
+        <p style="font-size:11px;color:#555;line-height:1.6;margin-bottom:12px;">Supporting text about real estate advantages in the Columbus Region.</p>
+        <a href="#" class="arrow-link">Learn More &rarr;</a>
+      </div>
+      <div class="img-placeholder" style="min-height:160px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Two-column layout that alternates image position (left/right) between successive blocks. Each block contains image, heading, body text, and optional arrow link. Very common interior page pattern.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 17. TWO-COLUMN CONTENT -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c17">
+  <div class="comp__title">Component 17</div>
+  <div class="comp__name-row"><div class="comp__name">Two-Column Content (Text + Image)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Various interior pages, section landings</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D6</strong> &middot; Same alternating block, two-column variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:24px 0;">
+      <div>
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:12px;">Section Heading</h3>
+        <p style="font-size:11px;color:#555;line-height:1.7;margin-bottom:16px;">Body text content that describes this section in detail. Can include multiple paragraphs of content with various formatting.</p>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Call to Action</span></div>
+      </div>
+      <div class="img-placeholder" style="min-height:200px;"></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> General-purpose two-column layout. Text on one side, image on the other. Unlike #16, this doesn't alternate &mdash; it's a single-use placement. Used for general content sections.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 18. REGION MAP SECTION -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c18">
+  <div class="comp__title">Component 18</div>
+  <div class="comp__name-row"><div class="comp__name">Region Map Section</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage, Counties</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 16–20 hrs</span><span class="effort-map"><strong>D12</strong> &middot; No precedent; SVG county paths + JS, data from Counties collection. Consider a grid/list fallback.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;min-height:220px;">
+      <div style="position:relative;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:32px;">
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;">Marion</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:30px;">Delaware</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:50px;">Franklin</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:20px;">Madison</div>
+          <div style="font-size:9px;color:var(--red);font-weight:700;text-transform:uppercase;margin-top:20px;margin-left:40px;">Pickaway</div>
+        </div>
+      </div>
+      <div style="background:var(--red);padding:32px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:20px;font-weight:800;margin-bottom:8px;">Economic Development</h3>
+        <p style="font-size:11px;opacity:0.9;margin-bottom:16px;line-height:1.6;">Businesses in the 11-county Columbus Region benefit from a robust economic development infrastructure.</p>
+        <div style="display:flex;gap:24px;margin-bottom:16px;">
+          <div><div style="font-size:30px;font-weight:800;">$10B</div><div style="font-size:8px;text-transform:uppercase;opacity:0.8;">Capital Investment</div></div>
+          <div><div style="font-size:30px;font-weight:800;">$2B</div><div style="font-size:8px;text-transform:uppercase;opacity:0.8;">New Payroll</div></div>
+        </div>
+        <div><span class="btn" style="font-size:10px;padding:8px 18px;">Learn More</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Aerial photo with county map overlay on left, red content panel with stats on right. The map shows labeled county boundaries over a background image. Interactive on the counties landing page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 19. CONTACT CTA — LIGHT BG -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c19">
+  <div class="comp__title">Component 19</div>
+  <div class="comp__name-row"><div class="comp__name">Contact CTA &mdash; Light Background</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage, bottom of many interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 3–4 hrs</span><span class="effort-map"><strong>D9</strong> &middot; Greenbrier banner / Knox contact CTA; simple reskin, variant = light.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--light-blue);padding:40px 32px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-size:22px;font-weight:800;margin-bottom:8px;">Contact</h3>
+          <p style="font-size:12px;color:#555;line-height:1.6;margin-bottom:16px;">Our team is on hand to help your business find its place in the Columbus Region.</p>
+          <div><span class="btn" style="font-size:10px;padding:8px 18px;">Let's Talk</span></div>
+        </div>
+        <div class="img-placeholder" style="min-height:180px;border-radius:4px;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Light blue (#eee) background section. Text + CTA on left, city skyline image on right. Common bottom-of-page conversion block.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 20. CONTACT CTA — IMAGE OVERLAY -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c20">
+  <div class="comp__title">Component 20</div>
+  <div class="comp__name-row"><div class="comp__name">Contact CTA &mdash; Image Overlay</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Cost of Business, interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 3–4 hrs</span><span class="effort-map"><strong>D9</strong> &middot; Same CTA block, variant = image overlay.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <div style="position:relative;min-height:160px;">
+      <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+      <div style="position:relative;z-index:1;padding:40px 32px;max-width:50%;">
+        <h3 style="font-size:20px;font-weight:800;color:#fff;margin-bottom:8px;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Contact Us</h3>
+        <p style="font-size:11px;color:#fff;margin-bottom:16px;text-shadow:0 1px 2px rgba(0,0,0,0.3);">Reach out to learn more about opportunities in the Columbus Region.</p>
+        <a href="#" style="color:#fff;font-size:12px;font-weight:700;text-decoration:underline;">Let's Talk</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width background image with text overlay. Simpler than #19 &mdash; no separate content panel, just text floating over the image. Text link instead of button.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 21. QUOTE / TESTIMONIAL -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c21">
+  <div class="comp__title">Component 21</div>
+  <div class="comp__name-row"><div class="comp__name">Quote / Testimonial Block</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties, section pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 2–3 hrs</span><span class="effort-map"><strong>D10</strong> &middot; Greenbrier + Knox pull-quote patterns; swap decorative icon for Columbus diamond.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Bard Set</span>
+  </div>
+  <div class="comp__demo">
+    <div style="padding:32px;max-width:600px;margin:0 auto;text-align:center;">
+      <div style="font-size:36px;color:var(--red);line-height:1;margin-bottom:12px;">&ldquo;</div>
+      <p style="font-size:14px;font-style:italic;color:#333;line-height:1.7;margin-bottom:16px;">Quote text goes here, typically a testimonial from a business leader or economic development partner about the Columbus Region.</p>
+      <div style="font-size:11px;font-weight:700;color:#333;">Speaker Name</div>
+      <div style="font-size:10px;color:#888;">Title, Organization</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 22. NEWS CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c22">
+  <div class="comp__title">Component 22</div>
+  <div class="comp__name-row"><div class="comp__name">News Card</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage, News &amp; Events</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–6 hrs</span><span class="effort-map"><strong>D13</strong> &middot; Port Knox card pattern; variant = with_image (news/blog).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;" class="resp-stack">
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">January 16, 2026</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">Ohio State's Wexner Medical Center Opens University Hospital Tower</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here, typically 2-3 lines...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">January 15, 2026</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">United Airlines Announces Daily Nonstop Flights to Los Angeles</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+      <div>
+        <div class="img-placeholder" style="height:160px;margin-bottom:12px;"></div>
+        <div style="font-size:10px;color:#888;margin-bottom:4px;">December 18, 2025</div>
+        <h4 style="font-size:15px;font-weight:700;margin-bottom:8px;line-height:1.3;">STRAUSS Selects Columbus for U.S. Headquarters</h4>
+        <p style="font-size:11px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt text from the article goes here...</p>
+        <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 3-column grid on desktop. Each card: featured image, date (gray), headline, excerpt, &ldquo;READ MORE&rdquo; link. Image lazy-loads. Used for general news items on homepage and news listing page.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 23. PRESS RELEASE CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c23">
+  <div class="comp__title">Component 23</div>
+  <div class="comp__name-row"><div class="comp__name">Press Release Card (Text-Only)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: News &amp; Events page</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–6 hrs</span><span class="effort-map"><strong>D13</strong> &middot; Same card partial, variant = text_only (press release).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--light-blue);padding:24px;">
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Press Releases</h3>
+      <p style="font-size:10px;color:#888;margin-bottom:16px;">Latest press releases from the Columbus Region</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 10, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Press Release Headline Goes Here</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 8, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Another Press Release Title</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div style="background:#fff;padding:16px;">
+          <div style="font-size:10px;color:var(--red);margin-bottom:4px;">January 5, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Third Press Release</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Brief excerpt from the press release...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;"><span class="btn" style="font-size:10px;padding:8px 20px;">View More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Text-only cards (no images) on light blue background. Date in red, title, excerpt, READ MORE link. 3-column grid with &ldquo;View More&rdquo; button. Distinct from news cards (#22) by lacking images.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 24. NEWS FEED CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c24">
+  <div class="comp__title">Component 24</div>
+  <div class="comp__name-row"><div class="comp__name">News Feed Card (Large Image)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: News &amp; Events page</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 5–6 hrs</span><span class="effort-map"><strong>D13</strong> &middot; Same card partial, variant = large_image (featured).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+  </div>
+  <div class="comp__demo">
+    <div>
+      <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">The Columbus Region News Feed</h3>
+      <p style="font-size:10px;color:#888;margin-bottom:16px;">Curated news coverage</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;" class="resp-stack">
+        <div>
+          <div class="img-placeholder" style="height:180px;margin-bottom:10px;"></div>
+          <div style="font-size:10px;color:#888;margin-bottom:4px;">January 12, 2026</div>
+          <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">News Feed Article Title Here</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Excerpt from the aggregated news feed article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div>
+          <div class="img-placeholder" style="height:180px;margin-bottom:10px;"></div>
+          <div style="font-size:10px;color:#888;margin-bottom:4px;">January 11, 2026</div>
+          <h4 style="font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.3;">Another News Feed Article</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:8px;">Excerpt from the aggregated news feed article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+      </div>
+      <div style="margin-top:16px;text-align:center;"><span class="btn" style="font-size:10px;padding:8px 20px;">View More</span></div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 2-column grid with larger images than the 3-column news card (#22). Used for curated/aggregated news feed content, separate from press releases and authored news.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 25. COUNTY SNAPSHOT CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c25">
+  <div class="comp__title">Component 25</div>
+  <div class="comp__name-row"><div class="comp__name">County Snapshot Card</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties listing, County detail pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 14–18 hrs</span><span class="effort-map"><strong>D15</strong> &middot; Counties collection drives the snapshot panel; unique to Columbus.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:120px 1fr;gap:20px;padding:20px;border:1px solid #eee;">
+      <div class="img-placeholder" style="height:100px;"></div>
+      <div>
+        <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;">County Snapshot</h4>
+        <p style="font-size:10px;color:#555;margin-bottom:12px;line-height:1.5;">Brief description of the county's key characteristics and economic profile.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:10px;">
+          <div><strong style="color:#333;">Location:</strong> <span style="color:#555;">Central Ohio</span></div>
+          <div><strong style="color:#333;">Population:</strong> <span style="color:#555;">1,323,000</span></div>
+          <div><strong style="color:#333;">Notable Cities:</strong> <span style="color:#555;">Columbus, Dublin, Westerville</span></div>
+          <div><strong style="color:#333;">Notable Businesses:</strong> <span style="color:#555;">Nationwide, Cardinal Health</span></div>
+        </div>
+        <a href="#" class="arrow-link" style="font-size:10px;margin-top:8px;display:inline-block;">Learn More &rarr;</a>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Map thumbnail + data grid. Used for all 11 counties. Fields: location, population, notable cities, notable businesses. Repeats on both listing and detail pages.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 26. CITY CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c26">
+  <div class="comp__title">Component 26</div>
+  <div class="comp__name-row"><div class="comp__name">City Card</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: County detail pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 14–18 hrs</span><span class="effort-map"><strong>D15</strong> &middot; City card within the Counties system.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">County Detail</span>
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px 0;border-bottom:1px solid #eee;">
+      <div class="img-placeholder" style="min-height:140px;"></div>
+      <div style="display:flex;flex-direction:column;justify-content:center;">
+        <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">City Name</h4>
+        <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:10px;">Description of the city and its key attributes within the county.</p>
+        <div style="font-size:10px;color:#333;margin-bottom:4px;"><strong>Contact Name</strong> &mdash; Title</div>
+        <div style="font-size:10px;color:#555;margin-bottom:2px;">614-555-0100</div>
+        <div style="font-size:10px;color:var(--teal);margin-bottom:10px;">email@city.gov</div>
+        <div><span class="btn btn--sm" style="font-size:9px;">Visit City Website</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Image left, city info right. Includes contact person, phone, email, and external website link button. Used within county detail pages to list member cities.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 27. EMPLOYER CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c27">
+  <div class="comp__title">Component 27</div>
+  <div class="comp__name-row"><div class="comp__name">Employer Card</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: County detail pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 6–8 hrs</span><span class="effort-map"><strong>D14</strong> &middot; Employers collection + JS filter bar; no reference precedent.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">County Detail</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="resp-stack">
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Technology</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Headquarters</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Columbus</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Insurance</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Headquarters</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Columbus</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:16px;text-align:center;">
+        <div style="width:80px;height:50px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#999;">Logo</div>
+        <div style="font-size:10px;color:#555;text-align:left;">
+          <div style="margin-bottom:4px;"><strong>Industry:</strong> Healthcare</div>
+          <div style="margin-bottom:4px;"><strong>Operation:</strong> Regional Office</div>
+          <div style="margin-bottom:4px;"><strong>City:</strong> Dublin</div>
+          <a href="#" style="color:var(--teal);font-size:10px;">company-website.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 3-column grid of employer cards. Each shows company logo, industry, operation type, city, and website link. Used in &ldquo;Top Employers&rdquo; sections on county detail pages.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 28. TEAM MEMBER CARD -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c28">
+  <div class="comp__title">Component 28</div>
+  <div class="comp__name-row"><div class="comp__name">Team Member Card</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: About Us &gt; Meet the Team (Staff page)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 3–4 hrs</span><span class="effort-map"><strong>D16</strong> &middot; Greenbrier staff list / Knox staff profile; simplify to grid card.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;" class="resp-stack">
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="width:100px;height:100px;border-radius:50%;background:#e8e8e8;border:1px solid #ccc;margin:0 auto 10px;"></div>
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;">First Last</div>
+        <div style="font-size:10px;color:#555;">Title</div>
+        <div style="font-size:10px;color:#888;">Organization</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> 4-column grid. Circular headshot photos with name (bold, uppercase), title, and organization below. Two sections on the page: &ldquo;Executive Leadership&rdquo; and &ldquo;Staff&rdquo; using the same card component. Some members may have placeholder images.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 29. COUNTY TAB BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c29">
+  <div class="comp__title">Component 29</div>
+  <div class="comp__name-row"><div class="comp__name">County Tab Bar</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties landing page</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 14–18 hrs</span><span class="effort-map"><strong>D15</strong> &middot; County tab bar drives the visible snapshot; unique to Columbus.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;flex-wrap:wrap;gap:0;border-bottom:2px solid #eee;">
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--red);border-bottom:2px solid var(--red);margin-bottom:-2px;">Franklin</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Delaware</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Fairfield</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Knox</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Licking</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Logan</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Madison</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Marion</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Morrow</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Pickaway</span>
+      <span style="padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:#888;">Union</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Horizontal tab navigation for 11 counties. Active tab highlighted in red with red bottom border. Tabs function as anchor links or content switchers. Needs responsive handling (likely stacks or scrolls on mobile).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 30. INTERACTIVE COUNTY MAP -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c30">
+  <div class="comp__title">Component 30</div>
+  <div class="comp__name-row"><div class="comp__name">Interactive County Map</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties hero, Homepage</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--new">New Build &middot; 16–20 hrs</span><span class="effort-map"><strong>D12</strong> &middot; Interactive SVG map; hover + click, data from Counties collection.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Unique</span>
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--cms">Custom Development</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#f5f5f5;padding:24px;text-align:center;">
+      <div style="display:inline-block;padding:20px;border:2px dashed #ccc;border-radius:8px;">
+        <div style="font-size:10px;color:#999;margin-bottom:8px;">SVG / Image Map</div>
+        <div style="width:200px;height:160px;position:relative;margin:0 auto;">
+          <div style="position:absolute;top:5%;left:40%;font-size:8px;color:var(--teal);font-weight:600;">MORROW</div>
+          <div style="position:absolute;top:25%;left:10%;font-size:8px;color:var(--teal);font-weight:600;">LOGAN</div>
+          <div style="position:absolute;top:25%;left:55%;font-size:8px;color:var(--teal);font-weight:600;">KNOX</div>
+          <div style="position:absolute;top:40%;left:30%;font-size:8px;color:var(--teal);font-weight:600;">DELAWARE</div>
+          <div style="position:absolute;top:55%;left:10%;font-size:8px;color:var(--teal);font-weight:600;">UNION</div>
+          <div style="position:absolute;top:60%;left:45%;font-size:9px;color:var(--red);font-weight:700;background:rgba(178,34,34,0.1);padding:2px 6px;border-radius:3px;">FRANKLIN</div>
+          <div style="position:absolute;top:60%;left:75%;font-size:8px;color:var(--teal);font-weight:600;">LICKING</div>
+          <div style="position:absolute;top:80%;left:20%;font-size:8px;color:var(--teal);font-weight:600;">MADISON</div>
+          <div style="position:absolute;top:85%;left:50%;font-size:8px;color:var(--teal);font-weight:600;">PICKAWAY</div>
+          <div style="position:absolute;top:80%;left:75%;font-size:8px;color:var(--teal);font-weight:600;">FAIRFIELD</div>
+        </div>
+        <div style="font-size:9px;color:#aaa;margin-top:8px;">Hover: county highlights red</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Custom SVG/image map with hover states. Each county has a default and a red hover image. Clicking navigates to county detail. Requires custom front-end development in Statamic &mdash; not a standard CMS component. 11 county regions with labeled boundaries.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 31. SCROLL-TO-PAGE NAV -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c31">
+  <div class="comp__title">Component 31</div>
+  <div class="comp__name-row"><div class="comp__name">Scroll-to-Page Navigation</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Multiple interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D18</strong> &middot; Replace scroll-to-page JS with Statamic native pagination (a11y/SEO).</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--wp">WP Custom JS</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#eee;padding:20px;border:1px solid #999;border-radius:4px;text-align:center;">
+      <div style="font-size:12px;font-weight:700;color:#555;margin-bottom:8px;">Custom Scroll Behavior</div>
+      <p style="font-size:10px;color:#555;line-height:1.5;">When a user scrolls past the end of page content, the browser automatically navigates to a different page. This creates a &ldquo;single-page&rdquo; feel across separate WordPress pages.</p>
+      <div style="margin-top:12px;font-size:10px;color:#555;">
+        <strong>Recommendation:</strong> Evaluate whether to keep or remove. Potential a11y and SEO concerns.
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> This is a custom JavaScript behavior, not a visual component. It auto-navigates users to the next page in sequence when they scroll past the current page's content. This is unusual and may warrant removal in the redesign for accessibility and SEO reasons.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 32. ARTICLE DETAIL LAYOUT -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c32">
+  <div class="comp__title">Component 32</div>
+  <div class="comp__name-row"><div class="comp__name">Article Detail Layout</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Press release detail, news article detail</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D17</strong> &middot; Greenbrier + Knox editorial Bard detail templates; direct port.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--cms">Statamic: Collection Template</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:640px;">
+      <h1 style="font-size:24px;font-weight:800;margin-bottom:8px;line-height:1.2;">Article Title Goes Here and Can Span Multiple Lines</h1>
+      <div style="font-size:10px;color:#888;margin-bottom:16px;">January 16, 2026</div>
+      <div class="img-placeholder" style="height:200px;margin-bottom:20px;"></div>
+      <div style="font-size:11px;line-height:1.8;color:#444;">
+        <a href="#" style="color:var(--teal);text-decoration:underline;font-size:10px;">Download this Press Release (PDF)</a>
+        <p style="margin-top:12px;">Article body content goes here. Standard WordPress/Statamic prose content with paragraphs, formatted text, and inline links.</p>
+        <blockquote style="border-left:3px solid var(--red);padding:8px 16px;margin:16px 0;font-style:italic;color:#555;">
+          &ldquo;A pull quote or blockquote from the article content, typically attributed to a speaker.&rdquo;
+          <div style="font-size:10px;font-style:normal;margin-top:4px;color:#888;">&mdash; Speaker Name, Title</div>
+        </blockquote>
+        <p>Additional article content continues here with more paragraphs...</p>
+        <p style="text-align:center;color:#999;margin-top:16px;">###</p>
+        <p style="font-weight:700;margin-top:12px;">About One Columbus</p>
+        <p>Boilerplate &ldquo;about&rdquo; text for the organization appears at the end of press releases.</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> No hero image block &mdash; title sits directly below nav. Content includes: title (h1), date, featured image, optional PDF download link, prose body with blockquotes, and boilerplate &ldquo;about&rdquo; section at end. Press releases end with &ldquo;###&rdquo; separator.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 33. PLAIN TEXT PAGE -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c33">
+  <div class="comp__title">Component 33</div>
+  <div class="comp__name-row"><div class="comp__name">Plain Text Page Layout</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Privacy Policy, legal pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 4–5 hrs</span><span class="effort-map"><strong>D17</strong> &middot; Same article template, plain-text variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--page">Limited Use</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:640px;">
+      <h1 style="font-size:20px;font-weight:800;margin-bottom:16px;">Privacy Policy</h1>
+      <div style="font-size:11px;line-height:1.8;color:#444;">
+        <p style="font-weight:700;margin-bottom:8px;">SECTION HEADING IN BOLD</p>
+        <p style="margin-bottom:12px;">Body text for this section goes here with standard formatting and paragraph spacing.</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item one</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item two</p>
+        <p style="margin-bottom:4px;padding-left:16px;">&gt; Bullet point item three</p>
+        <p style="font-weight:700;margin-top:16px;margin-bottom:8px;">ANOTHER SECTION HEADING</p>
+        <p>More body text content for the next section of the policy...</p>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> No hero, no sidebar. Minimal styling &mdash; just heading, bold section subheadings, body text, and bullet lists using &ldquo;&gt;&rdquo; prefix. Used for legal/policy content.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 34. NEWSLETTER SIGNUP BAR -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c34">
+  <div class="comp__title">Component 34</div>
+  <div class="comp__name-row"><div class="comp__name">Newsletter Signup Bar</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Most interior pages (above footer)</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 3–4 hrs</span><span class="effort-map"><strong>D20</strong> &middot; Greenbrier footer signup is the closest match; customize styling.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--wp">HubSpot Form</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:var(--red);padding:24px 32px;display:flex;justify-content:space-between;align-items:center;color:#fff;">
+      <div>
+        <h3 style="font-size:16px;font-weight:700;">Sign Up for Our Newsletter</h3>
+      </div>
+      <div style="display:flex;gap:4px;">
+        <input type="text" placeholder="Email" style="height:36px;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;padding:0 12px;font-size:11px;min-width:220px;">
+        <button style="background:var(--teal);color:#fff;border:none;padding:0 20px;font-size:11px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Full-width red bar with heading on left, email input + button on right. Appears above footer on most interior pages. Currently powered by HubSpot embedded form. In Statamic, could use native form with webhook to email service.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 35. HUBSPOT CONTACT FORM -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c35">
+  <div class="comp__title">Component 35</div>
+  <div class="comp__name-row"><div class="comp__name">HubSpot Contact Form</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Contact Us, News &amp; Events, bottom of interior pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 2–3 hrs</span><span class="effort-map"><strong>D19</strong> &middot; Knox uses the same HubSpot embed (Columbus portal 44904048); direct match.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+    <span class="pill pill--wp">HubSpot Embed</span>
+    <span class="pill pill--cms">Evaluate: Keep or Replace</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:var(--red);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:4px;">Get in Touch</h3>
+        <div style="font-size:11px;opacity:0.8;margin-top:8px;">
+          <div>Contact Person Name</div>
+          <div>Title, Organization</div>
+        </div>
+      </div>
+      <div style="padding:16px;border:1px solid #eee;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:10px;">
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">First Name *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Last Name *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Email *</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+          <div>
+            <label style="font-weight:600;display:block;margin-bottom:4px;">Phone Number</label>
+            <input type="text" style="width:100%;height:30px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+          </div>
+        </div>
+        <div style="margin-top:10px;font-size:10px;">
+          <label style="font-weight:600;display:block;margin-bottom:4px;">Message</label>
+          <textarea style="width:100%;height:60px;border:1px solid #ccc;padding:8px;font-size:10px;resize:none;"></textarea>
+        </div>
+        <div style="margin-top:10px;font-size:9px;color:#555;">
+          <div style="font-weight:600;margin-bottom:4px;">Stay Informed:</div>
+          <label style="display:flex;gap:4px;align-items:center;margin-bottom:2px;"><input type="checkbox"> Columbus Region News</label>
+          <label style="display:flex;gap:4px;align-items:center;margin-bottom:2px;"><input type="checkbox"> Blog</label>
+          <label style="display:flex;gap:4px;align-items:center;"><input type="checkbox"> Press Releases</label>
+        </div>
+        <div style="margin-top:12px;font-size:8px;color:#888;">Privacy consent text here...</div>
+        <div style="margin-top:10px;"><span class="btn btn--red" style="font-size:10px;padding:8px 20px;">Submit</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Currently a HubSpot embedded form. Two-column layout: red panel with contact info on left, form fields on right. Fields: first name, last name, email, phone, message, newsletter subscription checkboxes, privacy consent. <strong>Key decision:</strong> keep HubSpot embed (if CRM integration is needed) or rebuild as native Statamic form.
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 36. INLINE EMAIL SIGNUP -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c36">
+  <div class="comp__title">Component 36</div>
+  <div class="comp__name-row"><div class="comp__name">Inline Email Signup</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage, Footer, Contact page hero</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 3–4 hrs</span><span class="effort-map"><strong>D20</strong> &middot; Same newsletter component, inline variant.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Reusable</span>
+  </div>
+  <div class="comp__demo">
+    <span class="comp__variant-label">Variant A: Dark background</span>
+    <div style="background:var(--teal);padding:16px;display:inline-flex;gap:4px;align-items:flex-end;">
+      <div>
+        <label style="font-size:9px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;">Email</label>
+        <input type="text" style="height:32px;border:1px solid rgba(255,255,255,0.3);background:transparent;color:#fff;padding:0 10px;font-size:10px;min-width:200px;">
+      </div>
+      <button style="background:#fff;color:var(--teal);border:none;height:32px;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+    </div>
+    <span class="comp__variant-label">Variant B: Light background</span>
+    <div style="padding:16px;display:inline-flex;gap:4px;align-items:flex-end;">
+      <div>
+        <label style="font-size:9px;font-weight:700;color:#333;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;">Email</label>
+        <input type="text" style="height:32px;border:1px solid #ccc;padding:0 10px;font-size:10px;min-width:200px;">
+      </div>
+      <button style="background:var(--teal);color:#fff;border:none;height:32px;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;text-transform:uppercase;">Sign Up</button>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Simple email + button combo used in multiple contexts. Label + input + submit button in a horizontal row. Two color variants: dark background (teal/red) and light background (white).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 37. CTA BUTTON -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c37">
+  <div class="comp__title">Component 37</div>
+  <div class="comp__name-row"><div class="comp__name">CTA Button</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--med">Medium Leverage &middot; 1–2 hrs</span><span class="effort-map"><strong>D21</strong> &middot; Define once as a design token; all reference sites have CTA buttons.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global Atom</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+      <span class="comp__variant-label" style="margin:0;">Filled Teal</span>
+      <span class="btn">Learn More</span>
+      <span class="comp__variant-label" style="margin:0;">Filled Red</span>
+      <span class="btn btn--red">Contact Us</span>
+      <span class="comp__variant-label" style="margin:0;">Outline</span>
+      <span class="btn btn--outline">View More</span>
+      <span class="comp__variant-label" style="margin:0;">Small</span>
+      <span class="btn btn--sm">Visit Website</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Uppercase text, bold weight, letter-spacing. Three color variants: teal filled (primary), red filled (secondary/CTA), and outline. Small variant used for inline actions. No border-radius (sharp corners).
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- 38. ARROW LINK -->
+<!-- ============================================================ -->
+
+<div class="comp" id="c38">
+  <div class="comp__title">Component 38</div>
+  <div class="comp__name-row"><div class="comp__name">Arrow Link</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages</span>
+  <div class="comp__effort"><span class="effort-pill effort-pill--high">Heavy Leverage &middot; 0.5–1 hrs</span><span class="effort-map"><strong>D22</strong> &middot; Standard atom; define once in design tokens.</span></div>
+  <div class="comp__pills">
+    <span class="pill pill--global">Global Atom</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;">
+      <span class="comp__variant-label" style="margin:0;">Red (default)</span>
+      <a href="#" class="arrow-link">Learn More &rarr;</a>
+      <span class="comp__variant-label" style="margin:0;">White (on dark bg)</span>
+      <span style="background:var(--dark);padding:8px 16px;display:inline-block;">
+        <a href="#" class="arrow-link" style="color:#fff;">Learn More &rarr;</a>
+      </span>
+      <span class="comp__variant-label" style="margin:0;">Underline variant</span>
+      <a href="#" style="font-size:11px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>Note:</strong> Red uppercase text with right arrow (&rarr;). Two color variants: red on light backgrounds, white on dark backgrounds. Also appears as an underlined &ldquo;READ MORE&rdquo; variant in teal on news cards. Used extensively throughout the site as the primary inline navigation pattern.
+  </div>
+</div>
+
+
+
+<!-- ============================================================ -->
+<!-- STATAMIC PLATFORM COMPONENTS -->
+<!-- ============================================================ -->
+
+<div class="container" style="margin:40px auto;">
+  <h2 style="font-size:22px;font-weight:700;margin-bottom:4px;color:#555;">Statamic Platform Components</h2>
+  <p style="font-size:12px;color:#888;">New components required for the Statamic replatform that don&rsquo;t have direct visual UI equivalents above. These represent Collections, Taxonomies, Integrations, and data structures discovered during the WordPress source audit.</p>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S1. COMPANY EXPANSIONS -->
+<!-- ============================================================ -->
+
+<div class="lib-section-header"><h2>Statamic Platform Components</h2><p>16 platform-level components for the WordPress &rarr; Statamic rebuild &mdash; collections, taxonomies, integrations and globals.</p></div>
+
+<div class="comp statamic-section" id="s1">
+  <div class="comp__title">Statamic Component S1</div>
+  <div class="comp__name-row"><div class="comp__name">Company Expansions Collection + Filterable Grid</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Economy page, possibly section landing pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--interactive">Interactive</span>
+    <span class="pill pill--complex">Complex</span>
+  </div>
+  <div class="comp__demo">
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:14px;font-weight:700;margin-bottom:12px;">Filter Bar</h4>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;">
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Industry</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>County</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Year</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Operation Type</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Headquarters</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Investment Level</option></select>
+        <select style="padding:6px 10px;font-size:10px;border:1px solid #ccc;"><option>Job Count</option></select>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Technology<br>
+            County: Franklin<br>
+            Operation: New HQ<br>
+            Jobs: 500+<br>
+            Investment: $50M+
+          </div>
+        </div>
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Life Sciences<br>
+            County: Delaware<br>
+            Operation: Expansion<br>
+            Jobs: 200+<br>
+            Investment: $25M+
+          </div>
+        </div>
+        <div style="border:1px solid #eee;padding:12px;">
+          <div style="width:60px;height:36px;background:#f0f0f0;border:1px solid #ddd;margin-bottom:8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+          <div style="font-size:11px;font-weight:700;margin-bottom:4px;">Company Name</div>
+          <div style="font-size:9px;color:#555;line-height:1.5;">
+            Industry: Finance<br>
+            County: Franklin<br>
+            Operation: Office<br>
+            Jobs: 1,000+<br>
+            Investment: $100M+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>company_expansions</code></strong> &mdash; ~211 entries discovered via WP REST API<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>description</code> (textarea) &middot;
+    <code>year</code> (integer) &middot;
+    <code>county</code> (relationship &rarr; counties) &middot;
+    <code>industry</code> (taxonomy &rarr; spaces) &middot;
+    <code>operation_type</code> (select: New HQ, Expansion, Relocation, Office) &middot;
+    <code>headquarters_country</code> (text) &middot;
+    <code>job_count</code> (integer) &middot;
+    <code>investment_level</code> (text) &middot;
+    <code>website</code> (link)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type <code>company-expansion</code> powered by the <code>columbus-blocks</code> plugin with <strong>7 filter dimensions</strong> via the <code>space</code> taxonomy (17 industry terms). Currently renders as a filterable card grid with JavaScript-based filtering.<br>
+    <strong>Statamic Build:</strong> Create a Collection with taxonomy filtering. Front-end filtering via Alpine.js + Statamic REST API or LiveWire. <strong>This is the most complex dynamic component on the site.</strong><br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S2. EMPLOYERS COLLECTION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s2">
+  <div class="comp__title">Statamic Component S2</div>
+  <div class="comp__name-row"><div class="comp__name">Employers Collection</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Doing Business (&ldquo;Top Employers&rdquo;), County detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--taxonomy">Taxonomy: Sectors</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          16,000 employees<br>
+          Industry: Insurance<br>
+          Operation: HQ<br>
+          Location: Columbus, Franklin County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          8,850 employees<br>
+          Industry: Automotive<br>
+          Operation: HQ<br>
+          Location: Marysville, Union County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+      <div style="border:1px solid #eee;padding:12px;text-align:center;">
+        <div style="width:80px;height:40px;background:#f0f0f0;border:1px solid #ddd;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">Logo</div>
+        <div style="font-size:9px;color:#555;line-height:1.6;text-align:center;">
+          17,480 employees<br>
+          Industry: Finance<br>
+          Operation: Office<br>
+          Location: Columbus, Franklin County<br>
+          <a href="#" style="color:var(--red);font-size:9px;">website.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>employers</code></strong><br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>employee_count</code> (integer) &middot;
+    <code>sector</code> (taxonomy &rarr; sectors, 10 terms) &middot;
+    <code>operation_type</code> (select: HQ, Office, Manufacturing, R&amp;D) &middot;
+    <code>county</code> (relationship &rarr; counties) &middot;
+    <code>city</code> (text) &middot;
+    <code>headquarters_country</code> (text, optional) &middot;
+    <code>website</code> (link)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Currently hard-coded as <code>&lt;UL&gt;</code> with <code>&lt;LI&gt;</code> items using the custom <code>flex-grid-3</code> layout. Content is unstructured text with <code>&lt;br&gt;</code> tags &mdash; no CPT or structured fields. Uses <code>sector</code> taxonomy (separate from the <code>space</code> taxonomy on Company Expansions).<br>
+    <strong>Statamic Build:</strong> Create a proper Collection with structured fields. Employers appear on both <code>/doing-business/</code> and county detail pages, so a Collection allows single-source management. Use relationship field to link to Counties.<br>
+    <strong>Key distinction:</strong> The <code>sector</code> taxonomy (10 terms, for employers) is separate from the <code>space</code> taxonomy (17 terms, for company expansions).<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S3. EVENTS SYSTEM -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s3">
+  <div class="comp__title">Statamic Component S3</div>
+  <div class="comp__name-row"><div class="comp__name">Events System (Modern Events Calendar)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: News &amp; Events, About Us (100+ RSVP pages)</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--complex">Complex</span>
+    <span class="pill pill--wp">WP: Modern Events Calendar</span>
+  </div>
+  <div class="comp__demo">
+    <div style="border:1px solid #eee;padding:16px;">
+      <div style="display:flex;gap:16px;margin-bottom:12px;">
+        <div style="background:var(--red);color:#fff;padding:12px;text-align:center;min-width:60px;">
+          <div style="font-size:20px;font-weight:800;line-height:1;">15</div>
+          <div style="font-size:9px;text-transform:uppercase;">APR</div>
+        </div>
+        <div>
+          <div style="font-size:14px;font-weight:700;">Event Title</div>
+          <div style="font-size:10px;color:#555;">10:00 AM &ndash; 2:00 PM EST</div>
+          <div style="font-size:10px;color:#555;">Venue Name, Columbus, OH</div>
+          <div style="font-size:9px;margin-top:4px;">
+            <span style="background:#e8e8e8;padding:2px 6px;border-radius:2px;font-size:8px;">Networking</span>
+            <span style="background:#e8e8e8;padding:2px 6px;border-radius:2px;font-size:8px;">Business</span>
+          </div>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#555;margin-bottom:8px;">Event description excerpt text goes here...</div>
+      <a href="#" class="arrow-link" style="font-size:10px;">RSVP / Learn More &rarr;</a>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>events</code></strong> &mdash; 100+ RSVP pages discovered nested under About Us<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>start_date</code> (date) &middot;
+    <code>end_date</code> (date) &middot;
+    <code>start_time</code> (time) &middot;
+    <code>end_time</code> (time) &middot;
+    <code>venue_name</code> (text) &middot;
+    <code>venue_address</code> (text) &middot;
+    <code>description</code> (bard) &middot;
+    <code>category</code> (taxonomy &rarr; event_categories) &middot;
+    <code>label</code> (taxonomy &rarr; event_labels) &middot;
+    <code>organizer</code> (text) &middot;
+    <code>rsvp_url</code> (link) &middot;
+    <code>featured_image</code> (asset)<br><br>
+    <strong>Taxonomies:</strong> <code>event_categories</code>, <code>event_labels</code>, <code>event_locations</code>, <code>event_organizers</code>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Modern Events Calendar</strong> plugin with full taxonomy system (category, label, location, organizer). 100+ event/RSVP pages found nested under <code>/about-us/</code>.<br>
+    <strong>Statamic Build:</strong> Statamic Events addon (e.g., Events by Statamic) or custom Collection with date-based filtering, calendar view, and RSVP functionality. Need to evaluate: do events need registration/RSVP forms, or just link out to external registration? If external links only, a simple Collection suffices.<br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S4. COUNTIES COLLECTION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s4">
+  <div class="comp__title">Statamic Component S4</div>
+  <div class="comp__name-row"><div class="comp__name">Counties Collection (Structured Data)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties landing, County detail pages, Homepage map</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--complex">Complex</span>
+  </div>
+  <div class="comp__demo">
+    <div style="border:1px solid #eee;padding:16px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Franklin County <span style="font-size:9px;color:#888;font-weight:400;">(example entry)</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:10px;">
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Snapshot Fields</div>
+          <div style="color:#555;line-height:1.8;">
+            Location: Central Ohio<br>
+            Population: 1,323,000<br>
+            Notable Cities: Columbus, Dublin, Westerville<br>
+            Notable Businesses: Nationwide, Cardinal Health<br>
+            County Website URL
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:700;margin-bottom:2px;">Nested Data</div>
+          <div style="color:#555;line-height:1.8;">
+            Cities (repeater): name, description, contact, phone, email, website<br>
+            Top Employers (relationship &rarr; employers)<br>
+            Map SVG/Image: default + hover state<br>
+            County Contact: name, title, phone, email
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>counties</code></strong> &mdash; 11 entries (one per county)<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>name</code> (text) &middot;
+    <code>description</code> (bard) &middot;
+    <code>hero_image</code> (asset) &middot;
+    <code>map_image</code> (asset) &middot;
+    <code>map_image_hover</code> (asset) &middot;
+    <code>population</code> (text) &middot;
+    <code>location</code> (text) &middot;
+    <code>notable_cities_text</code> (text) &middot;
+    <code>notable_businesses_text</code> (text) &middot;
+    <code>county_website</code> (link) &middot;
+    <code>county_contact</code> (group: name, title, phone, email)<br><br>
+    <strong>Nested Replicator &mdash; Cities:</strong><br>
+    <code>city_name</code> (text) &middot;
+    <code>city_image</code> (asset) &middot;
+    <code>city_description</code> (textarea) &middot;
+    <code>city_contact_name</code> (text) &middot;
+    <code>city_contact_title</code> (text) &middot;
+    <code>city_phone</code> (text) &middot;
+    <code>city_email</code> (text) &middot;
+    <code>city_website</code> (link)<br><br>
+    <strong>Relationship:</strong> <code>top_employers</code> (relationship &rarr; employers collection)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type with <strong>Meta Box relationships</strong> linking counties to employers. Cities are likely stored as nested repeater fields or as page children. Each county has an interactive map image (default + red hover state) used in the SVG map component.<br>
+    <strong>Statamic Build:</strong> Collection with complex Blueprint including a Grid/Replicator for cities and a Relationship field for employers. The interactive SVG map (#30) will reference county entry slugs for navigation.<br>
+    <span class="complexity complexity--high">High Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S5. PRESS RELEASES -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s5">
+  <div class="comp__title">Statamic Component S5</div>
+  <div class="comp__name-row"><div class="comp__name">Press Releases Collection</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: News &amp; Events page, Article detail pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>press_releases</code></strong> &mdash; Separate from news/blog posts<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>date</code> (date) &middot;
+    <code>featured_image</code> (asset, optional) &middot;
+    <code>excerpt</code> (textarea) &middot;
+    <code>body</code> (bard &mdash; supports blockquotes, links, bold) &middot;
+    <code>pdf_download</code> (asset, optional) &middot;
+    <code>boilerplate</code> (bard &mdash; &ldquo;About One Columbus&rdquo; section)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Custom post type <code>press-release</code> (REST API endpoint detected but disabled). Rendered as text-only cards on the News &amp; Events listing page. Detail pages include PDF download links and end with <code>###</code> separator + organizational boilerplate.<br>
+    <strong>Statamic Build:</strong> Straightforward Collection. The boilerplate text could be a Global Set so it updates once across all press releases. PDF handled via Asset field.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S6. CONTENT HUB / NEWS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s6">
+  <div class="comp__title">Statamic Component S6</div>
+  <div class="comp__name-row"><div class="comp__name">Content Hub / News Collection</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Homepage, News &amp; Events page</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+    <span class="pill pill--wp">WP: Content Views Pro</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>news</code></strong> &mdash; Displayed via Content Views Pro plugin in WordPress<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>title</code> (text) &middot;
+    <code>date</code> (date) &middot;
+    <code>featured_image</code> (asset) &middot;
+    <code>excerpt</code> (textarea) &middot;
+    <code>body</code> (bard) &middot;
+    <code>source_url</code> (link, optional &mdash; for aggregated external news) &middot;
+    <code>is_external</code> (toggle &mdash; distinguishes authored vs. curated news)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>Content Hub Articles</code> custom post type plus standard WordPress Posts. Rendered on the News &amp; Events page via <strong>Content Views Pro</strong> plugin (both <code>cv.css</code> and <code>cvpro.min.css</code> enqueued). Two display patterns: 3-column image cards (authored news) and 2-column larger cards (curated news feed).<br>
+    <strong>Statamic Build:</strong> Single Collection with an <code>is_external</code> toggle to differentiate authored content from curated/aggregated links. Replaces Content Views Pro entirely &mdash; Statamic&rsquo;s <code>{{ collection }}</code> tag handles listing, filtering, and pagination natively.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S7. TEAM / STAFF -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s7">
+  <div class="comp__title">Statamic Component S7</div>
+  <div class="comp__name-row"><div class="comp__name">Team / Staff Collection</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: About Us &gt; Meet the Team</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>team</code></strong><br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>name</code> (text) &middot;
+    <code>title</code> (text) &middot;
+    <code>organization</code> (text) &middot;
+    <code>headshot</code> (asset) &middot;
+    <code>is_executive</code> (toggle &mdash; separates Executive Leadership from Staff) &middot;
+    <code>sort_order</code> (integer)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> Likely a custom post type or page-based content. Two sections: &ldquo;Executive Leadership&rdquo; and &ldquo;Staff&rdquo; &mdash; same card layout, different grouping.<br>
+    <strong>Statamic Build:</strong> Single Collection filtered by <code>is_executive</code> toggle. Circular headshot images handled via Glide transforms. Simple implementation.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S8. INVESTORS / PARTNERS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s8">
+  <div class="comp__title">Statamic Component S8</div>
+  <div class="comp__name-row"><div class="comp__name">Investors / Partners Collection</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: About Us (investors section)</span>
+  <div class="comp__pills">
+    <span class="pill pill--collection">Collection</span>
+  </div>
+  <div class="field-list">
+    <strong>Collection: <code>investors</code></strong> &mdash; CPT detected via WP REST API (endpoint disabled)<br><br>
+    <strong>Blueprint fields:</strong><br>
+    <code>company_name</code> (text) &middot;
+    <code>logo</code> (asset) &middot;
+    <code>tier</code> (select: Platinum, Gold, Silver, etc.) &middot;
+    <code>website</code> (link) &middot;
+    <code>description</code> (textarea, optional)
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>Investors</code> custom post type detected in WP REST API namespace. REST endpoint is disabled, so exact field structure is inferred. Likely renders as a logo grid grouped by investor tier.<br>
+    <strong>Statamic Build:</strong> Simple Collection. Logo grid partial filtered/grouped by tier taxonomy or select field.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S9. INDUSTRIES TAXONOMY -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s9">
+  <div class="comp__title">Statamic Component S9</div>
+  <div class="comp__name-row"><div class="comp__name">Industries Taxonomy (<code>space</code>)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Company Expansions filtering, Economy page</span>
+  <div class="comp__pills">
+    <span class="pill pill--taxonomy">Taxonomy</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Automotive and Mobility</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Fashion and Retail</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Finance and Fintech</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Food and Beverage</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Healthcare</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Insurance and Insurtech</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Life Sciences</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Logistics</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Manufacturing</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Semiconductors</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">Technology</span>
+      <span style="background:#eee;padding:4px 10px;font-size:9px;border-radius:3px;">+ 6 more</span>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>space</code> taxonomy with <strong>17 terms</strong>. Used to filter Company Expansions. Maps to the Industries accordion on the homepage (7 items) but the taxonomy has additional granularity (17 total).<br>
+    <strong>Statamic Build:</strong> Statamic Taxonomy <code>industries</code>. Used as filter on Company Expansions Collection and potentially on industry landing pages.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S10. SECTORS TAXONOMY -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s10">
+  <div class="comp__title">Statamic Component S10</div>
+  <div class="comp__name-row"><div class="comp__name">Sectors Taxonomy</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Top Employers, Industry pages</span>
+  <div class="comp__pills">
+    <span class="pill pill--taxonomy">Taxonomy</span>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <code>sector</code> taxonomy with <strong>10 terms</strong>. Separate from the <code>space</code> taxonomy &mdash; used specifically for categorizing Employers (not Company Expansions). Terms likely include: Insurance, Retail, Life Sciences, Automotive, Finance, Technology, Healthcare, Food &amp; Beverage, Logistics, Manufacturing.<br>
+    <strong>Statamic Build:</strong> Statamic Taxonomy <code>sectors</code>. Evaluate whether this can be merged with the <code>industries</code> taxonomy during the redesign to simplify the content model.<br>
+    <strong>Key question:</strong> Are <code>space</code> (17 terms) and <code>sector</code> (10 terms) intentionally different, or should they be consolidated?<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S11. HUBSPOT INTEGRATION -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s11">
+  <div class="comp__title">Statamic Component S11</div>
+  <div class="comp__name-row"><div class="comp__name">HubSpot Integration</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Contact forms, newsletter signups, tracking</span>
+  <div class="comp__pills">
+    <span class="pill pill--integration">Integration</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#eee;border:1px solid #999;padding:16px;border-radius:4px;">
+      <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:8px;">HubSpot Portal: 44904048</div>
+      <div style="font-size:10px;color:#555;line-height:1.6;">
+        <strong>Form ID:</strong> a12f3e48-096c-486f-bd22-d168179bc80e (sitewide contact form)<br>
+        <strong>Tracking:</strong> HubSpot analytics script loaded globally<br>
+        <strong>Forms found on:</strong> Contact Us page, News &amp; Events page, Footer newsletter signup<br>
+        <strong>Features used:</strong> Form submissions, contact management, newsletter subscriptions, &ldquo;Stay Informed&rdquo; checkboxes (Blog, News, Press Releases)
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> HubSpot WordPress plugin with embedded forms and tracking script. Forms include lead capture (first name, last name, email, phone, message) plus newsletter subscription checkboxes and privacy consent.<br>
+    <strong>Statamic Build Decision:</strong><br>
+    &bull; <strong>Option A (recommended if CRM needed):</strong> Keep HubSpot embeds. Simply paste the HubSpot embed code into Antlers partials. Zero migration effort for forms.<br>
+    &bull; <strong>Option B (if no CRM needed):</strong> Replace with native Statamic Forms + email notifications. Would need an email service (Mailchimp, SendGrid) for newsletter delivery.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S12. ANALYTICS & TRACKING STACK -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s12">
+  <div class="comp__title">Statamic Component S12</div>
+  <div class="comp__name-row"><div class="comp__name">Analytics &amp; Tracking Stack</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages (global scripts)</span>
+  <div class="comp__pills">
+    <span class="pill pill--integration">Integration</span>
+  </div>
+  <div class="comp__demo">
+    <table class="cms-table" style="margin-top:0;">
+      <thead><tr><th>Service</th><th>Purpose</th><th>Statamic Action</th></tr></thead>
+      <tbody>
+        <tr><td>Google Tag Manager</td><td>Tag management container</td><td>Add GTM snippet to layout <code>&lt;head&gt;</code></td></tr>
+        <tr><td>Google Analytics (GA4)</td><td>Page analytics</td><td>Fires via GTM &mdash; no code change</td></tr>
+        <tr><td>LinkedIn Insight Tag</td><td>LinkedIn ad tracking / retargeting</td><td>Fires via GTM or direct snippet</td></tr>
+        <tr><td>Hotjar</td><td>Session recording, heatmaps</td><td>Add Hotjar snippet to layout or via GTM</td></tr>
+        <tr><td>Leadfeeder</td><td>B2B visitor identification (company-level)</td><td>Add tracking script to layout</td></tr>
+        <tr><td>Basis Technologies</td><td>Programmatic ad serving</td><td>Add pixel/script to layout</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="comp__notes">
+    <strong>Statamic Build:</strong> All tracking scripts go into the Antlers layout template <code>&lt;head&gt;</code> or before <code>&lt;/body&gt;</code>. If using GTM, most tags are managed there. Consider creating a Global Set <code>tracking_scripts</code> with textarea fields so scripts can be edited in the CP without code deploys.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S13. STATAMIC GLOBALS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s13">
+  <div class="comp__title">Statamic Component S13</div>
+  <div class="comp__name-row"><div class="comp__name">Statamic Globals (Site Settings)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: All pages (header, footer, meta)</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+  </div>
+  <div class="field-list">
+    <strong>Global Set: <code>site_settings</code></strong><br>
+    <code>site_name</code> &middot; <code>logo</code> &middot; <code>tagline</code> &middot; <code>address</code> &middot; <code>phone</code> &middot; <code>email</code> &middot; <code>social_links</code> (grid: platform, url, icon)<br><br>
+    <strong>Global Set: <code>partner_links</code></strong><br>
+    <code>one_columbus_url</code> &middot; <code>columbus_partnership_url</code> &middot; <code>smart_columbus_url</code><br><br>
+    <strong>Global Set: <code>footer</code></strong><br>
+    <code>copyright_text</code> &middot; <code>privacy_policy_url</code> &middot; <code>jobsohio_logo</code> &middot; <code>newsletter_heading</code> &middot; <code>newsletter_description</code><br><br>
+    <strong>Global Set: <code>press_release_boilerplate</code></strong><br>
+    <code>about_text</code> (bard &mdash; reusable &ldquo;About One Columbus&rdquo; section appended to all press releases)
+  </div>
+  <div class="comp__notes">
+    <strong>Statamic Build:</strong> Statamic Globals are editable in the Control Panel. These replace hardcoded values in the WordPress theme. The utility bar links (One Columbus, Columbus Partnership, Smart Columbus) and footer content become editable without code changes.<br>
+    <span class="complexity complexity--low">Low Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S14. SEARCH -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s14">
+  <div class="comp__title">Statamic Component S14</div>
+  <div class="comp__name-row"><div class="comp__name">Search</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Not currently on the site &mdash; recommended addition</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+    <span class="pill pill--page">New Feature</span>
+  </div>
+  <div class="comp__demo">
+    <div style="max-width:500px;">
+      <div style="display:flex;gap:4px;margin-bottom:16px;">
+        <input type="text" placeholder="Search the Columbus Region..." style="flex:1;height:36px;border:1px solid #ccc;padding:0 12px;font-size:11px;">
+        <button style="background:var(--teal);color:#fff;border:none;padding:0 16px;font-size:10px;font-weight:700;cursor:pointer;">Search</button>
+      </div>
+      <div style="font-size:10px;color:#888;margin-bottom:12px;">3 results for &ldquo;semiconductors&rdquo;</div>
+      <div style="border-bottom:1px solid #eee;padding:8px 0;">
+        <a href="#" style="font-size:12px;font-weight:700;color:var(--teal);text-decoration:none;">Semiconductor Industry in the Columbus Region</a>
+        <div style="font-size:9px;color:#888;">/economy/semiconductors</div>
+        <div style="font-size:10px;color:#555;margin-top:2px;">Result excerpt text with search term highlighted...</div>
+      </div>
+      <div style="border-bottom:1px solid #eee;padding:8px 0;">
+        <a href="#" style="font-size:12px;font-weight:700;color:var(--teal);text-decoration:none;">Intel Selects Columbus Region for New Fab</a>
+        <div style="font-size:9px;color:#888;">/press-release/intel-columbus-region</div>
+        <div style="font-size:10px;color:#555;margin-top:2px;">Result excerpt text...</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>No search functionality exists on the current site.</strong> No search bar, no search page, no search icon anywhere.<br>
+    <strong>Statamic Build:</strong> Recommend adding site search using Statamic&rsquo;s built-in search with local driver (simple) or Algolia/Meilisearch (for advanced filtering). Would index Pages, News, Press Releases, Counties, and Company Expansions. Add search icon to the header navigation.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S15. META BOX RELATIONSHIPS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s15">
+  <div class="comp__title">Statamic Component S15</div>
+  <div class="comp__name-row"><div class="comp__name">Meta Box Relationships &rarr; Statamic Relationships</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Counties &harr; Employers, Industries &harr; Expansions</span>
+  <div class="comp__pills">
+    <span class="pill pill--statamic">Statamic Native</span>
+    <span class="pill pill--complex">Architecture</span>
+  </div>
+  <div class="comp__demo">
+    <div style="display:flex;gap:24px;align-items:flex-start;">
+      <div style="border:2px solid #555;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#555;">Counties</div>
+        <div style="font-size:8px;color:#888;">11 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">many-to-many</div>
+      </div>
+      <div style="border:2px solid #555;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#555;">Employers</div>
+        <div style="font-size:8px;color:#888;">~50 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">taxonomy</div>
+      </div>
+      <div style="border:2px solid #666;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#666;">Sectors</div>
+        <div style="font-size:8px;color:#888;">10 terms</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:24px;align-items:flex-start;margin-top:16px;">
+      <div style="border:2px solid #555;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#555;">Company Expansions</div>
+        <div style="font-size:8px;color:#888;">~211 entries</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">taxonomy</div>
+      </div>
+      <div style="border:2px solid #666;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#666;">Industries (space)</div>
+        <div style="font-size:8px;color:#888;">17 terms</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:12px;">
+        <div style="font-size:16px;color:#999;">&harr;</div>
+        <div style="font-size:8px;color:#999;">relationship</div>
+      </div>
+      <div style="border:2px solid #555;border-radius:6px;padding:12px;min-width:120px;text-align:center;">
+        <div style="font-size:10px;font-weight:700;color:#555;">Counties</div>
+        <div style="font-size:8px;color:#888;">11 entries</div>
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Meta Box</strong> plugin with <code>mb-relationships</code> namespace handles entity relationships between custom post types. Detected in the WP REST API namespaces.<br>
+    <strong>Statamic Build:</strong> Statamic&rsquo;s native <code>relationship</code> fieldtype handles this natively. Define relationship fields in Blueprints:<br>
+    &bull; Counties &rarr; Employers (many-to-many via relationship field)<br>
+    &bull; Employers &rarr; Sectors (taxonomy field)<br>
+    &bull; Company Expansions &rarr; Industries (taxonomy field)<br>
+    &bull; Company Expansions &rarr; Counties (relationship field)<br>
+    No plugin needed &mdash; Statamic handles relationships out of the box.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- S16. IFRAME EMBEDS -->
+<!-- ============================================================ -->
+
+<div class="comp statamic-section" id="s16">
+  <div class="comp__title">Statamic Component S16</div>
+  <div class="comp__name-row"><div class="comp__name">iFrame Embeds (Economy Page)</div> <a href="#top" class="comp__back-to-top">&uarr; back to top</a></div>
+  <span class="comp__url">Used on: Economy page (19 iframes detected)</span>
+  <div class="comp__pills">
+    <span class="pill pill--wp">WP: Advanced iFrame</span>
+    <span class="pill pill--complex">Audit Needed</span>
+  </div>
+  <div class="comp__demo">
+    <div style="background:#eee;border:1px solid #999;padding:16px;border-radius:4px;">
+      <div style="font-size:11px;font-weight:700;color:#555;margin-bottom:8px;">19 iFrame Embeds Detected on /economy/</div>
+      <div style="font-size:10px;color:#555;line-height:1.6;">
+        These may include: interactive data visualizations, charts, maps, third-party widgets, or embedded dashboards. Each iframe needs to be individually audited to determine:<br><br>
+        &bull; What external service is being embedded?<br>
+        &bull; Is the embed still active / relevant?<br>
+        &bull; Can it be replaced with native content?<br>
+        &bull; Does it require the Advanced iFrame plugin, or can a simple <code>&lt;iframe&gt;</code> suffice?
+      </div>
+    </div>
+  </div>
+  <div class="comp__notes">
+    <strong>WP Source:</strong> <strong>Advanced iFrame</strong> plugin used to embed external content. 19 iframes on the Economy page alone suggest heavy use of external data visualizations or interactive widgets.<br>
+    <strong>Statamic Build:</strong> Create a Bard set or Replicator set called &ldquo;Embed&rdquo; with fields for <code>embed_url</code>, <code>width</code>, <code>height</code>, and <code>title</code>. Renders as a responsive <code>&lt;iframe&gt;</code>. No plugin needed &mdash; but each existing embed should be audited for relevance before migration.<br>
+    <strong>Action item:</strong> Audit all 19 Economy page iframes to catalog what&rsquo;s being embedded and whether each is still needed.<br>
+    <span class="complexity complexity--medium">Medium Complexity</span>
+  </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Columbus Region — Component Development Assessment</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', Arial, Helvetica, sans-serif; color: #333; background: #f5f5f5; }
+    :root {
+      --max-width: 1280px; --red: #B22222; --teal: #3D5A5A; --light-blue: #E8F4F8;
+      --dark: #2C3E3E; --sidebar-width: 280px; --green: #059669; --orange: #FF6B35;
+      --blue: #2563eb; --purple: #7c3aed;
+    }
+
+    /* ===== LAYOUT ===== */
+    .page-wrap { display: flex; max-width: var(--max-width); margin: 0 auto; }
+    .sidebar {
+      width: var(--sidebar-width); position: sticky; top: 0; height: 100vh;
+      overflow-y: auto; background: #fff; border-right: 1px solid #e0e0e0;
+      padding: 20px 16px; font-size: 11px; flex-shrink: 0;
+      scrollbar-width: thin;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+    .main { flex: 1; padding: 32px 32px 80px; min-width: 0; }
+
+    /* ===== SIDEBAR TOC ===== */
+    .sidebar h2 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #999; margin-bottom: 12px; }
+    .sidebar .toc-section {
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
+      color: var(--red); margin: 16px 0 6px; padding-top: 10px; border-top: 1px solid #eee;
+    }
+    .sidebar .toc-section:first-of-type { border-top: none; margin-top: 8px; }
+    .sidebar a {
+      display: block; padding: 4px 8px; color: #555; text-decoration: none;
+      border-radius: 4px; font-size: 11px; line-height: 1.4; margin-bottom: 1px;
+    }
+    .sidebar a:hover { background: #f0f0f0; color: var(--red); }
+    .sidebar a.active { background: #fce4ec; color: var(--red); font-weight: 600; }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+      padding: 12px 16px; margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    }
+    .filter-bar label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-right: 4px; }
+    .filter-btn {
+      font-size: 10px; font-weight: 600; padding: 5px 12px; border-radius: 20px;
+      border: 1px solid #ddd; background: #fff; cursor: pointer; transition: all 0.15s;
+    }
+    .filter-btn:hover { border-color: var(--red); color: var(--red); }
+    .filter-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+    /* ===== PILLS ===== */
+    .pill {
+      display: inline-block; font-size: 8px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.8px; padding: 2px 8px; border-radius: 10px; line-height: 1.4;
+    }
+    .pill--leverage-high { background: #d1fae5; color: #065f46; }
+    .pill--leverage-med { background: #fef3c7; color: #92400e; }
+    .pill--leverage-new { background: #fee2e2; color: #991b1b; }
+    .pill--statamic { background: #FF6B35; color: #fff; }
+    .pill--collection { background: #2563eb; color: #fff; }
+    .pill--taxonomy { background: #7c3aed; color: #fff; }
+    .pill--global { background: #e0e7ff; color: #3b4fc4; }
+    .pill--interactive { background: #f3e5f5; color: #7b1fa2; }
+    .pill--pm { background: #fce4ec; color: #c62828; }
+    .pill--dev { background: #e0f0e0; color: #2a7a2a; }
+    .pill--design { background: #e8f4f8; color: #1565c0; }
+
+    /* ===== COMPONENT CARD ===== */
+    .comp {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+      margin-bottom: 24px; overflow: hidden;
+    }
+    .comp__header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 20px 24px 16px; border-bottom: 1px solid #f0f0f0;
+    }
+    .comp__header-left { flex: 1; }
+    .comp__back-to-top {
+      font-size: 10px; color: #999; text-decoration: none; white-space: nowrap;
+      padding: 4px 10px; border: 1px solid #e0e0e0; border-radius: 4px;
+      transition: all 0.15s; flex-shrink: 0; margin-left: 16px; margin-top: 2px;
+    }
+    .comp__back-to-top:hover { color: var(--red); border-color: var(--red); }
+    .comp__number { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #bbb; }
+    .comp__name { font-size: 18px; font-weight: 700; margin: 4px 0; }
+    .comp__url { font-size: 10px; color: #aaa; display: block; margin-bottom: 8px; }
+    .comp__pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .comp__body { padding: 20px 24px; }
+    .comp__demo {
+      border: 1px dashed #ddd; padding: 20px; background: #fafafa; border-radius: 4px; margin-bottom: 16px;
+    }
+    .comp__variant-label {
+      font-size: 9px; color: #999; text-transform: uppercase; letter-spacing: 1px;
+      font-weight: 600; margin: 16px 0 6px; display: block;
+    }
+    .comp__notes {
+      font-size: 11px; color: #666; padding: 10px 12px;
+      background: #fffde7; border: 1px solid #fff9c4; border-radius: 4px;
+    }
+    .comp__notes strong { color: #333; }
+    .comp__leverage {
+      font-size: 11px; padding: 10px 12px; border-radius: 4px; margin-top: 8px;
+    }
+    .comp__leverage--high { background: #ecfdf5; border: 1px solid #a7f3d0; }
+    .comp__leverage--med { background: #fffbeb; border: 1px solid #fde68a; }
+    .comp__leverage--new { background: #fef2f2; border: 1px solid #fecaca; }
+
+    /* ===== SUMMARY TABLES ===== */
+    .summary-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+    .summary-table th {
+      text-align: left; padding: 10px 12px; background: #f8f8f8; border: 1px solid #e0e0e0;
+      font-weight: 700; text-transform: uppercase; font-size: 9px; letter-spacing: 1px;
+    }
+    .summary-table td { padding: 10px 12px; border: 1px solid #e0e0e0; vertical-align: top; }
+    .summary-table tr:nth-child(even) td { background: #fafafa; }
+    .summary-table tr:hover td { background: #f0f7ff; }
+
+    /* ===== SECTION HEADERS ===== */
+    .section-header {
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+      padding: 20px 24px; margin-bottom: 24px;
+    }
+    .section-header h2 { font-size: 20px; font-weight: 800; margin-bottom: 4px; }
+    .section-header p { font-size: 12px; color: #888; }
+
+    /* ===== IMAGE PLACEHOLDER ===== */
+    .img-placeholder {
+      background: #e8e8e8; border: 1px solid #ccc;
+      position: relative; display: flex; align-items: center;
+      justify-content: center; overflow: hidden;
+    }
+    .img-placeholder::before, .img-placeholder::after {
+      content: ''; position: absolute; background: #ccc; width: 141%; height: 1px;
+    }
+    .img-placeholder::before { transform: rotate(45deg); }
+    .img-placeholder::after { transform: rotate(-45deg); }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-block; border: 2px solid var(--teal); background: var(--teal);
+      color: #fff; padding: 10px 24px; font-size: 11px; font-weight: 700;
+      text-decoration: none; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .btn--outline { background: transparent; color: var(--teal); }
+    .btn--red { background: var(--red); border-color: var(--red); }
+    .arrow-link {
+      font-size: 11px; font-weight: 700; color: var(--red); text-decoration: none;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* ===== EFFORT BAR ===== */
+    .effort-bar { display: flex; border-radius: 6px; overflow: hidden; height: 28px; margin: 16px 0; font-size: 9px; font-weight: 700; }
+    .effort-bar div { display: flex; align-items: center; justify-content: center; color: #fff; }
+    .effort-bar .high { background: #059669; }
+    .effort-bar .med { background: #f59e0b; }
+    .effort-bar .new { background: #dc2626; }
+
+    /* ===== PRINT ===== */
+    @media print {
+      .sidebar, .filter-bar, .comp__back-to-top { display: none !important; }
+      .page-wrap { display: block; }
+      .main { padding: 0; }
+      .comp { break-inside: avoid; border: 1px solid #ccc; margin-bottom: 16px; }
+      body { background: #fff; font-size: 10px; }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .sidebar { display: none; }
+      .page-wrap { display: block; }
+      .main { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+<!-- ============================================================ -->
+<!-- SIDEBAR TOC -->
+<!-- ============================================================ -->
+<nav class="sidebar" id="toc">
+  <h2>Columbus Region</h2>
+  <div style="font-size:10px;color:#888;margin-bottom:12px;">Component Development Assessment</div>
+  <div style="font-size:9px;color:#aaa;margin-bottom:16px;">38 WP components &rarr; 22 dev components<br>Target: Statamic &middot; April 2026</div>
+
+  <div class="toc-section">Overview</div>
+  <a href="#executive-summary">Executive Summary</a>
+  <a href="#consolidation-matrix">Consolidation Matrix</a>
+  <a href="#effort-estimation">Effort Estimation</a>
+  <a href="#leverage-map">Reference Site Leverage</a>
+  <a href="#cms-migration">CMS Migration Notes</a>
+
+  <div class="toc-section">Global (3 Components)</div>
+  <a href="#d1">D1. Site Header + Nav</a>
+  <a href="#d2">D2. Footer</a>
+  <a href="#d3">D3. Utility Bar</a>
+
+  <div class="toc-section">Heroes (2 Components)</div>
+  <a href="#d4">D4. Homepage Hero</a>
+  <a href="#d5">D5. Interior Page Hero</a>
+
+  <div class="toc-section">Content Blocks (7 Components)</div>
+  <a href="#d6">D6. Alternating Content Block</a>
+  <a href="#d7">D7. Stats Panel</a>
+  <a href="#d8">D8. Accordion (with variants)</a>
+  <a href="#d9">D9. Contact CTA Block</a>
+  <a href="#d10">D10. Quote / Testimonial</a>
+  <a href="#d11">D11. Feature Card Grid</a>
+  <a href="#d12">D12. Region Map Section</a>
+
+  <div class="toc-section">Cards (4 Components)</div>
+  <a href="#d13">D13. News / Blog Card</a>
+  <a href="#d14">D14. Employer Card</a>
+  <a href="#d15">D15. County Card + Map</a>
+  <a href="#d16">D16. Team Member Card</a>
+
+  <div class="toc-section">Templates (2 Components)</div>
+  <a href="#d17">D17. Article Detail</a>
+  <a href="#d18">D18. Listing + Pagination</a>
+
+  <div class="toc-section">Forms (2 Components)</div>
+  <a href="#d19">D19. HubSpot Form Embed</a>
+  <a href="#d20">D20. Newsletter Signup</a>
+
+  <div class="toc-section">Atoms (2 Components)</div>
+  <a href="#d21">D21. CTA Button</a>
+  <a href="#d22">D22. Arrow Link</a>
+
+  <div class="toc-section" style="color: var(--orange);">Statamic Platform</div>
+  <a href="#statamic-collections">Collections &amp; Taxonomies</a>
+  <a href="#statamic-integrations">Integrations</a>
+  <a href="#statamic-globals">Globals &amp; Config</a>
+</nav>
+
+<!-- ============================================================ -->
+<!-- MAIN CONTENT -->
+<!-- ============================================================ -->
+<main class="main" id="top">
+
+<!-- ===== PAGE HEADER ===== -->
+<div style="margin-bottom:32px;">
+  <h1 style="font-size:28px;font-weight:800;">Columbus Region — Component Development Assessment</h1>
+  <p style="font-size:13px;color:#888;margin-top:4px;">38 WordPress components consolidated to 22 development components &middot; Statamic migration</p>
+  <p style="font-size:11px;color:#aaa;margin-top:4px;">Analysis: April 2026 &middot; Reference sites: greenbrierwv.com (Statamic) &middot; visitknoxohio.org (Statamic) &middot; columbusregion.com (WordPress)</p>
+</div>
+
+<!-- ===== FILTER BAR ===== -->
+<div class="filter-bar" id="filters">
+  <label>View for:</label>
+  <button class="filter-btn active" data-filter="all">All Roles</button>
+  <button class="filter-btn" data-filter="pm">PM</button>
+  <button class="filter-btn" data-filter="dev">Developer</button>
+  <button class="filter-btn" data-filter="design">Designer</button>
+  <span style="margin-left:auto;font-size:10px;color:#aaa;">|</span>
+  <label style="margin-left:8px;">Leverage:</label>
+  <button class="filter-btn" data-filter="leverage-high">Heavy</button>
+  <button class="filter-btn" data-filter="leverage-med">Medium</button>
+  <button class="filter-btn" data-filter="leverage-new">New Build</button>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- EXECUTIVE SUMMARY -->
+<!-- ============================================================ -->
+<div class="section-header" id="executive-summary">
+  <h2>1. Executive Summary</h2>
+  <p>Wireframe-to-Build Analysis &amp; Efficiency Assessment</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body">
+    <p style="font-size:13px;line-height:1.7;margin-bottom:16px;">
+      The columbusregion.com WordPress site contains <strong>38 individual UI components</strong> across 50+ pages. After analysis and consolidation of variants, these map to approximately <strong>22 development components</strong> for the Statamic rebuild.
+    </p>
+    <p style="font-size:13px;line-height:1.7;margin-bottom:20px;">
+      Two existing Statamic sites &mdash; <strong>greenbrierwv.com</strong> and <strong>visitknoxohio.org</strong> &mdash; provide significant component leverage. Of the 22 dev components, <strong>13 have direct Statamic precedent</strong> (59%), <strong>5 have partial precedent</strong> (23%), and only <strong>4 require net-new builds</strong> (18%).
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;">
+      <div style="background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:20px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#059669;">13</div>
+        <div style="font-size:10px;font-weight:600;color:#065f46;text-transform:uppercase;letter-spacing:1px;">Heavy Leverage</div>
+        <div style="font-size:10px;color:#888;margin-top:4px;">Direct port + reskin</div>
+      </div>
+      <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:20px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#f59e0b;">5</div>
+        <div style="font-size:10px;font-weight:600;color:#92400e;text-transform:uppercase;letter-spacing:1px;">Medium Leverage</div>
+        <div style="font-size:10px;color:#888;margin-top:4px;">Pattern exists, needs customization</div>
+      </div>
+      <div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:20px;text-align:center;">
+        <div style="font-size:36px;font-weight:800;color:#dc2626;">4</div>
+        <div style="font-size:10px;font-weight:600;color:#991b1b;text-transform:uppercase;letter-spacing:1px;">New Build</div>
+        <div style="font-size:10px;color:#888;margin-top:4px;">No direct precedent</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;line-height:1.7;margin-bottom:8px;"><strong>Suggested estimate range: 160&ndash;200 hours</strong></p>
+    <p style="font-size:11px;color:#888;">Based on comparable OSU Events project (20 components / 135-165 hrs). Columbus Region is larger scope with more collections and interactive elements.</p>
+
+    <div class="effort-bar">
+      <div class="high" style="width:48%;">Heavy Leverage: 55&ndash;70 hrs</div>
+      <div class="med" style="width:28%;">Medium: 45&ndash;55 hrs</div>
+      <div class="new" style="width:24%;">New: 60&ndash;75 hrs</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- CONSOLIDATION MATRIX -->
+<!-- ============================================================ -->
+<div class="section-header" id="consolidation-matrix">
+  <h2>2. Component Consolidation Matrix</h2>
+  <p>38 wireframe components mapped to 22 development components</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:5%;">#</th>
+          <th style="width:22%;">Dev Component</th>
+          <th style="width:30%;">WordPress Components Consolidated</th>
+          <th style="width:18%;">Leverage Source</th>
+          <th style="width:10%;">Leverage</th>
+          <th style="width:15%;">Est. Hours</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>D1</td><td><strong>Site Header + Nav</strong></td><td>#2 Header + #3 Main Nav + #4 Mobile Menu</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>8&ndash;10</td></tr>
+        <tr><td>D2</td><td><strong>Footer</strong></td><td>#5 Footer</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>4&ndash;6</td></tr>
+        <tr><td>D3</td><td><strong>Utility Bar</strong></td><td>#1 Utility Bar</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>2&ndash;3</td></tr>
+        <tr><td>D4</td><td><strong>Homepage Hero</strong></td><td>#6 Homepage Hero (Split Layout)</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-med">Med</span></td><td>6&ndash;8</td></tr>
+        <tr><td>D5</td><td><strong>Interior Page Hero</strong></td><td>#7 Full-Width Overlay + #8 Half-Width + #9 Counties Hero</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>6&ndash;8</td></tr>
+        <tr><td>D6</td><td><strong>Alternating Content Block</strong></td><td>#16 Alternating + #17 Two-Column Content</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>4&ndash;5</td></tr>
+        <tr><td>D7</td><td><strong>Stats Panel</strong></td><td>#10 Stats Panel + #11 Stats Callout Bar</td><td>Greenbrier (partial)</td><td><span class="pill pill--leverage-med">Med</span></td><td>5&ndash;6</td></tr>
+        <tr><td>D8</td><td><strong>Accordion (with variants)</strong></td><td>#13 Dark BG + #14 Light BG + #15 FAQ</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>5&ndash;7</td></tr>
+        <tr><td>D9</td><td><strong>Contact CTA Block</strong></td><td>#19 Light BG + #20 Image Overlay</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>3&ndash;4</td></tr>
+        <tr><td>D10</td><td><strong>Quote / Testimonial</strong></td><td>#21 Quote Block</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>2&ndash;3</td></tr>
+        <tr><td>D11</td><td><strong>Feature Card Grid</strong></td><td>#12 Feature Card Grid (2x2)</td><td>Knox (partial)</td><td><span class="pill pill--leverage-med">Med</span></td><td>4&ndash;5</td></tr>
+        <tr><td>D12</td><td><strong>Region Map Section</strong></td><td>#18 Region Map + #30 Interactive County Map</td><td>&mdash;</td><td><span class="pill pill--leverage-new">New</span></td><td>16&ndash;20</td></tr>
+        <tr><td>D13</td><td><strong>News / Blog Card</strong></td><td>#22 News Card + #23 Press Release + #24 News Feed Card</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>5&ndash;6</td></tr>
+        <tr><td>D14</td><td><strong>Employer Card</strong></td><td>#27 Employer Card</td><td>&mdash;</td><td><span class="pill pill--leverage-new">New</span></td><td>6&ndash;8</td></tr>
+        <tr><td>D15</td><td><strong>County Card + Map</strong></td><td>#25 County Snapshot + #26 City Card + #29 County Tab Bar</td><td>&mdash;</td><td><span class="pill pill--leverage-new">New</span></td><td>14&ndash;18</td></tr>
+        <tr><td>D16</td><td><strong>Team Member Card</strong></td><td>#28 Team Member Card</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>3&ndash;4</td></tr>
+        <tr><td>D17</td><td><strong>Article Detail Layout</strong></td><td>#32 Article Detail + #33 Plain Text Page</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>4&ndash;5</td></tr>
+        <tr><td>D18</td><td><strong>Listing + Pagination</strong></td><td>#31 Scroll-to-Page Nav + pagination patterns</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-high">High</span></td><td>4&ndash;5</td></tr>
+        <tr><td>D19</td><td><strong>HubSpot Form Embed</strong></td><td>#35 HubSpot Contact Form</td><td>Knox (HubSpot)</td><td><span class="pill pill--leverage-high">High</span></td><td>2&ndash;3</td></tr>
+        <tr><td>D20</td><td><strong>Newsletter Signup</strong></td><td>#34 Newsletter Signup + #36 Inline Email</td><td>Greenbrier, Knox</td><td><span class="pill pill--leverage-med">Med</span></td><td>3&ndash;4</td></tr>
+        <tr><td>D21</td><td><strong>CTA Button</strong></td><td>#37 CTA Button</td><td>All sites</td><td><span class="pill pill--leverage-med">Med</span></td><td>1&ndash;2</td></tr>
+        <tr><td>D22</td><td><strong>Arrow Link</strong></td><td>#38 Arrow Link</td><td>All sites</td><td><span class="pill pill--leverage-high">High</span></td><td>0.5&ndash;1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- EFFORT ESTIMATION -->
+<!-- ============================================================ -->
+<div class="section-header" id="effort-estimation">
+  <h2>3. Effort Estimation by Category</h2>
+  <p>Suggested hour ranges based on leverage level</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Components</th>
+          <th>#</th>
+          <th>Hours</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pill pill--leverage-high">Heavy Leverage</span></td>
+          <td>Header+Nav, Footer, Utility Bar, Interior Hero, Alternating Content, Accordion, Contact CTA, Quote, News Card, Team Card, Article Detail, Listing, HubSpot Form, Arrow Link</td>
+          <td>13</td>
+          <td><strong>55&ndash;70 hrs</strong></td>
+          <td>Direct port from Greenbrier / Knox with Columbus Region reskinning</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill--leverage-med">Medium Leverage</span></td>
+          <td>Homepage Hero, Stats Panel, Feature Card Grid, Newsletter Signup, CTA Button</td>
+          <td>5</td>
+          <td><strong>45&ndash;55 hrs</strong></td>
+          <td>Pattern exists on reference sites but needs significant customization for Columbus Region's data-heavy content</td>
+        </tr>
+        <tr>
+          <td><span class="pill pill--leverage-new">New Build</span></td>
+          <td>Region Map Section, Employer Card, County Card + Interactive Map</td>
+          <td>4</td>
+          <td><strong>60&ndash;75 hrs</strong></td>
+          <td>Interactive county map (SVG + JS) is the most complex item. Employer card needs filterable collection. No direct Statamic precedent.</td>
+        </tr>
+        <tr style="font-weight:700;">
+          <td>Total</td>
+          <td></td>
+          <td>22</td>
+          <td><strong>160&ndash;200 hrs</strong></td>
+          <td>Add 10&ndash;15% for Statamic collection setup, data migration, and QA</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- REFERENCE SITE LEVERAGE MAP -->
+<!-- ============================================================ -->
+<div class="section-header" id="leverage-map">
+  <h2>4. Reference Site Leverage Map</h2>
+  <p>Which Columbus Region components have Statamic precedent on Greenbrier and Visit Knox</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:28%;">Dev Component</th>
+          <th style="width:18%;">Greenbrier WV</th>
+          <th style="width:18%;">Visit Knox OH</th>
+          <th style="width:36%;">Efficiency Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>D1. Site Header + Nav</td><td style="color:#059669;">&#10004; Mega menu + mobile</td><td style="color:#059669;">&#10004; Mega menu + mobile</td><td>Both sites have near-identical nav patterns. Port Knox's Alpine.js mobile menu.</td></tr>
+        <tr><td>D2. Footer</td><td style="color:#059669;">&#10004; Multi-column + social</td><td style="color:#059669;">&#10004; Multi-column + social</td><td>Standard pattern. Add Columbus Region's partner logos + newsletter embed.</td></tr>
+        <tr><td>D3. Utility Bar</td><td style="color:#059669;">&#10004; Secondary nav row</td><td style="color:#059669;">&#10004; Utility links</td><td>Greenbrier's utility nav is the closest match.</td></tr>
+        <tr><td>D4. Homepage Hero</td><td style="color:#f59e0b;">&#9679; Full-width image</td><td style="color:#f59e0b;">&#9679; Text-based hero</td><td>Columbus needs split layout (text + image) not seen on either. Adapt Greenbrier hero structure.</td></tr>
+        <tr><td>D5. Interior Page Hero</td><td style="color:#059669;">&#10004; Multiple variants</td><td style="color:#059669;">&#10004; Text-based + image</td><td>Greenbrier has the closest pattern with editorial hero. Add Columbus Region's red overlay block.</td></tr>
+        <tr><td>D6. Alternating Content</td><td style="color:#059669;">&#10004; Featured spotlight</td><td style="color:#059669;">&#10004; Featured highlight</td><td>Both sites use image+text blocks. Port and add image_position toggle.</td></tr>
+        <tr><td>D7. Stats Panel</td><td style="color:#dc2626;">&#10008;</td><td style="color:#dc2626;">&#10008;</td><td>Neither reference site uses large stat displays. Build as a Bard set with number + label + link fields.</td></tr>
+        <tr><td>D8. Accordion</td><td style="color:#dc2626;">&#10008;</td><td style="color:#059669;">&#10004; FAQ block</td><td>Knox has FAQ Q&amp;A pattern. Extend to support dark BG + image variant for Industries accordion.</td></tr>
+        <tr><td>D9. Contact CTA</td><td style="color:#059669;">&#10004; Promotional banner</td><td style="color:#059669;">&#10004; Contact CTA</td><td>Both have equivalent CTA blocks. Simple reskin.</td></tr>
+        <tr><td>D10. Quote / Testimonial</td><td style="color:#059669;">&#10004; Pull quote + profile</td><td style="color:#059669;">&#10004; Pull quote</td><td>Both sites have pull quote patterns. Knox uses decorative sun icon; swap for Columbus diamond accent.</td></tr>
+        <tr><td>D11. Feature Card Grid</td><td style="color:#f59e0b;">&#9679; Category tiles</td><td style="color:#f59e0b;">&#9679; Interest cards</td><td>Greenbrier has category tile grid, Knox has interest cards. Adapt to text-only 2x2 grid.</td></tr>
+        <tr><td>D12. Region Map (SVG)</td><td style="color:#dc2626;">&#10008;</td><td style="color:#dc2626;">&#10008;</td><td><strong>No precedent.</strong> Custom SVG interactive map. Highest complexity item.</td></tr>
+        <tr><td>D13. News / Blog Card</td><td style="color:#059669;">&#10004; Editorial cards</td><td style="color:#059669;">&#10004; Event + editorial</td><td>Both have card grids. Port Knox's event card pattern for news cards.</td></tr>
+        <tr><td>D14. Employer Card</td><td style="color:#dc2626;">&#10008;</td><td style="color:#dc2626;">&#10008;</td><td><strong>No precedent.</strong> Logo + structured data card. Build as filterable collection.</td></tr>
+        <tr><td>D15. County Card + Map</td><td style="color:#dc2626;">&#10008;</td><td style="color:#f59e0b;">&#9679; Community links</td><td>Knox has community list but no interactive map. County tab system is unique to Columbus.</td></tr>
+        <tr><td>D16. Team Member Card</td><td style="color:#059669;">&#10004; Staff list</td><td style="color:#059669;">&#10004; Staff profile</td><td>Both have staff patterns. Knox has photo+quote+recommendations; adapt for Columbus team grid.</td></tr>
+        <tr><td>D17. Article Detail</td><td style="color:#059669;">&#10004; Editorial detail</td><td style="color:#059669;">&#10004; Editorial detail</td><td>Both have long-form article templates with inline images. Direct port.</td></tr>
+        <tr><td>D18. Listing + Pagination</td><td style="color:#059669;">&#10004; Event pagination</td><td style="color:#059669;">&#10004; Event pagination</td><td>Both have paginated listing pages. Port pagination component directly.</td></tr>
+        <tr><td>D19. HubSpot Form</td><td style="color:#dc2626;">&#10008; (uses ActOn)</td><td style="color:#059669;">&#10004; HubSpot forms</td><td>Knox uses HubSpot (portal 44561269). Columbus uses HubSpot (portal 44904048). Direct pattern match.</td></tr>
+        <tr><td>D20. Newsletter Signup</td><td style="color:#059669;">&#10004; Newsletter form</td><td style="color:#059669;">&#10004; Newsletter form</td><td>Both have newsletter patterns. Greenbrier's footer signup is closest to Columbus Region's.</td></tr>
+        <tr><td>D21. CTA Button</td><td style="color:#059669;">&#10004;</td><td style="color:#059669;">&#10004;</td><td>Standard atom. Define Columbus Region pill-shape style in design tokens.</td></tr>
+        <tr><td>D22. Arrow Link</td><td style="color:#059669;">&#10004;</td><td style="color:#059669;">&#10004;</td><td>Standard atom. Both sites use arrow link patterns.</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;font-size:10px;color:#888;">
+      <span style="color:#059669;">&#10004; Direct match</span> &nbsp;&middot;&nbsp;
+      <span style="color:#f59e0b;">&#9679; Partial match</span> &nbsp;&middot;&nbsp;
+      <span style="color:#dc2626;">&#10008; No precedent</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- CMS MIGRATION NOTES -->
+<!-- ============================================================ -->
+<div class="section-header" id="cms-migration">
+  <h2>5. CMS Migration Notes &mdash; WordPress to Statamic</h2>
+  <p>Feature-by-feature mapping for the platform transition</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th style="width:20%;">WordPress Feature</th>
+          <th style="width:22%;">Current Method</th>
+          <th style="width:22%;">Statamic Equivalent</th>
+          <th style="width:36%;">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Contact / Lead Forms</td><td>HubSpot embedded forms</td><td>HubSpot embed (keep)</td><td>Knox uses same HubSpot pattern. Keep embeds; no need to rebuild forms.</td></tr>
+        <tr><td>Newsletter Signup</td><td>HubSpot form embed</td><td>HubSpot embed (keep)</td><td>Simple email capture. Keep as HubSpot embed for CRM integration.</td></tr>
+        <tr><td>Translation / i18n</td><td>Weglot (6 languages)</td><td>Evaluate: Weglot or drop</td><td>Greenbrier and Knox are English-only. Confirm if translations are still needed.</td></tr>
+        <tr><td>Blog / News Posts</td><td>WordPress Posts + Content Views Pro</td><td>Statamic Collections</td><td>Create separate "News," "Blog," and "Press Releases" collections. Knox has similar editorial collection.</td></tr>
+        <tr><td>Staff / Team Directory</td><td>Custom post type</td><td>Statamic Collection ("Team")</td><td>Fields: name, title, organization, headshot, leadership flag. Knox has staff collection.</td></tr>
+        <tr><td>Counties</td><td>Custom post type / pages</td><td>Statamic Collection ("Counties")</td><td>11 entries with snapshot data, cities, employers. No precedent on reference sites.</td></tr>
+        <tr><td>Industries</td><td>Page sections / accordion</td><td>Statamic Collection or Taxonomy</td><td>7 industries with descriptions. Could be collection entries or taxonomy terms.</td></tr>
+        <tr><td>Top Employers</td><td>Custom post type</td><td>Statamic Collection ("Employers")</td><td>Fields: logo, name, employee count, industry, operation type, location, website. No precedent.</td></tr>
+        <tr><td>Project Announcements</td><td>Custom post type + filters</td><td>Statamic Collection + Taxonomy filters</td><td>Multi-faceted filtering (year, type, jobs, facility, location). Most complex collection.</td></tr>
+        <tr><td>Page Builder / Blocks</td><td>Gutenberg + Columbus Blocks plugin</td><td>Statamic Bard / Replicator</td><td>Map each block type to a Bard set or Replicator set. Both reference sites use Bard.</td></tr>
+        <tr><td>PDF Downloads</td><td>Download Monitor</td><td>Statamic Assets</td><td>Press release PDFs. Store in asset container.</td></tr>
+        <tr><td>Image Optimization</td><td>EWWW Image Optimizer</td><td>Statamic Glide (built-in)</td><td>Both reference sites use Glide. Handles responsive images natively.</td></tr>
+        <tr><td>iFrame Embeds</td><td>Advanced iFrame plugin</td><td>Bard embed set</td><td>19 iframes on Economy page alone. Audit which are needed.</td></tr>
+        <tr><td>Search</td><td>None</td><td>Statamic Search (Algolia or local)</td><td>Both reference sites have search. Knox has "Search the valley" pattern.</td></tr>
+        <tr><td>SEO</td><td>Yoast or similar</td><td>Statamic SEO Pro addon</td><td>Meta fields, OG tags, sitemap generation. Standard migration.</td></tr>
+        <tr><td>Analytics</td><td>GTM + GA (UA-5359122-5)</td><td>GTM + GA4</td><td>Migrate to GA4 if not already. Both reference sites use GTM.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- INDIVIDUAL COMPONENT SECTIONS -->
+<!-- ============================================================ -->
+
+<!-- ===== D1. SITE HEADER + NAV ===== -->
+<div class="comp" id="d1" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D1 &mdash; Global</div>
+      <div class="comp__name">Site Header + Navigation (Desktop + Mobile)</div>
+      <span class="comp__url">Consolidates: #2 Site Header + #3 Main Navigation + #4 Mobile Menu</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Global</span>
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Desktop Header</span>
+      <div style="display:flex;align-items:center;padding:12px 0;border-bottom:2px solid #eee;">
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:8px;color:#999;text-transform:uppercase;line-height:1;">THE</span>
+          <span style="font-size:20px;font-weight:800;color:#333;letter-spacing:-0.5px;">COLUMBUS</span>
+          <span style="font-size:20px;font-weight:800;color:var(--red);margin-top:-8px;">&#x2726;</span>
+        </div>
+        <span style="font-size:10px;color:#999;display:block;margin-left:4px;">REGION</span>
+      </div>
+      <div style="display:flex;gap:0;border-bottom:2px solid #eee;">
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">The Columbus Region <span style="font-size:8px;">&#9660;</span></span>
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Economy <span style="font-size:8px;">&#9660;</span></span>
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Talent <span style="font-size:8px;">&#9660;</span></span>
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">Doing Business <span style="font-size:8px;">&#9660;</span></span>
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">About Us <span style="font-size:8px;">&#9660;</span></span>
+        <span style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;">News <span style="font-size:8px;">&#9660;</span></span>
+      </div>
+
+      <span class="comp__variant-label">Mobile Menu</span>
+      <div style="max-width:320px;background:#fff;border:1px solid #ddd;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid #eee;">
+          <span style="font-size:14px;font-weight:800;color:#333;">COLUMBUS</span>
+          <div style="width:20px;height:14px;display:flex;flex-direction:column;justify-content:space-between;">
+            <span style="display:block;width:100%;height:2px;background:#333;"></span>
+            <span style="display:block;width:100%;height:2px;background:#333;"></span>
+            <span style="display:block;width:100%;height:2px;background:#333;"></span>
+          </div>
+        </div>
+        <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:13px;font-weight:600;color:var(--teal);">The Columbus Region <span style="float:right;color:#999;font-size:10px;">&#9660;</span></div>
+        <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:13px;font-weight:600;color:var(--teal);">Economy <span style="float:right;color:#999;font-size:10px;">&#9660;</span></div>
+        <div style="padding:12px 16px;border-bottom:1px solid #eee;font-size:13px;font-weight:600;color:var(--teal);">Talent <span style="float:right;color:#999;font-size:10px;">&#9660;</span></div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Designer:</strong> 6 top-level nav items with mega-menu dropdowns. Sticky on scroll. Red accent on active section. Mobile accordion pattern.<br>
+      <strong>Developer:</strong> Port Knox's Alpine.js mobile menu. Mega-menu hover on desktop, accordion on mobile. 6 dropdown panels.<br>
+      <strong>PM:</strong> Content: 6 sections x 4&ndash;7 sub-links each. Confirm nav restructuring with client before build.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier and Knox have identical nav patterns on Statamic. Port Knox's Alpine.js implementation and reskin.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D2. FOOTER ===== -->
+<div class="comp" id="d2" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D2 &mdash; Global</div>
+      <div class="comp__name">Footer</div>
+      <span class="comp__url">Consolidates: #5 Footer</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Global</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="background:#fff;padding:24px 0;border-top:3px solid #eee;">
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;font-size:10px;color:#555;">
+          <div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:8px;color:var(--teal);">Partner Orgs</div>
+            <div style="font-size:9px;color:#888;line-height:1.6;">150 S. Front St., Suite 200<br>Columbus, OH 43215<br>614-225-0500</div>
+          </div>
+          <div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:6px;color:var(--teal);">The Region</div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:6px;color:var(--teal);">Economy</div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;color:var(--teal);">Talent</div>
+          </div>
+          <div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:6px;color:var(--teal);">About Us</div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:6px;color:var(--teal);">News</div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;color:var(--teal);">Contact</div>
+          </div>
+          <div>
+            <div style="font-weight:700;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:4px;">Newsletter</div>
+            <div style="display:flex;gap:4px;">
+              <input type="text" placeholder="Email" style="flex:1;height:28px;border:1px solid #ccc;padding:0 6px;font-size:9px;">
+              <button style="background:var(--teal);color:#fff;border:none;padding:0 10px;font-size:9px;font-weight:700;">SIGN UP</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>PM:</strong> 4-column layout. Partner org links + address, site nav (2 cols), newsletter signup + JobsOhio badge. Copyright + social icons below.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier and Knox have multi-column footers with social icons. Standard Statamic partial.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D3. UTILITY BAR ===== -->
+<div class="comp" id="d3" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D3 &mdash; Global</div>
+      <div class="comp__name">Utility Bar</div>
+      <span class="comp__url">Consolidates: #1 Utility Bar</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Global</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:flex;justify-content:flex-end;align-items:center;gap:20px;padding:6px 0;font-size:11px;">
+        <a href="#" style="color:#555;text-decoration:none;">One Columbus</a>
+        <a href="#" style="color:#555;text-decoration:none;">Columbus Partnership</a>
+        <a href="#" style="color:#555;text-decoration:none;">Smart Columbus</a>
+        <a href="contact-us.html" style="color:white;text-decoration:none;background:var(--teal);padding:7px 18px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;">Contact Us</a>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Note:</strong> Links to partner organizations. "Contact Us" CTA button. Hidden on mobile.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Greenbrier has an identical secondary nav pattern. Knox has utility links in the header.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D4. HOMEPAGE HERO ===== -->
+<div class="comp" id="d4" data-roles="pm dev design" data-leverage="med">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D4 &mdash; Hero</div>
+      <div class="comp__name">Homepage Hero (Split Layout)</div>
+      <span class="comp__url">Consolidates: #6 Homepage Hero</span>
+      <div class="comp__pills">
+        <span class="pill pill--leverage-med">Medium Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:1fr 1fr;min-height:240px;">
+        <div style="background:var(--red);padding:32px 24px;color:#fff;display:flex;flex-direction:column;justify-content:center;">
+          <h2 style="font-size:24px;font-weight:800;margin-bottom:12px;line-height:1.15;">See the Progress.<br>Join the Momentum.</h2>
+          <p style="font-size:11px;margin-bottom:16px;opacity:0.9;">Be a part of the transformation.</p>
+          <div><span class="btn" style="background:var(--teal);border-color:var(--teal);font-size:10px;">Learn More</span></div>
+        </div>
+        <div class="img-placeholder" style="min-height:240px;"></div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Designer:</strong> 50/50 split. Red panel left, full-bleed image right. Responsive: stacks vertically on mobile.<br>
+      <strong>Developer:</strong> Split layout not seen on reference sites. Build as Bard set with configurable fields: heading, body, CTA, image, panel_color.<br>
+      <strong>PM:</strong> Confirm with client if hero should be static or rotatable (carousel). Currently static.
+    </div>
+    <div class="comp__leverage comp__leverage--med">
+      <strong>Leverage:</strong> Both reference sites have full-width heroes but not the split layout. Adapt Greenbrier's hero structure with custom split grid.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D5. INTERIOR PAGE HERO ===== -->
+<div class="comp" id="d5" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D5 &mdash; Hero</div>
+      <div class="comp__name">Interior Page Hero (3 variants)</div>
+      <span class="comp__url">Consolidates: #7 Full-Width Overlay + #8 Half-Width Block + #9 Counties Hero</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Variant A: Full-Width Photo Overlay</span>
+      <div style="position:relative;min-height:160px;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:32px 24px;max-width:50%;">
+          <div style="background:rgba(178,34,34,0.85);padding:24px;color:#fff;">
+            <h2 style="font-size:20px;font-weight:800;margin-bottom:6px;">News and Events</h2>
+            <p style="font-size:11px;opacity:0.9;">The latest updates from the Columbus Region.</p>
+          </div>
+        </div>
+      </div>
+
+      <span class="comp__variant-label">Variant B: Half-Width Block + CTA</span>
+      <div style="position:relative;min-height:140px;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;background:var(--red);padding:24px;max-width:45%;min-height:140px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+          <h2 style="font-size:18px;font-weight:800;margin-bottom:6px;">Cost of Business</h2>
+          <p style="font-size:10px;margin-bottom:12px;opacity:0.9;">Description text here.</p>
+          <div><span class="btn" style="font-size:9px;padding:6px 14px;">Connect With Our Team</span></div>
+        </div>
+      </div>
+
+      <span class="comp__variant-label">Variant C: Teal Block (Contact/Signup)</span>
+      <div style="position:relative;min-height:100px;">
+        <div style="background:var(--teal);padding:24px;max-width:45%;min-height:100px;display:flex;flex-direction:column;justify-content:center;color:#fff;">
+          <h2 style="font-size:18px;font-weight:800;margin-bottom:6px;">Let's stay connected.</h2>
+          <div style="display:flex;gap:4px;margin-top:4px;">
+            <input type="text" placeholder="Email" style="flex:1;height:28px;border:1px solid rgba(255,255,255,0.4);background:transparent;color:#fff;padding:0 8px;font-size:9px;">
+            <button style="background:#fff;color:var(--teal);border:none;padding:0 12px;font-size:9px;font-weight:700;">SIGN UP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> One component with fields: variant (overlay/block/signup), heading, body, cta_text, cta_url, background_image, panel_color (red/teal).<br>
+      <strong>Designer:</strong> Counties hero (#9) is variant B with county dropdown + map. Consider if map is separate component or hero variant.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Greenbrier has editorial hero and interior page hero variants. Port and add panel overlay system.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D6. ALTERNATING CONTENT BLOCK ===== -->
+<div class="comp" id="d6" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D6 &mdash; Content</div>
+      <div class="comp__name">Alternating Content Block</div>
+      <span class="comp__url">Consolidates: #16 Alternating Content + #17 Two-Column Content</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--statamic">Bard Set</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Image Left</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:16px;">
+        <div class="img-placeholder" style="min-height:130px;"></div>
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Favorable Business Economy</h3>
+          <p style="font-size:10px;color:#555;line-height:1.6;margin-bottom:8px;">Supporting text about this topic.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        </div>
+      </div>
+      <span class="comp__variant-label">Image Right</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-size:16px;font-weight:700;margin-bottom:6px;">Real Estate</h3>
+          <p style="font-size:10px;color:#555;line-height:1.6;margin-bottom:8px;">Supporting text about real estate advantages.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        </div>
+        <div class="img-placeholder" style="min-height:130px;"></div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> One Bard set with fields: heading, body, image, cta_text, cta_url, image_position (left/right). Auto-alternate option.<br>
+      <strong>PM:</strong> Most common interior page pattern. Used on Cost, Talent, Doing Business, About, and more.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier ("Featured Spotlight") and Knox ("Featured Highlight") have identical image+text blocks. Direct port with toggle.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D7. STATS PANEL ===== -->
+<div class="comp" id="d7" data-roles="pm dev design" data-leverage="med">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D7 &mdash; Content</div>
+      <div class="comp__name">Stats Panel (2 variants)</div>
+      <span class="comp__url">Consolidates: #10 Stats Panel + #11 Stats Callout Bar</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--statamic">Bard Set</span>
+        <span class="pill pill--leverage-med">Medium Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Variant A: Inline Stats (with image)</span>
+      <div style="background:var(--red);padding:24px;color:#fff;">
+        <div style="display:flex;gap:24px;">
+          <div><div style="font-size:32px;font-weight:800;">2.3M</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Talented People</div></div>
+          <div><div style="font-size:32px;font-weight:800;">150K</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">College Students</div></div>
+          <div><div style="font-size:32px;font-weight:800;">No. 1</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Midwest GDP Growth</div></div>
+        </div>
+      </div>
+
+      <span class="comp__variant-label">Variant B: Full-Width Centered Bar</span>
+      <div style="background:var(--red);padding:24px;color:#fff;text-align:center;">
+        <h3 style="font-size:14px;font-weight:700;margin-bottom:16px;">Economic Impact</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+          <div><div style="font-size:30px;font-weight:800;">$10B</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Capital Investment</div></div>
+          <div><div style="font-size:30px;font-weight:800;">$2B</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">New Payroll</div></div>
+          <div><div style="font-size:30px;font-weight:800;">Top 10</div><div style="font-size:8px;text-transform:uppercase;letter-spacing:1px;opacity:0.8;">Millennials</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Bard set with repeater: stats[] = { number, label, link }. Variant toggle: inline vs. centered. Background color configurable.<br>
+      <strong>PM:</strong> Stats appear on Homepage, Economy, Cost, Counties. Confirm data sources and update frequency with client.
+    </div>
+    <div class="comp__leverage comp__leverage--med">
+      <strong>Leverage:</strong> Neither reference site has large stat displays. Build as custom Bard set. The data structure (number + label) is straightforward.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D8. ACCORDION ===== -->
+<div class="comp" id="d8" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D8 &mdash; Content</div>
+      <div class="comp__name">Accordion (3 variants)</div>
+      <span class="comp__url">Consolidates: #13 Dark BG Accordion + #14 Light BG Accordion + #15 FAQ Accordion</span>
+      <div class="comp__pills">
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--statamic">Replicator Set</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Variant A: Dark BG (Industries)</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--dark);color:#fff;min-height:180px;">
+        <div class="img-placeholder" style="min-height:180px;background:#4a6363;border-color:#5a7373;"></div>
+        <div style="padding:16px;">
+          <h3 style="font-size:16px;font-weight:800;margin-bottom:12px;">Industries</h3>
+          <div style="border-top:1px solid rgba(255,255,255,0.2);padding:10px 0;font-size:12px;font-weight:600;">Automotive and Mobility <span style="float:right;font-size:9px;">&#9650;</span></div>
+          <p style="font-size:9px;opacity:0.8;margin-bottom:6px;">Description text with Learn More link.</p>
+          <div style="border-top:1px solid rgba(255,255,255,0.2);padding:10px 0;font-size:12px;font-weight:600;">Fashion and Retail <span style="float:right;font-size:9px;">&#9660;</span></div>
+          <div style="border-top:1px solid rgba(255,255,255,0.2);padding:10px 0;font-size:12px;font-weight:600;">Finance and Fintech <span style="float:right;font-size:9px;">&#9660;</span></div>
+        </div>
+      </div>
+
+      <span class="comp__variant-label">Variant C: Standalone FAQ</span>
+      <div style="max-width:500px;">
+        <details style="border:1px solid #ddd;margin-bottom:4px;">
+          <summary style="padding:12px;font-size:12px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;">Why the Columbus Region? <span style="font-size:9px;color:#999;">&#9660;</span></summary>
+          <div style="padding:0 12px 12px;font-size:10px;color:#555;">Answer content here.</div>
+        </details>
+        <details style="border:1px solid #ddd;margin-bottom:4px;">
+          <summary style="padding:12px;font-size:12px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;">What industries are growing? <span style="font-size:9px;color:#999;">&#9660;</span></summary>
+        </details>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> One component, three variants controlled by: theme (dark/light/standalone), show_image (bool), items[] = { title, body, link }. Uses <code>&lt;details&gt;</code>/<code>&lt;summary&gt;</code> for FAQ variant, JS for image-paired variants.<br>
+      <strong>PM:</strong> Industries accordion has 7 items. Operations has 5. FAQ varies per page. Implements FAQPage schema.org structured data.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Knox has FAQ Q&amp;A pattern. Extend with dark background + paired image variant for Industries/Operations sections.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D9. CONTACT CTA ===== -->
+<div class="comp" id="d9" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D9 &mdash; Content</div>
+      <div class="comp__name">Contact CTA Block (2 variants)</div>
+      <span class="comp__url">Consolidates: #19 Light BG CTA + #20 Image Overlay CTA</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Variant A: Light Background</span>
+      <div style="background:var(--light-blue);padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="display:flex;flex-direction:column;justify-content:center;">
+          <h3 style="font-size:18px;font-weight:800;margin-bottom:6px;">Contact</h3>
+          <p style="font-size:11px;color:#555;margin-bottom:12px;">Our team can help your business find its place.</p>
+          <div><span class="btn" style="font-size:10px;padding:7px 16px;">Let's Talk</span></div>
+        </div>
+        <div class="img-placeholder" style="min-height:120px;border-radius:4px;"></div>
+      </div>
+
+      <span class="comp__variant-label">Variant B: Image Overlay</span>
+      <div style="position:relative;min-height:100px;">
+        <div class="img-placeholder" style="position:absolute;inset:0;"></div>
+        <div style="position:relative;z-index:1;padding:24px;max-width:50%;">
+          <h3 style="font-size:16px;font-weight:800;color:#fff;margin-bottom:6px;text-shadow:0 1px 3px rgba(0,0,0,0.5);">Contact Us</h3>
+          <a href="#" style="color:#fff;font-size:11px;font-weight:700;text-decoration:underline;">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Fields: variant (light/overlay), heading, body, cta_text, cta_url, image. Common bottom-of-page block.<br>
+      <strong>PM:</strong> Used on bottom of most interior pages. Confirm which variant to use as default.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier (promotional banner) and Knox (contact CTA) have equivalent patterns. Simple reskin.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D10. QUOTE ===== -->
+<div class="comp" id="d10" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D10 &mdash; Content</div>
+      <div class="comp__name">Quote / Testimonial Block</div>
+      <span class="comp__url">Consolidates: #21 Quote Block</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--statamic">Bard Set</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="padding:24px;max-width:500px;margin:0 auto;text-align:center;">
+        <div style="font-size:32px;color:var(--red);line-height:1;">&ldquo;</div>
+        <p style="font-size:13px;font-style:italic;color:#333;line-height:1.7;margin-bottom:12px;">Quote text from a business leader about the Columbus Region.</p>
+        <div style="font-size:10px;font-weight:700;">Speaker Name</div>
+        <div style="font-size:9px;color:#888;">Title, Organization</div>
+      </div>
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both sites have pull quote patterns. Knox uses decorative icon; swap for Columbus diamond accent.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D11. FEATURE CARD GRID ===== -->
+<div class="comp" id="d11" data-roles="pm dev design" data-leverage="med">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D11 &mdash; Content</div>
+      <div class="comp__name">Feature Card Grid (2x2)</div>
+      <span class="comp__url">Consolidates: #12 Feature Card Grid</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--leverage-med">Medium Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="padding-top:12px;border-top:3px solid var(--red);">
+          <h4 style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px;">Cost</h4>
+          <p style="font-size:10px;color:#555;line-height:1.6;margin-bottom:8px;">10% lower than the national average.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        </div>
+        <div style="padding-top:12px;border-top:3px solid var(--red);">
+          <h4 style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px;">Market Access</h4>
+          <p style="font-size:10px;color:#555;line-height:1.6;margin-bottom:8px;">60% of U.S./Canada within a day's drive.</p>
+          <a href="#" class="arrow-link" style="font-size:10px;">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Repeater of { title, body, link }. Grid layout (2x2 default, responsive to 1-col). Red top border accent on each card.
+    </div>
+    <div class="comp__leverage comp__leverage--med">
+      <strong>Leverage:</strong> Greenbrier has category tile grid, Knox has interest cards. Adapt to text-only layout with accent borders.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D12. REGION MAP ===== -->
+<div class="comp" id="d12" data-roles="pm dev design" data-leverage="new">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D12 &mdash; Content &mdash; HIGHEST COMPLEXITY</div>
+      <div class="comp__name">Region Map Section (Interactive SVG)</div>
+      <span class="comp__url">Consolidates: #18 Region Map + #30 Interactive County Map</span>
+      <div class="comp__pills">
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-new">New Build</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+        <div style="background:#e8e8e8;padding:24px;position:relative;min-height:180px;border-radius:4px;">
+          <div style="position:absolute;top:15%;left:35%;font-size:8px;color:var(--red);font-weight:700;">DELAWARE</div>
+          <div style="position:absolute;top:45%;left:38%;font-size:8px;color:var(--red);font-weight:700;">FRANKLIN</div>
+          <div style="position:absolute;top:70%;left:30%;font-size:8px;color:var(--red);font-weight:700;">PICKAWAY</div>
+          <div style="position:absolute;top:30%;left:8%;font-size:8px;color:var(--red);font-weight:700;">UNION</div>
+          <div style="position:absolute;top:30%;right:10%;font-size:8px;color:var(--red);font-weight:700;">KNOX</div>
+          <div style="text-align:center;font-size:9px;color:#999;margin-top:150px;">[Interactive SVG Map &mdash; 11 Counties]</div>
+        </div>
+        <div style="background:var(--red);padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:center;border-radius:4px;">
+          <h3 style="font-size:18px;font-weight:800;margin-bottom:8px;">Economic Development</h3>
+          <p style="font-size:10px;opacity:0.9;margin-bottom:12px;">11-county region with robust infrastructure.</p>
+          <div style="display:flex;gap:20px;margin-bottom:12px;">
+            <div><div style="font-size:24px;font-weight:800;">$10B</div><div style="font-size:7px;text-transform:uppercase;opacity:0.8;">Capital Investment</div></div>
+            <div><div style="font-size:24px;font-weight:800;">$2B</div><div style="font-size:7px;text-transform:uppercase;opacity:0.8;">New Payroll</div></div>
+          </div>
+          <div><span class="btn" style="font-size:9px;padding:6px 14px;">Learn More</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes" style="background:#fef2f2;border-color:#fecaca;">
+      <strong>&#9888; Risk Factor:</strong> Most complex component. Requires custom SVG map of 11 counties with hover states, click-to-navigate, and paired content panel. No Statamic precedent. <strong>Estimate: 16&ndash;20 hours.</strong><br>
+      <strong>Developer:</strong> SVG paths for each county. JS hover + click handlers. Data pulled from Counties collection. Consider: could a simpler grid/list replace this?<br>
+      <strong>PM:</strong> Prioritize this in early sprints to de-risk. Confirm if interactive map is essential or if a clickable grid suffices.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D13. NEWS / BLOG CARD ===== -->
+<div class="comp" id="d13" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D13 &mdash; Card</div>
+      <div class="comp__name">News / Blog Card (3 variants)</div>
+      <span class="comp__url">Consolidates: #22 News Card + #23 Press Release Card + #24 News Feed Card</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--collection">Collection</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div>
+          <div class="img-placeholder" style="height:120px;margin-bottom:8px;"></div>
+          <div style="font-size:9px;color:#888;margin-bottom:3px;">Jan 16, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Wexner Medical Center Opens Tower</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:6px;">Brief excerpt from the article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div>
+          <div class="img-placeholder" style="height:120px;margin-bottom:8px;"></div>
+          <div style="font-size:9px;color:#888;margin-bottom:3px;">Jan 15, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">United Airlines Adds LA Nonstop</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:6px;">Brief excerpt from the article...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ MORE</a>
+        </div>
+        <div style="border-top:3px solid var(--red);padding-top:10px;">
+          <div style="font-size:9px;color:#888;margin-bottom:3px;">Jan 14, 2026</div>
+          <h4 style="font-size:13px;font-weight:700;margin-bottom:6px;line-height:1.3;">Press Release: Major Expansion Announced</h4>
+          <p style="font-size:10px;color:#555;line-height:1.5;margin-bottom:6px;">Brief excerpt...</p>
+          <a href="#" style="font-size:10px;color:var(--teal);text-decoration:underline;font-weight:600;">READ FULL STORY</a>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> One Card partial with variants: with_image (news/blog), text_only (press release), large_image (featured). Fields: title, date, excerpt, image, category, url.<br>
+      <strong>PM:</strong> Three Statamic collections: News, Blog, Press Releases. Confirm if these remain separate or merge into one "Content Hub."
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier (editorial cards) and Knox (event + editorial cards) have card grids. Port Knox's card pattern.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D14. EMPLOYER CARD ===== -->
+<div class="comp" id="d14" data-roles="pm dev design" data-leverage="new">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D14 &mdash; Card</div>
+      <div class="comp__name">Employer Card (Filterable)</div>
+      <span class="comp__url">Consolidates: #27 Employer Card</span>
+      <div class="comp__pills">
+        <span class="pill pill--collection">Collection</span>
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-new">New Build</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border:1px solid #e0e0e0;padding:16px;border-radius:4px;text-align:center;">
+          <div style="width:80px;height:40px;background:#f0f0f0;margin:0 auto 10px;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">LOGO</div>
+          <h4 style="font-size:12px;font-weight:700;margin-bottom:6px;">Company Name</h4>
+          <div style="font-size:9px;color:#888;line-height:1.6;">
+            <div>12,000 employees</div>
+            <div>Industry: Technology</div>
+            <div>HQ: Columbus, Franklin Co.</div>
+          </div>
+        </div>
+        <div style="border:1px solid #e0e0e0;padding:16px;border-radius:4px;text-align:center;">
+          <div style="width:80px;height:40px;background:#f0f0f0;margin:0 auto 10px;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">LOGO</div>
+          <h4 style="font-size:12px;font-weight:700;margin-bottom:6px;">Company Name</h4>
+          <div style="font-size:9px;color:#888;line-height:1.6;">
+            <div>5,000 employees</div>
+            <div>Industry: Finance</div>
+            <div>Office: Dublin, Franklin Co.</div>
+          </div>
+        </div>
+        <div style="border:1px solid #e0e0e0;padding:16px;border-radius:4px;text-align:center;">
+          <div style="width:80px;height:40px;background:#f0f0f0;margin:0 auto 10px;border:1px solid #ddd;display:flex;align-items:center;justify-content:center;font-size:8px;color:#999;">LOGO</div>
+          <h4 style="font-size:12px;font-weight:700;margin-bottom:6px;">Company Name</h4>
+          <div style="font-size:9px;color:#888;line-height:1.6;">
+            <div>3,000 employees</div>
+            <div>Industry: Healthcare</div>
+            <div>HQ: Westerville, Franklin Co.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes" style="background:#fef2f2;border-color:#fecaca;">
+      <strong>Developer:</strong> Statamic Collection ("Employers") with fields: company_name, logo, employee_count, industry (taxonomy), operation_type, city, county, website. Filterable grid with JS-powered filter bar.<br>
+      <strong>PM:</strong> Confirm data source for employer list. Current site has Fortune 1000 + Largest Employers sections. Determine how many entries to migrate.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D15. COUNTY CARD + MAP ===== -->
+<div class="comp" id="d15" data-roles="pm dev design" data-leverage="new">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D15 &mdash; Card &mdash; HIGH COMPLEXITY</div>
+      <div class="comp__name">County Card + Interactive Map</div>
+      <span class="comp__url">Consolidates: #25 County Snapshot + #26 City Card + #29 County Tab Bar</span>
+      <div class="comp__pills">
+        <span class="pill pill--collection">Collection</span>
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-new">New Build</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
+        <span style="padding:6px 14px;font-size:10px;font-weight:600;background:var(--red);color:#fff;border-radius:4px;">Franklin</span>
+        <span style="padding:6px 14px;font-size:10px;font-weight:600;border:1px solid #ddd;border-radius:4px;color:#555;">Delaware</span>
+        <span style="padding:6px 14px;font-size:10px;font-weight:600;border:1px solid #ddd;border-radius:4px;color:#555;">Fairfield</span>
+        <span style="padding:6px 14px;font-size:10px;font-weight:600;border:1px solid #ddd;border-radius:4px;color:#555;">Licking</span>
+        <span style="padding:6px 14px;font-size:10px;font-weight:600;border:1px solid #ddd;border-radius:4px;color:#555;">+ 7 more</span>
+      </div>
+      <div style="border:1px solid #e0e0e0;padding:16px;border-radius:4px;">
+        <h4 style="font-size:14px;font-weight:700;margin-bottom:8px;">Franklin County</h4>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:10px;color:#555;">
+          <div><strong>Population:</strong> 1,323,807</div>
+          <div><strong>Median Age:</strong> 33.4</div>
+          <div><strong>Notable Cities:</strong> Columbus, Dublin, Westerville, Hilliard</div>
+          <div><strong>Major Employers:</strong> Ohio State, JPMorgan Chase, Nationwide</div>
+        </div>
+        <a href="#" class="arrow-link" style="font-size:10px;margin-top:10px;display:inline-block;">Explore Franklin County &rarr;</a>
+      </div>
+    </div>
+    <div class="comp__notes" style="background:#fef2f2;border-color:#fecaca;">
+      <strong>&#9888; Risk Factor:</strong> Second most complex component. Tab bar + snapshot detail + optional SVG map integration. <strong>Estimate: 14&ndash;18 hours.</strong><br>
+      <strong>Developer:</strong> Counties Collection with fields: name, population, median_age, cities[], employers[], snapshot_image, detail_slug. Tab bar drives the visible county snapshot panel.<br>
+      <strong>PM:</strong> 11 counties. Confirm data accuracy and which fields to display. Consider: do city cards need their own sub-collection?
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D16. TEAM MEMBER CARD ===== -->
+<div class="comp" id="d16" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D16 &mdash; Card</div>
+      <div class="comp__name">Team Member Card</div>
+      <span class="comp__url">Consolidates: #28 Team Member Card</span>
+      <div class="comp__pills">
+        <span class="pill pill--collection">Collection</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+        <div style="text-align:center;">
+          <div style="width:80px;height:80px;border-radius:50%;background:#e8e8e8;margin:0 auto 8px;border:1px solid #ccc;"></div>
+          <div style="font-size:12px;font-weight:700;">Jane Smith</div>
+          <div style="font-size:9px;color:#888;">VP, Economic Development</div>
+          <div style="font-size:9px;color:#888;">One Columbus</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:80px;height:80px;border-radius:50%;background:#e8e8e8;margin:0 auto 8px;border:1px solid #ccc;"></div>
+          <div style="font-size:12px;font-weight:700;">John Doe</div>
+          <div style="font-size:9px;color:#888;">Director, Talent Strategy</div>
+          <div style="font-size:9px;color:#888;">Columbus Partnership</div>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Team Collection with fields: name, title, organization, headshot, leadership_flag, email. Grid layout with circular headshot.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier (staff list) and Knox (staff profile with photo) have team patterns. Port and simplify to grid card.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D17. ARTICLE DETAIL ===== -->
+<div class="comp" id="d17" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D17 &mdash; Template</div>
+      <div class="comp__name">Article Detail Layout</div>
+      <span class="comp__url">Consolidates: #32 Article Detail + #33 Plain Text Page</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Template</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="max-width:600px;">
+        <div style="font-size:9px;color:#888;margin-bottom:4px;">January 16, 2026 &middot; News</div>
+        <h2 style="font-size:22px;font-weight:800;margin-bottom:12px;line-height:1.2;">Article Headline Goes Here</h2>
+        <div class="img-placeholder" style="height:200px;margin-bottom:16px;"></div>
+        <p style="font-size:12px;color:#555;line-height:1.8;margin-bottom:12px;">Article body content with rich text formatting, inline images, and embedded media. Uses Statamic Bard for content authoring.</p>
+        <p style="font-size:12px;color:#555;line-height:1.8;">Additional paragraph with continued content...</p>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Statamic Bard-powered article template. Standard: date, title, hero_image, body (Bard), category, related_articles. Plain text pages use same layout without date/category.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both reference sites have editorial detail templates with Bard. Direct port.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D18. LISTING + PAGINATION ===== -->
+<div class="comp" id="d18" data-roles="pm dev design" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D18 &mdash; Template</div>
+      <div class="comp__name">Listing + Pagination</div>
+      <span class="comp__url">Consolidates: #31 Scroll-to-Page Nav + pagination patterns</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Template</span>
+        <span class="pill pill--interactive">Interactive</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:flex;justify-content:center;gap:6px;padding:16px 0;">
+        <span style="padding:6px 10px;font-size:11px;font-weight:700;background:var(--red);color:#fff;border-radius:4px;">1</span>
+        <span style="padding:6px 10px;font-size:11px;border:1px solid #ddd;border-radius:4px;color:#555;">2</span>
+        <span style="padding:6px 10px;font-size:11px;border:1px solid #ddd;border-radius:4px;color:#555;">3</span>
+        <span style="padding:6px 10px;font-size:11px;border:1px solid #ddd;border-radius:4px;color:#555;">...</span>
+        <span style="padding:6px 10px;font-size:11px;border:1px solid #ddd;border-radius:4px;color:#555;">46</span>
+        <span style="padding:6px 10px;font-size:11px;border:1px solid #ddd;border-radius:4px;color:#555;">Next &rarr;</span>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> Statamic's built-in pagination with Antlers tags. Remove the existing scroll-to-page-navigation JS (potential a11y/SEO issue). Standard previous/next + numbered pages.<br>
+      <strong>PM:</strong> Current site has 56 pages of blog posts, 46 pages of press releases. Confirm items-per-page (currently 9).
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Both Greenbrier (event pagination) and Knox (event pagination) have identical patterns. Statamic handles this natively.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D19. HUBSPOT FORM ===== -->
+<div class="comp" id="d19" data-roles="pm dev" data-leverage="high">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D19 &mdash; Form</div>
+      <div class="comp__name">HubSpot Form Embed</div>
+      <span class="comp__url">Consolidates: #35 HubSpot Contact Form</span>
+      <div class="comp__pills">
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="max-width:400px;background:#f8f8f8;padding:20px;border-radius:4px;">
+        <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;">Get in Touch</h3>
+        <div style="margin-bottom:8px;"><input type="text" placeholder="First Name" style="width:100%;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;"></div>
+        <div style="margin-bottom:8px;"><input type="text" placeholder="Last Name" style="width:100%;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;"></div>
+        <div style="margin-bottom:8px;"><input type="email" placeholder="Email" style="width:100%;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;"></div>
+        <div style="margin-bottom:8px;"><textarea placeholder="Message" style="width:100%;height:60px;border:1px solid #ccc;padding:8px;font-size:10px;"></textarea></div>
+        <button class="btn btn--red" style="font-size:10px;width:100%;text-align:center;">Submit</button>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> HubSpot JS embed (portal: 44904048). Styled with Columbus Region CSS overrides. Knox uses same HubSpot pattern (portal: 44561269).<br>
+      <strong>PM:</strong> Confirm which HubSpot forms to keep. Current: Contact form + newsletter. Evaluate if Statamic native forms could replace any.
+    </div>
+    <div class="comp__leverage comp__leverage--high">
+      <strong>Leverage:</strong> Knox uses HubSpot for all forms on Statamic. Direct pattern match &mdash; same embed approach.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D20. NEWSLETTER SIGNUP ===== -->
+<div class="comp" id="d20" data-roles="pm dev design" data-leverage="med">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D20 &mdash; Form</div>
+      <div class="comp__name">Newsletter Signup (2 variants)</div>
+      <span class="comp__url">Consolidates: #34 Newsletter Signup Bar + #36 Inline Email Signup</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--leverage-med">Medium Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <span class="comp__variant-label">Footer Inline Variant</span>
+      <div style="display:flex;gap:4px;max-width:300px;">
+        <input type="email" placeholder="Email" style="flex:1;height:32px;border:1px solid #ccc;padding:0 8px;font-size:10px;">
+        <button style="background:var(--teal);color:#fff;border:none;padding:0 14px;font-size:10px;font-weight:700;">SIGN UP</button>
+      </div>
+      <span class="comp__variant-label">Full-Width Bar Variant</span>
+      <div style="background:var(--teal);padding:16px 20px;color:#fff;display:flex;align-items:center;gap:16px;border-radius:4px;">
+        <div style="font-size:12px;font-weight:700;">Subscribe to Columbus Region News</div>
+        <div style="display:flex;gap:4px;flex:1;max-width:300px;">
+          <input type="email" placeholder="Email" style="flex:1;height:32px;border:none;padding:0 8px;font-size:10px;">
+          <button style="background:#fff;color:var(--teal);border:none;padding:0 14px;font-size:10px;font-weight:700;">SIGN UP</button>
+        </div>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Developer:</strong> HubSpot embed or native Statamic form with webhook. Two layout variants: inline (footer) and full-width bar (mid-page).
+    </div>
+    <div class="comp__leverage comp__leverage--med">
+      <strong>Leverage:</strong> Both reference sites have newsletter signup. Greenbrier's footer signup is closest. Customize for Columbus styling.
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== D21 & D22. ATOMS ===== -->
+<div class="comp" id="d21" data-roles="dev design" data-leverage="med">
+  <div class="comp__header">
+    <div class="comp__header-left">
+      <div class="comp__number">D21 &amp; D22 &mdash; Atoms</div>
+      <div class="comp__name">CTA Button + Arrow Link</div>
+      <span class="comp__url">Consolidates: #37 CTA Button + #38 Arrow Link</span>
+      <div class="comp__pills">
+        <span class="pill pill--global">Reusable</span>
+        <span class="pill pill--leverage-high">Heavy Leverage</span>
+      </div>
+    </div>
+    <a href="#top" class="comp__back-to-top">&uarr; Top</a>
+  </div>
+  <div class="comp__body">
+    <div class="comp__demo">
+      <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+        <span class="btn">Primary CTA</span>
+        <span class="btn btn--outline">Outline CTA</span>
+        <span class="btn btn--red">Red CTA</span>
+        <a href="#" class="arrow-link">Learn More &rarr;</a>
+      </div>
+    </div>
+    <div class="comp__notes">
+      <strong>Designer:</strong> Columbus uses pill-shaped buttons (border-radius: 9999px) on the live site. Confirm button style for redesign: pill vs. sharp corners shown in wireframe.<br>
+      <strong>Developer:</strong> Define as Tailwind/CSS utility classes. Three variants: primary (teal), outline, red. Arrow link is a text-only styled anchor.
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================ -->
+<!-- STATAMIC PLATFORM SECTION -->
+<!-- ============================================================ -->
+
+<div class="section-header" id="statamic-collections" style="border-left:4px solid var(--orange);">
+  <h2>6. Statamic Collections &amp; Taxonomies</h2>
+  <p>Data architecture for the Statamic rebuild</p>
+</div>
+
+<div class="comp" style="border-left:4px solid var(--orange);">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Collection / Taxonomy</th>
+          <th>Type</th>
+          <th>Est. Entries</th>
+          <th>Key Fields</th>
+          <th>Reference Precedent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>News</strong></td><td><span class="pill pill--collection">Collection</span></td><td>200+</td><td>title, date, excerpt, body (Bard), image, category</td><td>Greenbrier editorials, Knox editorials</td></tr>
+        <tr><td><strong>Blog</strong></td><td><span class="pill pill--collection">Collection</span></td><td>500+</td><td>title, date, excerpt, body (Bard), image, category</td><td>Greenbrier editorials, Knox editorials</td></tr>
+        <tr><td><strong>Press Releases</strong></td><td><span class="pill pill--collection">Collection</span></td><td>400+</td><td>title, date, excerpt, body (Bard), pdf_attachment</td><td>Greenbrier press room</td></tr>
+        <tr><td><strong>Counties</strong></td><td><span class="pill pill--collection">Collection</span></td><td>11</td><td>name, population, median_age, cities[], employers[], snapshot_image, map_svg_id</td><td>Knox communities (partial)</td></tr>
+        <tr><td><strong>Employers</strong></td><td><span class="pill pill--collection">Collection</span></td><td>100+</td><td>company_name, logo, employee_count, industry, operation_type, city, county, website</td><td>None</td></tr>
+        <tr><td><strong>Team / Staff</strong></td><td><span class="pill pill--collection">Collection</span></td><td>20&ndash;40</td><td>name, title, organization, headshot, email, leadership_flag</td><td>Greenbrier staff, Knox staff</td></tr>
+        <tr><td><strong>Project Announcements</strong></td><td><span class="pill pill--collection">Collection</span></td><td>200+</td><td>company, year, type, jobs_created, facility_type, city, county, hq_location</td><td>None</td></tr>
+        <tr><td><strong>Industries</strong></td><td><span class="pill pill--taxonomy">Taxonomy</span></td><td>7</td><td>name, description, icon, detail_page_slug</td><td>Knox place categories (partial)</td></tr>
+        <tr><td><strong>Operations</strong></td><td><span class="pill pill--taxonomy">Taxonomy</span></td><td>5</td><td>name, description, detail_page_slug</td><td>Knox place categories (partial)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section-header" id="statamic-integrations" style="border-left:4px solid var(--orange);">
+  <h2>7. Integrations &amp; Third-Party Services</h2>
+  <p>Services to keep, replace, or remove</p>
+</div>
+
+<div class="comp" style="border-left:4px solid var(--orange);">
+  <div class="comp__body" style="overflow-x:auto;">
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Service</th>
+          <th>Current</th>
+          <th>Recommendation</th>
+          <th>Reference Sites</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>HubSpot</strong></td><td>Forms + CRM (portal 44904048)</td><td>Keep &mdash; embed forms in Statamic templates</td><td>Knox uses HubSpot (portal 44561269)</td></tr>
+        <tr><td><strong>Google Tag Manager</strong></td><td>GTM-K2V4MWS</td><td>Keep &mdash; standard integration</td><td>Both sites use GTM</td></tr>
+        <tr><td><strong>Google Analytics</strong></td><td>UA-5359122-5</td><td>Migrate to GA4 if not done</td><td>Both sites on GA4</td></tr>
+        <tr><td><strong>Weglot</strong></td><td>6 languages</td><td>Evaluate &mdash; confirm if still needed</td><td>Neither reference site uses translation</td></tr>
+        <tr><td><strong>iFrame Embeds</strong></td><td>19+ on Economy page</td><td>Audit &mdash; reduce or replace with native charts</td><td>Neither reference site uses iFrames heavily</td></tr>
+        <tr><td><strong>Schema.org</strong></td><td>FAQPage, Organization</td><td>Expand &mdash; add Article, BreadcrumbList, LocalBusiness</td><td>Knox has basic schema</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="section-header" id="statamic-globals" style="border-left:4px solid var(--orange);">
+  <h2>8. Statamic Globals &amp; Configuration</h2>
+  <p>Site-level settings managed in Statamic Globals</p>
+</div>
+
+<div class="comp" style="border-left:4px solid var(--orange);">
+  <div class="comp__body">
+    <table class="summary-table">
+      <thead>
+        <tr><th>Global Set</th><th>Fields</th><th>Used By</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Site Settings</strong></td><td>site_name, logo, address, phone, social_links[], partner_org_links[]</td><td>Header, Footer, Utility Bar</td></tr>
+        <tr><td><strong>SEO Defaults</strong></td><td>default_meta_title, default_meta_description, og_image, twitter_card</td><td>All pages (head)</td></tr>
+        <tr><td><strong>Analytics</strong></td><td>gtm_id, ga4_id, hubspot_portal_id</td><td>All pages (scripts)</td></tr>
+        <tr><td><strong>Contact Info</strong></td><td>email, phone, address, contact_form_id</td><td>Contact CTA, Footer, Contact Page</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ===== KEY DECISIONS SECTION ===== -->
+<div class="section-header" id="key-decisions">
+  <h2>9. Key Consolidation Decisions</h2>
+  <p>Rationale for component merges</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="font-size:12px;line-height:1.7;">
+    <p><strong>Heroes (3 &rarr; 1):</strong> Full-width overlay, half-width block, and counties hero are all variants of one hero component with configurable panel position, color, and optional form/dropdown.</p>
+    <p style="margin-top:8px;"><strong>Accordions (3 &rarr; 1):</strong> Dark BG (Industries), Light BG (Operations), and FAQ are one component with theme toggle, optional paired image, and optional stats panel.</p>
+    <p style="margin-top:8px;"><strong>Content Blocks (2 &rarr; 1):</strong> Alternating Content and Two-Column Content are one component with an image_position field.</p>
+    <p style="margin-top:8px;"><strong>Stats (2 &rarr; 1):</strong> Stats Panel and Stats Callout Bar are one component with a layout variant (inline vs. centered).</p>
+    <p style="margin-top:8px;"><strong>Contact CTAs (2 &rarr; 1):</strong> Light Background and Image Overlay are one component with a variant toggle.</p>
+    <p style="margin-top:8px;"><strong>News Cards (3 &rarr; 1):</strong> News Card, Press Release Card, and News Feed Card are one card partial with show_image and layout options.</p>
+    <p style="margin-top:8px;"><strong>Counties (3 &rarr; 1):</strong> County Snapshot, City Card, and County Tab Bar merge into one County system powered by the Counties collection.</p>
+    <p style="margin-top:8px;"><strong>Newsletter (2 &rarr; 1):</strong> Signup Bar and Inline Email merge into one component with layout variants.</p>
+  </div>
+</div>
+
+
+<!-- ===== RISK FACTORS ===== -->
+<div class="section-header" id="risk-factors">
+  <h2>10. Risk Factors</h2>
+  <p>Items requiring early attention or client decisions</p>
+</div>
+
+<div class="comp">
+  <div class="comp__body" style="font-size:12px;line-height:1.7;">
+    <p style="color:#dc2626;font-weight:600;">&#9888; Interactive County Map (D12) &mdash; 16&ndash;20 hours</p>
+    <p style="margin-bottom:12px;">Custom SVG with 11 county paths, hover states, click navigation. No Statamic precedent. Prioritize early in sprint to de-risk. Consider: could a clickable grid of county cards replace the interactive map?</p>
+
+    <p style="color:#dc2626;font-weight:600;">&#9888; County Tab System (D15) &mdash; 14&ndash;18 hours</p>
+    <p style="margin-bottom:12px;">11-county tab bar + dynamic snapshot panel + optional map integration. Complex data relationships between counties, cities, and employers.</p>
+
+    <p style="color:#f59e0b;font-weight:600;">&#9679; iFrame Audit (Economy Page)</p>
+    <p style="margin-bottom:12px;">19 iframes detected on Economy page. Many may be outdated embeds. Audit before migration &mdash; replacing with native components could improve performance significantly.</p>
+
+    <p style="color:#f59e0b;font-weight:600;">&#9679; Weglot Translation</p>
+    <p style="margin-bottom:12px;">Current site supports 6 languages. Neither reference site uses translation. Confirm with client if multilingual support is still required.</p>
+
+    <p style="color:#f59e0b;font-weight:600;">&#9679; Project Announcements Filter</p>
+    <p style="margin-bottom:12px;">Multi-faceted filtering (year, type, jobs, facility, location). Most complex collection query. Evaluate if Statamic's native filtering + Alpine.js is sufficient or if Algolia/search integration is needed.</p>
+
+    <p style="color:#059669;font-weight:600;">&#10004; Recommendation</p>
+    <p>Proceed with the 160&ndash;200 hour estimate. Prioritize the Interactive Map (D12) and County System (D15) in Sprint 1. The 13 heavy-leverage components represent 59% of the build and can be ported quickly from Greenbrier/Knox codebases.</p>
+  </div>
+</div>
+
+
+</main>
+</div>
+
+<!-- ===== SCROLL HIGHLIGHT JS ===== -->
+<script>
+// Sidebar active link on scroll
+const sections = document.querySelectorAll('[id]');
+const tocLinks = document.querySelectorAll('.sidebar a[href^="#"]');
+
+function updateActiveLink() {
+  let current = '';
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 120) current = section.id;
+  });
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+  });
+}
+window.addEventListener('scroll', updateActiveLink, { passive: true });
+updateActiveLink();
+
+// Filter buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const filter = btn.dataset.filter;
+    const allBtns = document.querySelectorAll('.filter-btn');
+
+    if (filter === 'all') {
+      allBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.comp[data-roles]').forEach(c => c.style.display = '');
+      return;
+    }
+
+    // Toggle individual filter
+    btn.classList.toggle('active');
+    document.querySelector('[data-filter="all"]').classList.remove('active');
+
+    const activeFilters = [...document.querySelectorAll('.filter-btn.active')].map(b => b.dataset.filter);
+
+    if (activeFilters.length === 0) {
+      document.querySelector('[data-filter="all"]').classList.add('active');
+      document.querySelectorAll('.comp[data-roles]').forEach(c => c.style.display = '');
+      return;
+    }
+
+    document.querySelectorAll('.comp[data-roles]').forEach(comp => {
+      const roles = comp.dataset.roles || '';
+      const leverage = comp.dataset.leverage || '';
+      const matchesRole = activeFilters.some(f => roles.includes(f));
+      const matchesLeverage = activeFilters.some(f => f.startsWith('leverage-') && f.replace('leverage-', '') === leverage);
+      const hasRoleFilter = activeFilters.some(f => !f.startsWith('leverage-'));
+      const hasLeverageFilter = activeFilters.some(f => f.startsWith('leverage-'));
+
+      let show = true;
+      if (hasRoleFilter && !matchesRole) show = false;
+      if (hasLeverageFilter && !matchesLeverage) show = false;
+
+      comp.style.display = show ? '' : 'none';
+    });
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>
