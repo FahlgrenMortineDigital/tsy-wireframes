@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, follow"><!-- paid-campaign LP: keep out of organic index, message-match the ad -->
+  <title>Columbus Region — Advanced Manufacturing Campaign Landing Page (Wireframe)</title>
+  <style>
+    /* ================= BRAND FONTS (embedded from /Fonts) ================= */
+    @font-face {
+      font-family: 'Korolev Condensed';
+      src: url('Fonts/Korolev Condensed W04 Heavy/Web Fonts/088f0f02003283a4a8e6329066cee6c5.woff2') format('woff2'),
+           url('Fonts/Korolev Condensed W04 Heavy/Web Fonts/088f0f02003283a4a8e6329066cee6c5.woff') format('woff');
+      font-weight: 700 900; font-style: normal; font-display: swap;
+    }
+    @font-face { font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Book.otf') format('opentype'); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-BookItalic.otf') format('opentype'); font-weight: 400; font-style: italic; font-display: swap; }
+    @font-face { font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Medium.otf') format('opentype'); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Gotham'; src: url('Fonts/Gotham/Gotham-Bold.otf') format('opentype'); font-weight: 600 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: 'Freight Disp'; src: url('Fonts/Freight Disp Bold Italic/Freight Disp Bold Italic.otf') format('opentype'); font-weight: 700; font-style: italic; font-display: swap; }
+
+    /* ================= RESET / BASE ================= */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --font-head: 'Korolev Condensed', 'Arial Narrow', Arial, sans-serif;
+      --font-body: 'Gotham', Arial, Helvetica, sans-serif;
+      --font-accent: 'Freight Disp', Georgia, serif;
+      --text-xs: .75rem;   --text-sm: .875rem; --text-base: 1rem;  --text-lg: 1.125rem;
+      --text-xl: 1.25rem;  --text-2xl: 1.5rem; --text-3xl: 1.875rem; --text-4xl: 2.25rem;
+      --text-5xl: 3rem;    --text-6xl: 3.75rem; --text-7xl: 4.5rem;
+      --ink: #333; --wf-dark: #2b2b2b; --wf-mid: #666; --wf-light: #999;
+      --wf-faint: #ccc; --line: #e4e4e4; --wf-bg: #f4f4f4; --wf-bg2: #ececec;
+      --st-keep: #c5b9ff; --st-enhance: #ffaa00; --st-new: #3ccd63;
+      --max-width: 1280px;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--ink); background: #fff; font-size: var(--text-base); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: var(--font-head); text-transform: uppercase; letter-spacing: -0.03em; line-height: 1.05; font-weight: 800; }
+    a { color: inherit; }
+    .container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; width: 100%; }
+
+    /* ================= WIREFRAME ANNOTATIONS ================= */
+    .annotation { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-body);
+      font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px;
+      padding: 3px 9px; border-radius: 4px; position: absolute; z-index: 30; }
+    .annotation--anim { background: #333; color: #fff; }
+    .annotation--a11y { background: #2e6da4; color: #fff; }
+
+    .dev-note { max-width: var(--max-width); margin: 0 auto; padding: 14px 32px 16px;
+      background: #f6f6f4; border-left: 4px solid #555; font-family: var(--font-body);
+      font-size: 12px; line-height: 1.55; color: #333; }
+    .dev-note__t { display: flex; align-items: center; gap: 8px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; font-size: 11px; color: #444; margin-bottom: 8px; }
+    .dev-note__t::before { content: "DEV"; background: #2b2b2b; color: #fff; font-size: 9px;
+      padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; }
+    .dev-note ul { margin: 0 0 0 18px; }
+    .dev-note li { margin-bottom: 4px; }
+    .dev-note code { background: #e7e7e3; padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+    .dev-note a { color: #2b2b2b; font-weight: 600; }
+
+    .content-brief { max-width: var(--max-width); margin: 0 auto 6px; padding: 14px 32px 16px; background: #eef4fb; border-left: 4px solid #5b9bd5; font-family: var(--font-body); font-size: 12px; line-height: 1.55; color: #2b3a4a; }
+    .content-brief__t { display: flex; align-items: center; gap: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; font-size: 11px; color: #2c5a85; margin-bottom: 8px; }
+    .content-brief__t::before { content: "CONTENT"; background: #5b9bd5; color: #fff; font-size: 9px; padding: 2px 6px; border-radius: 3px; letter-spacing: 1px; }
+    .content-brief ul { margin: 0 0 0 18px; } .content-brief li { margin-bottom: 4px; } .content-brief b { color: #14222e; }
+
+    .section-header-bar { display: flex; align-items: center; gap: 8px; padding: 7px 32px;
+      background: #f8f8f8; border-bottom: 1px solid #eee; font-family: var(--font-body);
+      font-size: 11px; font-weight: 600; color: #666; flex-wrap: wrap; }
+    .section-num { display: inline-flex; align-items: center; justify-content: center;
+      width: 22px; height: 22px; background: #2b2b2b; color: #fff;
+      font-size: 10px; font-weight: 800; border-radius: 50%; flex-shrink: 0; }
+    .comp-badge { position: absolute; top: 8px; left: 8px; z-index: 25; display: flex; gap: 6px; flex-wrap: wrap; }
+    .comp-tag { font-size: 9px; font-weight: 700; background: #5b9bd5; color: #fff;
+      padding: 3px 9px; border-radius: 10px; text-decoration: none; white-space: nowrap;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+    .comp-tag:hover { background: #3f86c4; color: #fff; }
+
+    /* Content-status highlight + dots */
+    .hl { border-radius: 2px; padding: 0 3px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+    .hl--keep { background: var(--st-keep); }
+    .hl--enhance { background: rgba(255,170,0,0.15); }
+    .hl--new { background: var(--st-new); }
+    .sdot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .sdot--keep { background: var(--st-keep); }
+    .sdot--enhance { background: var(--st-enhance); }
+    .sdot--new { background: var(--st-new); }
+
+    /* Toggle visibility */
+    body.hide-anim .annotation--anim { display: none !important; }
+    body.hide-bars .section-header-bar { display: none !important; }
+    body.hide-comp .comp-tag { display: none !important; }
+    body.hide-status .hl { background: transparent !important; }
+    body.hide-status .sdot { display: none !important; }
+    body.hide-status .ctrl-legend .sdot { display: inline-block !important; }
+    body.hide-version .version-bar { display: none !important; }
+    body.hide-devnotes .dev-note, body.hide-devnotes .content-brief { display: none !important; }
+
+    /* ================= VERSION BAR ================= */
+    .version-bar { background: #1a1a1a; color: #aaa; font-family: var(--font-body);
+      font-size: 10px; padding: 7px 32px; display: flex; justify-content: space-between;
+      align-items: center; gap: 12px; flex-wrap: wrap; }
+    .version-bar a { color: #fff; text-decoration: none; }
+    .version-bar a:hover { text-decoration: underline; }
+
+    /* ================= BUTTONS ================= */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-family: var(--font-body); font-size: var(--text-sm); font-weight: 700;
+      letter-spacing: 0.3px; padding: 13px 26px; border-radius: 999px; cursor: pointer;
+      text-decoration: none; border: 2px solid transparent; white-space: nowrap;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+    .btn--primary { background: #fff; color: #333; }
+    .btn--primary:hover { background: #ececec; }
+    .btn--dark { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
+    .btn--dark:hover { background: #444; border-color: #444; }
+    .btn--accent { background: #ffaa00; color: #1a1a1a; border-color: #ffaa00; }
+    .btn--accent:hover { background: #ffb827; border-color: #ffb827; }
+    .btn--outline-light { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
+    .btn--outline-light:hover { background: rgba(255,255,255,0.14); border-color: #fff; }
+    .btn--lg { padding: 16px 34px; font-size: var(--text-base); }
+    .btn:focus-visible { outline: 2px solid #5b9bd5; outline-offset: 2px; border-radius: 999px; }
+
+    /* ================= IMAGE PLACEHOLDER ================= */
+    .img-ph { background: #e6e6e6; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; }
+    .img-ph::before, .img-ph::after { content: ''; position: absolute; background: #d2d2d2; width: 150%; height: 1px; }
+    .img-ph::before { transform: rotate(34deg); }
+    .img-ph::after { transform: rotate(-34deg); }
+    .img-ph span { position: relative; z-index: 1; font-family: var(--font-body); font-size: 11px; font-weight: 600;
+      color: #888; text-transform: uppercase; letter-spacing: 1px; background: rgba(255,255,255,0.82); padding: 5px 12px; border-radius: 4px; opacity: 0.62; }
+    .img-ph__icon { position: relative; z-index: 1; width: 46px; height: 46px; opacity: 0.55; }
+
+    /* ================= CAMPAIGN HEADER (stripped — no site nav) ================= */
+    .lp-header { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid #ededed; }
+    .lp-header__row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 13px 0; }
+    .logo { display: flex; align-items: center; gap: 5px; flex-shrink: 0; text-decoration: none; }
+    .logo__img { height: 40px; width: auto; display: block; }
+    .lp-header__actions { display: flex; align-items: center; gap: 20px; }
+    .lp-header__phone { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; color: #444; text-decoration: none; white-space: nowrap; }
+    .lp-header__phone:hover { color: #000; }
+    .lp-header__phone svg { width: 15px; height: 15px; vertical-align: -2px; margin-right: 5px; }
+
+    /* ================= HERO (c6 split — hero-with-form) ================= */
+    .hero { position: relative; overflow: hidden; background: #141414; }
+    .hero__bg { position: absolute; inset: 0; justify-content: flex-start; align-items: flex-end; padding: 16px; }
+    .hero__scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(18,18,18,0.94) 0%, rgba(18,18,18,0.86) 42%, rgba(18,18,18,0.55) 100%); }
+    .hero .container { position: relative; z-index: 3; }
+    .hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 52px; align-items: center; padding: 66px 0; min-height: 600px; }
+    .hero__eyebrow { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 700;
+      text-transform: uppercase; letter-spacing: 3px; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+    .hero__title { font-family: var(--font-head); font-size: var(--text-6xl); font-weight: 800; color: #fff; line-height: 0.98; }
+    .hero__sub { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.6;
+      color: rgba(255,255,255,0.86); margin-top: 20px; max-width: 34em; text-transform: none; font-weight: 400; }
+    .hero__trust { list-style: none; margin: 26px 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .hero__trust li { font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.92); display: flex; align-items: center; gap: 11px; }
+    .hero__trust li::before { content: "\2713"; color: #3ccd63; font-weight: 800; font-size: 15px; }
+
+    /* Lead form card */
+    .lp-form { background: #fff; border-radius: 10px; padding: 30px 28px; box-shadow: 0 22px 54px rgba(0,0,0,0.36); }
+    .lp-form__t { font-family: var(--font-head); font-size: var(--text-2xl); color: #1a1a1a; margin-bottom: 4px; }
+    .lp-form__d { font-family: var(--font-body); font-size: var(--text-sm); color: #666; margin-bottom: 18px; }
+    .lp-form__fields { display: flex; flex-direction: column; gap: 13px; }
+    .lp-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .lp-form label { font-family: var(--font-body); font-size: 12px; font-weight: 600; color: #555; display: flex; flex-direction: column; gap: 5px; }
+    .lp-form input, .lp-form select, .lp-form textarea { font-family: var(--font-body); font-size: 14px; padding: 11px 12px; border: 1px solid #ccc; border-radius: 6px; background: #fff; color: #333; width: 100%; }
+    .lp-form input:focus, .lp-form select:focus, .lp-form textarea:focus { outline: 2px solid #5b9bd5; outline-offset: 1px; border-color: #5b9bd5; }
+    .lp-form__submit { margin-top: 4px; background: #ffaa00; color: #1a1a1a; font-family: var(--font-body); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 15px 24px; border: none; border-radius: 999px; cursor: pointer; width: 100%; transition: background 0.2s ease; }
+    .lp-form__submit:hover { background: #ffb827; }
+    .lp-form__legal { font-family: var(--font-body); font-size: 11px; color: #999; line-height: 1.5; margin-top: 10px; text-align: center; }
+
+    /* ================= BODY SECTIONS ================= */
+    .sec { padding: 80px 0; }
+    .sec--alt { background: #f6f6f6; }
+    .sec--dark { background: #1a1a1a; color: #fff; }
+    .sec__eyebrow { font-family: var(--font-body); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 12px; }
+    .sec--dark .sec__eyebrow { color: rgba(255,255,255,0.55); }
+    .sec__h2 { font-size: var(--text-5xl); margin-bottom: 16px; }
+    .sec--dark .sec__h2 { color: #fff; }
+    .sec__intro { font-family: var(--font-body); font-size: var(--text-lg); line-height: 1.7; color: #555; max-width: 64ch; margin: 0 auto 44px; }
+    .sec--center { text-align: center; }
+    .sec--center .sec__intro { margin-left: auto; margin-right: auto; }
+
+    /* Stats (c10) */
+    .sec--stats { padding: 46px 0; background: #ececec; }
+    .stats__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; text-align: center; }
+    .stat__num { font-family: var(--font-head); font-size: var(--text-6xl); line-height: 1; color: #1a1a1a; }
+    .stat__label { font-family: var(--font-body); font-size: var(--text-sm); text-transform: uppercase; letter-spacing: 1.2px; color: #555; margin-top: 12px; line-height: 1.4; }
+
+    /* Feature card grid (c12) */
+    .fgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+    .fcard { border-top: 2px solid #1a1a1a; padding-top: 18px; }
+    .brand-icon { width: 46px; height: 46px; border-radius: 50%; background: #e2e2e2; color: #888;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px; }
+    .fcard h3 { font-size: var(--text-2xl); margin-bottom: 10px; }
+    .fcard p { font-family: var(--font-body); font-size: var(--text-sm); color: #555; line-height: 1.6; }
+
+    /* Company logos (proof) */
+    .logos { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; align-items: center; }
+    .logo-cell { height: 96px; background: #f2f2f2; border: 1px solid #e4e4e4; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center; color: #9a9a9a;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Quote (c21) */
+    .quote { max-width: 900px; margin: 0 auto; text-align: center; }
+    .quote__mark { font-family: var(--font-head); font-size: 64px; line-height: 0.5; color: rgba(255,255,255,0.28); }
+    .quote__text { font-family: var(--font-accent); font-style: italic; font-weight: 700; font-size: var(--text-3xl);
+      line-height: 1.3; color: #fff; margin-top: 14px; }
+    .quote__cite { font-family: var(--font-body); font-size: var(--text-sm); color: rgba(255,255,255,0.7); margin-top: 24px; text-transform: none; letter-spacing: 0; }
+    .quote__cite strong { color: #fff; }
+
+    /* Lead section (final conversion) */
+    .leadwrap { display: grid; grid-template-columns: 1fr 0.82fr; gap: 48px; align-items: start; }
+    .lead-aside { background: #f4f4f2; border: 1px solid #e2e2e2; border-radius: 10px; padding: 28px 26px; }
+    .lead-aside h3 { font-family: var(--font-head); font-size: var(--text-xl); margin-bottom: 14px; }
+    .lead-steps { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+    .lead-steps li { display: flex; gap: 13px; align-items: flex-start; font-family: var(--font-body); font-size: var(--text-sm); color: #555; line-height: 1.55; }
+    .lead-steps .n { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: #1a1a1a; color: #fff; font-family: var(--font-head); font-size: 13px; display: flex; align-items: center; justify-content: center; }
+    .lead-aside__contact { margin-top: 22px; padding-top: 18px; border-top: 1px solid #e2e2e2; font-family: var(--font-body); font-size: var(--text-sm); color: #555; }
+    .lead-aside__contact strong { color: #1a1a1a; }
+
+    /* ================= STICKY BOTTOM CTA (JobsOhio pattern) ================= */
+    .scroll-cta { position: fixed; left: 0; right: 0; bottom: 0; z-index: 90; background: #1a1a1a;
+      transform: translateY(100%); transition: transform .35s ease; box-shadow: 0 -2px 14px rgba(0,0,0,0.22); }
+    .scroll-cta.show { transform: translateY(0); }
+    .scroll-cta__inner { max-width: var(--max-width); margin: 0 auto; display: flex; align-items: center;
+      justify-content: center; gap: 22px; padding: 13px 32px; }
+    .scroll-cta__text { font-family: var(--font-body); font-weight: 700; font-size: var(--text-base); color: #fff; }
+
+    /* ================= MINIMAL FOOTER (no sitemap — reduce exits) ================= */
+    .lp-footer { background: #1a1a1a; color: rgba(255,255,255,0.6); padding: 40px 0 44px; }
+    .lp-footer__row { display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap; }
+    .lp-footer__brand img { height: 34px; width: auto; display: block; }
+    .lp-footer__links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .lp-footer__links a { color: rgba(255,255,255,0.72); text-decoration: none; font-family: var(--font-body); font-size: var(--text-xs); }
+    .lp-footer__links a:hover { color: #fff; }
+    .lp-footer__legal { width: 100%; margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.12);
+      font-family: var(--font-body); font-size: 11px; color: rgba(255,255,255,0.42); line-height: 1.6; }
+
+    /* ================= CONTROLS PALETTE ================= */
+    .controls { position: fixed; bottom: 22px; right: 22px; z-index: 200; width: 232px;
+      background: #fff; border: 1px solid #cdddf0; border-radius: 10px; box-shadow: 0 6px 24px rgba(46,91,140,0.22);
+      font-family: var(--font-body); overflow: hidden; }
+    .controls__head { background: #5b9bd5; color: #fff; padding: 11px 14px; font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .controls__body { padding: 10px 14px; }
+    .controls.collapsed .controls__body { display: none; }
+    .ctrl-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; }
+    .ctrl-row + .ctrl-row { border-top: 1px solid #f2f2f2; }
+    .ctrl-label { font-size: 11px; color: #444; }
+    .switch { position: relative; width: 34px; height: 19px; background: #d8d8d8; border-radius: 10px; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+    .switch.active { background: #5b9bd5; }
+    .switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 15px; height: 15px; background: #fff; border-radius: 50%; transition: 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.25); }
+    .switch.active::after { transform: translateX(15px); }
+    .ctrl-legend { margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; }
+    .ctrl-legend__t { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 7px; }
+    .ctrl-legend__row { display: flex; align-items: center; gap: 8px; font-size: 10px; color: #555; padding: 2px 0; }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 1080px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 34px; padding: 48px 0; min-height: 0; }
+      .hero__scrim { background: rgba(18,18,18,0.9); }
+      .hero__title { font-size: var(--text-5xl); }
+      .fgrid { grid-template-columns: repeat(2, 1fr); }
+      .logos { grid-template-columns: repeat(3, 1fr); }
+      .leadwrap { grid-template-columns: 1fr; }
+      .lead-aside { order: -1; }
+    }
+    @media (max-width: 760px) {
+      .container { padding: 0 20px; }
+      .lp-header__phone span { display: none; }
+      .hero__title { font-size: var(--text-4xl); }
+      .hero__sub { font-size: var(--text-base); }
+      .lp-form { padding: 24px 20px; }
+      .lp-form__row { grid-template-columns: 1fr; }
+      .sec { padding: 54px 0; }
+      .sec__h2 { font-size: var(--text-4xl); }
+      .stats__grid { grid-template-columns: 1fr; gap: 30px; }
+      .stat__num { font-size: var(--text-5xl); }
+      .fgrid { grid-template-columns: 1fr; }
+      .logos { grid-template-columns: repeat(2, 1fr); }
+      .quote__text { font-size: var(--text-2xl); }
+      .lp-footer__row { flex-direction: column; align-items: flex-start; }
+      .section-header-bar { padding: 7px 20px; }
+      .version-bar { padding: 7px 20px; font-size: 9px; }
+      .scroll-cta { transform: translateY(0) !important; }   /* always visible on mobile */
+      .scroll-cta__inner { padding: 10px 14px; gap: 12px; }
+      .scroll-cta__text { display: block; flex: 1; font-size: var(--text-xs); line-height: 1.25; }
+      .scroll-cta .btn { flex: none; padding: 11px 16px; font-size: var(--text-xs); }
+      .controls { display: none; }
+    }
+    @media print { .controls, .version-bar, .scroll-cta { display: none !important; } }
+  </style>
+</head>
+<body id="top" class="hide-anim hide-bars hide-comp hide-version hide-devnotes hide-status">
+
+<!-- ===== VERSION BAR ===== -->
+<div class="version-bar">
+  <span>WIREFRAME &middot; Columbus Region &middot; Campaign Landing Page &rsaquo; Advanced Manufacturing &middot; <span class="sdot sdot--new"></span> New &middot; v1 &middot; July 2026</span>
+  <span><a href="project-components.html">Component Library</a> &middot; <a href="project-components-details.html">Dev Assessment</a></span>
+</div>
+
+<!-- ============================================================ -->
+<!-- SECTION 1 — CAMPAIGN HEADER (stripped: no global nav) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">1</span> Campaign Header &mdash; logo + single CTA, <strong style="margin-left:4px;">no site navigation</strong>
+</div>
+<div class="content-brief">
+  <div class="content-brief__t">Landing-page conversion strategy</div>
+  <ul>
+    <li><b>Standalone paid-campaign page</b> at <code>campaigns.columbusregion.com/advanced-manufacturing</code> &mdash; served on the campaign subdomain, <b>not linked from any site navigation</b>, and set <code>noindex</code> so paid traffic (search/social/display ads targeting site selectors) lands here with tight message-match.</li>
+    <li><b>Single conversion goal:</b> every CTA on the page funnels to one action &mdash; <b>&ldquo;Connect with an expert&rdquo;</b> (the lead form). No competing links, no mega-menu, no footer sitemap &mdash; landing-page best practice is to remove exit points that leak the click.</li>
+    <li><b>Above-the-fold form:</b> the primary lead form sits in the hero so a qualified visitor can convert without scrolling; the sticky bottom bar + a repeated form at the base capture everyone else.</li>
+    <li><b>Persuasion order (proven LP structure):</b> benefit headline &rarr; form &rarr; value prop &rarr; hard proof (stats) &rarr; sector depth &rarr; brand-name proof (employers) &rarr; testimonial &rarr; final CTA + reassurance.</li>
+    <li><b>Content source:</b> live campaign page <code>campaigns.columbusregion.com/advanced-manufacturing</code> (One Columbus). Stats, sectors, employer logos, and the testimonial are pulled from that page; the headline is optimized for ad message-match. All copy is <span class="sdot sdot--new"></span> newly written for this template.</li>
+  </ul>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Campaign Header &mdash; new component (<code>c-lp-header</code>) &middot; Light build (1–2 hrs)</div>
+  <ul>
+    <li><strong>Build:</strong> a stripped Statamic entry type <code>campaign_landing</code> with its own minimal layout &mdash; logo (Global asset) links to home in a new tab only; a single phone/CTA on the right. Deliberately <strong>omits</strong> <a href="project-components.html#c1">c1</a> utility bar, <a href="project-components.html#c2">c2/c3/c4</a> nav + drawer, and the full <a href="project-components.html#c5">c5</a> footer.</li>
+    <li><strong>Message match:</strong> H1, hero image, and form heading should echo the ad creative and keyword (e.g. &ldquo;advanced manufacturing site selection&rdquo;) &mdash; editable per campaign so Marketing can spin up <a href="campaign-advanced-manufacturing.html">variants</a> (Automotive &amp; Mobility, Logistics &amp; eCommerce, Life Sciences) from the same template.</li>
+    <li><strong>Analytics:</strong> GA4 + conversion pixel on form submit; sticky-CTA and hero-CTA as separate events to attribute which converts.</li>
+  </ul>
+</div>
+<header class="lp-header">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c2">c-lp-header · Campaign Header</a></div>
+  <div class="container">
+    <div class="lp-header__row">
+      <a href="homepage-wireframe.html" class="logo" target="_blank" rel="noopener">
+        <img src="images/cbus-region-logo-blkack.png" alt="The Columbus Region" class="logo__img">
+      </a>
+      <div class="lp-header__actions">
+        <a href="tel:6142250500" class="lp-header__phone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>614-225-0500</span></a>
+        <a href="#lead-form" class="btn btn--dark">Connect With Us</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 — HERO WITH LEAD FORM (c6 split, hero-with-form variant) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">2</span> Hero + Lead Form
+  <span class="annotation annotation--anim" style="position:relative;">Form above the fold</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Hero + Form &mdash; <a href="project-components.html#c6">c6</a> (hero-with-form variant) + <a href="project-components.html#c35">c35</a> HubSpot form</div>
+  <ul>
+    <li><strong>Build:</strong> full-bleed background image (Statamic asset, art-directed crop) with a left-weighted dark scrim so white text stays AA-legible; benefit H1 + subhead on the left, embedded <a href="project-components.html#c35">c35</a> HubSpot form on the right.</li>
+    <li><strong>Form:</strong> short-form for high conversion &mdash; Name, Work Email, Company, Interest, optional Message. HubSpot form GUID per campaign; hidden fields carry <code>utm_source/medium/campaign</code> and the ad keyword for closed-loop attribution.</li>
+    <li><strong>Trust bullets</strong> under the copy reduce form friction (no cost, confidential, fast response).</li>
+  </ul>
+</div>
+<section class="hero">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c6">c6 · Split Hero</a> <a class="comp-tag" href="project-components.html#c35">c35 · Lead Form</a></div>
+  <div class="hero__bg img-ph" aria-hidden="true">
+    <svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M4 21V9l7-4 7 4v12"/><path d="M9 21v-6h4v6"/><path d="M9 11h.01M13 11h.01"/></svg>
+    <span>Hero Image &mdash; Full Bleed</span>
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__copy">
+        <div class="hero__eyebrow">Advanced Manufacturing &middot; Columbus Region</div>
+        <h1 class="hero__title"><span class="hl hl--new">Build the Future of Advanced Manufacturing in the Columbus Region</span></h1>
+        <p class="hero__sub"><span class="hl hl--new">Connect with our team to access the resources, sites, and support to grow your business in the Columbus Region.</span></p>
+        <ul class="hero__trust">
+          <li><span class="hl hl--new">No cost and no obligation &mdash; just local expertise</span></li>
+          <li><span class="hl hl--new">Confidential site selection and expansion support</span></li>
+          <li><span class="hl hl--new">A response from a regional expert within 2 business days</span></li>
+        </ul>
+      </div>
+      <div class="hero__form" id="hero-form">
+        <form class="lp-form" onsubmit="return false;">
+          <div class="lp-form__t">Ask an Expert</div>
+          <p class="lp-form__d"><span class="hl hl--new">Tell us about your project and we&rsquo;ll be in touch.</span></p>
+          <div class="lp-form__fields">
+            <div class="lp-form__row">
+              <label>First Name<input type="text" placeholder="First name" autocomplete="given-name"></label>
+              <label>Last Name<input type="text" placeholder="Last name" autocomplete="family-name"></label>
+            </div>
+            <label>Work Email<input type="email" placeholder="you@company.com" autocomplete="email"></label>
+            <div class="lp-form__row">
+              <label>Company<input type="text" placeholder="Company" autocomplete="organization"></label>
+              <label>Job Title<input type="text" placeholder="Title" autocomplete="organization-title"></label>
+            </div>
+            <label>How can we help?<select>
+              <option>Site selection &amp; available real estate</option>
+              <option>Incentives &amp; financing</option>
+              <option>Workforce &amp; talent</option>
+              <option>Permitting &amp; local approvals</option>
+              <option>General inquiry</option>
+            </select></label>
+            <button type="submit" class="lp-form__submit">Connect With Us</button>
+            <p class="lp-form__legal"><span class="hl hl--new">We&rsquo;ll only use your information to respond to your inquiry.</span></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 — VALUE PROPOSITION (c11) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">3</span> Value Proposition
+</div>
+<section class="sec sec--center">
+  <div class="comp-badge" style="position:relative;"><a class="comp-tag" href="project-components.html#c11">c11 · Intro Callout</a></div>
+  <div class="container">
+    <div class="sec__eyebrow">One Columbus</div>
+    <h2 class="sec__h2"><span class="hl hl--new">Helping Businesses Thrive in the Columbus Region</span></h2>
+    <p class="sec__intro"><span class="hl hl--new">One Columbus is the economic development organization for the 11-county Columbus Region. Our team helps manufacturers site, launch, and scale &mdash; with site selection, incentives, permitting support, workforce solutions, and market insights, all in one place and all at no cost. Let&rsquo;s build something exceptional together.</span></p>
+    <a href="#lead-form" class="btn btn--dark btn--lg">Start the Conversation</a>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 — KEY STATS (c10) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">4</span> Key Statistics &mdash; social proof
+</div>
+<section class="sec sec--stats">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c10">c10 · Stat Band</a></div>
+  <div class="container">
+    <div style="text-align:center;max-width:60ch;margin:0 auto 34px;">
+      <h2 class="sec__h2" style="font-size:var(--text-4xl);margin-bottom:0;"><span class="hl hl--new">The Future of Manufacturing Is Already in Motion Here</span></h2>
+    </div>
+    <div class="stats__grid">
+      <div class="stat"><div class="stat__num"><span class="hl hl--new">1,800+</span></div><div class="stat__label"><span class="hl hl--new">Manufacturing Establishments</span></div></div>
+      <div class="stat"><div class="stat__num"><span class="hl hl--new">1st</span></div><div class="stat__label"><span class="hl hl--new">City in the Midwest to Support the Chip Industry</span></div></div>
+      <div class="stat"><div class="stat__num"><span class="hl hl--new">$7B</span></div><div class="stat__label"><span class="hl hl--new">Invested in EV &amp; Battery Manufacturing</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 — WHY MANUFACTURERS BUILD HERE (c12) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">5</span> Sector Depth &mdash; feature cards
+</div>
+<section class="sec sec--alt">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c12">c12 · Feature Cards</a></div>
+  <div class="container">
+    <div style="max-width:60ch;margin-bottom:40px;">
+      <div class="sec__eyebrow">Manufacturers Build Here</div>
+      <h2 class="sec__h2"><span class="hl hl--new">A Diverse, Deep Manufacturing Base</span></h2>
+      <p style="font-family:var(--font-body);font-size:var(--text-lg);color:#555;line-height:1.7;"><span class="hl hl--new">From advanced electronics to electric vehicles, the Columbus Region supports operations across every major manufacturing sector &mdash; backed by suppliers, talent, and logistics infrastructure already on the ground.</span></p>
+    </div>
+    <div class="fgrid">
+      <div class="fcard">
+        <div class="brand-icon" aria-hidden="true">&#9733;</div>
+        <h3><span class="hl hl--new">Automotive &amp; EV</span></h3>
+        <p><span class="hl hl--new">Honda, LG Energy Solution, and a $7B EV and battery corridor anchor a mature mobility supply chain.</span></p>
+      </div>
+      <div class="fcard">
+        <div class="brand-icon" aria-hidden="true">&#9733;</div>
+        <h3><span class="hl hl--new">Electronics &amp; Semiconductors</span></h3>
+        <p><span class="hl hl--new">Intel&rsquo;s Ohio One campus makes the region the Midwest&rsquo;s first hub for the chip industry.</span></p>
+      </div>
+      <div class="fcard">
+        <div class="brand-icon" aria-hidden="true">&#9733;</div>
+        <h3><span class="hl hl--new">Machinery &amp; Equipment</span></h3>
+        <p><span class="hl hl--new">A dense base of precision machinery and industrial equipment makers supplies producers nationwide.</span></p>
+      </div>
+      <div class="fcard">
+        <div class="brand-icon" aria-hidden="true">&#9733;</div>
+        <h3><span class="hl hl--new">Aerospace &amp; Consumer Goods</span></h3>
+        <p><span class="hl hl--new">Aerospace, food and beverage, and consumer products manufacturers round out a resilient, diversified sector.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 — FEATURED COMPANIES (c27 logo proof) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">6</span> Featured Companies &mdash; brand-name proof
+</div>
+<section class="sec sec--center">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c27">c27 · Logo Wall</a></div>
+  <div class="container">
+    <div class="sec__eyebrow">Building What&rsquo;s Next in Advanced Manufacturing</div>
+    <h2 class="sec__h2" style="margin-bottom:38px;"><span class="hl hl--new">In Good Company</span></h2>
+    <div class="logos">
+      <div class="logo-cell img-ph"><span>Intel — Logo</span></div>
+      <div class="logo-cell img-ph"><span>Honda — Logo</span></div>
+      <div class="logo-cell img-ph"><span>LG — Logo</span></div>
+      <div class="logo-cell img-ph"><span>Tosoh — Logo</span></div>
+      <div class="logo-cell img-ph"><span>Foresee — Logo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7 — TESTIMONIAL (c21) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">7</span> Testimonial
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Testimonial &mdash; <a href="project-components.html#c21">c21</a> &middot; verify full quote</div>
+  <ul>
+    <li><strong>Source note:</strong> the live campaign page truncates this quote. Pull the <strong>full verbatim testimonial</strong> and confirm the speaker&rsquo;s name/title (shown here as Keith Bennett, BrewDog USA) before publish.</li>
+  </ul>
+</div>
+<section class="sec sec--dark">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c21">c21 · Quote</a></div>
+  <div class="container">
+    <div class="quote">
+      <div class="quote__mark">&ldquo;</div>
+      <p class="quote__text"><span class="hl hl--new">We decided to plant a flag for our U.S. operations in Columbus, Ohio&hellip;</span></p>
+      <p class="quote__cite"><span class="hl hl--new"><strong>Keith Bennett</strong> &mdash; BrewDog USA</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 8 — FINAL CTA + LEAD FORM (c35 + c20) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">8</span> Final CTA + Lead Form &mdash; primary conversion
+</div>
+<section class="sec" id="lead-form" style="scroll-margin-top:70px;">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c35">c35 · HubSpot Form</a> <a class="comp-tag" href="project-components.html#c20">c20 · CTA</a></div>
+  <div class="container">
+    <div style="max-width:60ch;margin-bottom:40px;">
+      <div class="sec__eyebrow">Ask an Expert</div>
+      <h2 class="sec__h2"><span class="hl hl--new">Find Your Future in the Columbus Region</span></h2>
+      <p style="font-family:var(--font-body);font-size:var(--text-lg);color:#555;line-height:1.7;"><span class="hl hl--new">Tell us about your project and a regional expert will connect you with the sites, incentives, and talent to make it happen &mdash; at no cost.</span></p>
+    </div>
+    <div class="leadwrap">
+      <form class="lp-form" onsubmit="return false;" style="box-shadow:none;border:1px solid #e2e2e2;">
+        <div class="lp-form__fields">
+          <div class="lp-form__row">
+            <label>First Name<input type="text" placeholder="First name" autocomplete="given-name"></label>
+            <label>Last Name<input type="text" placeholder="Last name" autocomplete="family-name"></label>
+          </div>
+          <div class="lp-form__row">
+            <label>Work Email<input type="email" placeholder="you@company.com" autocomplete="email"></label>
+            <label>Phone<input type="tel" placeholder="(614) 000-0000" autocomplete="tel"></label>
+          </div>
+          <div class="lp-form__row">
+            <label>Company<input type="text" placeholder="Company" autocomplete="organization"></label>
+            <label>Job Title<input type="text" placeholder="Title" autocomplete="organization-title"></label>
+          </div>
+          <label>How can we help?<select>
+            <option>Site selection &amp; available real estate</option>
+            <option>Incentives &amp; financing</option>
+            <option>Workforce &amp; talent</option>
+            <option>Permitting &amp; local approvals</option>
+            <option>General inquiry</option>
+          </select></label>
+          <label>Tell us about your project<textarea rows="3" placeholder="Timeline, size, requirements…"></textarea></label>
+          <button type="submit" class="lp-form__submit">Connect With Us</button>
+          <p class="lp-form__legal"><span class="hl hl--new">We&rsquo;ll only use your information to respond to your inquiry.</span></p>
+        </div>
+      </form>
+      <aside class="lead-aside">
+        <h3><span class="hl hl--new">What Happens Next</span></h3>
+        <ul class="lead-steps">
+          <li><span class="n">1</span><span><span class="hl hl--new"><strong>You reach out.</strong> Share as much or as little as you like &mdash; everything is confidential.</span></span></li>
+          <li><span class="n">2</span><span><span class="hl hl--new"><strong>We respond in 2 business days.</strong> A regional expert reviews your needs and reaches out.</span></span></li>
+          <li><span class="n">3</span><span><span class="hl hl--new"><strong>We build your plan.</strong> Sites, incentives, talent data, and introductions &mdash; at no cost to you.</span></span></li>
+        </ul>
+        <div class="lead-aside__contact">
+          <span class="hl hl--new">Prefer to talk now? Call <strong>614-225-0500</strong><br>150 S. Front St., Suite 200, Columbus, OH 43215</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- MINIMAL FOOTER (no sitemap nav — reduce exit points) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">9</span> Minimal Footer &mdash; legal only, no sitemap
+</div>
+<footer class="lp-footer">
+  <div class="comp-badge" style="top:14px;"><a class="comp-tag" href="project-components.html#c5">c-lp-footer · Minimal Footer</a></div>
+  <div class="container">
+    <div class="lp-footer__row">
+      <div class="lp-footer__brand">
+        <img src="images/cbus-region-logo-white.png" alt="The Columbus Region" onerror="this.style.opacity=.4">
+      </div>
+      <nav class="lp-footer__links" aria-label="Legal">
+        <a href="#lead-form">Contact</a>
+        <a href="#top">Privacy Policy</a>
+        <a href="#top">Terms</a>
+      </nav>
+    </div>
+    <div class="lp-footer__legal">
+      &copy; 2026 One Columbus / Columbus Region. A regional economic development initiative serving the 11-county Columbus Region. &nbsp;This is a paid campaign landing page.
+    </div>
+  </div>
+</footer>
+
+<!-- ===== STICKY BOTTOM CTA (JobsOhio pattern) ===== -->
+<div class="scroll-cta" id="scrollCta">
+  <div class="scroll-cta__inner">
+    <span class="scroll-cta__text">Ready to grow your business in the Columbus Region?</span>
+    <a href="#lead-form" class="btn btn--accent">Connect With Us</a>
+  </div>
+</div>
+
+<!-- ===== WIREFRAME CONTROLS ===== -->
+<div class="controls collapsed" id="controls">
+  <div class="controls__head" onclick="document.getElementById('controls').classList.toggle('collapsed')">
+    <span>Wireframe Controls</span><span style="font-size:13px;">&#9776;</span>
+  </div>
+  <div class="controls__body">
+    <div class="ctrl-row"><span class="ctrl-label">Section Bars</span><div class="switch" data-layer="bars" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Component Tags</span><div class="switch" data-layer="comp" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Content Status</span><div class="switch" data-layer="status" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Dev / Content Notes</span><div class="switch" data-layer="devnotes" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row"><span class="ctrl-label">Version Bar</span><div class="switch" data-layer="version" onclick="toggleLayer(this)"></div></div>
+    <div class="ctrl-row" style="border-top:1px solid #ddd;padding-top:9px;margin-top:3px;"><span class="ctrl-label" style="font-weight:700;">All Annotations</span><div class="switch" data-layer="all" onclick="toggleAll(this)"></div></div>
+    <div class="ctrl-legend">
+      <div class="ctrl-legend__t">Content Status Key</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--keep"></span> Keep &amp; Optimize</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--enhance"></span> Enhance / Rewrite</div>
+      <div class="ctrl-legend__row"><span class="sdot sdot--new"></span> New Page</div>
+    </div>
+    <div style="margin-top:10px;text-align:center;"><a href="#top" style="font-size:10px;color:#888;text-decoration:none;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">&uarr; Back to Top</a></div>
+  </div>
+</div>
+
+<script>
+function toggleLayer(el) {
+  el.classList.toggle('active');
+  document.body.classList.toggle('hide-' + el.dataset.layer);
+}
+function toggleAll(el) {
+  el.classList.toggle('active');
+  var on = el.classList.contains('active');
+  document.querySelectorAll('.switch[data-layer]').forEach(function(sw){
+    if (sw.dataset.layer === 'all') return;
+    if (on) { sw.classList.add('active'); document.body.classList.remove('hide-' + sw.dataset.layer); }
+    else { sw.classList.remove('active'); document.body.classList.add('hide-' + sw.dataset.layer); }
+  });
+}
+
+/* ===== sticky bottom CTA — reveals on scroll, hides near the form/footer ===== */
+(function(){
+  var el = document.getElementById('scrollCta'); if(!el) return;
+  var formOnScreen = false;
+  var form = document.getElementById('lead-form');
+  if (form && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(e){ formOnScreen = e[0].isIntersecting; upd(); }, {threshold:0}).observe(form);
+  }
+  function upd(){
+    var y = window.scrollY || window.pageYOffset;
+    /* show once past the hero (no eyebrow bar on this page); hide while the
+       in-page lead form is visible so we never show the same CTA twice */
+    if (y > 480 && !formOnScreen) el.classList.add('show'); else el.classList.remove('show');
+  }
+  window.addEventListener('scroll', upd, {passive:true});
+  window.addEventListener('resize', upd);
+  upd();
+})();
+</script>
+
+</body>
+</html>
