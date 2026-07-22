@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemap scheme="2.2" checksum="99e05569583a468620eb6169591d5d67">
+  <title>FK Non Branded Nutrition</title>
+  <version>5.0</version>
+  <link>https://fahlgrenmortine.slickplan.com/lned6rtzql</link>
+  <pubDate>Mon, 20 Jul 2026 09:16:12 -0400</pubDate>
+  <settings>
+    <language>en_US</language>
+  </settings>
+  <meta>
+    <cells_ui user="108272">
+      <box_size>medium</box_size>
+      <font_size>14px</font_size>
+    </cells_ui>
+  </meta>
+  <workflow>
+    <status color="#000000" alias="complete" readonly="1">Complete</status>
+    <status color="#000000" alias="draft" readonly="0">Draft</status>
+    <status color="#e2e6f0" alias="~" readonly="0">Unassigned</status>
+    <status color="#fffb00" alias="cbegrm" readonly="0">Nice to have</status>
+    <status color="#35b45d" alias="6hafjfe" readonly="0">Required Content</status>
+    <status color="#ffa53e" alias="qodbev" readonly="0">Future State Content</status>
+  </workflow>
+  <section id="svgmainsection">
+    <options>
+      <template>horizontal</template>
+      <color_scheme>default</color_scheme>
+      <default_color>#fdfdfe</default_color>
+      <lines_color>#dadadb</lines_color>
+      <text_color>#404040</text_color>
+      <id>svgmainsection</id>
+    </options>
+    <cells>
+      <cell id="f5fundmacro" collapsed="1">
+        <level>2</level>
+        <order>3000</order>
+        <parent>wxybjxqv6vovykjd</parent>
+        <text>Macro &amp;amp; Micronutrients</text>
+      </cell>
+      <cell id="f5pnform" collapsed="1">
+        <level>2</level>
+        <order>4000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>PN Formulation &amp;amp; Products</text>
+      </cell>
+      <cell id="ec8fbvszzrs5pcr">
+        <order>3000</order>
+        <level>1</level>
+        <desc>PRIMARY PATHWAY (lean). EN-specific essentials only - overview, candidate selection, initiation, product selection, and access/administration. Monitoring, complications, evidence, and tools are handled in the shared hubs to avoid duplication.</desc>
+        <text>Enteral Nutrition (EN)</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="nppvf8b15lsdxt">
+        <order>2000</order>
+        <level>1</level>
+        <desc>PRIMARY PATHWAY. PN essentials plus the pharmacist-critical operational cluster. PHARMACIST FAST-PATH: Prescription / Order Writing &amp;gt; Pharmacy Compatibility &amp;amp; Stability &amp;gt; PN Safety &amp;amp; Administration are kept here (not in the shared hub) for nutrition support pharmacists, the co-primary audience who operationalize most PN decisions. Only cross-modality Monitoring and the Complications Library are shared.</desc>
+        <text>Parenteral Nutrition (PN)</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="f5about">
+        <level>1</level>
+        <order>9000</order>
+        <desc>Trust-builder for a non-branded site. Articulate educational independence and Fresenius Kabi&amp;apos;s role as supporter, not content controller. Contact can double as soft lead capture.</desc>
+        <text>About</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="le1oerucw1boyst0">
+        <level>1</level>
+        <order>8000</order>
+        <desc>Promoted to its own top-level section. Plain-language resources dietitians can hand to patients and families across both EN and PN.</desc>
+        <text>Patient &amp;amp; Caregiver Resources</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="f5educase">
+        <level>2</level>
+        <order>5000</order>
+        <parent>em2qzoxqvqier</parent>
+        <desc>NEW / future state. Featured on both ANHI and ASPEN; strong practical-engagement driver.</desc>
+        <text>Case Studies</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="f5educems">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5educe</parent>
+        <text>CE Takeaways (MSL)</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="f5educe">
+        <level>2</level>
+        <order>1000</order>
+        <parent>em2qzoxqvqier</parent>
+        <text>CE &amp;amp; Professional Development</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="em2qzoxqvqier">
+        <level>1</level>
+        <order>7000</order>
+        <desc>Shared engagement hub - CE, calculators, quick reference, video, case studies. Highest differentiation potential; CE is a primary reason clinicians return.</desc>
+        <text>Education &amp;amp; Tools</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="m6qsmfjqhr">
+        <level>1</level>
+        <order>6000</order>
+        <desc>Shared credibility hub. Condensed, digestible guideline summaries that complement ASPEN. &amp;quot;What&amp;apos;s New&amp;quot; updates regularly to drive return visits.</desc>
+        <text>Evidence &amp;amp; Guidelines</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="zqys08k">
+        <level>1</level>
+        <order>5000</order>
+        <desc>SHARED CLINICAL CORE - the defining feature of Option 5.0. A modality-agnostic hub for monitoring and a unified complications library serving both EN and PN. This preserves the v3.0 strategic bet that complications are the platform&amp;apos;s #1 differentiator, while eliminating the duplication a mirrored model (4.0) creates. Note: PN Safety &amp;amp; Administration and Pharmacy Compatibility &amp;amp; Stability were intentionally moved OUT of this hub and back under the PN section, to serve nutrition support pharmacists (co-primary audience) who operationalize most PN decisions. Content here is tagged EN / PN / both and surfaced contextually from the therapy and condition pages.</desc>
+        <text>Monitoring &amp;amp; Complications</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="f5condsurg">
+        <level>2</level>
+        <order>7000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <desc>NEW / future state. Perioperative and ERAS nutrition; proposed expansion area.</desc>
+        <text>Surgery / Perioperative</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="8ohxxgqrgnbfp">
+        <level>1</level>
+        <order>4000</order>
+        <desc>CO-PRIMARY PATHWAY - and the natural home for Registered Dietitians, who self-identify by specialty (critical care, oncology, GI, renal, pediatric, home nutrition support). Equal billing with the therapy pathways: the second front door. Each page curates the relevant EN and PN guidance, evidence, and tools, so a dietitian can start from a diagnosis/specialty and reach everything they need. Mirrors ASPEN&amp;apos;s &amp;quot;Specific Populations &amp;amp; Conditions.&amp;quot;</desc>
+        <text>By Specialty / Condition</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="wxybjxqv6vovykjd">
+        <level>1</level>
+        <order>1000</order>
+        <desc>Shared foundation. Establishes core concepts and the modality decision before users branch. &amp;quot;When to Initiate Nutrition Support&amp;quot; sits here as a shared decision point rather than being duplicated under each therapy.</desc>
+        <text>Nutrition Fundamentals</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="f5msctube">
+        <level>3</level>
+        <order>10000</order>
+        <parent>f5msccomp</parent>
+        <text>Tube-Related Complications (EN)</text>
+      </cell>
+      <cell id="f5mscgi">
+        <level>3</level>
+        <order>9000</order>
+        <parent>f5msccomp</parent>
+        <text>GI Intolerance (EN)</text>
+      </cell>
+      <cell id="f5mscallergy">
+        <level>3</level>
+        <order>8000</order>
+        <parent>f5msccomp</parent>
+        <text>Allergy Considerations</text>
+      </cell>
+      <cell id="f5mscinfl">
+        <level>3</level>
+        <order>7000</order>
+        <parent>f5msccomp</parent>
+        <text>Inflammation</text>
+      </cell>
+      <cell id="f5mscefad">
+        <level>3</level>
+        <order>6000</order>
+        <parent>f5msccomp</parent>
+        <text>Essential Fatty Acid Deficiency</text>
+      </cell>
+      <cell id="f5mscmeta">
+        <level>3</level>
+        <order>5000</order>
+        <parent>f5msccomp</parent>
+        <text>Metabolic Conditions</text>
+      </cell>
+      <cell id="f5condpanc">
+        <level>3</level>
+        <order>4000</order>
+        <parent>f5condgi</parent>
+        <text>Pancreatitis</text>
+      </cell>
+      <cell id="f5mscrefeed">
+        <level>3</level>
+        <order>4000</order>
+        <parent>f5msccomp</parent>
+        <text>Refeeding Syndrome</text>
+      </cell>
+      <cell id="f5condfist">
+        <level>3</level>
+        <order>3000</order>
+        <parent>f5condgi</parent>
+        <text>Fistulas &amp;amp; Obstructions</text>
+      </cell>
+      <cell id="f5mscelec">
+        <level>3</level>
+        <order>3000</order>
+        <parent>f5msccomp</parent>
+        <text>Electrolyte Imbalances</text>
+      </cell>
+      <cell id="f5fundlipid">
+        <level>3</level>
+        <order>2000</order>
+        <parent>f5fundmacro</parent>
+        <text>Lipid Types &amp;amp; Differences</text>
+      </cell>
+      <cell id="f5condifald">
+        <level>3</level>
+        <order>2000</order>
+        <parent>f5condgi</parent>
+        <text>IFALD (Liver Disease)</text>
+      </cell>
+      <cell id="f5pnlipid">
+        <level>3</level>
+        <order>2000</order>
+        <parent>f5pnform</parent>
+        <text>Lipid Types &amp;amp; Differences</text>
+      </cell>
+      <cell id="f5mscglyc">
+        <level>3</level>
+        <order>2000</order>
+        <parent>f5msccomp</parent>
+        <text>Glycemic Instability</text>
+      </cell>
+      <cell id="f5msctrig">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5msccomp</parent>
+        <text>Hypertriglyceridemia</text>
+      </cell>
+      <cell id="f5condsbs">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5condgi</parent>
+        <text>Short Bowel Syndrome</text>
+      </cell>
+      <cell id="f5confirm">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5contact</parent>
+        <text>Confirmation Screen</text>
+      </cell>
+      <cell id="f5fundvit">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5fundmacro</parent>
+        <text>Vitamins, Minerals &amp;amp; Trace Elements</text>
+      </cell>
+      <cell id="f5enons">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5enform</parent>
+        <text>Oral Nutrition Supplements</text>
+      </cell>
+      <cell id="f5pnmcb">
+        <level>3</level>
+        <order>1000</order>
+        <parent>f5pnform</parent>
+        <text>Multi-Chamber Bags</text>
+      </cell>
+      <cell id="f5condpeds">
+        <level>2</level>
+        <order>8000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>Pediatrics &amp;amp; Neonatal</text>
+      </cell>
+      <cell id="f5pnhome">
+        <level>2</level>
+        <order>8000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>Home &amp;amp; Ambulatory PN</text>
+      </cell>
+      <cell id="f5pnpharm">
+        <level>2</level>
+        <order>7000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <desc>Kept under PN (not the shared hub) because admixture compatibility/stability is intrinsically a PN concern and a core nutrition-support-pharmacist task.</desc>
+        <text>Pharmacy Compatibility &amp;amp; Stability</text>
+      </cell>
+      <cell id="f5condhome">
+        <level>2</level>
+        <order>6000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <desc>NEW. The home nutrition support dietitian&amp;apos;s door - covers home EN and home PN together, cross-linking to &amp;quot;Home &amp;amp; Ambulatory PN&amp;quot; in the PN pathway. Added because home nutrition support dietitians are a called-out primary segment.</desc>
+        <text>Home Nutrition Support</text>
+      </cell>
+      <cell id="f5evext">
+        <level>2</level>
+        <order>6000</order>
+        <parent>m6qsmfjqhr</parent>
+        <desc>ASPEN, advocacy groups, professional societies.</desc>
+        <text>External Resources</text>
+      </cell>
+      <cell id="f5pnsafety">
+        <level>2</level>
+        <order>6000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>PN Safety &amp;amp; Administration</text>
+      </cell>
+      <cell id="f5eduinfo">
+        <level>2</level>
+        <order>6000</order>
+        <parent>em2qzoxqvqier</parent>
+        <text>Infographics</text>
+      </cell>
+      <cell id="f5fundinit">
+        <level>2</level>
+        <order>5000</order>
+        <parent>wxybjxqv6vovykjd</parent>
+        <desc>Shared initiation decision point covering timing for both EN and PN, with modality-specific nuances cross-linked into each therapy section.</desc>
+        <text>When to Initiate Nutrition Support</text>
+      </cell>
+      <cell id="f5condren">
+        <level>2</level>
+        <order>5000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>Renal</text>
+      </cell>
+      <cell id="8wpzadzdqcg">
+        <level>2</level>
+        <order>5000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <desc>Most-requested PN content area. Strong candidate for an interactive order-writing practice tool.</desc>
+        <text>Prescription / Order Writing</text>
+      </cell>
+      <cell id="f5enaccess">
+        <level>2</level>
+        <order>5000</order>
+        <parent>ec8fbvszzrs5pcr</parent>
+        <desc>Enteral access routes (NG, NJ, PEG, PEG-J), tube care, and delivery methods.</desc>
+        <text>Access &amp;amp; Administration</text>
+      </cell>
+      <cell id="f5evexp">
+        <level>2</level>
+        <order>5000</order>
+        <parent>m6qsmfjqhr</parent>
+        <text>Expert Contributors</text>
+      </cell>
+      <cell id="f5enform">
+        <level>2</level>
+        <order>4000</order>
+        <parent>ec8fbvszzrs5pcr</parent>
+        <text>Formula &amp;amp; Product Selection</text>
+      </cell>
+      <cell id="f5evbest">
+        <level>2</level>
+        <order>4000</order>
+        <parent>m6qsmfjqhr</parent>
+        <text>Best Practice Recommendations</text>
+      </cell>
+      <cell id="f5condmal">
+        <level>2</level>
+        <order>4000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>Malnutrition</text>
+      </cell>
+      <cell id="f5fundassess">
+        <level>2</level>
+        <order>4000</order>
+        <parent>wxybjxqv6vovykjd</parent>
+        <text>Patient Assessment &amp;amp; Screening</text>
+      </cell>
+      <cell id="f5eduvid">
+        <level>2</level>
+        <order>4000</order>
+        <parent>em2qzoxqvqier</parent>
+        <text>Videos &amp;amp; Webinars</text>
+      </cell>
+      <cell id="f5eduquick">
+        <level>2</level>
+        <order>3000</order>
+        <parent>em2qzoxqvqier</parent>
+        <text>Quick Reference Guides</text>
+      </cell>
+      <cell id="f5eninit">
+        <level>2</level>
+        <order>3000</order>
+        <parent>ec8fbvszzrs5pcr</parent>
+        <text>Initiating EN</text>
+      </cell>
+      <cell id="f5evstud">
+        <level>2</level>
+        <order>3000</order>
+        <parent>m6qsmfjqhr</parent>
+        <text>Clinical Studies</text>
+      </cell>
+      <cell id="f5condgi">
+        <level>2</level>
+        <order>3000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>GI &amp;amp; Intestinal Failure</text>
+      </cell>
+      <cell id="f5pninit">
+        <level>2</level>
+        <order>3000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>When to Initiate PN</text>
+      </cell>
+      <cell id="f5encand">
+        <level>2</level>
+        <order>2000</order>
+        <parent>ec8fbvszzrs5pcr</parent>
+        <text>Candidate Selection</text>
+      </cell>
+      <cell id="f5pncand">
+        <level>2</level>
+        <order>2000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>Candidate Selection</text>
+      </cell>
+      <cell id="f5fundchoose">
+        <level>2</level>
+        <order>2000</order>
+        <parent>wxybjxqv6vovykjd</parent>
+        <desc>NEW. Central routing page covering indications, contraindications, and the decision logic that sends users to EN, PN, or oral support.</desc>
+        <text>EN vs PN vs Oral: Choosing a Modality</text>
+      </cell>
+      <cell id="f5condcc">
+        <level>2</level>
+        <order>2000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>Critical Care</text>
+      </cell>
+      <cell id="f5contact">
+        <level>2</level>
+        <order>2000</order>
+        <parent>f5about</parent>
+        <text>Contact</text>
+      </cell>
+      <cell id="f5msccomp">
+        <level>2</level>
+        <order>2000</order>
+        <parent>zqys08k</parent>
+        <desc>Unified complications reference for both modalities, tagged by therapy. Combines the PN complications from v3.0 with EN-specific entries (GI intolerance, tube-related).</desc>
+        <text>Complications Library</text>
+      </cell>
+      <cell id="f5evaspen">
+        <level>2</level>
+        <order>2000</order>
+        <parent>m6qsmfjqhr</parent>
+        <text>ASPEN-Aligned Protocols</text>
+      </cell>
+      <cell id="f5pathome">
+        <level>2</level>
+        <order>2000</order>
+        <parent>le1oerucw1boyst0</parent>
+        <text>Home &amp;amp; Caregiver Support</text>
+      </cell>
+      <cell id="f5educalc">
+        <level>2</level>
+        <order>2000</order>
+        <parent>em2qzoxqvqier</parent>
+        <text>Clinical Tools &amp;amp; Calculators</text>
+      </cell>
+      <cell id="f5condonc">
+        <level>2</level>
+        <order>1000</order>
+        <parent>8ohxxgqrgnbfp</parent>
+        <text>Oncology</text>
+      </cell>
+      <cell id="f5fundwhat">
+        <level>2</level>
+        <order>1000</order>
+        <parent>wxybjxqv6vovykjd</parent>
+        <text>What Is Nutrition Support?</text>
+      </cell>
+      <cell id="f5aboutres">
+        <level>2</level>
+        <order>1000</order>
+        <parent>f5about</parent>
+        <text>About This Resource</text>
+      </cell>
+      <cell id="f5enover">
+        <level>2</level>
+        <order>1000</order>
+        <parent>ec8fbvszzrs5pcr</parent>
+        <text>EN Overview</text>
+      </cell>
+      <cell id="f5patunder">
+        <level>2</level>
+        <order>1000</order>
+        <parent>le1oerucw1boyst0</parent>
+        <text>Understanding Your Nutrition Therapy</text>
+      </cell>
+      <cell id="f5pnover">
+        <level>2</level>
+        <order>1000</order>
+        <parent>nppvf8b15lsdxt</parent>
+        <text>PN Overview</text>
+      </cell>
+      <cell id="f5evnew">
+        <level>2</level>
+        <order>1000</order>
+        <parent>m6qsmfjqhr</parent>
+        <text>What&amp;apos;s New &amp;amp; Emerging Research</text>
+      </cell>
+      <cell id="f5mscmon">
+        <level>2</level>
+        <order>1000</order>
+        <parent>zqys08k</parent>
+        <text>Monitoring Protocols</text>
+      </cell>
+      <cell id="f5footterms">
+        <level>foot</level>
+        <order>2000</order>
+        <text>Terms &amp;amp; Conditions</text>
+      </cell>
+      <cell id="f5footpriv">
+        <level>foot</level>
+        <order>1000</order>
+        <text>Privacy Policy</text>
+      </cell>
+      <cell id="al9aepkbn">
+        <level>home</level>
+        <order>1000</order>
+        <desc>OPTION 5.0 - &amp;quot;MODALITY-FIRST WITH SHARED CLINICAL CORE.&amp;quot; Rationale: Like Option 4.0, this still leads with the EN vs PN choice - but instead of fully duplicating every workflow stage under both therapies, it keeps each modality section LEAN (modality-specific essentials only) and consolidates cross-modality content into SHARED HUBS: &amp;quot;Monitoring &amp;amp; Complications,&amp;quot; &amp;quot;Evidence &amp;amp; Guidelines,&amp;quot; &amp;quot;Education &amp;amp; Tools,&amp;quot; and &amp;quot;Patient &amp;amp; Caregiver Resources.&amp;quot; It also promotes &amp;quot;By Clinical Condition&amp;quot; to a CO-EQUAL primary door, giving a true dual front door on the homepage (&amp;quot;I&amp;apos;m managing a therapy&amp;quot; vs &amp;quot;I&amp;apos;m treating a condition&amp;quot;). BENEFITS vs 4.0: far less content duplication and lower long-term maintenance; complications/monitoring become a single authoritative, modality-agnostic library (preserving the v3.0 insight that complications are the key differentiator, but making it serve EN and PN equally); condition pathway gets equal billing. TRADE-OFF: complications live in a shared library rather than nested inside each therapy, so this model leans more on cross-linking and tagging to keep content contextual. Audience: Registered Dietitians (RDs/RDNs) are PRIMARY (clinical, critical care, oncology, GI, pediatric, renal, home nutrition support); Nutrition Support Pharmacists are CO-PRIMARY. Because pharmacists operationalize most PN decisions, PN Safety &amp;amp; Administration and Pharmacy Compatibility &amp;amp; Stability are deliberately kept UNDER the PN section (not in the shared hub) as a pharmacist fast-path; only Monitoring and the Complications Library are shared.</desc>
+        <text>Home</text>
+      </cell>
+    </cells>
+  </section>
+</sitemap>

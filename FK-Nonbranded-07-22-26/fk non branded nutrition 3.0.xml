@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemap scheme="2.2" checksum="44fb7c556facbba1a66665814c7249da">
+  <title>FK Non Branded Nutrition</title>
+  <version>3.0</version>
+  <link>https://fahlgrenmortine.slickplan.com/cexjc1q</link>
+  <pubDate>Mon, 16 Mar 2026 16:37:14 -0400</pubDate>
+  <settings>
+    <language>en_US</language>
+  </settings>
+  <meta>
+    <cells_ui user="108272">
+      <box_size>medium</box_size>
+      <font_size>14px</font_size>
+    </cells_ui>
+  </meta>
+  <workflow>
+    <status color="#000000" alias="complete" readonly="1">Complete</status>
+    <status color="#000000" alias="draft" readonly="0">Draft</status>
+    <status color="#e2e6f0" alias="~" readonly="0">Unassigned</status>
+    <status color="#fffb00" alias="cbegrm" readonly="0">Nice to have</status>
+    <status color="#35b45d" alias="6hafjfe" readonly="0">Required Content</status>
+    <status color="#ffa53e" alias="qodbev" readonly="0">Future State Content</status>
+  </workflow>
+  <section id="svgmainsection">
+    <options>
+      <template>horizontal</template>
+      <color_scheme>default</color_scheme>
+      <default_color>#fdfdfe</default_color>
+      <lines_color>#dadadb</lines_color>
+      <text_color>#404040</text_color>
+      <id>svgmainsection</id>
+    </options>
+    <cells>
+      <cell id="svghdti78ue5ifiuhm0">
+        <text>Inflammation</text>
+        <order>8000</order>
+        <parent>mxticorr</parent>
+        <level>3</level>
+      </cell>
+      <cell id="zudxsolc7u4opv6c" collapsed="1">
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>4000</order>
+        <text>Intestinal Failure</text>
+      </cell>
+      <cell id="yviofongl">
+        <order>7000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>Multi-Chamber Bags</text>
+      </cell>
+      <cell id="rysn6wiqqnb">
+        <order>6000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>Pharmacy Compatibility &amp;amp; Stability</text>
+      </cell>
+      <cell id="mdu7abspys">
+        <order>5000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>Monitoring Protocols</text>
+      </cell>
+      <cell id="x5xk07why">
+        <order>4000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>Prescription Writing</text>
+      </cell>
+      <cell id="svgkey53j1lcyxjyuzw">
+        <order>8000</order>
+        <parent>cknyoqnuzyiwish</parent>
+        <level>2</level>
+        <text>Enteral Nutrition</text>
+      </cell>
+      <cell id="svgj53mt6q0zc5z7onw">
+        <order>1000</order>
+        <parent>asnwcmo</parent>
+        <level>3</level>
+        <text>Confirmation Screen</text>
+      </cell>
+      <cell id="yjzq974ogt4" collapsed="1">
+        <level>2</level>
+        <parent>2gayqnnzqgd</parent>
+        <order>3000</order>
+        <text>Macro &amp;amp; Micro Nutrients</text>
+      </cell>
+      <cell id="addzouaod" collapsed="1">
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>6000</order>
+        <text>CE &amp;amp; Professional Development</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="wur2riiagzzcm6s">
+        <order>2000</order>
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <text>Critical Care</text>
+      </cell>
+      <cell id="afvefl866shoqef">
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>1000</order>
+        <level>2</level>
+        <text>Oncology</text>
+      </cell>
+      <cell id="nesvzpmk">
+        <desc><![CDATA[&lt;p&gt;Credibility lives here. Don&#039;t compete with ASPEN, complement it. Clinicians want condensed, digestible guideline summaries (full guidelines run 40–60 pages). &quot;What&#039;s New &amp; Emerging Research&quot; should update regularly and be promoted via email/LinkedIn to drive return visits.&lt;/p&gt;]]></desc>
+        <order>6000</order>
+        <level>1</level>
+        <text>Evidence &amp;amp; Guidelines</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="vhlnv2dw">
+        <desc>&amp;lt;p&amp;gt;Highest differentiation potential. Clinicians want tools they can use in the moment, calculators, quick-reference downloads, scenario-based micro-learning, and accessible video. CE &amp;amp; Professional Development is a strong long-term hook, as CE credit is a primary reason clinicians visit competitor sites.&amp;lt;/p&amp;gt;</desc>
+        <order>7000</order>
+        <level>1</level>
+        <text>Tools &amp;amp; Resources</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="ecumou1jb2prw2fd">
+        <desc>&amp;lt;p&amp;gt;Covers the patient populations clinicians actually see. Oncology, Critical Care, and Intestinal Failure are highest priority. Home &amp;amp; Ambulatory PN is a fast-growing area with underprepared clinicians, an important differentiator. Pediatrics &amp;amp; Neonatal should be treated as its own clinical world, not a footnote.&amp;lt;/p&amp;gt;</desc>
+        <order>5000</order>
+        <level>1</level>
+        <text>Therapeutic Areas</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="cknyoqnuzyiwish">
+        <desc>&amp;lt;p&amp;gt;The section experienced clinicians will return to repeatedly. Prescription writing, monitoring, and complications were the most-requested content areas across all stakeholder interviews. Format content for fast, practical use algorithms, protocols, quick-reference summaries. An interactive PN prescription practice tool was specifically requested and would drive repeat visits.&amp;lt;/p&amp;gt;</desc>
+        <level>1</level>
+        <order>2000</order>
+        <text>Clinical Practice</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="2gayqnnzqgd">
+        <desc>&amp;lt;p&amp;gt;Highest-priority section for launch. Research confirmed a widespread foundational knowledge gap from clinicians writing orders they don&amp;#039;t fully understand, to nurses monitoring PN patients without proper training. Serves novice-to-intermediate audiences and is a natural MSL conversation starter.&amp;lt;/p&amp;gt;</desc>
+        <level>1</level>
+        <order>1000</order>
+        <text>PN Fundamentals</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="bu0xth1shp">
+        <desc>&amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;p&amp;gt;Critical trust-builder given the non-branded nature of the site. Clearly articulate the site&amp;#039;s educational independence and Fresenius Kabi&amp;#039;s role as a supporter, not a content controller. Contact page can double as a soft lead capture for MSL follow-up.&amp;lt;/p&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt;</desc>
+        <order>8000</order>
+        <level>1</level>
+        <text>About</text>
+        <contents lang="en_US">
+          <status>6hafjfe</status>
+        </contents>
+      </cell>
+      <cell id="cunmwtxfo">
+        <level>2</level>
+        <parent>nesvzpmk</parent>
+        <order>5000</order>
+        <text>Expert Contributors</text>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="svgsakqvnf7vo48wgq0">
+        <text>CE Takeaways (MSL)</text>
+        <order>1000</order>
+        <parent>addzouaod</parent>
+        <level>3</level>
+        <contents lang="en_US">
+          <status>qodbev</status>
+        </contents>
+      </cell>
+      <cell id="yjxfkib">
+        <order>4000</order>
+        <level>2</level>
+        <parent>nesvzpmk</parent>
+        <text>Best Practice Recommendations</text>
+      </cell>
+      <cell id="htc8api2vxvo4fp">
+        <order>3000</order>
+        <level>2</level>
+        <parent>nesvzpmk</parent>
+        <text>ASPEN-Aligned Protocols</text>
+      </cell>
+      <cell id="d8clpgrwe2r">
+        <order>2000</order>
+        <parent>yjzq974ogt4</parent>
+        <level>3</level>
+        <text>Lipid Types &amp;amp; Differences</text>
+      </cell>
+      <cell id="rpgdtlf">
+        <order>1000</order>
+        <parent>yjzq974ogt4</parent>
+        <level>3</level>
+        <text>Vitamins, Minerals &amp;amp; Trace Elements</text>
+      </cell>
+      <cell id="svghe8bisk9dvndwcpn">
+        <desc>&amp;lt;p&amp;gt;Aspen, Advocacy groups&amp;lt;/p&amp;gt;</desc>
+        <order>6000</order>
+        <parent>nesvzpmk</parent>
+        <level>2</level>
+        <text>External Resources</text>
+      </cell>
+      <cell id="saru1u4zqzhhjtgi">
+        <desc>&amp;lt;p&amp;gt;Aspen, Advocacy groups&amp;lt;/p&amp;gt;</desc>
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>1000</order>
+        <text>Quick Reference Guides</text>
+      </cell>
+      <cell id="qz6qitxvvn5w">
+        <order>3000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>PN Formulation</text>
+      </cell>
+      <cell id="gemspk3gjmztmfux">
+        <order>2000</order>
+        <level>2</level>
+        <parent>cknyoqnuzyiwish</parent>
+        <text>PN Safety &amp;amp; Administration</text>
+      </cell>
+      <cell id="mxticorr">
+        <parent>cknyoqnuzyiwish</parent>
+        <order>1000</order>
+        <level>2</level>
+        <text>Complications</text>
+      </cell>
+      <cell id="tw5a46zzn">
+        <parent>mxticorr</parent>
+        <order>1000</order>
+        <level>3</level>
+        <text>Hypertriglyceridemia</text>
+      </cell>
+      <cell id="cwnzbjqpzbov4rlf">
+        <desc><![CDATA[&lt;p&gt;This directly addresses the research insight that &lt;em&gt;&quot;the winning PN platform behaves like a tool, not a repository.&quot;&lt;/em&gt; Separating &lt;strong&gt;Complications&lt;/strong&gt; into its own top-level section is a deliberate differentiator — no competitor owns that space, and it was the #1 content gap named by stakeholders (triglyceride management, glycemic instability, pharmacy stability). This structure also aligns perfectly with the recommended content pillars from the findings deck (PN Fundamentals, Safety, Prescriptions, Complications, Evidence).&lt;/p&gt;]]></desc>
+        <text>Clinical Workflow Home Page</text>
+        <level>home</level>
+        <order>1000</order>
+      </cell>
+      <cell id="mrn32e1">
+        <level>3</level>
+        <parent>zudxsolc7u4opv6c</parent>
+        <order>3000</order>
+        <text>Fistulas &amp;amp; Obstructions</text>
+      </cell>
+      <cell id="axqk3gbnxogeqnka">
+        <level>3</level>
+        <parent>zudxsolc7u4opv6c</parent>
+        <order>2000</order>
+        <text>IFALD (Liver Disease)</text>
+      </cell>
+      <cell id="yauu17ys0if5vno">
+        <level>3</level>
+        <parent>zudxsolc7u4opv6c</parent>
+        <order>1000</order>
+        <text>Short Bowel Syndrome</text>
+      </cell>
+      <cell id="rv3s7shz9zj02c">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>7000</order>
+        <text>Allergy Considerations</text>
+      </cell>
+      <cell id="bt2kyidv7qzd">
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>7000</order>
+        <text>Home &amp;amp; Ambulatory PN</text>
+      </cell>
+      <cell id="zeta9zbd">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>6000</order>
+        <text>Essential Fatty Acid Deficiency</text>
+      </cell>
+      <cell id="jxevhj4o">
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>6000</order>
+        <text>Pediatrics &amp;amp; Neonatal</text>
+      </cell>
+      <cell id="xckhtjte8rdb1">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>5000</order>
+        <text>Metabolic Conditions</text>
+      </cell>
+      <cell id="ebkbubgpdni2qia1">
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>5000</order>
+        <text>Pancreatitis</text>
+      </cell>
+      <cell id="fipqesoblv3cr">
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>5000</order>
+        <text>Patient &amp;amp; Caregiver Resources</text>
+      </cell>
+      <cell id="w87bjtucsrqu49">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>4000</order>
+        <text>Refeeding Syndrome</text>
+      </cell>
+      <cell id="hastrk6i">
+        <level>2</level>
+        <parent>2gayqnnzqgd</parent>
+        <order>4000</order>
+        <text>Patient Selection Criteria</text>
+      </cell>
+      <cell id="3vbl76zxt">
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>4000</order>
+        <text>Infographics</text>
+      </cell>
+      <cell id="ax8ngvkqienmw">
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>3000</order>
+        <text>Downloadable Tools &amp;amp; Calculators</text>
+      </cell>
+      <cell id="mwkvvsgjwxif0cw">
+        <level>2</level>
+        <parent>ecumou1jb2prw2fd</parent>
+        <order>3000</order>
+        <text>Malnutrition</text>
+      </cell>
+      <cell id="y7y6ciygm">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>3000</order>
+        <text>Electrolyte Imbalances</text>
+      </cell>
+      <cell id="idyxi0paemiyg">
+        <level>2</level>
+        <parent>2gayqnnzqgd</parent>
+        <order>2000</order>
+        <text>When to Initiate PN</text>
+      </cell>
+      <cell id="asnwcmo">
+        <level>2</level>
+        <parent>bu0xth1shp</parent>
+        <order>2000</order>
+        <text>Contact</text>
+      </cell>
+      <cell id="s7albed5dtjbazg7">
+        <level>3</level>
+        <parent>mxticorr</parent>
+        <order>2000</order>
+        <text>Glycemic Instability</text>
+      </cell>
+      <cell id="qtkjsbb">
+        <level>2</level>
+        <parent>vhlnv2dw</parent>
+        <order>2000</order>
+        <text>Videos &amp;amp; Webinars</text>
+      </cell>
+      <cell id="c3krvz4jifwx5">
+        <level>2</level>
+        <parent>nesvzpmk</parent>
+        <order>2000</order>
+        <text>Clinical Studies</text>
+      </cell>
+      <cell id="al3fihlat5kqqv5">
+        <level>2</level>
+        <parent>bu0xth1shp</parent>
+        <order>1000</order>
+        <text>About This Resource</text>
+      </cell>
+      <cell id="uvfavh2nkh0fdgbr">
+        <level>2</level>
+        <parent>2gayqnnzqgd</parent>
+        <order>1000</order>
+        <text>What is Parenteral Nutrition</text>
+      </cell>
+      <cell id="rfgv6qull3r">
+        <level>2</level>
+        <parent>nesvzpmk</parent>
+        <order>1000</order>
+        <text>What&amp;#039;s New &amp;amp; Emerging Research</text>
+      </cell>
+      <cell id="wsbyvyx">
+        <level>foot</level>
+        <order>2000</order>
+        <text>Terms &amp;amp; Conditions</text>
+      </cell>
+      <cell id="dqitcmqtwl">
+        <level>foot</level>
+        <order>1000</order>
+        <text>Privacy Policy</text>
+      </cell>
+    </cells>
+  </section>
+</sitemap>
