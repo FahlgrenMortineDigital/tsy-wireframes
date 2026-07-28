@@ -481,6 +481,11 @@
     .empfilter { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
     .empfilter .chip { padding: 7px 14px; border: 1px solid #ddd; border-radius: 999px; font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: #555; cursor: pointer; }
     .empfilter .chip.is-on { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
+    /* Industry news feed filter (mirrors news-hub feed chips) */
+    .newsfilter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .newsfilter__lbl { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-right: 4px; }
+    .newsfilter .chip { padding: 7px 14px; border: 1px solid #ddd; border-radius: 999px; font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: #555; background: #fff; cursor: pointer; }
+    .newsfilter .chip.is-on { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
     .empgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .empcard { border: 1px solid #e4e4e4; border-radius: 8px; padding: 22px 18px; text-align: center; background: #fff; }
     .emplogo { height: 46px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 6px; color: #999; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
@@ -1044,10 +1049,72 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 5 — Anchor Story -->
+<!-- SECTION 5 — News & Insights (industry-filtered) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">5</span> Anchor Story
+  <span class="section-num">5</span> News &amp; Insights <span style="color:#aaa;">&middot; filtered to this industry</span>
+  <span class="annotation annotation--anim" style="position:relative;">Cards fade-up on scroll</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">Industry News Feed &mdash; News Cards <a href="project-components.html#c22">c22</a> / <a href="project-components.html#c24">c24</a> &middot; High leverage (client request)</div>
+  <ul>
+    <li><strong>Client ask:</strong> industry pages need news/wins near the top &mdash; &ldquo;people interested in manufacturing want to see what is happening in the region, not just the generic facts.&rdquo;</li>
+    <li><strong>Build:</strong> reuse the homepage news-card partial, <strong>pre-filtered by the Industries taxonomy = Manufacturing</strong> (pulls latest tagged News, Press Releases &amp; Wins). Chips below filter by content type; empty state falls back to region-wide latest.</li>
+    <li><strong>Content:</strong> NewsArticle schema per entry; &ldquo;View All&rdquo; deep-links to the News Hub pre-filtered to Manufacturing. <strong>Repeat this pattern on every industry page.</strong></li>
+    <li><strong>Responsive:</strong> 3 &rarr; 1 column; chips wrap.</li>
+  </ul>
+</div>
+<section class="sec sec--alt">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c22">c22 · News Card</a> <a class="comp-tag" href="project-components.html#c24">c24 · News Feed Card</a></div>
+  <div class="container">
+    <div class="sec__head">
+      <div><div class="sec__eyebrow">News &amp; Insights</div><h2 class="sec__h2">Manufacturing in the Region</h2></div>
+      <a class="arrow" href="news-hub.html"><span class="sdot sdot--enhance"></span><span class="arrow__tx">View All Manufacturing News</span></a>
+    </div>
+    <div class="newsfilter" role="group" aria-label="Filter manufacturing news">
+      <span class="newsfilter__lbl">Filter</span>
+      <button type="button" class="chip is-on">All</button>
+      <button type="button" class="chip">Wins</button>
+      <button type="button" class="chip">Press Release</button>
+      <button type="button" class="chip">Insights</button>
+    </div>
+    <div class="cards3">
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">Win &middot; Apr 2026</div>
+          <h4><span class="hl hl--new">Intel Breaks Ground on Second New Albany Fab</span></h4>
+          <p>The expansion deepens central Ohio&rsquo;s role in the U.S. semiconductor supply chain.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--new"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">Press Release &middot; Mar 2026</div>
+          <h4><span class="hl hl--enhance">Honda&ndash;LG Battery Plant Ramps EV Production</span></h4>
+          <p>The Jeffersonville joint venture adds capacity as Honda retools Ohio plants for electric vehicles.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">Insights &middot; Feb 2026</div>
+          <h4>How RAMTEC Is Training the Region&rsquo;s Automation Workforce</h4>
+          <p>Inside the robotics and apprenticeship pipeline feeding advanced manufacturers across central Ohio.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--keep"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 — Anchor Story -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">6</span> Anchor Story
   <span class="annotation annotation--anim" style="position:relative;">Parallax image</span>
 </div>
 <div class="dev-note">
@@ -1074,10 +1141,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 6 — Key Players -->
+<!-- SECTION 7 — Key Players -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">6</span> Key Players
+  <span class="section-num">7</span> Key Players
   <span class="annotation annotation--anim" style="position:relative;">Cards stagger in</span>
 </div>
 <div class="dev-note">
@@ -1105,10 +1172,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 7 — The Workforce -->
+<!-- SECTION 8 — The Workforce -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">7</span> The Workforce
+  <span class="section-num">8</span> The Workforce
   <span class="annotation annotation--anim" style="position:relative;">Text slide-in</span>
 </div>
 <div class="dev-note">
@@ -1134,10 +1201,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 8 — By the Numbers -->
+<!-- SECTION 9 — By the Numbers -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">8</span> By the Numbers
+  <span class="section-num">9</span> By the Numbers
   <span class="annotation annotation--anim" style="position:relative;">Count-up on scroll</span>
 </div>
 <div class="dev-note">
@@ -1160,10 +1227,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 9 — FAQ -->
+<!-- SECTION 10 — FAQ -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">9</span> FAQ
+  <span class="section-num">10</span> FAQ
   <span class="annotation annotation--anim" style="position:relative;">Accordion expands</span>
 </div>
 <div class="dev-note">
@@ -1188,10 +1255,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 10 — Contact CTA -->
+<!-- SECTION 11 — Contact CTA -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">10</span> Contact CTA
+  <span class="section-num">11</span> Contact CTA
   <span class="annotation annotation--anim" style="position:relative;">Background parallax</span>
 </div>
 <div class="dev-note">

@@ -407,6 +407,11 @@
     .card__img { height: 190px; border-radius: 0; }
     .card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
     .card__cat { font-family: var(--font-body); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+    /* News feed filter (mirrors news-hub feed chips) */
+    .newsfilter { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .newsfilter__lbl { font-family: var(--font-body); font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-right: 4px; }
+    .newsfilter .chip { padding: 7px 14px; border: 1px solid #ddd; border-radius: 999px; font-family: var(--font-body); font-size: var(--text-xs); font-weight: 600; color: #555; background: #fff; cursor: pointer; }
+    .newsfilter .chip.is-on { background: #2b2b2b; color: #fff; border-color: #2b2b2b; }
     .card h4 { font-size: var(--text-lg); line-height: 1.25; }
     .card p { font-family: var(--font-body); font-size: var(--text-sm); color: #555; line-height: 1.6; }
     .card .arrow { margin-top: auto; font-size: var(--text-xs); }
@@ -979,10 +984,72 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 5 — WHY COLUMBUS (c16 alternating) -->
+<!-- SECTION 5 — NEWS & INSIGHTS (c22 / c24) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">5</span> Why Columbus &mdash; Value Propositions
+  <span class="section-num">5</span> News &amp; Insights
+  <span class="annotation annotation--anim" style="position:relative;">Cards fade-up on scroll</span>
+</div>
+<div class="dev-note">
+  <div class="dev-note__t">News Cards — <a href="project-components.html#c22">c22</a> / <a href="project-components.html#c24">c24</a> · D13 · High leverage (5&ndash;6 hrs)</div>
+  <ul>
+    <li><strong>Build:</strong> one card partial with <code>with_image</code> / <code>text_only</code> / <code>large_image</code> variants; port Knox card pattern. Pulls latest from the News + Press Releases collections.</li>
+    <li><strong>Content:</strong> NewsArticle schema on each entry.</li>
+    <li><strong>Filter:</strong> chip row (All / Wins / Press Release / Insights) filters the feed by content type; values map to the News Hub taxonomy. Same pattern reused on the industry pages, pre-filtered by industry.</li>
+    <li><strong>Responsive:</strong> 3 &rarr; 1 column; chips wrap.</li>
+  </ul>
+</div>
+<section class="sec">
+  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c22">c22 · News Card</a> <a class="comp-tag" href="project-components.html#c24">c24 · News Feed Card</a></div>
+  <div class="container">
+    <div class="sec__head">
+      <div><div class="sec__eyebrow">News &amp; Insights</div><h2 class="sec__h2">Latest from the Region</h2></div>
+      <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">View All News</span></a>
+    </div>
+    <div class="newsfilter" role="group" aria-label="Filter news">
+      <span class="newsfilter__lbl">Filter</span>
+      <button type="button" class="chip is-on">All</button>
+      <button type="button" class="chip">Wins</button>
+      <button type="button" class="chip">Press Release</button>
+      <button type="button" class="chip">Insights</button>
+    </div>
+    <div class="cards3">
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">Press Release &middot; Apr 2026</div>
+          <h4>Census Data: Columbus Leads Midwest Population Growth</h4>
+          <p>The region added more residents than any Midwest metro for the third straight year.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--keep"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">News &middot; Apr 2026</div>
+          <h4><span class="hl hl--enhance">Intel Breaks Ground on Second New Albany Fab</span></h4>
+          <p>The expansion deepens Ohio's role in the U.S. semiconductor supply chain.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
+        <div class="card__body">
+          <div class="card__cat">Blog &middot; Mar 2026</div>
+          <h4><span class="hl hl--new">Why Site Consultants Are Watching Columbus</span></h4>
+          <p>A look at the data behind the region's site-selection momentum.</p>
+          <a class="arrow" href="#"><span class="sdot sdot--new"></span><span class="arrow__tx">Read</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 — WHY COLUMBUS (c16 alternating) -->
+<!-- ============================================================ -->
+<div class="section-header-bar">
+  <span class="section-num">6</span> Why Columbus &mdash; Value Propositions
   <span class="annotation annotation--anim" style="position:relative;">Image parallax + text slide-in</span>
 </div>
 <div class="dev-note">
@@ -1018,10 +1085,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 6 — KEY INDUSTRIES (c13 accordion dark) -->
+<!-- SECTION 7 — KEY INDUSTRIES (c13 accordion dark) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">6</span> Key Industries
+  <span class="section-num">7</span> Key Industries
   <span class="annotation annotation--anim" style="position:relative;">Paired image crossfades per item</span>
 </div>
 <div class="dev-note">
@@ -1080,10 +1147,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 7 — DOING BUSINESS (c12 feature cards) -->
+<!-- SECTION 8 — DOING BUSINESS (c12 feature cards) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">7</span> Doing Business &mdash; Site Selection Funnel
+  <span class="section-num">8</span> Doing Business &mdash; Site Selection Funnel
   <span class="annotation annotation--anim" style="position:relative;">Cards stagger-in on scroll</span>
 </div>
 <div class="dev-note">
@@ -1109,10 +1176,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 8 — THE 11-COUNTY REGION (c18 / c30 map) -->
+<!-- SECTION 9 — THE 11-COUNTY REGION (c18 / c30 map) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">8</span> The 11-County Region
+  <span class="section-num">9</span> The 11-County Region
   <span class="annotation annotation--anim" style="position:relative;">Hover + click counties</span>
 </div>
 <div class="dev-note">
@@ -1139,10 +1206,10 @@
 </section>
 
 <!-- ============================================================ -->
-<!-- SECTION 9 — TALENT & WORKFORCE (c17 + c11) -->
+<!-- SECTION 10 — TALENT & WORKFORCE (c17 + c11) -->
 <!-- ============================================================ -->
 <div class="section-header-bar">
-  <span class="section-num">9</span> Talent &amp; Workforce Snapshot
+  <span class="section-num">10</span> Talent &amp; Workforce Snapshot
   <span class="annotation annotation--anim" style="position:relative;">Parallax background</span>
 </div>
 <div class="dev-note">
@@ -1167,60 +1234,6 @@
     <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">Explore Talent &amp; Workforce</span></a>
   </div>
   <div class="split__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>Talent Image</span></div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 10 — NEWS & INSIGHTS (c22 / c24) -->
-<!-- ============================================================ -->
-<div class="section-header-bar">
-  <span class="section-num">10</span> News &amp; Insights
-  <span class="annotation annotation--anim" style="position:relative;">Cards fade-up on scroll</span>
-</div>
-<div class="dev-note">
-  <div class="dev-note__t">News Cards — <a href="project-components.html#c22">c22</a> / <a href="project-components.html#c24">c24</a> · D13 · High leverage (5&ndash;6 hrs)</div>
-  <ul>
-    <li><strong>Build:</strong> one card partial with <code>with_image</code> / <code>text_only</code> / <code>large_image</code> variants; port Knox card pattern. Pulls latest from the News + Press Releases collections.</li>
-    <li><strong>Content:</strong> NewsArticle schema on each entry; filter by Press Release / Blog / News.</li>
-    <li><strong>Responsive:</strong> 3 &rarr; 1 column.</li>
-  </ul>
-</div>
-<section class="sec">
-  <div class="comp-badge"><a class="comp-tag" href="project-components.html#c22">c22 · News Card</a> <a class="comp-tag" href="project-components.html#c24">c24 · News Feed Card</a></div>
-  <div class="container">
-    <div class="sec__head">
-      <div><div class="sec__eyebrow">News &amp; Insights</div><h2 class="sec__h2">Latest from the Region</h2></div>
-      <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">View All News</span></a>
-    </div>
-    <div class="cards3">
-      <div class="card">
-        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
-        <div class="card__body">
-          <div class="card__cat">Press Release &middot; Apr 2026</div>
-          <h4>Census Data: Columbus Leads Midwest Population Growth</h4>
-          <p>The region added more residents than any Midwest metro for the third straight year.</p>
-          <a class="arrow" href="#"><span class="sdot sdot--keep"></span><span class="arrow__tx">Read</span></a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
-        <div class="card__body">
-          <div class="card__cat">News &middot; Apr 2026</div>
-          <h4><span class="hl hl--enhance">Intel Breaks Ground on Second New Albany Fab</span></h4>
-          <p>The expansion deepens Ohio's role in the U.S. semiconductor supply chain.</p>
-          <a class="arrow" href="#"><span class="sdot sdot--enhance"></span><span class="arrow__tx">Read</span></a>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card__img img-ph"><svg class="img-ph__icon" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L4 21"/></svg><span>News Image</span></div>
-        <div class="card__body">
-          <div class="card__cat">Blog &middot; Mar 2026</div>
-          <h4><span class="hl hl--new">Why Site Consultants Are Watching Columbus</span></h4>
-          <p>A look at the data behind the region's site-selection momentum.</p>
-          <a class="arrow" href="#"><span class="sdot sdot--new"></span><span class="arrow__tx">Read</span></a>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ============================================================ -->
