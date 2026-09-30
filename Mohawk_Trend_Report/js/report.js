@@ -17,7 +17,7 @@
   function clamp01(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
 
   /* ------------------------------------------------------------ smooth scroll */
-  var lenis = null;
+  var lenis = null, navigating = false;
   if (!reduceMotion && window.Lenis) {
     lenis = new window.Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
     (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(performance.now());
@@ -32,7 +32,8 @@
     var target = id === "#top" ? document.body : document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    if (lenis) lenis.scrollTo(target, { offset: 0, duration: 1.6 });
+    // Jumping via a link skips slide locks on the way; slides passed just reveal.
+    if (lenis) { navigating = true; lenis.scrollTo(target, { offset: 0, duration: 1.6, lock: true, onComplete: function () { navigating = false; } }); }
     else target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
     if (history.replaceState) history.replaceState(null, "", id === "#top" ? location.pathname : id);
   });
@@ -124,11 +125,21 @@
      only (needs Lenis); otherwise its content simply reveals on enter. */
   var locks = $all("[data-lock]");
   var lockOn = !!lenis && !mobile.matches;
+  var REVEALS = "[data-split], [data-reveal], .numbers__stat, .viz, [data-bars], [data-wipe], [data-wipe-card], [data-chat]";
   function inLock(el) { return lockOn && !!el.closest("[data-lock]"); }
   function playLock(sec) {
-    $all("[data-split], [data-reveal], .numbers__stat", sec).forEach(function (el) { el.classList.add("is-in"); });
+    var els = $all(REVEALS, sec);
+    if (sec.matches(REVEALS)) els.unshift(sec);
+    els.forEach(function (el) { el.classList.add("is-in"); });
     $all("[data-count]", sec).forEach(runCount);
   }
+  function holdFor(ms) {
+    lenis.stop();
+    clearTimeout(holdFor._t);
+    holdFor._t = setTimeout(function () { lenis.start(); }, ms);
+  }
+  // Cover plays on load: hold briefly if the page opens at the top
+  if (lockOn && (window.scrollY || 0) < 10) holdFor(1800);
 
   function notLocked(list) { return list.filter(function (el) { return !inLock(el); }); }
   onInview(notLocked(splits.filter(function (el) { return !el.hasAttribute("data-split-load"); })), function (el) { el.classList.add("is-in"); });
@@ -219,7 +230,7 @@
     });
   }
 
-  var ticking = false;
+  var ticking = false, lockReady = false;
 
   function update() {
     ticking = false;
@@ -253,21 +264,29 @@
     });
     chapterLinks.forEach(function (a, k) { a.classList.toggle("is-active", k === active); });
 
-    // locked slides: snap, pause, play, release
-    locks.forEach(function (sec) {
-      if (!lockOn || sec._played) return;
-      var r = sec.getBoundingClientRect();
-      if (r.top > 1) return;
-      sec._played = true;
-      if (r.bottom > vh * 0.6) {
-        lenis.scrollTo(sec, { immediate: true, force: true });
-        lenis.stop();
+    // Locked slides: once a slide is fully in view it holds in place, plays, then releases.
+    // Blocks taller than the screen lock when they reach the top. First visit only.
+    if (lockOn) {
+      var barH = bar.offsetHeight, room = vh - barH;
+      locks.forEach(function (sec) {
+        if (sec._played) return;
+        var r = sec.getBoundingClientRect();
+        if (r.top >= vh) return;                         // not reached yet
+        sec._played = true;
+        if (navigating || !lockReady) { playLock(sec); return; } // chapter-link jump, or page opened below it
+        var h = r.height, target;
+        if (h <= room) target = r.bottom <= vh && r.top >= barH ? null : (r.top < barH ? r.top - barH : r.bottom - vh);
+        else if (h <= vh) target = r.bottom <= vh ? (r.top < 0 ? r.top : null) : r.bottom - vh;
+        else target = r.top;
+        // fully in view, or already scrolled past (a fast flick) — either way, bring it back into place
+        var fits = h <= room ? (r.bottom <= vh + 4) : (h <= vh ? r.bottom <= vh + 4 : r.top <= barH);
+        if (!fits) { sec._played = false; return; }     // keep waiting until it's fully in view
+        if (target) lenis.scrollTo(y + target, { immediate: true, force: true });
+        holdFor(parseInt(sec.getAttribute("data-lock"), 10) || 2500);
         playLock(sec);
-        setTimeout(function () { lenis.start(); }, parseInt(sec.getAttribute("data-lock"), 10) || 2500);
-      } else {
-        playLock(sec); // jumped past it (e.g. chapter link) — just reveal
-      }
-    });
+      });
+      lockReady = true;
+    }
 
     if (reduceMotion) return;
 
