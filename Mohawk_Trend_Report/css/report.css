@@ -614,3 +614,23 @@ mark { background: none; color: inherit; }
   section[data-lock] { min-height: 100svh; }
   .traffic { display: flex; flex-direction: column; justify-content: center; }
 }
+
+/* ==========================================================================
+   PRELOADER — blocks scrolling until images + fonts are in, then fades away
+   ========================================================================== */
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+html.is-loading, html.is-loading body { overflow: hidden; }
+.loader {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  background: var(--atlantic); color: var(--paper);
+  transition: opacity 0.7s ease, visibility 0.7s;
+}
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader__inner { width: min(360px, 80vw); display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.loader .logo--mark { width: 32px; }
+.loader__track { width: 100%; height: 2px; background: rgba(255,255,255,.25); overflow: hidden; }
+.loader__track b { display: block; height: 100%; background: var(--paper); transform: scaleX(0); transform-origin: left; transition: transform 0.4s var(--ease); }
+.loader__pct { font-family: var(--f-display); font-weight: 700; font-size: 44px; line-height: 0.9; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+/* Hold the cover's entrance animations until the preloader is gone */
+html:not(.is-ready) .hero__panel, html:not(.is-ready) .hero__media img { animation-play-state: paused; }
