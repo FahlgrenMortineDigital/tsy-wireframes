@@ -77,14 +77,13 @@
   var splits = $all("[data-split]");
   splits.forEach(splitWords);
 
-  // Cover content animates on load, after the blue panel has wiped in
-  $all("[data-split-load]").forEach(function (el) {
-    el.style.setProperty("--base", "450ms");
-    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add("is-in"); }); });
-  });
-  $all("[data-reveal-load]").forEach(function (el) {
-    requestAnimationFrame(function () { requestAnimationFrame(function () { el.classList.add("is-in"); }); });
-  });
+  // Cover content animates once the preloader finishes, after the blue panel has wiped in
+  function playCover() {
+    $all("[data-split-load]").forEach(function (el) { el.style.setProperty("--base", "450ms"); });
+    setTimeout(function () {
+      $all("[data-split-load], [data-reveal-load]").forEach(function (el) { el.classList.add("is-in"); });
+    }, 40);
+  }
 
   /* ------------------------------------------------------------ highlight sequence
      Headline with a <mark>: marked words rise in, the highlight sweeps across them,
@@ -124,7 +123,8 @@
      pauses, its animations play, then scrolling resumes. First visit only, desktop
      only (needs Lenis); otherwise its content simply reveals on enter. */
   var locks = $all("[data-lock]");
-  var lockOn = !!lenis && !mobile.matches;
+  var touch = window.matchMedia("(pointer: coarse)").matches;
+  var lockOn = !!lenis && !mobile.matches && !touch;
   var REVEALS = "[data-split], [data-reveal], .numbers__stat, .viz, [data-bars], [data-wipe], [data-wipe-card], [data-chat]";
   function inLock(el) { return lockOn && !!el.closest("[data-lock]"); }
   // Reveal what's on screen now; anything further down the section reveals as it scrolls in.
@@ -143,8 +143,6 @@
     clearTimeout(holdFor._t);
     holdFor._t = setTimeout(function () { lenis.start(); }, ms);
   }
-  // Cover plays on load: hold briefly if the page opens at the top
-  if (lockOn && (window.scrollY || 0) < 10) holdFor(1800);
 
   function notLocked(list) { return list.filter(function (el) { return !inLock(el); }); }
   onInview(notLocked(splits.filter(function (el) { return !el.hasAttribute("data-split-load"); })), function (el) { el.classList.add("is-in"); });
@@ -235,7 +233,7 @@
     });
   }
 
-  var ticking = false, lockReady = false;
+  var ticking = false, lockReady = false, lastY = window.scrollY || 0;
 
   function update() {
     ticking = false;
@@ -270,20 +268,24 @@
     chapterLinks.forEach(function (a, k) { a.classList.toggle("is-active", k === active); });
 
     // Locked slides: when a section's top edge reaches the top of the screen it snaps flush,
-    // holds while its animations play, then releases. A fast flick past one snaps back to it.
+    // holds while its animations play, then releases. A slight overshoot pulls back to it.
     if (lockOn) {
+      var dy = y - lastY, bigJump = Math.abs(dy) > vh * 0.6;
       locks.forEach(function (sec) {
         if (sec._played) return;
         var r = sec.getBoundingClientRect();
         if (r.top > 0) return;                           // not reached yet
         sec._played = true;
-        if (navigating || !lockReady) { playLock(sec); return; } // chapter-link jump, or page opened below it
+        // Chapter-link jump, page opened below it, a big jump (scrollbar, End/Page Down, hard flick),
+        // or the section is already mostly off screen: just reveal it — never drag the reader back.
+        if (navigating || !lockReady || bigJump || dy < 0 || r.bottom < vh * 0.6) { playLock(sec); return; }
         if (Math.abs(r.top) > 0.5) lenis.scrollTo(y + r.top, { immediate: true, force: true });
         holdFor(parseInt(sec.getAttribute("data-lock"), 10) || 2500);
         playLock(sec);
       });
       lockReady = true;
     }
+    lastY = y;
 
     if (reduceMotion) return;
 
@@ -330,6 +332,7 @@
   }
 
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+  window.reportUpdate = update; // QA hook: run one scroll-logic pass by hand
   if (lenis) lenis.on("scroll", onScroll);
   window.addEventListener("scroll", onScroll, { passive: true });
 
@@ -341,6 +344,53 @@
   window.addEventListener("resize", onResize);
   window.addEventListener("load", onResize);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(onResize);
+
+  /* ------------------------------------------------------------ preloader
+     Holds the page (no scrolling) until every image and the fonts have loaded, showing
+     progress, then starts the cover. Gives up waiting after 15s so it can never stall. */
+  var loader = document.querySelector("[data-loader]");
+  var loaderBar = document.querySelector("[data-loader-bar]");
+  var loaderPct = document.querySelector("[data-loader-pct]");
+  root.classList.add("is-loading");
+  if (lenis) lenis.stop();
+
+  function whenImage(img) {
+    img.loading = "eager";
+    if (img.complete && img.naturalWidth) return Promise.resolve();
+    return new Promise(function (res) {
+      img.addEventListener("load", res, { once: true });
+      img.addEventListener("error", res, { once: true });
+    });
+  }
+  var jobs = $all("img").map(whenImage);
+  if (document.fonts && document.fonts.ready) jobs.push(document.fonts.ready);
+  var done = 0, total = jobs.length;
+  jobs.forEach(function (j) {
+    j.then(function () {
+      done++;
+      var p = total ? done / total : 1;
+      if (loaderBar) loaderBar.style.transform = "scaleX(" + p.toFixed(3) + ")";
+      if (loaderPct) loaderPct.textContent = Math.round(p * 100) + "%";
+    });
+  });
+
+  var started = false;
+  function start() {
+    if (started) return;
+    started = true;
+    sizeStacks(); if (lenis) lenis.resize(); update();
+    root.classList.remove("is-loading");
+    root.classList.add("is-ready");
+    if (loader) { loader.classList.add("is-done"); setTimeout(function () { loader.remove(); }, 900); }
+    playCover();
+    if (lenis) {
+      lenis.start();
+      if (lockOn && (window.scrollY || 0) < 10) holdFor(1800); // let the cover play
+    }
+  }
+  var minShow = new Promise(function (r) { setTimeout(r, reduceMotion ? 0 : 500); });
+  Promise.all([Promise.all(jobs), minShow]).then(function () { setTimeout(start, 250); });
+  setTimeout(start, 15000);
 
   sizeStacks();
   update();
