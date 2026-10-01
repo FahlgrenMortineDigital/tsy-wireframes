@@ -230,8 +230,8 @@ mark { background: none; color: inherit; }
 /* ==========================================================================
    02 · THREE MOVEMENTS
    ========================================================================== */
-.intro { background: var(--paper); padding: clamp(96px, 16vh, 200px) 0 clamp(80px, 12vh, 160px); }
-.intro__head { display: grid; grid-template-columns: 1fr 3fr; gap: var(--g); align-items: start; margin-bottom: clamp(56px, 10vh, 120px); }
+.intro { background: var(--paper); padding: calc(var(--bar-h) + clamp(28px, 5vh, 72px)) 0 clamp(80px, 12vh, 160px); }
+.intro__head { display: grid; grid-template-columns: 1fr 3fr; gap: var(--g); align-items: start; margin-bottom: clamp(28px, 5vh, 80px); }
 .intro__head .eyebrow { padding-top: 0.9em; }
 .intro__head .h-statement { max-width: 20em; }
 
@@ -264,9 +264,9 @@ mark { background: none; color: inherit; }
   .movement .eyebrow, .movement .h-movement, .movement__text { opacity: 1; transform: none; transition: none; }
 }
 
-.movement--moss { --h: clamp(380px, 39.5vw, 760px); background: var(--moss); color: var(--paper); --muted: rgba(255,255,255,.5); }
-.movement--pacific { --h: clamp(420px, 46.8vw, 900px); background: var(--pacific); --muted: rgba(0,0,0,.45); }
-.movement--mint { --h: clamp(460px, 54.2vw, 1040px); background: var(--mint); --muted: rgba(0,0,0,.45); }
+.movement--moss { --h: clamp(300px, min(39.5vw, 44vh), 760px); background: var(--moss); color: var(--paper); --muted: rgba(255,255,255,.5); }
+.movement--pacific { --h: clamp(340px, min(46.8vw, 52vh), 900px); background: var(--pacific); --muted: rgba(0,0,0,.45); }
+.movement--mint { --h: clamp(380px, min(54.2vw, 60vh), 1040px); background: var(--mint); --muted: rgba(0,0,0,.45); }
 .movements { --stair: clamp(0px, 7vw, 140px); }
 
 @media (max-width: 900px) {
@@ -281,7 +281,7 @@ mark { background: none; color: inherit; }
    ========================================================================== */
 .chapter--moss { background: var(--moss); color: var(--paper); }
 .chapter--pacific { background: var(--pacific); color: var(--ink); }
-.chapter--mint { background: var(--mint); color: var(--ink); padding: clamp(110px, 16vh, 180px) 0 clamp(80px, 12vh, 140px); }
+.chapter--mint { background: var(--mint); color: var(--ink); padding: calc(var(--bar-h) + clamp(24px, 4vh, 64px)) 0 clamp(80px, 12vh, 140px); }
 
 .stack { position: relative; }
 .stack__sticky { position: sticky; top: 0; min-height: 100svh; display: flex; align-items: center; overflow: hidden; padding: calc(var(--bar-h) + 40px) 0 56px; }
@@ -405,14 +405,14 @@ mark { background: none; color: inherit; }
    ========================================================================== */
 .chapter--mint .h-display { margin-top: 14px; }
 .signals {
-  margin-top: clamp(56px, 9vh, 96px);
+  margin-top: clamp(28px, 5vh, 80px);
   background: var(--paper);
   padding: 45px 32px;
   display: grid; grid-template-columns: repeat(4, 1fr);
 }
 .signal {
   display: flex; flex-direction: column; gap: 24px;
-  min-height: clamp(380px, 29vw, 552px);
+  min-height: clamp(300px, min(29vw, 44vh), 552px);
   padding: 0 32px; position: relative;
   transition: background-color 0.4s ease;
 }
@@ -447,7 +447,7 @@ mark { background: none; color: inherit; }
 /* ==========================================================================
    07 · AI TRAFFIC
    ========================================================================== */
-.traffic { background: var(--paper); padding: clamp(120px, 18vh, 200px) 0 clamp(96px, 14vh, 160px); }
+.traffic { background: var(--paper); padding: calc(var(--bar-h) + clamp(32px, 6vh, 80px)) 0 clamp(96px, 14vh, 160px); }
 .traffic mark {
   background-image: linear-gradient(var(--pacific), var(--pacific));
   background-repeat: no-repeat;
@@ -458,9 +458,9 @@ mark { background: none; color: inherit; }
 }
 .traffic .is-in mark { background-size: 100% 100%; }
 
-.bars { margin-top: clamp(64px, 10vh, 100px); max-width: 1229px; }
+.bars { margin-top: clamp(32px, 6vh, 100px); max-width: 1229px; }
 .bars .h-chart { margin-bottom: clamp(24px, 3.5vh, 38px); }
-.bar-row { height: clamp(72px, 5.7vw, 110px); margin-bottom: 14px; }
+.bar-row { height: clamp(56px, min(5.7vw, 8.5vh), 110px); margin-bottom: 14px; }
 .bar-row__fill {
   height: 100%; width: var(--w);
   background: var(--atlantic); color: var(--paper);
@@ -606,3 +606,9 @@ mark { background: none; color: inherit; }
 .foot__links { display: flex; gap: 32px; }
 .foot__links a { text-decoration: none; opacity: 0.8; transition: opacity 0.3s ease; }
 .foot__links a:hover { opacity: 1; }
+
+/* Locked sections are "slides": each fills at least one screen so a lock never shows the next section peeking in */
+@media (min-width: 901px) {
+  section[data-lock] { min-height: 100svh; }
+  .traffic { display: flex; flex-direction: column; justify-content: center; }
+}
