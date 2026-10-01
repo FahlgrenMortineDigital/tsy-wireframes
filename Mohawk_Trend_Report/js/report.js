@@ -127,11 +127,16 @@
   var lockOn = !!lenis && !mobile.matches;
   var REVEALS = "[data-split], [data-reveal], .numbers__stat, .viz, [data-bars], [data-wipe], [data-wipe-card], [data-chat]";
   function inLock(el) { return lockOn && !!el.closest("[data-lock]"); }
+  // Reveal what's on screen now; anything further down the section reveals as it scrolls in.
   function playLock(sec) {
-    var els = $all(REVEALS, sec);
-    if (sec.matches(REVEALS)) els.unshift(sec);
-    els.forEach(function (el) { el.classList.add("is-in"); });
-    $all("[data-count]", sec).forEach(runCount);
+    var vh = window.innerHeight, later = [];
+    $all(REVEALS, sec).forEach(function (el) {
+      if (el.getBoundingClientRect().top < vh) el.classList.add("is-in"); else later.push(el);
+    });
+    onInview(later, function (el) { el.classList.add("is-in"); });
+    $all("[data-count]", sec).forEach(function (el) {
+      if (el.getBoundingClientRect().top < vh) runCount(el); else onInview([el], runCount, { threshold: 0.5 });
+    });
   }
   function holdFor(ms) {
     lenis.stop();
@@ -264,24 +269,16 @@
     });
     chapterLinks.forEach(function (a, k) { a.classList.toggle("is-active", k === active); });
 
-    // Locked slides: once a slide is fully in view it holds in place, plays, then releases.
-    // Blocks taller than the screen lock when they reach the top. First visit only.
+    // Locked slides: when a section's top edge reaches the top of the screen it snaps flush,
+    // holds while its animations play, then releases. A fast flick past one snaps back to it.
     if (lockOn) {
-      var barH = bar.offsetHeight, room = vh - barH;
       locks.forEach(function (sec) {
         if (sec._played) return;
         var r = sec.getBoundingClientRect();
-        if (r.top >= vh) return;                         // not reached yet
+        if (r.top > 0) return;                           // not reached yet
         sec._played = true;
         if (navigating || !lockReady) { playLock(sec); return; } // chapter-link jump, or page opened below it
-        var h = r.height, target;
-        if (h <= room) target = r.bottom <= vh && r.top >= barH ? null : (r.top < barH ? r.top - barH : r.bottom - vh);
-        else if (h <= vh) target = r.bottom <= vh ? (r.top < 0 ? r.top : null) : r.bottom - vh;
-        else target = r.top;
-        // fully in view, or already scrolled past (a fast flick) — either way, bring it back into place
-        var fits = h <= room ? (r.bottom <= vh + 4) : (h <= vh ? r.bottom <= vh + 4 : r.top <= barH);
-        if (!fits) { sec._played = false; return; }     // keep waiting until it's fully in view
-        if (target) lenis.scrollTo(y + target, { immediate: true, force: true });
+        if (Math.abs(r.top) > 0.5) lenis.scrollTo(y + r.top, { immediate: true, force: true });
         holdFor(parseInt(sec.getAttribute("data-lock"), 10) || 2500);
         playLock(sec);
       });
