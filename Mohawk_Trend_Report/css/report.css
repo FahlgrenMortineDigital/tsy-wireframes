@@ -88,7 +88,7 @@ mark { background: none; color: inherit; }
 .h-chart { font-size: clamp(22px, 1.55vw, 30px); letter-spacing: -0.03em; }
 .h-statement { font-weight: 400; font-size: clamp(30px, 3.1vw, 60px); line-height: 1.1; letter-spacing: -0.03em; }
 .h-statement--xl { font-size: clamp(36px, 4.1vw, 80px); line-height: 1.05; }
-.h-claim { font-weight: 700; font-size: clamp(30px, 3.4vw, 66px); line-height: 1.02; letter-spacing: -0.035em; max-width: 22em; }
+.h-claim { font-weight: 700; font-size: clamp(30px, 3.4vw, 66px); line-height: 1.1; letter-spacing: -0.035em; max-width: 22em; }
 
 .eyebrow {
   font-family: var(--f-body);
@@ -449,7 +449,9 @@ mark { background: none; color: inherit; }
    ========================================================================== */
 .traffic { background: var(--paper); padding: calc(var(--bar-h) + clamp(32px, 6vh, 80px)) 0 clamp(96px, 14vh, 160px); }
 .traffic mark {
-  background-image: linear-gradient(var(--pacific), var(--pacific));
+  /* Highlight starts a little below the top of each line so it can't paint over
+     descenders (y, p, g) on the line above */
+  background-image: linear-gradient(transparent 0.14em, var(--pacific) 0.14em);
   background-repeat: no-repeat;
   background-size: 0% 100%;
   box-decoration-break: clone; -webkit-box-decoration-break: clone;
