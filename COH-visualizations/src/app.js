@@ -14,6 +14,8 @@ const ROUNDS=[
   {cat:'Explore · Nightlife',city:'Nashville',q:'Where are you catching live music Friday?',a:'assets/img/r5-a-nashville-music.jpg',b:'assets/img/r5-b-ohio-music.jpg',ohio:1,ohioL:'Ohio',fact:'Cleveland is home to the Rock & Roll Hall of Fame.'}
 ];
 const H={i:0,pick:null,picks:[]};
+const wait=ms=>RM.matches?Promise.resolve():new Promise(r=>setTimeout(r,ms));
+let busy=false;
 function tileHTML(r,src,k,pick){
   const rev=pick!==null, isO=k===r.ohio, mine=pick===k;
   return `<button class="tile" type="button" data-k="${k}" ${rev?'disabled':''} aria-label="${rev?(isO?r.ohioL:r.city):'Photo '+(k?'B':'A')}"><img src="${src}" alt="">${rev?`<span class="lbl ${isO?'ohio':'other'}">${esc(isO?r.ohioL:r.city)}</span>`:''}${mine?'<span class="ring"></span><span class="mine">Your pick</span>':''}</button>`;
@@ -22,31 +24,75 @@ const revealHTML=(verdict,fact,last)=>`<div class="reveal"><p><strong>${verdict}
 const HINT='<p class="hint">Tap the one you’d rather. No labels until you choose.</p>';
 function roundCard(i,pick){
   const r=ROUNDS[i], rev=pick!==null;
-  const dots=ROUNDS.map((_,k)=>`<i class="${k<=i?'on':''}"></i>`).join('');
+  const dots=ROUNDS.map((_,k)=>`<i class="${k<=i?'on':''}${k===i?' new':''}"></i>`).join('');
   const verdict=pick===r.ohio?'You picked Ohio.':'Close. That one was Ohio.';
   return `<div class="card"><div class="top-row"><span class="eyebrow">${esc(r.cat)}</span><div class="dots" aria-label="Round ${i+1} of 5">${dots}</div></div>`
-    +stack(ROUNDS.map(x=>`<div class="round-h">Ohio or ${esc(x.city)}?</div>`),`<h3 class="round-h">Ohio or ${esc(r.city)}?</h3>`)
+    +stack(ROUNDS.map(x=>`<div class="round-h">Ohio or ${esc(x.city)}?</div>`),`<h3 class="round-h" tabindex="-1">Ohio or ${esc(r.city)}?</h3>`)
     +stack(ROUNDS.map(x=>`<p class="round-q">${esc(x.q)}</p>`),`<p class="round-q">${esc(r.q)}</p>`)
     +`<div class="tiles">${tileHTML(r,r.a,0,pick)}${tileHTML(r,r.b,1,pick)}</div>`
     +stack([HINT,...ROUNDS.map(x=>revealHTML('Close. That one was Ohio.',x.fact,true))],rev?revealHTML(verdict,r.fact,i===4):HINT,'foot')
     +`</div>`;
 }
-function renderH2H(){
+function preload(i){ const r=ROUNDS[i]; if(r) [r.a,r.b].forEach(src=>{ new Image().src=src; }); }
+
+// Round in: the card stays put while its contents rise in, one after another.
+function showRound(focus){
   const st=$('h2hStage');
-  if(H.i>=ROUNDS.length){
-    const score=H.picks.filter(Boolean).length;
-    st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results"><div class="k">Your results</div><div class="score">${score}/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Now see how far your paycheck goes. Ohio’s cost of living is 6.3% below the national average.</p><div class="row"><a class="btn" href="https://callohiohome.com/" target="_blank" rel="noopener">Compare cost of living${ARROW}</a><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div></div>`);
-    $('again').onclick=()=>{H.i=0;H.pick=null;H.picks=[];renderH2H();};
-  } else {
-    const r=ROUNDS[H.i];
-    st.innerHTML=roundCard(H.i,H.pick);
-    st.querySelectorAll(':scope > .card > .tiles .tile').forEach(b=>b.onclick=()=>{ if(H.pick!==null) return; H.pick=+b.dataset.k; H.picks[H.i]=H.pick===r.ohio; renderH2H(); });
-    if(H.pick!==null) st.querySelector('.foot > .cur .next').onclick=()=>{H.i++;H.pick=null;renderH2H();};
-  }
-  $('h2hList').innerHTML=ROUNDS.map((r,k)=>{const done=k<H.picks.length, now=k===H.i;
-    return `<li class="${now?'now':''}"><span class="n">${k+1}</span><span class="t">Ohio or ${esc(r.city)}?</span><span class="r ${done&&H.picks[k]?'yes':''}">${done?(H.picks[k]?'Picked Ohio':r.city):(now?'Now':'')}</span></li>`;}).join('');
+  st.classList.remove('leaving');
+  st.innerHTML=roundCard(H.i,null);
+  const card=st.firstElementChild; card.classList.add('enter');
+  card.querySelectorAll(':scope > .tiles .tile').forEach(b=>b.onclick=()=>reveal(+b.dataset.k));
+  if(focus) card.querySelector('h3.round-h').focus({preventScroll:true});
+  renderList(); preload(H.i+1);
 }
-renderH2H();
+// Pick: reveal in place, so the photos never reload or blink.
+async function reveal(k){
+  if(H.pick!==null) return;
+  const r=ROUNDS[H.i], st=$('h2hStage'), card=st.firstElementChild;
+  H.pick=k; H.picks[H.i]=k===r.ohio;
+  card.classList.remove('enter');
+  card.querySelectorAll(':scope > .tiles .tile').forEach(t=>{
+    const tk=+t.dataset.k, isO=tk===r.ohio, mine=tk===k;
+    t.disabled=true; t.setAttribute('aria-label',isO?r.ohioL:r.city);
+    t.classList.add(mine?'picked':'unpicked');
+    t.insertAdjacentHTML('beforeend',`<span class="lbl ${isO?'ohio':'other'}" style="--d:${mine?120:260}ms">${esc(isO?r.ohioL:r.city)}</span>`+(mine?'<span class="ring"></span><span class="mine">Your pick</span>':''));
+  });
+  renderList();
+  const cur=card.querySelector('.foot > .cur');
+  cur.firstElementChild.classList.add('out');
+  await wait(160);
+  cur.innerHTML=revealHTML(k===r.ohio?'You picked Ohio.':'Close. That one was Ohio.',r.fact,H.i===4);
+  const nx=cur.querySelector('.next'); nx.onclick=next; nx.focus({preventScroll:true});
+}
+// Out: contents fade and lift, then the next round or the results come in.
+async function next(){
+  if(busy) return; busy=true;
+  $('h2hStage').classList.add('leaving');
+  await wait(280);
+  H.i++; H.pick=null;
+  if(H.i>=ROUNDS.length) showResults(); else showRound(true);
+  busy=false;
+}
+function showResults(){
+  const st=$('h2hStage'), score=H.picks.filter(Boolean).length;
+  st.classList.remove('leaving');
+  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Now see how far your paycheck goes. Ohio’s cost of living is 6.3% below the national average.</p><div class="row"><a class="btn" href="https://callohiohome.com/" target="_blank" rel="noopener">Compare cost of living${ARROW}</a><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div></div>`);
+  setTimeout(()=>tween($('scoreN'),score,undefined,0,700),RM.matches?0:250);
+  renderList();
+  $('again').onclick=async()=>{ if(busy) return; busy=true; st.classList.add('leaving'); await wait(280); H.i=0;H.pick=null;H.picks=[]; showRound(true); busy=false; };
+}
+// The matchup list is built once and updated in place, so its states can ease.
+function renderList(){
+  const ol=$('h2hList');
+  if(!ol.children.length) ol.innerHTML=ROUNDS.map((r,k)=>`<li><span class="n">${k+1}</span><span class="t">Ohio or ${esc(r.city)}?</span><span class="r"></span></li>`).join('');
+  [...ol.children].forEach((li,k)=>{
+    const done=H.picks[k]!==undefined, txt=done?(H.picks[k]?'Picked Ohio':ROUNDS[k].city):(k===H.i?'Now':'');
+    li.classList.toggle('now',k===H.i);
+    const r=li.querySelector('.r');
+    if(r.textContent!==txt){ r.textContent=txt; r.classList.toggle('yes',!!(done&&H.picks[k])); r.classList.remove('in'); void r.offsetWidth; if(txt) r.classList.add('in'); }
+  });
+}
+showRound(false);
 
 /* ---------- Commute data ---------- */
 const FROM={'Seattle':28,'San Francisco':33,'Los Angeles':31,'New York':41,'Boston':31,'Chicago':32};
