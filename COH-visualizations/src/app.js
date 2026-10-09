@@ -5,6 +5,54 @@ const RM=matchMedia('(prefers-reduced-motion: reduce)');
 const stack=(variants,cur,cls='')=>`<div class="stack ${cls}">${variants.map(v=>`<div class="sz" aria-hidden="true" inert>${v}</div>`).join('')}<div class="cur">${cur}</div></div>`;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+/* ---------- Report CTA (shared by both tools) ---------- */
+const ICO_DL='<svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8M5 7l3 3 3-3M3 13.5h10"/></svg>';
+const ICO_MAIL='<svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1.5"/><path d="M2.6 4.7 8 8.5l5.4-3.8"/></svg>';
+const ICO_CHK='<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5 6.5 12 13 5"/></svg>';
+const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// One self-contained report card: two CTAs that each open an email field, validate, then confirm.
+function reportHTML(opts){
+  const dark=!!opts.dark;
+  return `<div class="report${dark?' on-dark':''}" data-state="idle">`
+    +`<div class="report__intro"><span class="report__kick">PDF · 2.4 MB</span><p class="report__title">${esc(opts.title)}</p></div>`
+    +`<div class="report__row report__cta">`
+      +`<button class="btn report__act" type="button" data-intent="download">${ICO_DL}Download</button>`
+      +`<button class="btn ${dark?'ghost-dark':'ghost'} report__act" type="button" data-intent="email">${ICO_MAIL}Email me</button>`
+    +`</div>`
+    +`<form class="report__form" novalidate hidden>`
+      +`<p class="report__lab"></p>`
+      +`<div class="report__field"><input class="report__input" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" aria-label="Email address" required><button class="btn report__send" type="submit">Send${ARROW}</button></div>`
+      +`<p class="report__err" role="alert" hidden>Enter a valid email address.</p>`
+      +`<button class="report__back" type="button">Back</button>`
+    +`</form>`
+    +`<div class="report__done" role="status" aria-live="polite" hidden><span class="report__chk">${ICO_CHK}</span><p class="report__msg"></p></div>`
+  +`</div>`;
+}
+function wireReport(root){
+  if(!root||root._wired) return; root._wired=true;
+  const cta=root.querySelector('.report__cta'), form=root.querySelector('.report__form'),
+        done=root.querySelector('.report__done'), input=root.querySelector('.report__input'),
+        err=root.querySelector('.report__err'), lab=root.querySelector('.report__lab'),
+        msg=root.querySelector('.report__msg');
+  const show=(el,on)=>{el.hidden=!on;};
+  let intent='download';
+  root.querySelectorAll('.report__act').forEach(b=>b.onclick=()=>{
+    intent=b.dataset.intent;
+    lab.textContent=intent==='download'?'Enter your email and your download will start.':'Enter your email and we’ll send you the full report.';
+    show(err,false); input.classList.remove('bad'); input.value='';
+    show(cta,false); show(form,true); root.dataset.state='form'; input.focus();
+  });
+  root.querySelector('.report__back').onclick=()=>{ show(form,false); show(cta,true); root.dataset.state='idle'; };
+  input.addEventListener('input',()=>{ if(input.classList.contains('bad')&&EMAIL_RE.test(input.value.trim())){ input.classList.remove('bad'); show(err,false); } });
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const v=input.value.trim();
+    if(!EMAIL_RE.test(v)){ show(err,true); input.classList.add('bad'); input.focus(); return; }
+    msg.textContent=intent==='download'?'Your full report is downloading.':`The full report has been emailed to you at ${v}.`;
+    show(form,false); show(done,true); root.dataset.state='done';
+  });
+}
+
 /* ---------- Head-to-head ---------- */
 const ROUNDS=[
   {cat:'Explore · Weekends',city:'Boston',q:'Which lighthouse would you rather spend a Saturday at?',a:'assets/img/r1-a-ohio-marblehead.jpg',b:'assets/img/r1-b-boston.jpg',ohio:0,ohioL:'Ohio · Marblehead',fact:'Marblehead is the oldest continuously operating lighthouse on the Great Lakes.'},
@@ -76,8 +124,9 @@ async function next(){
 function showResults(){
   const st=$('h2hStage'), score=H.picks.filter(Boolean).length;
   st.classList.remove('leaving');
-  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Now see how far your paycheck goes. Ohio’s cost of living is 6.3% below the national average.</p><div class="row"><a class="btn" href="https://callohiohome.com/" target="_blank" rel="noopener">Compare cost of living${ARROW}</a><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div></div>`);
+  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Your full report breaks down cost of living, commute time and more. Ohio’s cost of living runs 6.3% below the national average.</p>${reportHTML({title:'The Ohio advantage: your full report',dark:true})}<div class="row"><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div></div>`);
   setTimeout(()=>tween($('scoreN'),score,undefined,0,700),RM.matches?0:250);
+  wireReport(st.querySelector('.report'));
   renderList();
   $('again').onclick=async()=>{ if(busy) return; busy=true; st.classList.add('leaving'); await wait(280); H.i=0;H.pick=null;H.picks=[]; showRound(true); busy=false; };
 }
@@ -130,6 +179,8 @@ $('rK').innerHTML=stack(['Time you get back every year','Your 888 hours back cou
 $('rStat').innerHTML=stack(['hours out of traffic',...Object.values(ACTS).map(a=>a.unit)].map(u=>`<div class="stat"><b>888</b><span>${u}</span></div>`),'<div class="stat"><b id="rN" class="idle">0</b><span id="rU"></span></div>');
 $('rNote').innerHTML=stack([NOTE_EMPTY,NOTE_READY,...Object.values(ACTS).map(a=>a.note)],'<span id="rNt"></span>');
 $('cpSrc').innerHTML=stack([SRC_EMPTY,SRC(88,88)],'<span id="cpSrcT"></span>');
+$('cmReport').innerHTML=reportHTML({title:'Your time back in Ohio: full report',dark:false});
+wireReport($('cmReport').firstElementChild);
 
 function cityVal(el,city,list){
   if(!city){ el.classList.add('idle'); el._cur=0; el.textContent='Pick one'; return; }
@@ -155,6 +206,7 @@ function renderReclaim(){
   const n=$('rN'), to=a?Math.floor(back/a.per):back, key=(a?S.act:'hrs')+to;
   n.classList.toggle('idle',!ready);
   if(n._key!==key){ tween(n,to,undefined,a&&n._key&&!n._key.startsWith(S.act)?0:undefined); if(ready) pop(n); n._key=key; }
+  $('cmReport').hidden=!ready;
 }
 function renderAll(){
   chipRow($('fromChips2'),FROM,S.from,setFrom); chipRow($('toChips'),TO,S.to,setTo);
