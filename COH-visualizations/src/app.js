@@ -25,12 +25,14 @@ function reportHTML(opts){
       +`<p class="report__err" role="alert" hidden>Enter a valid email address.</p>`
       +`<button class="report__back" type="button">Back</button>`
     +`</form>`
+    +`<div class="report__ready" hidden><p class="report__note">Your email is confirmed. Your report is ready.</p><button class="btn report__get" type="button">${ICO_DL}Download report</button></div>`
     +`<div class="report__done" role="status" aria-live="polite" hidden><span class="report__chk">${ICO_CHK}</span><p class="report__msg"></p></div>`
   +`</div>`;
 }
 function wireReport(root){
   if(!root||root._wired) return; root._wired=true;
   const cta=root.querySelector('.report__cta'), form=root.querySelector('.report__form'),
+        ready=root.querySelector('.report__ready'), getBtn=root.querySelector('.report__get'),
         done=root.querySelector('.report__done'), input=root.querySelector('.report__input'),
         err=root.querySelector('.report__err'), lab=root.querySelector('.report__lab'),
         msg=root.querySelector('.report__msg');
@@ -38,9 +40,9 @@ function wireReport(root){
   let intent='download';
   root.querySelectorAll('.report__act').forEach(b=>b.onclick=()=>{
     intent=b.dataset.intent;
-    lab.textContent=intent==='download'?'Enter your email and your download will start.':'Enter your email and we’ll send you the full report.';
+    lab.textContent=intent==='download'?'Enter your email to unlock the download.':'Enter your email and we’ll send you the full report.';
     show(err,false); input.classList.remove('bad'); input.value='';
-    show(cta,false); show(form,true); root.dataset.state='form'; input.focus();
+    show(ready,false); show(done,false); show(cta,false); show(form,true); root.dataset.state='form'; input.focus();
   });
   root.querySelector('.report__back').onclick=()=>{ show(form,false); show(cta,true); root.dataset.state='idle'; };
   input.addEventListener('input',()=>{ if(input.classList.contains('bad')&&EMAIL_RE.test(input.value.trim())){ input.classList.remove('bad'); show(err,false); } });
@@ -48,9 +50,11 @@ function wireReport(root){
     e.preventDefault();
     const v=input.value.trim();
     if(!EMAIL_RE.test(v)){ show(err,true); input.classList.add('bad'); input.focus(); return; }
-    msg.textContent=intent==='download'?'Your full report is downloading.':`The full report has been emailed to you at ${v}.`;
-    show(form,false); show(done,true); root.dataset.state='done';
+    show(form,false);
+    if(intent==='download'){ show(ready,true); root.dataset.state='ready'; getBtn.focus(); }
+    else { msg.textContent=`The full report has been emailed to you at ${v}.`; show(done,true); root.dataset.state='done'; }
   });
+  getBtn.onclick=()=>{ msg.textContent='Your full report is downloading.'; show(ready,false); show(done,true); root.dataset.state='done'; };
 }
 
 /* ---------- Head-to-head ---------- */
@@ -124,7 +128,7 @@ async function next(){
 function showResults(){
   const st=$('h2hStage'), score=H.picks.filter(Boolean).length;
   st.classList.remove('leaving');
-  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Your full report breaks down cost of living, commute time and more. Ohio’s cost of living runs 6.3% below the national average.</p>${reportHTML({title:'The Ohio advantage: your full report',dark:true})}<div class="row"><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div></div>`);
+  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Your full report breaks down cost of living, commute time and more. Ohio’s cost of living runs 6.3% below the national average.</p><div class="row"><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div>${reportHTML({title:'The Ohio advantage: your full report',dark:true})}</div>`);
   setTimeout(()=>tween($('scoreN'),score,undefined,0,700),RM.matches?0:250);
   wireReport(st.querySelector('.report'));
   renderList();

@@ -203,6 +203,10 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .report.on-dark .report__input::placeholder{color:rgba(255,255,255,.65)}
 .report.on-dark .report__input.bad{border-color:var(--red-soft)}
 .report__send{flex:none}
+.report__ready{display:grid;gap:10px;justify-items:start;animation:inUp .35s var(--ease) backwards}
+.report__note{margin:0;font-size:13px;font-weight:600;color:var(--navy)}
+.report.on-dark .report__note{color:rgba(255,255,255,.9)}
+.report__get{justify-self:start}
 .report__err{margin:0;font-size:13px;font-weight:600;color:var(--red)}
 .report.on-dark .report__err{color:var(--red-soft)}
 .report__back{justify-self:start;background:none;border:0;padding:4px 2px;font:inherit;font-size:13px;font-weight:600;color:var(--slate);text-decoration:underline;text-underline-offset:3px}
