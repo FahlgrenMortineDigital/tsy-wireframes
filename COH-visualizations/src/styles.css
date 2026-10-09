@@ -166,18 +166,18 @@ h1,h2,h3{text-wrap:balance;margin:0}
 .chips.dark .chip[aria-pressed="true"]{background:var(--white);color:var(--navy);border-color:var(--white)}
 .chips.dark .chip:hover:not([aria-pressed="true"]){border-color:var(--white)}
 .cpanel .src{font-size:11px;opacity:.65;margin:0}
-.rcard{align-self:end;justify-self:end;width:min(420px,100%);background:var(--white);color:var(--ink);border-radius:12px;padding:20px 24px 24px;box-shadow:0 12px 32px rgba(0,0,0,.25);display:grid;gap:12px}
-.rcard .k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+.rcard{align-self:end;justify-self:end;width:min(420px,100%);background:rgba(255,255,255,.88);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);border:1px solid rgba(255,255,255,.6);color:var(--ink);border-radius:12px;padding:20px 24px 24px;box-shadow:0 12px 32px rgba(0,0,0,.25);display:grid;gap:12px}
+.rcard .k{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#3F5A70}
 .stat{display:flex;align-items:center;gap:14px}
 .stat b{display:inline-block;font-size:84px;line-height:.9;letter-spacing:-.04em;color:var(--red);font-variant-numeric:tabular-nums;transform-origin:left center;transition:color .3s}
 .stat b.idle{color:var(--line)}
 .stat b.pop{animation:pop .6s cubic-bezier(.2,.8,.2,1)}
 @keyframes pop{0%{transform:scale(.85)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
 .stat span{font-size:24px;font-weight:700;color:var(--navy);line-height:1.1}
-.rcard .note{margin:0;font-size:13px;color:var(--slate)}
+.rcard .note{margin:0;font-size:13px;color:#3F5A70}
 .picks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:4px}
-.pick{min-height:44px;padding:8px 10px;border-radius:999px;border:1.5px solid var(--navy);background:var(--white);color:var(--navy);font-weight:700;font-size:14px;line-height:1.1;transition:background .15s,color .15s,border-color .15s}
-.pick:hover:not([disabled]):not([aria-pressed="true"]){background:var(--panel)}
+.pick{min-height:44px;padding:8px 10px;border-radius:999px;border:1.5px solid var(--navy);background:rgba(255,255,255,.7);color:var(--navy);font-weight:700;font-size:14px;line-height:1.1;transition:background .15s,color .15s,border-color .15s}
+.pick:hover:not([disabled]):not([aria-pressed="true"]){background:var(--white)}
 .pick[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--white)}
 .pick[disabled]{opacity:.4;cursor:not-allowed}
 
