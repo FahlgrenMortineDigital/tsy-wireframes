@@ -1,5 +1,5 @@
 const ARROW='<span class="arr"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></span>';
-const REWIND='<span class="arr"><svg viewBox="0 0 12 12" fill="currentColor" stroke="none" aria-hidden="true"><path d="M5.6 3v6L1.8 6zM10 3v6L6.2 6z"/></svg></span>';
+const REWIND='<span class="arr rw"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg></span>';
 const $=id=>document.getElementById(id);
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 /* A stack lays every possible version of a block in one grid cell. The hidden ones hold the height, so the card never jumps as copy changes. */
