@@ -1,4 +1,5 @@
 const ARROW='<span class="arr"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></span>';
+const REWIND='<span class="arr"><svg viewBox="0 0 12 12" fill="currentColor" stroke="none" aria-hidden="true"><path d="M5.6 3v6L1.8 6zM10 3v6L6.2 6z"/></svg></span>';
 const $=id=>document.getElementById(id);
 const RM=matchMedia('(prefers-reduced-motion: reduce)');
 /* A stack lays every possible version of a block in one grid cell. The hidden ones hold the height, so the card never jumps as copy changes. */
@@ -35,12 +36,13 @@ function wireReport(root){
         ready=root.querySelector('.report__ready'), getBtn=root.querySelector('.report__get'),
         done=root.querySelector('.report__done'), input=root.querySelector('.report__input'),
         err=root.querySelector('.report__err'), lab=root.querySelector('.report__lab'),
-        msg=root.querySelector('.report__msg');
+        msg=root.querySelector('.report__msg'), send=root.querySelector('.report__send');
   const show=(el,on)=>{el.hidden=!on;};
   let intent='download';
   root.querySelectorAll('.report__act').forEach(b=>b.onclick=()=>{
     intent=b.dataset.intent;
     lab.textContent=intent==='download'?'Enter your email to unlock the download.':'Enter your email and we’ll send you the full report.';
+    send.innerHTML=(intent==='download'?'Download':'Send')+ARROW;
     show(err,false); input.classList.remove('bad'); input.value='';
     show(ready,false); show(done,false); show(cta,false); show(form,true); root.dataset.state='form'; input.focus();
   });
@@ -128,7 +130,7 @@ async function next(){
 function showResults(){
   const st=$('h2hStage'), score=H.picks.filter(Boolean).length;
   st.classList.remove('leaving');
-  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Your full report breaks down cost of living, commute time and more. Ohio’s cost of living runs 6.3% below the national average.</p><div class="row"><button class="btn ghost-dark" id="again" type="button">Play again${ARROW}</button></div>${reportHTML({title:'The Ohio advantage: your full report',dark:true})}</div>`);
+  st.innerHTML=stack([roundCard(4,ROUNDS[4].ohio)],`<div class="results enter"><div class="k">Your results</div><div class="score"><span id="scoreN">0</span>/5</div><p class="lead">times you picked Ohio without knowing it.</p><p>${score>=3?'You already like the life.':'Ohio still has a few surprises for you.'} Your full report breaks down cost of living, commute time and more. Ohio’s cost of living runs 6.3% below the national average.</p><div class="row"><button class="btn ghost-dark" id="again" type="button">Play again${REWIND}</button></div>${reportHTML({title:'The Ohio advantage: your full report',dark:true})}</div>`);
   setTimeout(()=>tween($('scoreN'),score,undefined,0,700),RM.matches?0:250);
   wireReport(st.querySelector('.report'));
   renderList();
