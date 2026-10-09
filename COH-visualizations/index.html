@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Call Ohio Home Interactive Tools</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+<div class="strip"><div class="wrap"><b>Call Ohio Home · Interactive tools</b><span>Concept prototype for review. Stats and commute times are illustrative.</span></div></div>
+
+<!-- ============ 1a Head-to-head ============ -->
+<section class="sec" id="head-to-head">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="justify-self:start">Ohio or ___?</span>
+      <h2>Pick the one you'd rather</h2>
+      <p>Five photo matchups. No labels until you choose.</p>
+    </div>
+    <div class="h2h">
+      <div id="h2hStage"></div>
+      <aside class="aside">
+        <h3>Your matchups</h3>
+        <ol id="h2hList"></ol>
+        <p class="note">Rounds rotate across Explore, Live and Work, so it's not just scenery. Each reveal pairs your pick with one Ohio stat.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3b Reclaim your time ============ -->
+<section class="sec" id="commute">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow" style="justify-self:start">Commute time</span>
+      <h2>Get your evenings back</h2>
+      <p>Compare yearly commute hours, then see what a shorter Ohio drive could turn into.</p>
+    </div>
+    <div class="reclaim is-start" id="reclaim">
+      <div class="bg" id="bg">
+        <img id="traffic" class="on" alt="" src="assets/img/hero-traffic.jpg">
+        <img id="img-ll" alt="" src="assets/img/activity-little-league.jpg">
+        <img id="img-dn" alt="" src="assets/img/activity-date-night.jpg">
+        <img id="img-ms" alt="" src="assets/img/activity-maker-space.jpg">
+      </div>
+      <div class="shade"></div>
+      <div class="start" id="rStart">
+        <span class="eyebrow on-dark" style="justify-self:start">Commute time</span>
+        <h2>Stuck in traffic again?</h2>
+        <p class="sub">Rush hour adds up to hundreds of hours a year. See how much of that time an Ohio commute gives back.</p>
+        <button class="btn" id="rGo" type="button">See your time back<span class="arr"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6h8M7 3l3 3-3 3"/></svg></span></button>
+      </div>
+      <div class="inner">
+        <div class="left">
+          <span class="eyebrow on-dark" style="justify-self:start">Commute time</span>
+          <h2 id="rHead" tabindex="-1">Reclaim your time</h2>
+          <p class="sub">Ohio commutes are shorter. Here's what you could do with the difference.</p>
+          <div class="cpanel">
+            <div class="t">Yearly hours spent commuting</div>
+            <div class="crow">
+              <div class="h"><span id="cpFrom"></span><span class="v" id="cpFromH"></span></div>
+              <div class="track"><i id="barFrom"></i></div>
+              <div class="chips dark" id="fromChips2" role="group" aria-label="Your current city"></div>
+            </div>
+            <div class="crow oh">
+              <div class="h"><span id="cpTo"></span><span class="v" id="cpToH"></span></div>
+              <div class="track"><i id="barTo"></i></div>
+              <div class="chips dark" id="toChips" role="group" aria-label="Ohio city"></div>
+            </div>
+            <div class="src" id="cpSrc"></div>
+          </div>
+        </div>
+        <div class="rcard">
+          <div class="k" id="rK"></div>
+          <div id="rStat"></div>
+          <div class="note" id="rNote"></div>
+          <div class="picks" id="picks" role="group" aria-label="How you'd spend it"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="src/app.js"></script>
+</body>
+</html>
